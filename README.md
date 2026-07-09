@@ -4,6 +4,8 @@
 
 GitHub 저장소: [ksublee/finstat](https://github.com/ksublee/finstat)
 
+공개 웹북: [ksublee.github.io/finstat](https://ksublee.github.io/finstat/)
+
 ## 읽는 방법
 
 각 장은 금융통계학의 주요 주제를 순서대로 다룹니다. 본문에서 필요한 기초 개념, 용어, 기호 설명은 별도 페이지로 연결합니다.
@@ -29,3 +31,6 @@ quarto preview
 ```powershell
 quarto render
 ```
+
+렌더링 결과는 `docs/`에 생성되며 GitHub Pages에서 공개됩니다.
+공동 작업자는 소스 파일을 중심으로 작업하고, `docs/` 배포 갱신은 관리자와 조율합니다.
