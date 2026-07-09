@@ -1,0 +1,54 @@
+project:
+  type: book
+
+book:
+  title: "금융통계학 웹북"
+  subtitle: "수식, 그림, 코드, 개념 링크를 함께 제공하는 한국어 강의자료"
+  author: "KS Lee"
+  repo-url: https://github.com/ksublee/finstat
+  repo-actions: [edit, issue]
+  chapters:
+    - index.qmd
+    - chapters/00-preface/index.qmd
+    - chapters/01-risk-management-overview/index.qmd
+    - chapters/02-modern-portfolio-theory/index.qmd
+    - chapters/03-utility-function/index.qmd
+    - chapters/04-var-es/index.qmd
+    - chapters/05-derivatives/index.qmd
+    - chapters/06-discrete-time-model/index.qmd
+    - chapters/07-volatility/index.qmd
+    - chapters/08-var-multiperiod/index.qmd
+    - chapters/09-backtesting/index.qmd
+    - chapters/10-interest-rates-bonds/index.qmd
+    - chapters/11-option-pricing-multiperiod/index.qmd
+    - chapters/12-continuous-time-model/index.qmd
+    - chapters/13-option-market-price/index.qmd
+    - concepts/index.qmd
+    - part: concepts/probability/index.qmd
+      chapters:
+        - concepts/probability/independence.qmd
+    - part: concepts/statistics/index.qmd
+      chapters: []
+    - part: concepts/finance/index.qmd
+      chapters: []
+    - part: "참고"
+      chapters:
+        - concepts/notation.qmd
+        - concepts/glossary.qmd
+
+format:
+  html:
+    lang: ko
+    theme: cosmo
+    toc: true
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    css: assets/styles/webbook.css
+    include-after-body: assets/scripts/sidebar-concepts.html
+
+execute:
+  freeze: auto
+
+resources:
+  - assets/

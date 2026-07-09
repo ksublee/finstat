@@ -1,0 +1,43 @@
+# Quarto output
+_book/
+.quarto/
+.quarto_cache/
+*_cache/
+*_files/
+.freeze/
+
+# Runtime and notebook artifacts
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+renv/staging/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# OS and editor clutter
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Local clutter
+local-workspace/
+*.tmp
+*.bak
+*.swp
+*.swo
+~$*
+
+# Logs
+*.log
+
+/.quarto/
+**/*.quarto_ipynb
