@@ -27,23 +27,14 @@ book:
     - chapters/12-continuous-time-model/index.qmd
     - chapters/13-option-market-price/index.qmd
 
-    - part: "Concepts"
+    - concepts/index.qmd
+    - part: concepts/probability/index.qmd
       chapters:
-        - concepts/index.qmd
-
-    - part: "Probability"
-      chapters:
-        - concepts/probability/index.qmd
         - concepts/probability/independence.qmd
-
-    - part: "Statistics"
-      chapters:
-        - concepts/statistics/index.qmd
-
-    - part: "Finance"
-      chapters:
-        - concepts/finance/index.qmd
-
+    - part: concepts/statistics/index.qmd
+      chapters: []
+    - part: concepts/finance/index.qmd
+      chapters: []
     - part: "참고"
       chapters:
         - concepts/notation.qmd
