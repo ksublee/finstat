@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "금융통계학 웹북",
     "section": "",
-    "text": "1 금융통계학 웹북\n이 웹북은 금융통계학의 주요 개념을 수식, 그림, 코드, 용어 설명, 실습과 함께 다룹니다.",
+    "text": "1 금융통계학 웹북\n이 웹북은 금융통계학의 주요 개념을 수식, 그림, 코드, 용어 설명, 실습과 함께 다룬다.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>금융통계학 웹북</span>"
     ]
@@ -14,7 +14,7 @@
     "href": "index.html#사용-방법",
     "title": "금융통계학 웹북",
     "section": "1.1 사용 방법",
-    "text": "1.1 사용 방법\n왼쪽 목차에서 장을 선택해 읽을 수 있습니다.\n반복되는 기호와 용어는 notation과 glossary 페이지에서 확인할 수 있습니다.",
+    "text": "1.1 사용 방법\n왼쪽 목차에서 장을 선택해 읽을 수 있다.\n반복되는 기호와 용어는 notation과 glossary 페이지에서 확인할 수 있다.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>금융통계학 웹북</span>"
     ]
@@ -34,7 +34,7 @@
     "href": "chapters/01-risk-management-overview/index.html",
     "title": "3  개요",
     "section": "",
-    "text": "4 위험관리 개요\n금융위험관리의 기본 개념과 금융통계학에서 다루는 주요 문제를 소개합니다.",
+    "text": "4 위험관리 개요\n금융위험관리의 기본 개념과 금융통계학에서 다루는 주요 문제를 소개한다.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -44,7 +44,7 @@
     "href": "chapters/01-risk-management-overview/index.html#학습-목표",
     "title": "3  개요",
     "section": "4.1 학습 목표",
-    "text": "4.1 학습 목표\n\n금융위험의 기본 개념을 이해합니다.\n금융시장에서 통계적 모형이 필요한 이유를 설명합니다.\n이후 장에서 다룰 위험 측정과 가격 결정 문제의 큰 흐름을 파악합니다.",
+    "text": "4.1 학습 목표\n\n금융위험의 기본 개념을 이해한다.\n금융시장에서 통계적 모형이 필요한 이유를 설명한다.\n이후 장에서 다룰 위험 측정과 가격 결정 문제의 큰 흐름을 파악한다.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -54,7 +54,7 @@
     "href": "chapters/02-modern-portfolio-theory/index.html",
     "title": "4  개요",
     "section": "",
-    "text": "5 현대 포트폴리오 이론\n위험과 기대수익률의 관계를 바탕으로 포트폴리오 선택 문제를 다룹니다.",
+    "text": "5 현대 포트폴리오 이론\n위험과 기대수익률의 관계를 바탕으로 포트폴리오 선택 문제를 다룬다.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -64,7 +64,7 @@
     "href": "chapters/02-modern-portfolio-theory/index.html#학습-목표",
     "title": "4  개요",
     "section": "5.1 학습 목표",
-    "text": "5.1 학습 목표\n\n평균과 분산을 이용한 포트폴리오 표현을 이해합니다.\n효율적 프론티어의 의미를 설명합니다.\n자본시장선과 관련 개념을 해석합니다.",
+    "text": "5.1 학습 목표\n\n평균과 분산을 이용한 포트폴리오 표현을 이해한다.\n효율적 프론티어의 의미를 설명한다.\n자본시장선과 관련 개념을 해석한다.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -74,7 +74,7 @@
     "href": "chapters/03-utility-function/index.html",
     "title": "5  개요",
     "section": "",
-    "text": "6 효용함수\n투자자의 선호와 위험회피를 효용함수를 통해 설명합니다.",
+    "text": "6 효용함수\n투자자의 선호와 위험회피를 효용함수를 통해 설명한다.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -84,7 +84,7 @@
     "href": "chapters/03-utility-function/index.html#학습-목표",
     "title": "5  개요",
     "section": "6.1 학습 목표",
-    "text": "6.1 학습 목표\n\n기대효용의 의미를 이해합니다.\n위험회피와 확실성 등가를 설명합니다.\n포트폴리오 선택 문제와 효용함수의 연결을 이해합니다.",
+    "text": "6.1 학습 목표\n\n기대효용의 의미를 이해한다.\n위험회피와 확실성 등가를 설명한다.\n포트폴리오 선택 문제와 효용함수의 연결을 이해한다.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -94,7 +94,7 @@
     "href": "chapters/04-var-es/index.html",
     "title": "6  개요",
     "section": "",
-    "text": "7 VaR와 ES\n손실분포를 이용한 대표적 위험 측도인 VaR와 ES를 다룹니다.",
+    "text": "7 VaR와 ES\n손실분포를 이용한 대표적 위험 측도인 VaR와 ES를 다룬다.",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -104,7 +104,7 @@
     "href": "chapters/04-var-es/index.html#학습-목표",
     "title": "6  개요",
     "section": "7.1 학습 목표",
-    "text": "7.1 학습 목표\n\nVaR의 정의와 해석을 이해합니다.\nES의 정의와 VaR와의 차이를 설명합니다.\n위험 측도의 장단점을 비교합니다.",
+    "text": "7.1 학습 목표\n\nVaR의 정의와 해석을 이해한다.\nES의 정의와 VaR와의 차이를 설명한다.\n위험 측도의 장단점을 비교한다.",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -114,7 +114,7 @@
     "href": "chapters/05-derivatives/index.html",
     "title": "7  개요",
     "section": "",
-    "text": "8 파생상품\n선도, 선물, 옵션 등 기본 파생상품의 payoff와 가격 결정 아이디어를 소개합니다.",
+    "text": "8 파생상품\n선도, 선물, 옵션 등 기본 파생상품의 payoff와 가격 결정 아이디어를 소개한다.",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -124,7 +124,7 @@
     "href": "chapters/05-derivatives/index.html#학습-목표",
     "title": "7  개요",
     "section": "8.1 학습 목표",
-    "text": "8.1 학습 목표\n\n선도와 선물의 기본 구조를 이해합니다.\n콜옵션과 풋옵션의 payoff를 설명합니다.\n무차익 가격 결정의 기본 직관을 이해합니다.",
+    "text": "8.1 학습 목표\n\n선도와 선물의 기본 구조를 이해한다.\n콜옵션과 풋옵션의 payoff를 설명한다.\n무차익 가격 결정의 기본 직관을 이해한다.",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -134,7 +134,7 @@
     "href": "chapters/06-discrete-time-model/index.html",
     "title": "8  개요",
     "section": "",
-    "text": "9 이산시간 모형\n이항나무와 같은 이산시간 모형을 이용해 자산 가격과 파생상품 가격을 설명합니다.",
+    "text": "9 이산시간 모형\n이항나무와 같은 이산시간 모형을 이용해 자산 가격과 파생상품 가격을 설명한다.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -144,7 +144,7 @@
     "href": "chapters/06-discrete-time-model/index.html#학습-목표",
     "title": "8  개요",
     "section": "9.1 학습 목표",
-    "text": "9.1 학습 목표\n\n이항모형의 구조를 이해합니다.\n위험중립 확률의 의미를 설명합니다.\n복제 포트폴리오와 무차익 가격 결정을 연결합니다.",
+    "text": "9.1 학습 목표\n\n이항모형의 구조를 이해한다.\n위험중립 확률의 의미를 설명한다.\n복제 포트폴리오와 무차익 가격 결정을 연결한다.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -154,7 +154,7 @@
     "href": "chapters/07-volatility/index.html",
     "title": "9  개요",
     "section": "",
-    "text": "10 변동성\n수익률의 변동성을 측정하고 모형화하는 방법을 다룹니다.",
+    "text": "10 변동성\n수익률의 변동성을 측정하고 모형화하는 방법을 다룬다.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -164,7 +164,7 @@
     "href": "chapters/07-volatility/index.html#학습-목표",
     "title": "9  개요",
     "section": "10.1 학습 목표",
-    "text": "10.1 학습 목표\n\n변동성을 수익률 변동의 척도로 이해합니다.\n역사적 변동성, 실현변동성, 모형 기반 변동성을 비교합니다.\n변동성 군집과 시간가변 변동성을 해석합니다.",
+    "text": "10.1 학습 목표\n\n변동성을 수익률 변동의 척도로 이해한다.\n역사적 변동성, 실현변동성, 모형 기반 변동성을 비교한다.\n변동성 군집과 시간가변 변동성을 해석한다.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -174,7 +174,7 @@
     "href": "chapters/08-var-multiperiod/index.html",
     "title": "10  개요",
     "section": "",
-    "text": "11 다기간 VaR\n보유 기간이 길어질 때 위험 측도가 어떻게 변하는지 살펴봅니다.",
+    "text": "11 다기간 VaR\n보유 기간이 길어질 때 위험 측도가 어떻게 변하는지 살펴본다.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -184,7 +184,7 @@
     "href": "chapters/08-var-multiperiod/index.html#학습-목표",
     "title": "10  개요",
     "section": "11.1 학습 목표",
-    "text": "11.1 학습 목표\n\n다기간 위험 측정의 필요성을 이해합니다.\n시간제곱근 법칙의 의미와 한계를 설명합니다.\n수익률 가정에 따른 VaR 변화를 비교합니다.",
+    "text": "11.1 학습 목표\n\n다기간 위험 측정의 필요성을 이해한다.\n시간제곱근 법칙의 의미와 한계를 설명한다.\n수익률 가정에 따른 VaR 변화를 비교한다.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -194,7 +194,7 @@
     "href": "chapters/09-backtesting/index.html",
     "title": "11  개요",
     "section": "",
-    "text": "12 Backtesting\nVaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는 방법을 다룹니다.",
+    "text": "12 Backtesting\nVaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는 방법을 다룬다.",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -204,7 +204,7 @@
     "href": "chapters/09-backtesting/index.html#학습-목표",
     "title": "11  개요",
     "section": "12.1 학습 목표",
-    "text": "12.1 학습 목표\n\nVaR 초과손실의 의미를 이해합니다.\nBacktesting의 기본 논리를 설명합니다.\n간단한 검정 결과를 해석합니다.",
+    "text": "12.1 학습 목표\n\nVaR 초과손실의 의미를 이해한다.\nBacktesting의 기본 논리를 설명한다.\n간단한 검정 결과를 해석한다.",
     "crumbs": [
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -214,7 +214,7 @@
     "href": "chapters/10-interest-rates-bonds/index.html",
     "title": "12  개요",
     "section": "",
-    "text": "13 이자율과 채권\n이자율, 할인계수, 채권 가격, 수익률 곡선을 다룹니다.",
+    "text": "13 이자율과 채권\n이자율, 할인계수, 채권 가격, 수익률 곡선을 다룬다.",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -224,7 +224,7 @@
     "href": "chapters/10-interest-rates-bonds/index.html#학습-목표",
     "title": "12  개요",
     "section": "13.1 학습 목표",
-    "text": "13.1 학습 목표\n\n할인계수와 무이표채 가격의 관계를 이해합니다.\n이표채 가격과 수익률의 관계를 설명합니다.\n수익률 곡선을 해석합니다.",
+    "text": "13.1 학습 목표\n\n할인계수와 무이표채 가격의 관계를 이해한다.\n이표채 가격과 수익률의 관계를 설명한다.\n수익률 곡선을 해석한다.",
     "crumbs": [
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -234,7 +234,7 @@
     "href": "chapters/11-option-pricing-multiperiod/index.html",
     "title": "13  개요",
     "section": "",
-    "text": "14 다기간 옵션 가격 결정\n다기간 이항나무 모형을 이용해 옵션 가격을 계산합니다.",
+    "text": "14 다기간 옵션 가격 결정\n다기간 이항나무 모형을 이용해 옵션 가격을 계산한다.",
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -244,7 +244,7 @@
     "href": "chapters/11-option-pricing-multiperiod/index.html#학습-목표",
     "title": "13  개요",
     "section": "14.1 학습 목표",
-    "text": "14.1 학습 목표\n\n일기간 이항모형을 다기간으로 확장합니다.\n만기 payoff와 위험중립 확률을 이용한 가격 계산을 이해합니다.\n이항나무에서 옵션 가격 수렴을 해석합니다.",
+    "text": "14.1 학습 목표\n\n일기간 이항모형을 다기간으로 확장한다.\n만기 payoff와 위험중립 확률을 이용한 가격 계산을 이해한다.\n이항나무에서 옵션 가격 수렴을 해석한다.",
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -254,7 +254,7 @@
     "href": "chapters/12-continuous-time-model/index.html",
     "title": "14  개요",
     "section": "",
-    "text": "15 연속시간 모형\n브라운 운동, 기하 브라운 운동, 블랙-숄즈 모형, Greeks와 동적 헷징을 다룹니다.",
+    "text": "15 연속시간 모형\n브라운 운동, 기하 브라운 운동, 블랙-숄즈 모형, Greeks와 동적 헷징을 다룬다.",
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -264,7 +264,7 @@
     "href": "chapters/12-continuous-time-model/index.html#학습-목표",
     "title": "14  개요",
     "section": "15.1 학습 목표",
-    "text": "15.1 학습 목표\n\n브라운 운동의 기본 성질을 이해합니다.\n기하 브라운 운동을 자산 가격 모형으로 해석합니다.\n블랙-숄즈 공식과 Greeks의 의미를 설명합니다.\n델타 헷징의 직관을 이해합니다.",
+    "text": "15.1 학습 목표\n\n브라운 운동의 기본 성질을 이해한다.\n기하 브라운 운동을 자산 가격 모형으로 해석한다.\n블랙-숄즈 공식과 Greeks의 의미를 설명한다.\n델타 헷징의 직관을 이해한다.",
     "crumbs": [
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -274,7 +274,7 @@
     "href": "chapters/13-option-market-price/index.html",
     "title": "15  개요",
     "section": "",
-    "text": "16 옵션 시장 가격\n시장 옵션 가격에서 내재변동성을 추출하고, 변동성 smile과 skew를 해석합니다.",
+    "text": "16 옵션 시장 가격\n시장 옵션 가격에서 내재변동성을 추출하고, 변동성 smile과 skew를 해석한다.",
     "crumbs": [
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -284,7 +284,7 @@
     "href": "chapters/13-option-market-price/index.html#학습-목표",
     "title": "15  개요",
     "section": "16.1 학습 목표",
-    "text": "16.1 학습 목표\n\n내재변동성의 정의와 계산 아이디어를 이해합니다.\n변동성 smile과 skew의 의미를 설명합니다.\n시장 가격과 모형 가정의 차이를 해석합니다.",
+    "text": "16.1 학습 목표\n\n내재변동성의 정의와 계산 아이디어를 이해한다.\n변동성 smile과 skew의 의미를 설명한다.\n시장 가격과 모형 가정의 차이를 해석한다.",
     "crumbs": [
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>개요</span>"
     ]
@@ -294,7 +294,7 @@
     "href": "concepts/index.html",
     "title": "개념 설명",
     "section": "",
-    "text": "분야별 개념\n이곳은 본문을 읽다가 막힐 수 있는 기초 개념을 따로 설명하는 공간입니다.\n본문에서 익숙하지 않은 개념을 만나면 관련 설명 페이지에서 정의, 예제와 해석을 확인할 수 있습니다.",
+    "text": "분야별 개념\n이곳은 본문을 읽다가 막힐 수 있는 기초 개념을 따로 설명하는 공간이다.\n본문에서 익숙하지 않은 개념을 만나면 관련 설명 페이지에서 정의, 예제와 해석을 확인할 수 있다.",
     "crumbs": [
       "개념 설명"
     ]
@@ -324,7 +324,7 @@
     "href": "concepts/probability/index.html",
     "title": "확률",
     "section": "",
-    "text": "개념 목록\n확률 모형을 이해하는 데 필요한 기본 개념을 설명합니다.",
+    "text": "개념 목록\n확률 모형을 이해하는 데 필요한 기본 개념을 설명한다.",
     "crumbs": [
       "확률"
     ]
@@ -344,7 +344,7 @@
     "href": "concepts/probability/independence.html",
     "title": "독립성",
     "section": "",
-    "text": "사건의 독립성\n독립성(independence)은 두 사건 또는 두 확률변수가 서로 정보를 주지 않는다는 뜻입니다.\n두 사건 \\(A\\)와 \\(B\\)가 독립이라는 것은 다음이 성립한다는 뜻입니다.\n\\[\nP(A \\cap B) = P(A)P(B).\n\\]\n즉, \\(B\\)가 일어났다는 사실을 알아도 \\(A\\)가 일어날 확률이 바뀌지 않습니다.\n\\[\nP(A \\mid B) = P(A)\n\\]\n단, 위 식은 \\(P(B)&gt;0\\)일 때 쓸 수 있습니다.",
+    "text": "사건의 독립성\n독립성(independence)은 두 사건 또는 두 확률변수가 서로 정보를 주지 않는다는 뜻이다.\n두 사건 \\(A\\)와 \\(B\\)가 독립이라는 것은 다음이 성립한다는 뜻이다.\n\\[\nP(A \\cap B) = P(A)P(B).\n\\]\n즉, \\(B\\)가 일어났다는 사실을 알아도 \\(A\\)가 일어날 확률이 바뀌지 않는다.\n\\[\nP(A \\mid B) = P(A)\n\\]\n단, 위 식은 \\(P(B)&gt;0\\)일 때 쓸 수 있다.",
     "crumbs": [
       "확률",
       "독립성"
@@ -355,7 +355,7 @@
     "href": "concepts/probability/independence.html#사건의-독립성",
     "title": "독립성",
     "section": "",
-    "text": "경고\n\n\n\n독립과 배반은 다릅니다. 두 사건이 배반이면 동시에 일어날 수 없다는 뜻이고, 독립이면 한 사건의 발생 여부가 다른 사건의 확률을 바꾸지 않는다는 뜻입니다.",
+    "text": "경고\n\n\n\n독립과 배반은 다르다. 두 사건이 배반이면 동시에 일어날 수 없다는 뜻이고, 독립이면 한 사건의 발생 여부가 다른 사건의 확률을 바꾸지 않는다는 뜻이다.",
     "crumbs": [
       "확률",
       "독립성"
@@ -366,7 +366,7 @@
     "href": "concepts/probability/independence.html#확률변수의-독립성",
     "title": "독립성",
     "section": "확률변수의 독립성",
-    "text": "확률변수의 독립성\n확률변수 \\(X\\)와 \\(Y\\)가 독립이라는 것은 \\(X\\)에 대한 정보를 알아도 \\(Y\\)의 분포가 바뀌지 않는다는 뜻입니다.\n직관적으로는 두 확률변수가 서로 다른 정보 원천에서 움직인다고 볼 수 있습니다.",
+    "text": "확률변수의 독립성\n확률변수 \\(X\\)와 \\(Y\\)가 독립이라는 것은 \\(X\\)에 대한 정보를 알아도 \\(Y\\)의 분포가 바뀌지 않는다는 뜻이다.\n직관적으로는 두 확률변수가 서로 다른 정보 원천에서 움직인다고 볼 수 있다.",
     "crumbs": [
       "확률",
       "독립성"
@@ -377,7 +377,7 @@
     "href": "concepts/probability/independence.html#금융통계학에서-왜-중요한가",
     "title": "독립성",
     "section": "금융통계학에서 왜 중요한가",
-    "text": "금융통계학에서 왜 중요한가\n많은 금융 모형은 수익률이나 충격항에 대해 독립성을 가정합니다.\n예를 들어 여러 기간의 수익률을 더하거나, 분산이 시간에 따라 어떻게 누적되는지 계산할 때 독립성 가정이 자주 등장합니다.\n\n\n\n\n\n\n노트\n\n\n\n현실의 금융자료에서는 독립성이 정확히 성립하지 않는 경우가 많습니다. 특히 변동성 군집처럼 큰 변동 뒤에 큰 변동이 이어지는 현상은 단순한 독립 가정으로 설명하기 어렵습니다.",
+    "text": "금융통계학에서 왜 중요한가\n많은 금융 모형은 수익률이나 충격항에 대해 독립성을 가정한다.\n예를 들어 여러 기간의 수익률을 더하거나, 분산이 시간에 따라 어떻게 누적되는지 계산할 때 독립성 가정이 자주 등장한다.\n\n\n\n\n\n\n노트\n\n\n\n현실의 금융자료에서는 독립성이 정확히 성립하지 않는 경우가 많습니다. 특히 변동성 군집처럼 큰 변동 뒤에 큰 변동이 이어지는 현상은 단순한 독립 가정으로 설명하기 어렵습니다.",
     "crumbs": [
       "확률",
       "독립성"
@@ -399,7 +399,7 @@
     "href": "concepts/statistics/index.html",
     "title": "통계",
     "section": "",
-    "text": "자료와 모형을 해석하는 데 필요한 통계 개념을 설명합니다.",
+    "text": "자료와 모형을 해석하는 데 필요한 통계 개념을 설명한다.",
     "crumbs": [
       "통계"
     ]
@@ -409,7 +409,7 @@
     "href": "concepts/finance/index.html",
     "title": "금융",
     "section": "",
-    "text": "금융상품과 가격 결정에 필요한 기본 개념을 설명합니다.",
+    "text": "금융상품과 가격 결정에 필요한 기본 개념을 설명한다.",
     "crumbs": [
       "금융"
     ]
@@ -419,7 +419,7 @@
     "href": "concepts/notation.html",
     "title": "기호 정리",
     "section": "",
-    "text": "이 페이지는 웹북 전체에서 반복해서 사용하는 기호를 정리합니다.\n\n\n\n기호\n의미\n\n\n\n\n\\(S_t\\)\n시점 \\(t\\)의 자산 가격\n\n\n\\(r\\)\n무위험 이자율 또는 문맥에 따른 이자율\n\n\n\\(R_t\\)\n로그수익률, 문맥에 따라 다른 수익률 기호\n\n\n\\(\\sigma\\)\n변동성\n\n\n\\(\\mathbb{P}\\)\n실제 확률측도\n\n\n\\(\\mathbb{Q}\\)\n위험중립 확률측도\n\n\n\\(\\mathbb{E}\\)\n기댓값\n\n\n\\(\\operatorname{Var}\\)\n분산\n\n\n\\(W_t\\)\n브라운 운동\n\n\n\n\n\n\n\n\n\n경고\n\n\n\n금융통계학에서는 같은 기호가 문맥에 따라 조금씩 다르게 쓰일 수 있습니다. 각 장에서 제시된 정의와 문맥을 함께 확인하세요.",
+    "text": "이 페이지는 웹북 전체에서 반복해서 사용하는 기호를 정리한다.\n\n\n\n기호\n의미\n\n\n\n\n\\(S_t\\)\n시점 \\(t\\)의 자산 가격\n\n\n\\(r\\)\n무위험 이자율 또는 문맥에 따른 이자율\n\n\n\\(R_t\\)\n로그수익률, 문맥에 따라 다른 수익률 기호\n\n\n\\(\\sigma\\)\n변동성\n\n\n\\(\\mathbb{P}\\)\n실제 확률측도\n\n\n\\(\\mathbb{Q}\\)\n위험중립 확률측도\n\n\n\\(\\mathbb{E}\\)\n기댓값\n\n\n\\(\\operatorname{Var}\\)\n분산\n\n\n\\(W_t\\)\n브라운 운동\n\n\n\n\n\n\n\n\n\n경고\n\n\n\n금융통계학에서는 같은 기호가 문맥에 따라 조금씩 다르게 쓰일 수 있다. 따라서 각 장에서 제시된 정의와 문맥을 함께 확인할 필요가 있다.",
     "crumbs": [
       "참고",
       "기호 정리"
@@ -430,7 +430,7 @@
     "href": "concepts/glossary.html",
     "title": "용어 정리",
     "section": "",
-    "text": "가치평가\n이 페이지는 웹북 전체에서 반복해서 등장하는 주요 개념을 정리합니다.",
+    "text": "가치평가\n이 페이지는 웹북 전체에서 반복해서 등장하는 주요 개념을 정리한다.",
     "crumbs": [
       "참고",
       "용어 정리"
@@ -441,7 +441,7 @@
     "href": "concepts/glossary.html#가치평가",
     "title": "용어 정리",
     "section": "",
-    "text": "무차익 원리\n차익거래 기회가 없다는 조건을 이용해 금융상품의 가격을 결정하는 원리입니다.\n\n\n위험중립 확률측도\n파생상품 가격 결정을 위해 사용하는 확률측도입니다. 이 측도 아래에서는 할인된 자산 가격이 적절한 균형 조건을 만족하도록 표현됩니다.",
+    "text": "무차익 원리\n차익거래 기회가 없다는 조건을 이용해 금융상품의 가격을 결정하는 원리이다.\n\n\n위험중립 확률측도\n파생상품 가격 결정을 위해 사용하는 확률측도이다. 이 측도 아래에서는 할인된 자산 가격이 적절한 균형 조건을 만족하도록 표현된다.",
     "crumbs": [
       "참고",
       "용어 정리"
@@ -452,7 +452,7 @@
     "href": "concepts/glossary.html#위험-측정",
     "title": "용어 정리",
     "section": "위험 측정",
-    "text": "위험 측정\n\nValue at Risk\n정해진 보유 기간과 신뢰수준에서 손실의 분위수를 나타내는 위험 측도입니다.\n\n\nBacktesting\n위험 모형의 예측값과 실제 손실 자료를 비교하여 모형이 적절한지 확인하는 절차입니다.",
+    "text": "위험 측정\n\nValue at Risk\n정해진 보유 기간과 신뢰수준에서 손실의 분위수를 나타내는 위험 측도이다.\n\n\nBacktesting\n위험 모형의 예측값과 실제 손실 자료를 비교하여 모형이 적절한지 확인하는 절차이다.",
     "crumbs": [
       "참고",
       "용어 정리"
@@ -463,7 +463,7 @@
     "href": "concepts/glossary.html#변동성",
     "title": "용어 정리",
     "section": "변동성",
-    "text": "변동성\n\n변동성\n자산 수익률의 변동 정도를 나타내는 값입니다. 많은 금융 모형에서 수익률의 표준편차로 표현됩니다.\n\n\n실현변동성\n관측된 수익률 자료로부터 계산한 변동성 추정값입니다.\n\n\n내재변동성\n시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값입니다.",
+    "text": "변동성\n\n변동성\n자산 수익률의 변동 정도를 나타내는 값이다. 많은 금융 모형에서 수익률의 표준편차로 표현된다.\n\n\n실현변동성\n관측된 수익률 자료로부터 계산한 변동성 추정값이다.\n\n\n내재변동성\n시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.",
     "crumbs": [
       "참고",
       "용어 정리"
