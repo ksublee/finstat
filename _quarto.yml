@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "금융통계학 웹북"
@@ -8,6 +9,7 @@ book:
   site-url: https://ksublee.github.io/finstat/
   repo-url: https://github.com/ksublee/finstat
   repo-actions: [edit, issue]
+
   chapters:
     - index.qmd
     - chapters/00-preface/index.qmd
@@ -24,14 +26,24 @@ book:
     - chapters/11-option-pricing-multiperiod/index.qmd
     - chapters/12-continuous-time-model/index.qmd
     - chapters/13-option-market-price/index.qmd
-    - concepts/index.qmd
-    - part: concepts/probability/index.qmd
+
+    - part: "Concepts"
       chapters:
+        - concepts/index.qmd
+
+    - part: "Probability"
+      chapters:
+        - concepts/probability/index.qmd
         - concepts/probability/independence.qmd
-    - part: concepts/statistics/index.qmd
-      chapters: []
-    - part: concepts/finance/index.qmd
-      chapters: []
+
+    - part: "Statistics"
+      chapters:
+        - concepts/statistics/index.qmd
+
+    - part: "Finance"
+      chapters:
+        - concepts/finance/index.qmd
+
     - part: "참고"
       chapters:
         - concepts/notation.qmd
