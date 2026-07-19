@@ -1,0 +1,41 @@
+name: 개선 제안
+description: 웹북 내용, 링크, 코드, 그림, 구조 개선 제안을 남깁니다.
+title: "[제안] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 제안
+      description: 무엇을 바꾸면 좋은지 구체적으로 적어 주세요.
+      placeholder: 개선하고 싶은 부분을 적어 주세요.
+    validations:
+      required: true
+  - type: input
+    id: chapter
+    attributes:
+      label: 관련 장
+      placeholder: 예: Chapter 9 Backtesting
+  - type: textarea
+    id: files
+    attributes:
+      label: 관련 파일
+      placeholder: 예: chapters/09-backtesting/index.qmd
+  - type: dropdown
+    id: type
+    attributes:
+      label: 유형
+      options:
+        - 내용 설명
+        - 수식
+        - 그림
+        - 코드 예제
+        - 실습
+        - 링크
+        - 오탈자
+        - 기타
+  - type: textarea
+    id: note
+    attributes:
+      label: 추가 메모
+      description: 참고할 만한 원고 위치나 AI agent 검토 내용을 적어 주세요.
