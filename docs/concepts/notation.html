@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -327,8 +327,14 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#장별-수익률-기호-차이" id="toc-장별-수익률-기호-차이" class="nav-link active" data-scroll-target="#장별-수익률-기호-차이">장별 수익률 기호 차이</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/notation.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -397,6 +403,10 @@ window.Quarto = {
 <td><span class="math inline">\(W_t\)</span></td>
 <td>브라운 운동</td>
 </tr>
+<tr class="even">
+<td><span class="math inline">\(H_0\)</span></td>
+<td>귀무가설</td>
+</tr>
 </tbody>
 </table>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -412,10 +422,20 @@ window.Quarto = {
 <p>금융통계학에서는 같은 기호가 문맥에 따라 조금씩 다르게 쓰일 수 있다. 따라서 각 장에서 제시된 정의와 문맥을 함께 확인할 필요가 있다.</p>
 </div>
 </div>
+<section id="장별-수익률-기호-차이" class="level2">
+<h2 class="anchored" data-anchor-id="장별-수익률-기호-차이">장별 수익률 기호 차이</h2>
+<p><span class="math inline">\(r\)</span>, <span class="math inline">\(R\)</span>은 장마다 조금씩 다른 뜻으로 쓰인다.</p>
+<ul>
+<li><strong>02장(현대 포트폴리오 이론), 04장(VaR와 ES)</strong>: <span class="math inline">\(R_i\)</span>, <span class="math inline">\(R_j\)</span>, <span class="math inline">\(R_p\)</span>는 자산 <span class="math inline">\(i\)</span>, <span class="math inline">\(j\)</span> 또는 포트폴리오의 수익률(산술·로그 구분 없이 사용). <span class="math inline">\(r_F\)</span>는 무위험 이자율.</li>
+<li><strong>07장(변동성)</strong>: 산술수익률은 <span class="math inline">\(R_i\)</span>, 로그수익률은 <span class="math inline">\(r_i\)</span>로 구분해서 쓴다.</li>
+<li><strong>08장(다기간 VaR)</strong>: 역사적 시뮬레이션에서 <span class="math inline">\(r_{i,N+1}\)</span>처럼 소문자 <span class="math inline">\(r\)</span>에 시나리오·시점 인덱스를 붙여 가상 수익률을 나타낸다.</li>
+<li><strong>12장(연속시간 모형)</strong>: <span class="math inline">\(r\)</span>은 무위험 이자율(상수), <span class="math inline">\(R_t = \log(S_t/S_0)\)</span>는 로그수익률 과정.</li>
+</ul>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -947,14 +967,24 @@ window.Quarto = {
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $\mathbb{E}$ <span class="pp">|</span> 기댓값 <span class="pp">|</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $\operatorname{Var}$ <span class="pp">|</span> 분산 <span class="pp">|</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $W_t$ <span class="pp">|</span> 브라운 운동 <span class="pp">|</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>금융통계학에서는 같은 기호가 문맥에 따라 조금씩 다르게 쓰일 수 있다. 따라서 각 장에서 제시된 정의와 문맥을 함께 확인할 필요가 있다.</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $H_0$ <span class="pp">|</span> 귀무가설 <span class="pp">|</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>금융통계학에서는 같은 기호가 문맥에 따라 조금씩 다르게 쓰일 수 있다. 따라서 각 장에서 제시된 정의와 문맥을 함께 확인할 필요가 있다.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 장별 수익률 기호 차이</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>$r$, $R$은 장마다 조금씩 다른 뜻으로 쓰인다.</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**02장(현대 포트폴리오 이론), 04장(VaR와 ES)**: $R_i$, $R_j$, $R_p$는 자산 $i$, $j$ 또는 포트폴리오의 수익률(산술·로그 구분 없이 사용). $r_F$는 무위험 이자율.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**07장(변동성)**: 산술수익률은 $R_i$, 로그수익률은 $r_i$로 구분해서 쓴다.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**08장(다기간 VaR)**: 역사적 시뮬레이션에서 $r_{i,N+1}$처럼 소문자 $r$에 시나리오·시점 인덱스를 붙여 가상 수익률을 나타낸다.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**12장(연속시간 모형)**: $r$은 무위험 이자율(상수), $R_t = \log(S_t/S_0)$는 로그수익률 과정.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/notation.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/notation.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></div></div></footer></body></html>

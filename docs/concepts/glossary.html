@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -311,6 +311,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#value-at-risk" id="toc-value-at-risk" class="nav-link" data-scroll-target="#value-at-risk">Value at Risk</a></li>
   <li><a href="#backtesting" id="toc-backtesting" class="nav-link" data-scroll-target="#backtesting">Backtesting</a></li>
+  <li><a href="#커버리지-검정-coverage-test" id="toc-커버리지-검정-coverage-test" class="nav-link" data-scroll-target="#커버리지-검정-coverage-test">커버리지 검정 (Coverage test)</a></li>
+  <li><a href="#분포-검정-distribution-test" id="toc-분포-검정-distribution-test" class="nav-link" data-scroll-target="#분포-검정-distribution-test">분포 검정 (Distribution test)</a></li>
+  </ul></li>
+  <li><a href="#가설-검정" id="toc-가설-검정" class="nav-link" data-scroll-target="#가설-검정">가설 검정</a>
+  <ul class="collapse">
+  <li><a href="#제1종-오류-type-i-error" id="toc-제1종-오류-type-i-error" class="nav-link" data-scroll-target="#제1종-오류-type-i-error">제1종 오류 (Type I error)</a></li>
+  <li><a href="#제2종-오류-type-ii-error" id="toc-제2종-오류-type-ii-error" class="nav-link" data-scroll-target="#제2종-오류-type-ii-error">제2종 오류 (Type II error)</a></li>
   </ul></li>
   <li><a href="#변동성" id="toc-변동성" class="nav-link" data-scroll-target="#변동성">변동성</a>
   <ul class="collapse">
@@ -364,6 +371,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="backtesting" class="level3">
 <h3 class="anchored" data-anchor-id="backtesting">Backtesting</h3>
 <p>위험 모형의 예측값과 실제 손실 자료를 비교하여 모형이 적절한지 확인하는 절차이다.</p>
+</section>
+<section id="커버리지-검정-coverage-test" class="level3">
+<h3 class="anchored" data-anchor-id="커버리지-검정-coverage-test">커버리지 검정 (Coverage test)</h3>
+<p>VaR를 초과하는 손실의 실제 빈도가 사전에 정한 유의수준과 일치하는지 확인하는 백테스팅 기법이다.</p>
+</section>
+<section id="분포-검정-distribution-test" class="level3">
+<h3 class="anchored" data-anchor-id="분포-검정-distribution-test">분포 검정 (Distribution test)</h3>
+<p>적합도(goodness-of-fit) 검정을 통해 위험 모형이 예측한 손익 분포와 실제 자산의 분포가 일치하는지 확인하는 백테스팅 기법이다.</p>
+</section>
+</section>
+<section id="가설-검정" class="level2">
+<h2 class="anchored" data-anchor-id="가설-검정">가설 검정</h2>
+<section id="제1종-오류-type-i-error" class="level3">
+<h3 class="anchored" data-anchor-id="제1종-오류-type-i-error">제1종 오류 (Type I error)</h3>
+<p>귀무가설이 참일 때 귀무가설을 기각하는 오류이다.</p>
+</section>
+<section id="제2종-오류-type-ii-error" class="level3">
+<h3 class="anchored" data-anchor-id="제2종-오류-type-ii-error">제2종 오류 (Type II error)</h3>
+<p>귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류이다.</p>
 </section>
 </section>
 <section id="변동성" class="level2">
@@ -922,19 +948,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>위험 모형의 예측값과 실제 손실 자료를 비교하여 모형이 적절한지 확인하는 절차이다.</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## 변동성</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### 커버리지 검정 (Coverage test)</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">### 변동성</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>VaR를 초과하는 손실의 실제 빈도가 사전에 정한 유의수준과 일치하는지 확인하는 백테스팅 기법이다.</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>자산 수익률의 변동 정도를 나타내는 값이다. 많은 금융 모형에서 수익률의 표준편차로 표현된다.</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">### 분포 검정 (Distribution test)</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### 실현변동성</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>적합도(goodness-of-fit) 검정을 통해 위험 모형이 예측한 손익 분포와 실제 자산의 분포가 일치하는지 확인하는 백테스팅 기법이다.</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>관측된 수익률 자료로부터 계산한 변동성 추정값이다.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## 가설 검정</span></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 내재변동성</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 제1종 오류 (Type I error)</span></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>귀무가설이 참일 때 귀무가설을 기각하는 오류이다.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### 제2종 오류 (Type II error)</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류이다.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## 변동성</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 변동성</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>자산 수익률의 변동 정도를 나타내는 값이다. 많은 금융 모형에서 수익률의 표준편차로 표현된다.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### 실현변동성</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>관측된 수익률 자료로부터 계산한 변동성 추정값이다.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### 내재변동성</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
