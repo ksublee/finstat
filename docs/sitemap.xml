@@ -2,63 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ksublee.github.io/finstat/index.html</loc>
-    <lastmod>2026-07-09T05:47:56.949Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ksublee.github.io/finstat/chapters/00-preface/index.html</loc>
-    <lastmod>2026-07-09T01:20:16.595Z</lastmod>
+    <lastmod>2026-07-25T03:01:59.464Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/01-risk-management-overview/index.html</loc>
-    <lastmod>2026-07-09T05:51:58.716Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.225Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/02-modern-portfolio-theory/index.html</loc>
-    <lastmod>2026-07-09T05:52:13.177Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.227Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/03-utility-function/index.html</loc>
-    <lastmod>2026-07-09T05:52:27.806Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.229Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/04-var-es/index.html</loc>
-    <lastmod>2026-07-09T05:52:42.229Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.230Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/05-derivatives/index.html</loc>
-    <lastmod>2026-07-09T05:52:56.728Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.232Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/06-discrete-time-model/index.html</loc>
-    <lastmod>2026-07-09T05:53:11.235Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.235Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/07-volatility/index.html</loc>
-    <lastmod>2026-07-09T05:53:25.835Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.237Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/08-var-multiperiod/index.html</loc>
-    <lastmod>2026-07-09T05:53:40.388Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.239Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/09-backtesting/index.html</loc>
-    <lastmod>2026-07-25T02:49:43.292Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.241Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/10-interest-rates-bonds/index.html</loc>
-    <lastmod>2026-07-09T05:54:09.541Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.245Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/11-option-pricing-multiperiod/index.html</loc>
-    <lastmod>2026-07-09T05:54:24.149Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.247Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/12-continuous-time-model/index.html</loc>
-    <lastmod>2026-07-09T05:54:38.891Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.249Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/13-option-market-price/index.html</loc>
-    <lastmod>2026-07-09T05:54:52.236Z</lastmod>
+    <lastmod>2026-07-25T03:00:31.249Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/concepts/index.html</loc>
