@@ -33,5 +33,5 @@ $r$, $R$은 장마다 조금씩 다른 뜻으로 쓰인다.
 
 $\alpha$도 장마다 다른 뜻으로 쓰인다.
 
-- **04장(VaR와 ES), 08장(다기간 VaR), 09장(Backtesting)**: $\alpha$는 유의수준(significance level) — $\mathrm{VaR}_\alpha$처럼 VaR의 신뢰수준을 나타낸다.
+- **04장(VaR와 ES), 08장(다기간 VaR), 09장(Backtesting)**: $\alpha$는 유의수준(significance level, VaR 초과확률) — $\mathrm{VaR}_\alpha$처럼 쓰인다. 신뢰수준은 $1-\alpha$이다.
 - **07장(변동성)**: $\alpha$는 GARCH(1,1) 모형의 계수($\sigma_n^2 = \omega + \alpha r_{n-1}^2 + \beta \sigma_{n-1}^2$)로, 최근 수익률에 대한 가중치를 나타낸다. 04·08·09장의 유의수준 $\alpha$와는 전혀 다른 뜻이다.
