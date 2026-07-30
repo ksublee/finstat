@@ -12,7 +12,7 @@ VaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는
 
 ## Backtesting VaR
 
-[백테스트](../../concepts/glossary.qmd)(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 [VaR](../../concepts/glossary.qmd) 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.
+[백테스트](../../concepts/glossary.qmd#backtesting)(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 [VaR](../../concepts/glossary.qmd#value-at-risk) 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.
 
 ### 왜 필요한가
 
@@ -36,8 +36,8 @@ VaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는
 
 백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.
 
-- **[커버리지 검정](../../concepts/glossary.qmd)(coverage test)**: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.
-- **[분포 검정](../../concepts/glossary.qmd)(distribution test)**: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.
+- **[커버리지 검정](../../concepts/glossary.qmd#커버리지-검정-coverage-test)(coverage test)**: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.
+- **[분포 검정](../../concepts/glossary.qmd#분포-검정-distribution-test)(distribution test)**: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.
 - **[독립성](../../concepts/probability/independence.qmd) 검정(independence test)**: 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.
 
 ### 가설 검정 복습
@@ -45,8 +45,8 @@ VaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는
 본격적으로 살펴보기 전에, 가설 검정과 관련된 정의를 복습한다.
 
 ::: {.callout-note}
-- **[제1종 오류](../../concepts/glossary.qmd)(Type I error)**: 귀무가설이 참일 때 귀무가설을 기각하는 오류
-- **[제2종 오류](../../concepts/glossary.qmd)(Type II error)**: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류
+- **[제1종 오류](../../concepts/glossary.qmd#제1종-오류-type-i-error)(Type I error)**: 귀무가설이 참일 때 귀무가설을 기각하는 오류
+- **[제2종 오류](../../concepts/glossary.qmd#제2종-오류-type-ii-error)(Type II error)**: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류
 - **제1종 오류율**: 제1종 오류를 범할 확률
 - **제2종 오류율**: 제2종 오류를 범할 확률
 :::
@@ -61,6 +61,67 @@ $$
 
 - **제1종 오류**: VaR 계산 모형이 실제로 현실과 일치함에도, 우연히 정상 범주를 벗어난 관찰값이 많이 발견되어 모형을 잘못 기각하는 경우
 - **제2종 오류**: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우
+
+## Coverage test
+
+VaR를 넘어서는 손실의 실제 빈도가 모형이 예측하는 빈도와 일관되는지 검정한다. 손익에 대한 충분한 관찰 기간이 있고 각 시점에서 VaR를 계산할 수 있다면 적용할 수 있으며, 모수적·비모수적 방법 모두에 적용할 수 있다.
+
+VaR가 매일 계산된다고 하고, 유의수준 $\alpha$에서 시점 $t$의 손실에 대해 계산한 값을 $\mathrm{VaR}_{\alpha,t}$라고 하자. 이 값은 시점 $t$ 직전에 계산된, 시점 $t$의 예상 최대 손실이다. 시점 $t$에 실제 발생한 손실을 $L_t$라고 하면, $L_t$가 $\mathrm{VaR}_{\alpha,t}$를 넘어설 수도, 넘어서지 않을 수도 있다. VaR 계산이 정확하다면 대략 $100\alpha\%$의 확률로 실제 손실이 VaR를 넘어설 것이다.
+
+Coverage test에서는 $L_t > \mathrm{VaR}_{\alpha,t}$인 사건이 발생하는 비율이 미리 정한 $\alpha$에 비해 지나치게 많지 않은지 살펴본다. 이를 위해
+
+$$
+I_t = \begin{cases} 1, & L_t > \mathrm{VaR}_{\alpha,t} \\ 0, & \text{그 외} \end{cases}
+$$
+
+를 정의하면 $I_t$는 베르누이 시행이다. 총 $n$개의 손익 자료를 관찰했을 때, 이 중 VaR를 넘어서는 총 손실 횟수를 나타내는 확률변수
+
+$$
+X = \sum_{t=1}^n I_t
+$$
+
+는 이항분포 $\mathrm{B}(n, \alpha)$를 따른다. 즉,
+
+$$
+\mathbb{P}(X = k) = \binom{n}{k} \alpha^k (1-\alpha)^{n-k}.
+$$
+
+VaR 산출에 사용한 모형이 잘 맞는지 검정하기 위해 다음 귀무가설을 생각한다.
+
+$$
+H_0 : X \sim \mathrm{B}(n, \alpha)
+$$
+
+대립가설은 단측 검정을 고려한다.
+
+$$
+H_1 : X \sim \mathrm{B}(n, \alpha'), \quad \alpha' > \alpha.
+$$
+
+귀무가설의 기각 여부는 제1종 오류율과 제2종 오류율을 함께 고려해 결정한다. $n$번의 관찰 기간 동안 VaR를 넘어서는 손실이 $m$개 이상 발생하면 $H_0$를 기각하는 검정 규칙을 생각하면, 이때의 제1종 오류율은
+
+$$
+\mathbb{P}(X \geq m) = \sum_{k=m}^n \binom{n}{k}\alpha^k(1-\alpha)^{n-k} = 1 - \sum_{k=0}^{m-1}\binom{n}{k}\alpha^k(1-\alpha)^{n-k}
+$$ {#eq-type1}
+
+이다. 이와 대응해, $H_1$이 참($\alpha' > \alpha$)이라고 가정했을 때 $m$개 미만의 예외만 발생해 $H_0$를 기각하지 못할 확률인 제2종 오류율은
+
+$$
+\mathbb{P}(X < m) = \sum_{k=1}^{m-1}\binom{n}{k}(\alpha')^k(1-\alpha')^{n-k}
+$$ {#eq-type2}
+
+이다.
+
+::: {.callout-tip}
+@eq-type1 의 값은 R의 `pbinom`(이항분포의 누적분포함수)으로 간단히 구할 수 있다.
+
+```r
+# pbinom: 이항분포의 누적분포함수
+1 - pbinom(m - 1, n, alpha)
+```
+:::
+
+다음 절에서는 @eq-type1 과 @eq-type2 를 실제 수치표로 살펴보고, 이를 바탕으로 한 Basel 규제 기준(green/amber/red zone)을 확인한다.
 
 ### 관련 페이지
 
