@@ -1,0 +1,33 @@
+name: 질문
+description: 교수자 판단이나 원고 해석 확인이 필요한 질문을 남깁니다.
+title: "[질문] "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: 질문
+      description: 하나의 쟁점만 구체적으로 적어 주세요.
+      placeholder: 어떤 부분이 애매한지 적어 주세요.
+    validations:
+      required: true
+  - type: input
+    id: chapter
+    attributes:
+      label: 관련 장
+      placeholder: 예: Chapter 7 변동성
+  - type: textarea
+    id: files
+    attributes:
+      label: 관련 파일
+      placeholder: 예: chapters/07-volatility/index.qmd, concepts/notation.qmd
+  - type: textarea
+    id: context
+    attributes:
+      label: 배경 설명
+      description: 원고 문장, 수식, 링크, 현재 판단 등을 짧게 적어 주세요.
+  - type: textarea
+    id: ai-note
+    attributes:
+      label: AI agent가 검토한 내용
+      description: AI agent와 함께 검토했다면 그 요약을 적어 주세요.

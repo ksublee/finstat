@@ -1,5 +1,6 @@
 # Quarto output
 _book/
+_preview/
 .quarto/
 .quarto_cache/
 *_cache/
