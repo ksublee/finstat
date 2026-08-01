@@ -339,7 +339,10 @@ window.Quarto = {
   <li><a href="#왜-필요한가" id="toc-왜-필요한가" class="nav-link" data-scroll-target="#왜-필요한가"><span class="header-section-number">9.3.1</span> 왜 필요한가</a></li>
   <li><a href="#세-가지-통계적-검정" id="toc-세-가지-통계적-검정" class="nav-link" data-scroll-target="#세-가지-통계적-검정"><span class="header-section-number">9.3.2</span> 세 가지 통계적 검정</a></li>
   <li><a href="#가설-검정-복습" id="toc-가설-검정-복습" class="nav-link" data-scroll-target="#가설-검정-복습"><span class="header-section-number">9.3.3</span> 가설 검정 복습</a></li>
-  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">9.3.4</span> 관련 페이지</a></li>
+  </ul></li>
+  <li><a href="#coverage-test" id="toc-coverage-test" class="nav-link" data-scroll-target="#coverage-test"><span class="header-section-number">9.4</span> Coverage test</a>
+  <ul class="collapse">
+  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">9.4.1</span> 관련 페이지</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/09-backtesting/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
@@ -380,7 +383,7 @@ window.Quarto = {
 </section>
 <section id="backtesting-var" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="backtesting-var"><span class="header-section-number">9.3</span> Backtesting VaR</h2>
-<p><a href="../../concepts/glossary.html">백테스트</a>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <a href="../../concepts/glossary.html">VaR</a> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</p>
+<p><a href="../../concepts/glossary.html#backtesting">백테스트</a>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <a href="../../concepts/glossary.html#value-at-risk">VaR</a> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</p>
 <section id="왜-필요한가" class="level3" data-number="9.3.1">
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="왜-필요한가"><span class="header-section-number">9.3.1</span> 왜 필요한가</h3>
 <p>하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.</p>
@@ -409,8 +412,8 @@ window.Quarto = {
 <h3 data-number="9.3.2" class="anchored" data-anchor-id="세-가지-통계적-검정"><span class="header-section-number">9.3.2</span> 세 가지 통계적 검정</h3>
 <p>백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.</p>
 <ul>
-<li><strong><a href="../../concepts/glossary.html">커버리지 검정</a>(coverage test)</strong>: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</li>
-<li><strong><a href="../../concepts/glossary.html">분포 검정</a>(distribution test)</strong>: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</li>
+<li><strong><a href="../../concepts/glossary.html#커버리지-검정-coverage-test">커버리지 검정</a>(coverage test)</strong>: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</li>
+<li><strong><a href="../../concepts/glossary.html#분포-검정-distribution-test">분포 검정</a>(distribution test)</strong>: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</li>
 <li><strong><a href="../../concepts/probability/independence.html">독립성</a> 검정(independence test)</strong>: 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.</li>
 </ul>
 </section>
@@ -428,8 +431,8 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong><a href="../../concepts/glossary.html">제1종 오류</a>(Type I error)</strong>: 귀무가설이 참일 때 귀무가설을 기각하는 오류</li>
-<li><strong><a href="../../concepts/glossary.html">제2종 오류</a>(Type II error)</strong>: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</li>
+<li><strong><a href="../../concepts/glossary.html#제1종-오류-type-i-error">제1종 오류</a>(Type I error)</strong>: 귀무가설이 참일 때 귀무가설을 기각하는 오류</li>
+<li><strong><a href="../../concepts/glossary.html#제2종-오류-type-ii-error">제2종 오류</a>(Type II error)</strong>: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</li>
 <li><strong>제1종 오류율</strong>: 제1종 오류를 범할 확률</li>
 <li><strong>제2종 오류율</strong>: 제2종 오류를 범할 확률</li>
 </ul>
@@ -445,8 +448,58 @@ H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}
 <li><strong>제2종 오류</strong>: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우</li>
 </ul>
 </section>
-<section id="관련-페이지" class="level3" data-number="9.3.4">
-<h3 data-number="9.3.4" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">9.3.4</span> 관련 페이지</h3>
+</section>
+<section id="coverage-test" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="coverage-test"><span class="header-section-number">9.4</span> Coverage test</h2>
+<p>VaR를 넘어서는 손실의 실제 빈도가 모형이 예측하는 빈도와 일관되는지 검정한다. 손익에 대한 충분한 관찰 기간이 있고 각 시점에서 VaR를 계산할 수 있다면 적용할 수 있으며, 모수적·비모수적 방법 모두에 적용할 수 있다.</p>
+<p>VaR가 매일 계산된다고 하고, 유의수준 <span class="math inline">\(\alpha\)</span>에서 시점 <span class="math inline">\(t\)</span>의 손실에 대해 계산한 값을 <span class="math inline">\(\mathrm{VaR}_{\alpha,t}\)</span>라고 하자. 이 값은 시점 <span class="math inline">\(t\)</span> 직전에 계산된, 시점 <span class="math inline">\(t\)</span>의 예상 최대 손실이다. 시점 <span class="math inline">\(t\)</span>에 실제 발생한 손실을 <span class="math inline">\(L_t\)</span>라고 하면, <span class="math inline">\(L_t\)</span>가 <span class="math inline">\(\mathrm{VaR}_{\alpha,t}\)</span>를 넘어설 수도, 넘어서지 않을 수도 있다. VaR 계산이 정확하다면 대략 <span class="math inline">\(100\alpha\%\)</span>의 확률로 실제 손실이 VaR를 넘어설 것이다.</p>
+<p>Coverage test에서는 <span class="math inline">\(L_t &gt; \mathrm{VaR}_{\alpha,t}\)</span>인 사건이 발생하는 비율이 미리 정한 <span class="math inline">\(\alpha\)</span>에 비해 지나치게 많지 않은지 살펴본다. 이를 위해</p>
+<p><span class="math display">\[
+I_t = \begin{cases} 1, &amp; L_t &gt; \mathrm{VaR}_{\alpha,t} \\ 0, &amp; \text{그 외} \end{cases}
+\]</span></p>
+<p>를 정의하면 <span class="math inline">\(I_t\)</span>는 베르누이 시행이다. 총 <span class="math inline">\(n\)</span>개의 손익 자료를 관찰했을 때, 이 중 VaR를 넘어서는 총 손실 횟수를 나타내는 확률변수</p>
+<p><span class="math display">\[
+X = \sum_{t=1}^n I_t
+\]</span></p>
+<p>는 이항분포 <span class="math inline">\(\mathrm{B}(n, \alpha)\)</span>를 따른다. 즉,</p>
+<p><span class="math display">\[
+\mathbb{P}(X = k) = \binom{n}{k} \alpha^k (1-\alpha)^{n-k}.
+\]</span></p>
+<p>VaR 산출에 사용한 모형이 잘 맞는지 검정하기 위해 다음 귀무가설을 생각한다.</p>
+<p><span class="math display">\[
+H_0 : X \sim \mathrm{B}(n, \alpha)
+\]</span></p>
+<p>대립가설은 단측 검정을 고려한다.</p>
+<p><span class="math display">\[
+H_1 : X \sim \mathrm{B}(n, \alpha'), \quad \alpha' &gt; \alpha.
+\]</span></p>
+<p>귀무가설의 기각 여부는 제1종 오류율과 제2종 오류율을 함께 고려해 결정한다. <span class="math inline">\(n\)</span>번의 관찰 기간 동안 VaR를 넘어서는 손실이 <span class="math inline">\(m\)</span>개 이상 발생하면 <span class="math inline">\(H_0\)</span>를 기각하는 검정 규칙을 생각하면, 이때의 제1종 오류율은</p>
+<p><span id="eq-type1"><span class="math display">\[
+\mathbb{P}(X \geq m) = \sum_{k=m}^n \binom{n}{k}\alpha^k(1-\alpha)^{n-k} = 1 - \sum_{k=0}^{m-1}\binom{n}{k}\alpha^k(1-\alpha)^{n-k}
+\tag{9.1}\]</span></span></p>
+<p>이다. 이와 대응해, <span class="math inline">\(H_1\)</span>이 참(<span class="math inline">\(\alpha' &gt; \alpha\)</span>)이라고 가정했을 때 <span class="math inline">\(m\)</span>개 미만의 예외만 발생해 <span class="math inline">\(H_0\)</span>를 기각하지 못할 확률인 제2종 오류율은</p>
+<p><span id="eq-type2"><span class="math display">\[
+\mathbb{P}(X &lt; m) = \sum_{k=0}^{m-1}\binom{n}{k}(\alpha')^k(1-\alpha')^{n-k}
+\tag{9.2}\]</span></span></p>
+<p>이다.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+힌트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="#eq-type1" class="quarto-xref">방정식&nbsp;<span>9.1</span></a> 의 값은 R의 <code>pbinom</code>(이항분포의 누적분포함수)으로 간단히 구할 수 있다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pbinom: 이항분포의 누적분포함수</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(m <span class="sc">-</span> <span class="dv">1</span>, n, alpha)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<p>다음 절에서는 <a href="#eq-type1" class="quarto-xref">방정식&nbsp;<span>9.1</span></a> 과 <a href="#eq-type2" class="quarto-xref">방정식&nbsp;<span>9.2</span></a> 를 실제 수치표로 살펴보고, 이를 바탕으로 한 Basel 규제 기준(green/amber/red zone)을 확인한다.</p>
+<section id="관련-페이지" class="level3" data-number="9.4.1">
+<h3 data-number="9.4.1" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">9.4.1</span> 관련 페이지</h3>
 <ul>
 <li><a href="../../concepts/glossary.html">용어 정리</a></li>
 <li><a href="../../concepts/probability/independence.html">독립성</a></li>
@@ -974,76 +1027,137 @@ H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Backtesting</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>VaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는 방법을 다룬다.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>VaR 초과손실의 의미를 이해한다.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Backtesting의 기본 논리를 설명한다.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>간단한 검정 결과를 해석한다.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Backtesting VaR</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">백테스트</span><span class="co">](../../concepts/glossary.qmd)</span>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <span class="co">[</span><span class="ot">VaR</span><span class="co">](../../concepts/glossary.qmd)</span> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### 왜 필요한가</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>만약 실제로 초과 손실이 20일 발생했다면 VaR가 잘못 계산된 걸까? 15일이면 괜찮은 걸까? 이런 질문에 답하기 위한 통계적 검정 기법이 백테스팅이다.</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>실제 손실이 예측한 손실과 일관되는지 확인하는 이 과정은, VaR 계산 모형이 올바르게 작동하는지 아니면 수정이 필요한지 판단하는 기준을 제공한다. 잘못된 결과의 원인은 잘못된 가정, 잘못 추정된 모수, 부적합한 모형 선택, 프로그램 오류 등 다양할 수 있다.</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 자기자본 요건 산정에 제한적으로 사용하도록 승인하면서 다음과 같이 설명했다.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 내부 모형 기반 접근법을 채택한 많은 은행들은, 위험 측정 시스템의 품질과 정확성을 가늠하기 위해 일일 손익을 모형이 산출한 위험 측도와 정기적으로 비교한다. "백테스팅"이라 불리는 이 과정은, 여러 금융기관이 자체 위험 측정 모형을 개발하고 도입하는 과정에서 유용함이 확인되었다...</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 바젤 위원회는 백테스팅이 다양한 상황을 포괄하면서도 일관된 방식으로, 내부 모형 접근법에 적절한 유인을 반영할 수 있는 가장 좋은 기회를 제공한다고 본다.</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; — Basel Committee (1996)</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 세 가지 통계적 검정</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[커버리지 검정](../../concepts/glossary.qmd)(coverage test)**: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[분포 검정](../../concepts/glossary.qmd)(distribution test)**: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[독립성](../../concepts/probability/independence.qmd) 검정(independence test)**: 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### 가설 검정 복습</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>본격적으로 살펴보기 전에, 가설 검정과 관련된 정의를 복습한다.</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제1종 오류](../../concepts/glossary.qmd)(Type I error)**: 귀무가설이 참일 때 귀무가설을 기각하는 오류</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제2종 오류](../../concepts/glossary.qmd)(Type II error)**: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류율**: 제1종 오류를 범할 확률</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류율**: 제2종 오류를 범할 확률</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>백테스트에서의 <span class="co">[</span><span class="ot">귀무가설</span><span class="co">](../../concepts/notation.qmd)</span>($H_0$)은 다음과 같이 표현할 수 있다.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>이를 VaR 계산과 연관지어 살펴보면 다음과 같다.</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류**: VaR 계산 모형이 실제로 현실과 일치함에도, 우연히 정상 범주를 벗어난 관찰값이 많이 발견되어 모형을 잘못 기각하는 경우</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류**: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### 관련 페이지</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Backtesting</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>VaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는 방법을 다룬다.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>VaR 초과손실의 의미를 이해한다.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Backtesting의 기본 논리를 설명한다.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>간단한 검정 결과를 해석한다.</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Backtesting VaR</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">백테스트</span><span class="co">](../../concepts/glossary.qmd#backtesting)</span>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <span class="co">[</span><span class="ot">VaR</span><span class="co">](../../concepts/glossary.qmd#value-at-risk)</span> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### 왜 필요한가</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>만약 실제로 초과 손실이 20일 발생했다면 VaR가 잘못 계산된 걸까? 15일이면 괜찮은 걸까? 이런 질문에 답하기 위한 통계적 검정 기법이 백테스팅이다.</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>실제 손실이 예측한 손실과 일관되는지 확인하는 이 과정은, VaR 계산 모형이 올바르게 작동하는지 아니면 수정이 필요한지 판단하는 기준을 제공한다. 잘못된 결과의 원인은 잘못된 가정, 잘못 추정된 모수, 부적합한 모형 선택, 프로그램 오류 등 다양할 수 있다.</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 자기자본 요건 산정에 제한적으로 사용하도록 승인하면서 다음과 같이 설명했다.</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 내부 모형 기반 접근법을 채택한 많은 은행들은, 위험 측정 시스템의 품질과 정확성을 가늠하기 위해 일일 손익을 모형이 산출한 위험 측도와 정기적으로 비교한다. "백테스팅"이라 불리는 이 과정은, 여러 금융기관이 자체 위험 측정 모형을 개발하고 도입하는 과정에서 유용함이 확인되었다...</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 바젤 위원회는 백테스팅이 다양한 상황을 포괄하면서도 일관된 방식으로, 내부 모형 접근법에 적절한 유인을 반영할 수 있는 가장 좋은 기회를 제공한다고 본다.</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; — Basel Committee (1996)</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 세 가지 통계적 검정</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[커버리지 검정](../../concepts/glossary.qmd#커버리지-검정-coverage-test)(coverage test)**: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[분포 검정](../../concepts/glossary.qmd#분포-검정-distribution-test)(distribution test)**: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[독립성](../../concepts/probability/independence.qmd) 검정(independence test)**: 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### 가설 검정 복습</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>본격적으로 살펴보기 전에, 가설 검정과 관련된 정의를 복습한다.</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제1종 오류](../../concepts/glossary.qmd#제1종-오류-type-i-error)(Type I error)**: 귀무가설이 참일 때 귀무가설을 기각하는 오류</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제2종 오류](../../concepts/glossary.qmd#제2종-오류-type-ii-error)(Type II error)**: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류율**: 제1종 오류를 범할 확률</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류율**: 제2종 오류를 범할 확률</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>백테스트에서의 <span class="co">[</span><span class="ot">귀무가설</span><span class="co">](../../concepts/notation.qmd)</span>($H_0$)은 다음과 같이 표현할 수 있다.</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>이를 VaR 계산과 연관지어 살펴보면 다음과 같다.</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류**: VaR 계산 모형이 실제로 현실과 일치함에도, 우연히 정상 범주를 벗어난 관찰값이 많이 발견되어 모형을 잘못 기각하는 경우</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류**: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Coverage test</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>VaR를 넘어서는 손실의 실제 빈도가 모형이 예측하는 빈도와 일관되는지 검정한다. 손익에 대한 충분한 관찰 기간이 있고 각 시점에서 VaR를 계산할 수 있다면 적용할 수 있으며, 모수적·비모수적 방법 모두에 적용할 수 있다.</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>VaR가 매일 계산된다고 하고, 유의수준 $\alpha$에서 시점 $t$의 손실에 대해 계산한 값을 $\mathrm{VaR}_{\alpha,t}$라고 하자. 이 값은 시점 $t$ 직전에 계산된, 시점 $t$의 예상 최대 손실이다. 시점 $t$에 실제 발생한 손실을 $L_t$라고 하면, $L_t$가 $\mathrm{VaR}_{\alpha,t}$를 넘어설 수도, 넘어서지 않을 수도 있다. VaR 계산이 정확하다면 대략 $100\alpha\%$의 확률로 실제 손실이 VaR를 넘어설 것이다.</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>Coverage test에서는 $L_t &gt; \mathrm{VaR}_{\alpha,t}$인 사건이 발생하는 비율이 미리 정한 $\alpha$에 비해 지나치게 많지 않은지 살펴본다. 이를 위해</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>I_t = \begin{cases} 1, &amp; L_t &gt; \mathrm{VaR}_{\alpha,t} <span class="sc">\\</span> 0, &amp; \text{그 외} \end{cases}</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>를 정의하면 $I_t$는 베르누이 시행이다. 총 $n$개의 손익 자료를 관찰했을 때, 이 중 VaR를 넘어서는 총 손실 횟수를 나타내는 확률변수</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>X = \sum_{t=1}^n I_t</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>는 이항분포 $\mathrm{B}(n, \alpha)$를 따른다. 즉,</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X = k) = \binom{n}{k} \alpha^k (1-\alpha)^{n-k}.</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>VaR 산출에 사용한 모형이 잘 맞는지 검정하기 위해 다음 귀무가설을 생각한다.</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>H_0 : X \sim \mathrm{B}(n, \alpha)</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>대립가설은 단측 검정을 고려한다.</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>H_1 : X \sim \mathrm{B}(n, \alpha'), \quad \alpha' &gt; \alpha.</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>귀무가설의 기각 여부는 제1종 오류율과 제2종 오류율을 함께 고려해 결정한다. $n$번의 관찰 기간 동안 VaR를 넘어서는 손실이 $m$개 이상 발생하면 $H_0$를 기각하는 검정 규칙을 생각하면, 이때의 제1종 오류율은</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X \geq m) = \sum_{k=m}^n \binom{n}{k}\alpha^k(1-\alpha)^{n-k} = 1 - \sum_{k=0}^{m-1}\binom{n}{k}\alpha^k(1-\alpha)^{n-k}</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>$$ {#eq-type1}</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>이다. 이와 대응해, $H_1$이 참($\alpha' &gt; \alpha$)이라고 가정했을 때 $m$개 미만의 예외만 발생해 $H_0$를 기각하지 못할 확률인 제2종 오류율은</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X &lt; m) = \sum_{k=0}^{m-1}\binom{n}{k}(\alpha')^k(1-\alpha')^{n-k}</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>$$ {#eq-type2}</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>@eq-type1 의 값은 R의 <span class="in">`pbinom`</span>(이항분포의 누적분포함수)으로 간단히 구할 수 있다.</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="co"># pbinom: 이항분포의 누적분포함수</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(m <span class="sc">-</span> <span class="dv">1</span>, n, alpha)</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>다음 절에서는 @eq-type1 과 @eq-type2 를 실제 수치표로 살펴보고, 이를 바탕으로 한 Basel 규제 기준(green/amber/red zone)을 확인한다.</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### 관련 페이지</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
