@@ -107,7 +107,7 @@ $$ {#eq-type1}
 이다. 이와 대응해, $H_1$이 참($\alpha' > \alpha$)이라고 가정했을 때 $m$개 미만의 예외만 발생해 $H_0$를 기각하지 못할 확률인 제2종 오류율은
 
 $$
-\mathbb{P}(X < m) = \sum_{k=1}^{m-1}\binom{n}{k}(\alpha')^k(1-\alpha')^{n-k}
+\mathbb{P}(X < m) = \sum_{k=0}^{m-1}\binom{n}{k}(\alpha')^k(1-\alpha')^{n-k}
 $$ {#eq-type2}
 
 이다.
