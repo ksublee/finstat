@@ -31,6 +31,7 @@ book:
     - part: concepts/probability/index.qmd
       chapters:
         - concepts/probability/independence.qmd
+        - concepts/probability/conditional-probability.qmd
     - part: concepts/statistics/index.qmd
       chapters: []
     - part: concepts/finance/index.qmd
