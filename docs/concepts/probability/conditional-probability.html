@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>개념 설명 – 금융통계학 웹북</title>
+<title>조건부확률 – 금융통계학 웹북</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -61,25 +61,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../concepts/probability/index.html" rel="next">
-<link href="../chapters/13-option-market-price/index.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../concepts/statistics/index.html" rel="next">
+<link href="../../concepts/probability/independence.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -108,8 +108,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../assets/styles/webbook.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../assets/styles/webbook.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -121,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../concepts/index.html">개념 설명</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../concepts/probability/index.html">확률</a></li><li class="breadcrumb-item"><a href="../../concepts/probability/conditional-probability.html">조건부확률</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="검색" onclick="window.quartoOpenSearch();">
@@ -136,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">금융통계학 웹북</a> 
+      <a href="../../">금융통계학 웹북</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/ksublee/finstat" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
@@ -151,103 +180,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">금융통계학 웹북</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/00-preface/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/00-preface/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">머리말</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-risk-management-overview/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/01-risk-management-overview/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">위험관리 개요</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-modern-portfolio-theory/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/02-modern-portfolio-theory/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">현대 포트폴리오 이론</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03-utility-function/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/03-utility-function/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">효용함수</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04-var-es/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/04-var-es/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">VaR와 ES</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05-derivatives/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/05-derivatives/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">파생상품</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06-discrete-time-model/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/06-discrete-time-model/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">이산시간 모형</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07-volatility/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/07-volatility/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">변동성</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-var-multiperiod/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/08-var-multiperiod/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">다기간 VaR</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/09-backtesting/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/09-backtesting/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Backtesting</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/10-interest-rates-bonds/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/10-interest-rates-bonds/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">이자율과 채권</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11-option-pricing-multiperiod/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/11-option-pricing-multiperiod/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">다기간 옵션 가격 결정</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/12-continuous-time-model/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/12-continuous-time-model/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">연속시간 모형</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/13-option-market-price/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/13-option-market-price/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">옵션 시장 가격</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../concepts/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../concepts/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">개념 설명</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../concepts/probability/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../concepts/probability/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">확률</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="토글 섹션">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -256,13 +285,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../concepts/probability/independence.html" class="sidebar-item-text sidebar-link">
+  <a href="../../concepts/probability/independence.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">독립성</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../concepts/probability/conditional-probability.html" class="sidebar-item-text sidebar-link">
+  <a href="../../concepts/probability/conditional-probability.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">조건부확률</span></a>
   </div>
 </li>
@@ -287,13 +316,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../concepts/notation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../concepts/notation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">기호 정리</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../concepts/glossary.html" class="sidebar-item-text sidebar-link">
+  <a href="../../concepts/glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">용어 정리</span></a>
   </div>
 </li>
@@ -309,17 +338,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#분야별-개념" id="toc-분야별-개념" class="nav-link active" data-scroll-target="#분야별-개념">분야별 개념</a></li>
-  <li><a href="#참고" id="toc-참고" class="nav-link" data-scroll-target="#참고">참고</a></li>
+  <li><a href="#사건의-조건부확률" id="toc-사건의-조건부확률" class="nav-link active" data-scroll-target="#사건의-조건부확률">사건의 조건부확률</a></li>
+  <li><a href="#독립성과의-관계" id="toc-독립성과의-관계" class="nav-link" data-scroll-target="#독립성과의-관계">독립성과의 관계</a></li>
+  <li><a href="#조건부-분포" id="toc-조건부-분포" class="nav-link" data-scroll-target="#조건부-분포">조건부 분포</a></li>
+  <li><a href="#금융통계학에서-왜-중요한가" id="toc-금융통계학에서-왜-중요한가" class="nav-link" data-scroll-target="#금융통계학에서-왜-중요한가">금융통계학에서 왜 중요한가</a></li>
+  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지">관련 페이지</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/probability/conditional-probability.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../concepts/probability/index.html">확률</a></li><li class="breadcrumb-item"><a href="../../concepts/probability/conditional-probability.html">조건부확률</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">개념 설명</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">조건부확률</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
 </div>
 
 
@@ -336,21 +368,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>이곳은 본문을 읽다가 막힐 수 있는 기초 개념을 따로 설명하는 공간이다.</p>
-<p>본문에서 익숙하지 않은 개념을 만나면 관련 설명 페이지에서 정의, 예제와 해석을 확인할 수 있다.</p>
-<section id="분야별-개념" class="level2">
-<h2 class="anchored" data-anchor-id="분야별-개념">분야별 개념</h2>
-<ul>
-<li><a href="../concepts/probability/index.html">확률</a></li>
-<li><a href="../concepts/statistics/index.html">통계</a></li>
-<li><a href="../concepts/finance/index.html">금융</a></li>
-</ul>
+<p>조건부확률(conditional probability)은 어떤 사건이 일어났다는 정보를 알고 있을 때, 다른 사건이 일어날 확률을 나타낸다. 새로운 정보가 주어지면 가능한 결과의 범위와 그 안에서의 비율을 다시 계산하게 된다.</p>
+<section id="사건의-조건부확률" class="level2">
+<h2 class="anchored" data-anchor-id="사건의-조건부확률">사건의 조건부확률</h2>
+<p>두 사건 <span class="math inline">\(A\)</span>와 <span class="math inline">\(B\)</span>에 대해, <span class="math inline">\(B\)</span>가 일어났다는 사실이 주어졌을 때 <span class="math inline">\(A\)</span>가 일어날 조건부확률은 다음과 같이 정의한다.</p>
+<p><span class="math display">\[
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}.
+\]</span></p>
+<p>단, <span class="math inline">\(P(B)&gt;0\)</span>이어야 한다. 분자 <span class="math inline">\(P(A \cap B)\)</span>는 <span class="math inline">\(A\)</span>와 <span class="math inline">\(B\)</span>가 함께 일어날 확률이고, 분모 <span class="math inline">\(P(B)\)</span>는 이미 일어났다고 알고 있는 사건 <span class="math inline">\(B\)</span>의 확률이다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>조건부확률은 <span class="math inline">\(B\)</span>가 일어난 경우만 남겨 놓고 그 안에서 <span class="math inline">\(A\)</span>의 비율을 계산하는 것으로 이해할 수 있다. 따라서 <span class="math inline">\(B\)</span>에 대한 정보가 달라지면 조건부확률도 달라질 수 있다.</p>
+</div>
+</div>
+<p>위 정의를 정리하면 다음의 곱셈법칙을 얻는다.</p>
+<p><span class="math display">\[
+P(A \cap B) = P(A \mid B)P(B).
+\]</span></p>
 </section>
-<section id="참고" class="level2">
-<h2 class="anchored" data-anchor-id="참고">참고</h2>
+<section id="독립성과의-관계" class="level2">
+<h2 class="anchored" data-anchor-id="독립성과의-관계">독립성과의 관계</h2>
+<p>두 사건이 <a href="../../concepts/probability/independence.html">독립</a>이라면 <span class="math inline">\(B\)</span>가 일어났다는 정보는 <span class="math inline">\(A\)</span>의 확률을 바꾸지 않는다. 따라서 <span class="math inline">\(P(B)&gt;0\)</span>일 때 다음이 성립한다.</p>
+<p><span class="math display">\[
+P(A \mid B) = P(A).
+\]</span></p>
+<p>반대로 조건부확률이 원래 확률과 달라진다면, <span class="math inline">\(B\)</span>에 관한 정보는 <span class="math inline">\(A\)</span>를 판단하는 데 의미가 있다.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>조건부확률이 달라진다는 사실만으로 <span class="math inline">\(B\)</span>가 <span class="math inline">\(A\)</span>의 원인이라고 결론지을 수는 없다. 조건부확률은 주어진 정보 아래에서 확률이 어떻게 바뀌는지를 나타내는 도구이다.</p>
+</div>
+</div>
+</section>
+<section id="조건부-분포" class="level2">
+<h2 class="anchored" data-anchor-id="조건부-분포">조건부 분포</h2>
+<p>확률변수 <span class="math inline">\(Y\)</span>의 값이 주어졌을 때 확률변수 <span class="math inline">\(X\)</span>의 분포를 조건부 분포라고 한다. 연속형 확률변수의 결합확률밀도함수 <span class="math inline">\(f_{X,Y}(x,y)\)</span>와 주변확률밀도함수 <span class="math inline">\(f_Y(y)\)</span>가 주어졌다면, 조건부 확률밀도함수는 다음과 같다.</p>
+<p><span class="math display">\[
+f_{X \mid Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+\]</span></p>
+<p>단, <span class="math inline">\(f_Y(y)&gt;0\)</span>이어야 한다. 이 관계는 주어진 정보에 따라 확률변수의 분포를 다시 표현하는 방법이다.</p>
+</section>
+<section id="금융통계학에서-왜-중요한가" class="level2">
+<h2 class="anchored" data-anchor-id="금융통계학에서-왜-중요한가">금융통계학에서 왜 중요한가</h2>
+<p>금융자료에서는 과거 수익률, 현재 변동성, 시장 상태처럼 이미 관찰한 정보를 바탕으로 다음 수익률이나 손실을 분석한다. 따라서 무조건적인 분포뿐 아니라, 정보가 주어졌을 때의 조건부 분포가 중요하다.</p>
+<p>예를 들어 <a href="../../chapters/07-volatility/index.html">변동성</a> 장의 GARCH 모형에서는 시점 <span class="math inline">\(n\)</span>의 조건부 분산 <span class="math inline">\(\sigma_n^2\)</span>가 주어졌을 때 수익률 <span class="math inline">\(r_n\)</span>의 조건부 분포를 다음과 같이 표현한다.</p>
+<p><span class="math display">\[
+r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2).
+\]</span></p>
+<p>이는 같은 수익률이라도 그 시점에 추정된 변동성에 따라 분포가 달라질 수 있음을 뜻한다. 조건부확률과 조건부 분포는 이러한 정보 갱신을 수식으로 표현하는 출발점이다.</p>
+</section>
+<section id="관련-페이지" class="level2">
+<h2 class="anchored" data-anchor-id="관련-페이지">관련 페이지</h2>
 <ul>
-<li><a href="../concepts/notation.html">기호 정리</a></li>
-<li><a href="../concepts/glossary.html">용어 정리</a></li>
+<li><a href="../../concepts/probability/independence.html">독립성</a></li>
+<li><a href="../../concepts/notation.html">기호 정리</a></li>
+<li><a href="../../concepts/glossary.html">용어 정리</a></li>
+<li><a href="../../chapters/07-volatility/index.html">변동성</a></li>
 </ul>
 
 
@@ -863,36 +951,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/13-option-market-price/index.html" class="pagination-link" aria-label="옵션 시장 가격">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">옵션 시장 가격</span></span>
+      <a href="../../concepts/probability/independence.html" class="pagination-link" aria-label="독립성">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">독립성</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../concepts/probability/index.html" class="pagination-link" aria-label="확률">
-        <span class="nav-page-text">확률</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../concepts/statistics/index.html" class="pagination-link" aria-label="통계">
+        <span class="nav-page-text">통계</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 개념 설명 {.unnumbered}</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 조건부확률 {.unnumbered}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>이곳은 본문을 읽다가 막힐 수 있는 기초 개념을 따로 설명하는 공간이다.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>조건부확률(conditional probability)은 어떤 사건이 일어났다는 정보를 알고 있을 때, 다른 사건이 일어날 확률을 나타낸다. 새로운 정보가 주어지면 가능한 결과의 범위와 그 안에서의 비율을 다시 계산하게 된다.</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>본문에서 익숙하지 않은 개념을 만나면 관련 설명 페이지에서 정의, 예제와 해석을 확인할 수 있다.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 사건의 조건부확률</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 분야별 개념</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>두 사건 $A$와 $B$에 대해, $B$가 일어났다는 사실이 주어졌을 때 $A$가 일어날 조건부확률은 다음과 같이 정의한다.</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">확률</span><span class="co">](probability/index.qmd)</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">통계</span><span class="co">](statistics/index.qmd)</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">금융</span><span class="co">](finance/index.qmd)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>P(A \mid B) = \frac{P(A \cap B)}{P(B)}.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 참고</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>단, $P(B)&gt;0$이어야 한다. 분자 $P(A \cap B)$는 $A$와 $B$가 함께 일어날 확률이고, 분모 $P(B)$는 이미 일어났다고 알고 있는 사건 $B$의 확률이다.</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">기호 정리</span><span class="co">](notation.qmd)</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>조건부확률은 $B$가 일어난 경우만 남겨 놓고 그 안에서 $A$의 비율을 계산하는 것으로 이해할 수 있다. 따라서 $B$에 대한 정보가 달라지면 조건부확률도 달라질 수 있다.</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>위 정의를 정리하면 다음의 곱셈법칙을 얻는다.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>P(A \cap B) = P(A \mid B)P(B).</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## 독립성과의 관계</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>두 사건이 <span class="co">[</span><span class="ot">독립</span><span class="co">](independence.qmd)</span>이라면 $B$가 일어났다는 정보는 $A$의 확률을 바꾸지 않는다. 따라서 $P(B)&gt;0$일 때 다음이 성립한다.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>P(A \mid B) = P(A).</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>반대로 조건부확률이 원래 확률과 달라진다면, $B$에 관한 정보는 $A$를 판단하는 데 의미가 있다.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>조건부확률이 달라진다는 사실만으로 $B$가 $A$의 원인이라고 결론지을 수는 없다. 조건부확률은 주어진 정보 아래에서 확률이 어떻게 바뀌는지를 나타내는 도구이다.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## 조건부 분포</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>확률변수 $Y$의 값이 주어졌을 때 확률변수 $X$의 분포를 조건부 분포라고 한다. 연속형 확률변수의 결합확률밀도함수 $f_{X,Y}(x,y)$와 주변확률밀도함수 $f_Y(y)$가 주어졌다면, 조건부 확률밀도함수는 다음과 같다.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>f_{X \mid Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>단, $f_Y(y)&gt;0$이어야 한다. 이 관계는 주어진 정보에 따라 확률변수의 분포를 다시 표현하는 방법이다.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## 금융통계학에서 왜 중요한가</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>금융자료에서는 과거 수익률, 현재 변동성, 시장 상태처럼 이미 관찰한 정보를 바탕으로 다음 수익률이나 손실을 분석한다. 따라서 무조건적인 분포뿐 아니라, 정보가 주어졌을 때의 조건부 분포가 중요하다.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>예를 들어 <span class="co">[</span><span class="ot">변동성</span><span class="co">](../../chapters/07-volatility/index.qmd)</span> 장의 GARCH 모형에서는 시점 $n$의 조건부 분산 $\sigma_n^2$가 주어졌을 때 수익률 $r_n$의 조건부 분포를 다음과 같이 표현한다.</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2).</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>이는 같은 수익률이라도 그 시점에 추정된 변동성에 따라 분포가 달라질 수 있음을 뜻한다. 조건부확률과 조건부 분포는 이러한 정보 갱신을 수식으로 표현하는 출발점이다.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](independence.qmd)</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../notation.qmd)</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../glossary.qmd)</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">변동성</span><span class="co">](../../chapters/07-volatility/index.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/probability/conditional-probability.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></div></div></footer></body></html>
