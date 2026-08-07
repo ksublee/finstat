@@ -30,6 +30,10 @@ VaR를 초과하는 손실의 실제 빈도가 사전에 정한 유의수준과 
 
 적합도(goodness-of-fit) 검정을 통해 위험 모형이 예측한 손익 분포와 실제 자산의 분포가 일치하는지 확인하는 백테스팅 기법이다.
 
+### FHS (Filtered historical simulation)
+
+역사적 시뮬레이션에 변동성의 변화를 반영한 VaR 산출 방법이다. GARCH 같은 변동성 모형으로 수익률을 표준화한 뒤, 그 표준화된 오차항을 다시 추출해 시나리오를 만든다. 모수적인 변동성 모형과 비모수적인 역사적 시뮬레이션을 결합했다는 점에서 준모수적 방법(semiparametric method)이라고도 한다. 자세한 내용은 [다기간 VaR](../chapters/08-var-multiperiod/index.qmd) 장에서 다룬다.
+
 ## 가설 검정
 
 ### 제1종 오류 (Type I error)
@@ -53,3 +57,7 @@ VaR를 초과하는 손실의 실제 빈도가 사전에 정한 유의수준과 
 ### 내재변동성
 
 시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.
+
+### GARCH
+
+일반화 자기회귀 조건부 이분산(generalized autoregressive conditional heteroscedasticity) 모형이다. 시간에 따라 변하는 변동성을 모형화하며, 과거 수익률과 과거 분산으로 현재 분산을 설명한다. ARCH 모형을 일반화한 형태이다. 자세한 내용은 [변동성](../chapters/07-volatility/index.qmd) 장에서 다룬다.
