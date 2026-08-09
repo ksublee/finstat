@@ -2,6 +2,8 @@ project:
   type: book
   output-dir: docs
 
+bibliography: references.bib
+
 book:
   title: "금융통계학 웹북"
   subtitle: "수식, 그림, 코드, 개념 링크를 함께 제공하는 한국어 강의자료"
