@@ -204,7 +204,37 @@
     "href": "chapters/09-backtesting/index.html#backtesting-var",
     "title": "9  Backtesting",
     "section": "9.3 Backtesting VaR",
-    "text": "9.3 Backtesting VaR\n백테스트(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 VaR 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.\n\n9.3.1 왜 필요한가\n하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.\n\n\n\n\n\n\n노트\n\n\n\n만약 실제로 초과 손실이 20일 발생했다면 VaR가 잘못 계산된 걸까? 15일이면 괜찮은 걸까? 이런 질문에 답하기 위한 통계적 검정 기법이 백테스팅이다.\n\n\n실제 손실이 예측한 손실과 일관되는지 확인하는 이 과정은, VaR 계산 모형이 올바르게 작동하는지 아니면 수정이 필요한지 판단하는 기준을 제공한다. 잘못된 결과의 원인은 잘못된 가정, 잘못 추정된 모수, 부적합한 모형 선택, 프로그램 오류 등 다양할 수 있다.\n바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 자기자본 요건 산정에 제한적으로 사용하도록 승인하면서 다음과 같이 설명했다.\n\n내부 모형 기반 접근법을 채택한 많은 은행들은, 위험 측정 시스템의 품질과 정확성을 가늠하기 위해 일일 손익을 모형이 산출한 위험 측도와 정기적으로 비교한다. “백테스팅”이라 불리는 이 과정은, 여러 금융기관이 자체 위험 측정 모형을 개발하고 도입하는 과정에서 유용함이 확인되었다…\n바젤 위원회는 백테스팅이 다양한 상황을 포괄하면서도 일관된 방식으로, 내부 모형 접근법에 적절한 유인을 반영할 수 있는 가장 좋은 기회를 제공한다고 본다.\n— Basel Committee (1996)\n\n\n\n9.3.2 세 가지 통계적 검정\n백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.\n\n커버리지 검정(coverage test): VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.\n분포 검정(distribution test): 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.\n독립성 검정(independence test): 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.\n\n\n\n9.3.3 가설 검정 복습\n본격적으로 살펴보기 전에, 가설 검정과 관련된 정의를 복습한다.\n\n\n\n\n\n\n노트\n\n\n\n\n제1종 오류(Type I error): 귀무가설이 참일 때 귀무가설을 기각하는 오류\n제2종 오류(Type II error): 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류\n제1종 오류율: 제1종 오류를 범할 확률\n제2종 오류율: 제2종 오류를 범할 확률\n\n\n\n백테스트에서의 귀무가설(\\(H_0\\))은 다음과 같이 표현할 수 있다.\n\\[\nH_0 : \\text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}\n\\]\n이를 VaR 계산과 연관지어 살펴보면 다음과 같다.\n\n제1종 오류: VaR 계산 모형이 실제로 현실과 일치함에도, 우연히 정상 범주를 벗어난 관찰값이 많이 발견되어 모형을 잘못 기각하는 경우\n제2종 오류: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우\n\n\n\n9.3.4 관련 페이지\n\n용어 정리\n독립성\nVaR와 ES",
+    "text": "9.3 Backtesting VaR\n백테스트(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 VaR 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.\n\n9.3.1 왜 필요한가\n하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.\n\n\n\n\n\n\n노트ES가 아니라 VaR로 검정하는 이유\n\n\n\nBasel III에서는 시장위험 자본요건 산출에 VaR 대신 Expected Shortfall(ES)을 사용한다. 다만 backtesting은 여전히 VaR를 기준으로 수행한다.\n\n\n\n\n\n\n\n\n노트\n\n\n\n만약 실제로 초과 손실이 20일 발생했다면 VaR가 잘못 계산된 걸까? 15일이면 괜찮은 걸까? 이런 질문에 답하기 위한 통계적 검정 기법이 백테스팅이다.\n\n\n실제 손실이 예측한 손실과 일관되는지 확인하는 이 과정은, VaR 계산 모형이 올바르게 작동하는지 아니면 수정이 필요한지 판단하는 기준을 제공한다. 잘못된 결과의 원인은 잘못된 가정, 잘못 추정된 모수, 부적합한 모형 선택, 프로그램 오류 등 다양할 수 있다.\n바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 자기자본 요건 산정에 제한적으로 사용하도록 승인하면서1 다음과 같이 설명했다.\n\n내부 모형 기반 접근법을 채택한 많은 은행들은, 위험 측정 시스템의 품질과 정확성을 가늠하기 위해 일일 손익을 모형이 산출한 위험 측도와 정기적으로 비교한다. “백테스팅”이라 불리는 이 과정은, 여러 금융기관이 자체 위험 측정 모형을 개발하고 도입하는 과정에서 유용함이 확인되었다…\n바젤 위원회는 백테스팅이 다양한 상황을 포괄하면서도 일관된 방식으로, 내부 모형 접근법에 적절한 유인을 반영할 수 있는 가장 좋은 기회를 제공한다고 본다.\n— (Basel Committee on Banking Supervision 1996년)\n\n\n\n9.3.2 세 가지 통계적 검정\n백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.\n\n커버리지 검정(coverage test): VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.\n분포 검정(distribution test): 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.\n독립성 검정(independence test): 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.\n\n\n\n9.3.3 가설 검정 복습\n본격적으로 살펴보기 전에, 가설 검정과 관련된 정의를 복습한다.\n\n\n\n\n\n\n노트\n\n\n\n\n제1종 오류(Type I error): 귀무가설이 참일 때 귀무가설을 기각하는 오류\n제2종 오류(Type II error): 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류\n제1종 오류율: 제1종 오류를 범할 확률\n제2종 오류율: 제2종 오류를 범할 확률\n\n\n\n백테스트에서의 귀무가설(\\(H_0\\))은 다음과 같이 표현할 수 있다.\n\\[\nH_0 : \\text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}\n\\]\n이를 VaR 계산과 연관지어 살펴보면 다음과 같다.\n\n제1종 오류: VaR 계산 모형이 실제로 현실과 일치함에도, 우연히 정상 범주를 벗어난 관찰값이 많이 발견되어 모형을 잘못 기각하는 경우\n제2종 오류: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Backtesting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-backtesting/index.html#coverage-test",
+    "href": "chapters/09-backtesting/index.html#coverage-test",
+    "title": "9  Backtesting",
+    "section": "9.4 Coverage test",
+    "text": "9.4 Coverage test\nVaR를 넘어서는 손실의 실제 빈도가 모형이 예측하는 빈도와 일관되는지 검정한다. 손익에 대한 충분한 관찰 기간이 있고 각 시점에서 VaR를 계산할 수 있다면 적용할 수 있으며, 모수적·비모수적 방법 모두에 적용할 수 있다.\nVaR가 매일 계산된다고 하고, 유의수준 \\(\\alpha\\)에서 시점 \\(t\\)의 손실에 대해 계산한 값을 \\(\\mathrm{VaR}_{\\alpha,t}\\)라고 하자. 이 값은 시점 \\(t\\) 직전에 계산된, 시점 \\(t\\)의 예상 최대 손실이다. 시점 \\(t\\)에 실제 발생한 손실을 \\(L_t\\)라고 하면, \\(L_t\\)가 \\(\\mathrm{VaR}_{\\alpha,t}\\)를 넘어설 수도, 넘어서지 않을 수도 있다. VaR 계산이 정확하다면 대략 \\(100\\alpha\\%\\)의 확률로 실제 손실이 VaR를 넘어설 것이다.\n\n\n\n\n\n\n노트최대 손실인데 왜 넘어설 수 있는가\n\n\n\n여기서 “예상 최대 손실”은 절대 넘지 않는 상한을 뜻하지 않는다. VaR는 손실분포의 분위수로 정의되므로(VaR와 ES 참고), 손실분포가 연속적이라면\n\\[\n\\mathbb{P}(L_t &gt; \\mathrm{VaR}_{\\alpha,t}) = \\alpha\n\\]\n가 성립한다. 일반적인 분포에서는 이 초과확률이 \\(\\alpha\\) 이하일 수 있다.\n즉 초과가 발생하는 것 자체는 모형의 실패가 아니라, 애초에 \\(\\alpha\\) 정도의 비율로 일어나도록 설계된 결과다. \\(\\alpha = 0.01\\)이라면 100일 중 1일 정도는 넘어서는 것이 정상이다.\n정확히 말하면 \\(\\mathrm{VaR}_{\\alpha,t}\\)는 “최악의 \\(\\alpha\\)에 해당하는 경우를 제외했을 때의 최대 손실”, 곧 신뢰수준 \\(1-\\alpha\\)에서의 최대 손실이다. 그래서 Coverage test는 초과가 일어났는지가 아니라 초과 빈도가 \\(\\alpha\\)와 맞는지를 검정한다.\n\n\nCoverage test에서는 \\(L_t &gt; \\mathrm{VaR}_{\\alpha,t}\\)인 사건이 발생하는 비율이 미리 정한 \\(\\alpha\\)에 비해 지나치게 많지 않은지 살펴본다. 이를 위해\n\\[\nI_t = \\begin{cases} 1, & L_t &gt; \\mathrm{VaR}_{\\alpha,t} \\\\ 0, & \\text{그 외} \\end{cases}\n\\]\n를 정의하면 \\(I_t\\)는 베르누이 시행이다. 총 \\(n\\)개의 손익 자료를 관찰했을 때, 이 중 VaR를 넘어서는 총 손실 횟수를 나타내는 확률변수\n\\[\nX = \\sum_{t=1}^n I_t\n\\]\n는 이항분포 \\(\\mathrm{B}(n, \\alpha)\\)를 따른다. 즉,\n\\[\n\\mathbb{P}(X = k) = \\binom{n}{k} \\alpha^k (1-\\alpha)^{n-k}.\n\\]\nVaR 산출에 사용한 모형이 잘 맞는지 검정하기 위해 다음 귀무가설을 생각한다.\n\\[\nH_0 : X \\sim \\mathrm{B}(n, \\alpha)\n\\]\n대립가설은 단측 검정을 고려한다.\n\\[\nH_1 : X \\sim \\mathrm{B}(n, \\alpha'), \\quad \\alpha' &gt; \\alpha.\n\\]\n귀무가설의 기각 여부는 제1종 오류율과 제2종 오류율을 함께 고려해 결정한다. \\(n\\)번의 관찰 기간 동안 VaR를 넘어서는 손실이 \\(m\\)개 이상 발생하면 \\(H_0\\)를 기각하는 검정 규칙을 생각하면, 이때의 제1종 오류율은\n\\[\n\\mathbb{P}(X \\geq m) = \\sum_{k=m}^n \\binom{n}{k}\\alpha^k(1-\\alpha)^{n-k} = 1 - \\sum_{k=0}^{m-1}\\binom{n}{k}\\alpha^k(1-\\alpha)^{n-k}\n\\tag{9.1}\\]\n이다. 이와 대응해, \\(H_1\\)이 참(\\(\\alpha' &gt; \\alpha\\))이라고 가정했을 때 \\(m\\)개 미만의 예외만 발생해 \\(H_0\\)를 기각하지 못할 확률인 제2종 오류율은\n\\[\n\\mathbb{P}(X &lt; m) = \\sum_{k=0}^{m-1}\\binom{n}{k}(\\alpha')^k(1-\\alpha')^{n-k}\n\\tag{9.2}\\]\n이다.\n\n\n\n\n\n\n힌트\n\n\n\n방정식 9.1 의 값은 R의 pbinom(이항분포의 누적분포함수)으로 간단히 구할 수 있다.\n# pbinom: 이항분포의 누적분포함수\n1 - pbinom(m - 1, n, alpha)\n\n\n\n9.4.1 수치표로 확인하기\n표 9.1 는 위 논의를 \\(n = 250\\), \\(\\alpha = 0.01\\)에 대해 정리한 것이다. 예외 개수 \\(m\\)이 가장 왼쪽 열에 나열되어 있다. 250번의 관찰 동안 VaR를 넘어서는 손실이 \\(m\\)개 이상 발생하면 \\(H_0\\)를 기각한다는 규칙을 정했다고 하자.\n이때 \\(H_0\\)가 참임에도, 다시 말해 VaR 모형이 정확함에도 \\(H_0\\)를 기각할 확률인 제1종 오류율이 Type 1 열에 기록되어 있다. 이는 방정식 9.1 로 계산한 값이다. Exact 열에는 \\(H_0\\)가 참이라는 가정에서 예외 개수가 정확히 \\(m\\)일 확률\n\\[\n\\mathbb{P}(X = m) = \\binom{n}{m}\\alpha^m (1-\\alpha)^{n-m}\n\\]\n이 기록되어 있다.\n\n\n\n표 9.1: \\(H_0\\)가 참일 때(\\(\\alpha = 0.01\\))의 예외 개수별 확률\n\n\n\n\n\n예외 개수 \\(m\\)\nExact\nType 1\n\n\n\n\n0\n8.10%\n100.00%\n\n\n1\n20.50%\n91.90%\n\n\n2\n25.70%\n71.40%\n\n\n3\n21.50%\n45.70%\n\n\n4\n13.40%\n24.20%\n\n\n5\n6.70%\n10.80%\n\n\n6\n2.70%\n4.10%\n\n\n7\n1.00%\n1.40%\n\n\n8\n0.30%\n0.40%\n\n\n9\n0.10%\n0.10%\n\n\n10\n0.00%\n0.00%\n\n\n11\n0.00%\n0.00%\n\n\n12\n0.00%\n0.00%\n\n\n13\n0.00%\n0.00%\n\n\n14\n0.00%\n0.00%\n\n\n15\n0.00%\n0.00%\n\n\n\n\n\n\n아래 네 표(표 9.2 ~ 표 9.5)도 250번의 관찰 동안 예외가 \\(m\\)개 이상이면 \\(H_0\\)를 기각한다는 규칙을 따르는 것은 같다. 다만 이번에는 \\(H_0\\)가 거짓이고 \\(H_1\\)이 참, 즉 \\(X \\sim \\mathrm{B}(n, \\alpha')\\)이라고 가정한다. 가능한 모든 \\(\\alpha'\\)에 대해 계산할 수는 없으므로 \\(\\alpha' = 0.02, 0.03, 0.04, 0.05\\)의 네 경우만 표로 정리했다.\n예를 들어 \\(\\alpha' = 0.02\\)는 내가 계산한 VaR의 유의수준이 사실 0.01이 아니라 0.02 수준이라는 뜻으로 해석할 수 있다. 즉 \\(H_0\\)가 거짓(VaR 모형이 잘못되었음)인데도 \\(m\\)개 미만의 예외만 발생해 귀무가설을 기각하지 못할 확률이며, 방정식 9.2 로 계산한다. 한편 Exact 열은\n\\[\n\\mathbb{P}(X = m) = \\binom{n}{m}(\\alpha')^m (1-\\alpha')^{n-m}\n\\]\n이다.\n\n\n\n\n\n\n표 9.2: 실제 수준이 \\(\\alpha' = 0.02\\)인 경우\n\n\n\n\n\n\\(m\\)\nExact\nType 2\n\n\n\n\n0\n0.60%\n0.00%\n\n\n1\n3.30%\n0.60%\n\n\n2\n8.30%\n3.90%\n\n\n3\n14.00%\n12.20%\n\n\n4\n17.70%\n26.20%\n\n\n5\n17.70%\n43.90%\n\n\n6\n14.80%\n61.60%\n\n\n7\n10.50%\n76.40%\n\n\n8\n6.50%\n86.90%\n\n\n9\n3.60%\n93.40%\n\n\n10\n1.80%\n97.00%\n\n\n11\n0.80%\n98.70%\n\n\n12\n0.30%\n99.50%\n\n\n13\n0.10%\n99.80%\n\n\n14\n0.00%\n99.90%\n\n\n15\n0.00%\n100.00%\n\n\n\n\n\n\n\n\n\n\n\n표 9.3: 실제 수준이 \\(\\alpha' = 0.03\\)인 경우\n\n\n\n\n\n\\(m\\)\nExact\nType 2\n\n\n\n\n0\n0.00%\n0.00%\n\n\n1\n0.40%\n0.00%\n\n\n2\n1.50%\n0.40%\n\n\n3\n3.80%\n1.90%\n\n\n4\n7.20%\n5.70%\n\n\n5\n10.90%\n12.80%\n\n\n6\n13.80%\n23.70%\n\n\n7\n14.90%\n37.50%\n\n\n8\n14.00%\n52.40%\n\n\n9\n11.60%\n66.30%\n\n\n10\n8.60%\n77.90%\n\n\n11\n5.80%\n86.60%\n\n\n12\n3.60%\n92.40%\n\n\n13\n2.00%\n96.00%\n\n\n14\n1.10%\n98.00%\n\n\n15\n0.50%\n99.10%\n\n\n\n\n\n\n\n\n\n\n\n\n\n표 9.4: 실제 수준이 \\(\\alpha' = 0.04\\)인 경우\n\n\n\n\n\n\\(m\\)\nExact\nType 2\n\n\n\n\n0\n0.00%\n0.00%\n\n\n1\n0.00%\n0.00%\n\n\n2\n0.20%\n0.00%\n\n\n3\n0.70%\n0.20%\n\n\n4\n1.80%\n0.90%\n\n\n5\n3.60%\n2.70%\n\n\n6\n6.20%\n6.30%\n\n\n7\n9.00%\n12.50%\n\n\n8\n11.30%\n21.50%\n\n\n9\n12.70%\n32.80%\n\n\n10\n12.80%\n45.50%\n\n\n11\n11.60%\n58.30%\n\n\n12\n9.60%\n69.90%\n\n\n13\n7.30%\n79.50%\n\n\n14\n5.20%\n86.90%\n\n\n15\n3.40%\n92.10%\n\n\n\n\n\n\n\n\n\n\n\n표 9.5: 실제 수준이 \\(\\alpha' = 0.05\\)인 경우\n\n\n\n\n\n\\(m\\)\nExact\nType 2\n\n\n\n\n0\n0.00%\n0.00%\n\n\n1\n0.00%\n0.00%\n\n\n2\n0.00%\n0.00%\n\n\n3\n0.10%\n0.00%\n\n\n4\n0.30%\n0.10%\n\n\n5\n0.90%\n0.50%\n\n\n6\n1.80%\n1.30%\n\n\n7\n3.40%\n3.10%\n\n\n8\n5.40%\n6.50%\n\n\n9\n7.60%\n11.90%\n\n\n10\n9.60%\n19.50%\n\n\n11\n11.10%\n29.10%\n\n\n12\n11.60%\n40.20%\n\n\n13\n11.20%\n51.80%\n\n\n14\n10.00%\n62.90%\n\n\n15\n8.20%\n72.90%\n\n\n\n\n\n\n\n\n\n위 표들의 값은 바젤은행감독위원회 규제 문서에 정리된 250개 독립 관측치 기준 수치이다.\n\n\n\n\n\n\n힌트표 읽는 법\n\n\n\n\\(H_0\\)를 기각하는 규칙이 “예외 개수 \\(m \\geq 7\\)”이라고 하자.\n\\(H_0\\)가 참인 경우(표 9.1): VaR 모형이 올바를 때 \\(\\alpha = 0.01\\) 수준에서 계산한 VaR를 넘어서는 손실이 250일 중 정확히 7일일 확률은 Exact 열에서 1.00%이다. \\(m \\geq 7\\)에서 기각한다고 하면 제1종 오류를 범할 확률은 Type 1 열에서 1.40%이다. 이 값은 \\(m \\geq 7\\)인 Exact 확률을 모두 더하거나, 100%에서 \\(m &lt; 7\\)인 Exact 확률을 모두 빼서 얻을 수 있다.\n\\(H_0\\)가 거짓인 경우(표 9.4): 실제 수준이 \\(\\alpha' = 0.04\\)일 때, 250일 중 예외가 \\(m = 7\\)일일 확률은 Exact 열에서 9.00%이다. 여기에 \\(m \\geq 7\\)의 기각역을 적용하면 제2종 오류를 범할 확률은 12.50%이다. \\(m \\leq 6\\)이면 \\(H_0\\)를 기각하지 않는다는 뜻이므로, 이 값은 같은 표에서 \\(m = 0, 1, \\cdots, 6\\)의 Exact 확률을 모두 더한 것과 같다.\n\n\n\n\n9.4.2 Basel 규제 기준\n위 확률값을 바탕으로 바젤은행감독위원회는 \\(\\alpha = 0.01\\)에서 250개 관측치에 대한 백테스트의 예외 개수를 다음과 같이 구분했다 (Basel Committee on Banking Supervision 2019년).\n\n\n\n표 9.6: Backtesting zone과 자본 권장 배율\n\n\n\n\n\nBacktesting zone\n예외 개수\n최소 자본 권장 배율\n\n\n\n\nGreen\n0 - 4\n1.5\n\n\nAmber\n5 - 9\n1.7 - 1.92\n\n\nRed\n10개 이상\n2.0\n\n\n\n\n\n\nGreen zone은 이름 그대로 내부모형의 신뢰를 유지할 수 있는 백테스트 결과이다. 반면 Red zone은 VaR 계산에 사용한 모형이 잘못되었을 가능성이 높다는 뜻으로, 내부모형 신뢰 상실로 간주하며 모형의 가정이나 모수 추정법을 전면 재검토할 필요가 있다. 또한 내부모형이 Red zone으로 자주 떨어지면 감독 당국이 내부모형 사용을 제한하거나 표준 접근법 사용을 강제할 수 있다.\nAmber zone은 모형이 옳을 수도, 그렇지 않을 수도 있다고 판단되는 구간이다. 이 경우 감독 당국은 특별한 조치를 취하기 전에 은행으로부터 모형에 대한 정확한 정보를 제시받아 검토하기를 권장하며, 자본요구액은 점진적으로 증가한다. 백테스팅 결과에 따라 은행의 자본 요건은 계산된 VaR에 권장 배율을 곱한 값으로 추천된다.\n\n\n\n\n\n\n힌트예제: zone 판정\n\n\n\n어떤 회사가 자산 A를 매입했다. 자산 A의 일일 수익률 분포가 독립인 정규분포 \\(N(0.001, 0.025^2)\\)을 따른다고 가정하면, 수익률 기준 일일 1% VaR는\n\\[\n-0.001 + z_{0.01} \\times 0.025 \\approx 0.0572\n\\]\n이다. 이 기준에 따르면 과거 250일의 일일 수익률에서 \\(-5.72\\%\\)를 넘어서는 손실이 5개 미만이면 green zone, 5개 이상 10개 미만이면 amber zone, 10개 이상이면 red zone에 속한다.\n\n\n\n\n\n\n\n\n경고\n\n\n\n통계적 검정의 특성상 green zone에 속하더라도 VaR 산출 방법이 잘못되었을 수 있고(제2종 오류), red zone에 속하더라도 VaR 계산 방법이 옳을 가능성이 있다(제1종 오류). 이 점을 항상 염두에 두어야 한다.\n\n\n\n\n9.4.3 백테스팅 구현\nFHS(filtered historical simulation)를 바탕으로 한 VaR 계산 방법을 확장하면 백테스팅 과정을 구현할 수 있다. GARCH 모형과 FHS로 매일 VaR를 산출하고, 실제 수익률의 분포를 조사해 VaR를 넘어서는 손실이 몇 번 발생했는지 확인하는 과정이다.\nlibrary(rugarch)\ndata(sp500ret)\ntotal &lt;- sp500ret[[1]]\n\nlogLike &lt;- function(p, r){\n  v &lt;- p[\"omega\"] / (1 - p[\"alpha\"] - p[\"beta\"])\n  logL &lt;- 0\n  for(i in 2:length(r)){\n    v[i] &lt;- p[\"omega\"] + p[\"alpha\"] * r[i-1]^2 + p[\"beta\"] * v[i-1]\n    logL &lt;- logL - 0.5 * log(v[i]) - 0.5 * r[i]^2 / v[i]\n  }\n  - logL\n}\n\nstarting &lt;- 5000 # 2007-01-02\nend &lt;- 5250      # 2007-12-31\nVaR &lt;- c()\n\nfor(j in starting:end){\n  # estimation performed daily\n  r &lt;- total[(j-1000):(j-1)]\n  res &lt;- optim(c(omega=0.00001, alpha=0.1, beta=0.8), logLike, r=r)\n  omega &lt;- res$par[\"omega\"]; alpha &lt;- res$par[\"alpha\"]\n  beta &lt;- res$par[\"beta\"]\n\n  # generate epsilon and variance\n  v &lt;- omega / (1 - alpha - beta)\n  epsilon &lt;- r[1] / sqrt(v[1])\n  for (i in 2:length(r)){\n    v[i] &lt;- omega + alpha * r[i-1]^2 + beta * v[i-1]\n    epsilon[i] &lt;- r[i] / sqrt(v[i])\n  }\n\n  Xs &lt;- c()\n  n &lt;- length(v)\n  for (m in 1:100000){\n    epsilon_scenario &lt;- sample(epsilon, 1)\n    v[n+1] &lt;- omega + beta * v[n] + alpha * r[n]^2\n    r[n+1] &lt;- epsilon_scenario * sqrt(v[n+1])\n    Xs[m] &lt;- r[n+1]\n  }\n  VaR[j - starting + 1] &lt;- - quantile(Xs, 0.01)  # 99% VaR\n}\n\n\n\n\n\n\n경고\n\n\n\n이 코드는 251일 각각에 대해 GARCH 모수를 새로 추정하고, 매일 10만 번의 시뮬레이션을 수행한다. 전체 계산량이 크므로 실행에 상당한 시간이 걸린다. 동작을 확인해 보려면 starting과 end의 간격이나 시뮬레이션 횟수를 줄여서 먼저 시험해 보는 것이 좋다.\n\n\n\n\n9.4.4 실행 결과\n그림 9.1 와 그림 9.2 은 위 프로그램을 rugarch 패키지에 포함된 S&P 500 수익률 자료(sp500ret)에 적용한 결과이다. 각 그림에서 회색 선은 실제 일일 수익률, 붉은 선은 매일 산출한 99% VaR의 음수값이며, 파란 점은 손실이 VaR를 넘어선 날이다.\n\n\n\n\n\n\n\n\n\n그림 9.1: 2005년 자료로 백테스트한 결과\n\n\n\n\n\n\n\n\n\n\n\n그림 9.2: 2007년 자료로 백테스트한 결과\n\n\n\n\n\n\n2005년 자료에서는 VaR를 넘어서는 초과 손해가 총 3번 발생해 green zone에 해당한다. 반면 2007년 자료에서는 총 11번 발생해 red zone에 해당한다. 2007년 이후 금융 위기가 발생했음을 상기하면, 이 시기에 red zone이 나온 것은 우연이 아닐 것이다.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Backtesting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-backtesting/index.html#관련-페이지",
+    "href": "chapters/09-backtesting/index.html#관련-페이지",
+    "title": "9  Backtesting",
+    "section": "9.5 관련 페이지",
+    "text": "9.5 관련 페이지\n\n용어 정리\n독립성\nVaR와 ES\n\n\n\n\n\n\n\nBasel Committee on Banking Supervision. 1996년. Supervisory framework for the use of “backtesting” in conjunction with the internal models approach to market risk capital requirements. Basel.\n\n\nBasel Committee on Banking Supervision. 2019년. Calculation of RWA for market risk: (MAR30) Internal models approach. Basel.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Backtesting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/09-backtesting/index.html#footnotes",
+    "href": "chapters/09-backtesting/index.html#footnotes",
+    "title": "9  Backtesting",
+    "section": "",
+    "text": "바젤 I 협약은 1988년에 위험가중자산 대비 최소자본비율 8%를 도입하였다. 1996년 시장위험 개정은 시장위험 자본요건을 추가하고, 감독당국 승인을 전제로 VaR 기반 내부모형을 활용할 수 있도록 하였다.↩︎",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Backtesting</span>"
     ]
@@ -334,7 +364,7 @@
     "href": "concepts/probability/index.html#개념-목록",
     "title": "확률",
     "section": "",
-    "text": "독립성",
+    "text": "독립성\n조건부확률",
     "crumbs": [
       "확률"
     ]
@@ -395,6 +425,72 @@
     ]
   },
   {
+    "objectID": "concepts/probability/conditional-probability.html",
+    "href": "concepts/probability/conditional-probability.html",
+    "title": "조건부확률",
+    "section": "",
+    "text": "사건의 조건부확률\n조건부확률(conditional probability)은 어떤 사건이 일어났다는 정보를 알고 있을 때, 다른 사건이 일어날 확률을 나타낸다. 새로운 정보가 주어지면 가능한 결과의 범위와 그 안에서의 비율을 다시 계산하게 된다.\n두 사건 \\(A\\)와 \\(B\\)에 대해, \\(B\\)가 일어났다는 사실이 주어졌을 때 \\(A\\)가 일어날 조건부확률은 다음과 같이 정의한다.\n\\[\nP(A \\mid B) = \\frac{P(A \\cap B)}{P(B)}.\n\\]\n단, \\(P(B)&gt;0\\)이어야 한다. 분자 \\(P(A \\cap B)\\)는 \\(A\\)와 \\(B\\)가 함께 일어날 확률이고, 분모 \\(P(B)\\)는 이미 일어났다고 알고 있는 사건 \\(B\\)의 확률이다.\n위 정의를 정리하면 다음의 곱셈법칙을 얻는다.\n\\[\nP(A \\cap B) = P(A \\mid B)P(B).\n\\]",
+    "crumbs": [
+      "확률",
+      "조건부확률"
+    ]
+  },
+  {
+    "objectID": "concepts/probability/conditional-probability.html#사건의-조건부확률",
+    "href": "concepts/probability/conditional-probability.html#사건의-조건부확률",
+    "title": "조건부확률",
+    "section": "",
+    "text": "노트\n\n\n\n조건부확률은 \\(B\\)가 일어난 경우만 남겨 놓고 그 안에서 \\(A\\)의 비율을 계산하는 것으로 이해할 수 있다. 따라서 \\(B\\)에 대한 정보가 달라지면 조건부확률도 달라질 수 있다.",
+    "crumbs": [
+      "확률",
+      "조건부확률"
+    ]
+  },
+  {
+    "objectID": "concepts/probability/conditional-probability.html#독립성과의-관계",
+    "href": "concepts/probability/conditional-probability.html#독립성과의-관계",
+    "title": "조건부확률",
+    "section": "독립성과의 관계",
+    "text": "독립성과의 관계\n두 사건이 독립이라면 \\(B\\)가 일어났다는 정보는 \\(A\\)의 확률을 바꾸지 않는다. 따라서 \\(P(B)&gt;0\\)일 때 다음이 성립한다.\n\\[\nP(A \\mid B) = P(A).\n\\]\n반대로 조건부확률이 원래 확률과 달라진다면, \\(B\\)에 관한 정보는 \\(A\\)를 판단하는 데 의미가 있다.\n\n\n\n\n\n\n경고\n\n\n\n조건부확률이 달라진다는 사실만으로 \\(B\\)가 \\(A\\)의 원인이라고 결론지을 수는 없다. 조건부확률은 주어진 정보 아래에서 확률이 어떻게 바뀌는지를 나타내는 도구이다.",
+    "crumbs": [
+      "확률",
+      "조건부확률"
+    ]
+  },
+  {
+    "objectID": "concepts/probability/conditional-probability.html#조건부-분포",
+    "href": "concepts/probability/conditional-probability.html#조건부-분포",
+    "title": "조건부확률",
+    "section": "조건부 분포",
+    "text": "조건부 분포\n확률변수 \\(Y\\)의 값이 주어졌을 때 확률변수 \\(X\\)의 분포를 조건부 분포라고 한다. 연속형 확률변수의 결합확률밀도함수 \\(f_{X,Y}(x,y)\\)와 주변확률밀도함수 \\(f_Y(y)\\)가 주어졌다면, 조건부 확률밀도함수는 다음과 같다.\n\\[\nf_{X \\mid Y}(x \\mid y) = \\frac{f_{X,Y}(x,y)}{f_Y(y)}\n\\]\n단, \\(f_Y(y)&gt;0\\)이어야 한다. 이 관계는 주어진 정보에 따라 확률변수의 분포를 다시 표현하는 방법이다.",
+    "crumbs": [
+      "확률",
+      "조건부확률"
+    ]
+  },
+  {
+    "objectID": "concepts/probability/conditional-probability.html#금융통계학에서-왜-중요한가",
+    "href": "concepts/probability/conditional-probability.html#금융통계학에서-왜-중요한가",
+    "title": "조건부확률",
+    "section": "금융통계학에서 왜 중요한가",
+    "text": "금융통계학에서 왜 중요한가\n금융자료에서는 과거 수익률, 현재 변동성, 시장 상태처럼 이미 관찰한 정보를 바탕으로 다음 수익률이나 손실을 분석한다. 따라서 무조건적인 분포뿐 아니라, 정보가 주어졌을 때의 조건부 분포가 중요하다.\n예를 들어 변동성 장의 GARCH 모형에서는 시점 \\(n\\)의 조건부 분산 \\(\\sigma_n^2\\)가 주어졌을 때 수익률 \\(r_n\\)의 조건부 분포를 다음과 같이 표현한다.\n\\[\nr_n \\mid \\sigma_n^2 \\sim N(0, \\sigma_n^2).\n\\]\n이는 같은 수익률이라도 그 시점에 추정된 변동성에 따라 분포가 달라질 수 있음을 뜻한다. 조건부확률과 조건부 분포는 이러한 정보 갱신을 수식으로 표현하는 출발점이다.",
+    "crumbs": [
+      "확률",
+      "조건부확률"
+    ]
+  },
+  {
+    "objectID": "concepts/probability/conditional-probability.html#관련-페이지",
+    "href": "concepts/probability/conditional-probability.html#관련-페이지",
+    "title": "조건부확률",
+    "section": "관련 페이지",
+    "text": "관련 페이지\n\n독립성\n기호 정리\n용어 정리\n변동성",
+    "crumbs": [
+      "확률",
+      "조건부확률"
+    ]
+  },
+  {
     "objectID": "concepts/statistics/index.html",
     "href": "concepts/statistics/index.html",
     "title": "통계",
@@ -437,6 +533,17 @@
     ]
   },
   {
+    "objectID": "concepts/notation.html#장별-alpha-기호-차이",
+    "href": "concepts/notation.html#장별-alpha-기호-차이",
+    "title": "기호 정리",
+    "section": "장별 \\(\\alpha\\) 기호 차이",
+    "text": "장별 \\(\\alpha\\) 기호 차이\n\\(\\alpha\\)도 장마다 다른 뜻으로 쓰인다.\n\n04장(VaR와 ES), 08장(다기간 VaR), 09장(Backtesting): \\(\\alpha\\)는 유의수준(significance level, VaR 초과확률) — \\(\\mathrm{VaR}_\\alpha\\)처럼 쓰인다. 신뢰수준은 \\(1-\\alpha\\)이다.\n07장(변동성): \\(\\alpha\\)는 GARCH(1,1) 모형의 계수(\\(\\sigma_n^2 = \\omega + \\alpha r_{n-1}^2 + \\beta \\sigma_{n-1}^2\\))로, 최근 수익률에 대한 가중치를 나타낸다. 04·08·09장의 유의수준 \\(\\alpha\\)와는 전혀 다른 뜻이다.",
+    "crumbs": [
+      "참고",
+      "기호 정리"
+    ]
+  },
+  {
     "objectID": "concepts/glossary.html",
     "href": "concepts/glossary.html",
     "title": "용어 정리",
@@ -463,7 +570,7 @@
     "href": "concepts/glossary.html#위험-측정",
     "title": "용어 정리",
     "section": "위험 측정",
-    "text": "위험 측정\n\nValue at Risk\n정해진 보유 기간과 신뢰수준에서 손실의 분위수를 나타내는 위험 측도이다.\n\n\nBacktesting\n위험 모형의 예측값과 실제 손실 자료를 비교하여 모형이 적절한지 확인하는 절차이다.\n\n\n커버리지 검정 (Coverage test)\nVaR를 초과하는 손실의 실제 빈도가 사전에 정한 유의수준과 일치하는지 확인하는 백테스팅 기법이다.\n\n\n분포 검정 (Distribution test)\n적합도(goodness-of-fit) 검정을 통해 위험 모형이 예측한 손익 분포와 실제 자산의 분포가 일치하는지 확인하는 백테스팅 기법이다.",
+    "text": "위험 측정\n\nValue at Risk\n정해진 보유 기간과 신뢰수준에서 손실의 분위수를 나타내는 위험 측도이다.\n\n\nBacktesting\n위험 모형의 예측값과 실제 손실 자료를 비교하여 모형이 적절한지 확인하는 절차이다.\n\n\n커버리지 검정 (Coverage test)\nVaR를 초과하는 손실의 실제 빈도가 사전에 정한 유의수준과 일치하는지 확인하는 백테스팅 기법이다.\n\n\n분포 검정 (Distribution test)\n적합도(goodness-of-fit) 검정을 통해 위험 모형이 예측한 손익 분포와 실제 자산의 분포가 일치하는지 확인하는 백테스팅 기법이다.\n\n\nFHS (Filtered historical simulation)\n역사적 시뮬레이션에 변동성의 변화를 반영한 VaR 산출 방법이다. GARCH 같은 변동성 모형으로 수익률을 표준화한 뒤, 그 표준화된 오차항을 다시 추출해 시나리오를 만든다. 모수적인 변동성 모형과 비모수적인 역사적 시뮬레이션을 결합했다는 점에서 준모수적 방법(semiparametric method)이라고도 한다. 자세한 내용은 다기간 VaR 장에서 다룬다.",
     "crumbs": [
       "참고",
       "용어 정리"
@@ -485,7 +592,18 @@
     "href": "concepts/glossary.html#변동성",
     "title": "용어 정리",
     "section": "변동성",
-    "text": "변동성\n\n변동성\n자산 수익률의 변동 정도를 나타내는 값이다. 많은 금융 모형에서 수익률의 표준편차로 표현된다.\n\n\n실현변동성\n관측된 수익률 자료로부터 계산한 변동성 추정값이다.\n\n\n내재변동성\n시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.",
+    "text": "변동성\n\n변동성\n자산 수익률의 변동 정도를 나타내는 값이다. 많은 금융 모형에서 수익률의 표준편차로 표현된다.\n\n\n실현변동성\n관측된 수익률 자료로부터 계산한 변동성 추정값이다.\n\n\n내재변동성\n시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.\n\n\nGARCH\n일반화 자기회귀 조건부 이분산(generalized autoregressive conditional heteroscedasticity) 모형이다. 시간에 따라 변하는 변동성을 모형화하며, 과거 수익률과 과거 분산으로 현재 분산을 설명한다. ARCH 모형을 일반화한 형태이다. 자세한 내용은 변동성 장에서 다룬다.",
+    "crumbs": [
+      "참고",
+      "용어 정리"
+    ]
+  },
+  {
+    "objectID": "concepts/glossary.html#금융-규제",
+    "href": "concepts/glossary.html#금융-규제",
+    "title": "용어 정리",
+    "section": "금융 규제",
+    "text": "금융 규제\n다음 용어는 바젤 시장위험 내부모형 규제의 맥락에서 사용하는 최소한의 정의이다 (Basel Committee on Banking Supervision 1996년, 2019년).\n\n내부모형 (Internal model)\n은행이 자체적으로 개발하여 시장위험을 측정하는 모형이다. 감독 당국의 승인을 받으면 이 모형으로 산출한 VaR를 자기자본 요건 계산에 사용할 수 있다.\n\n\n감독 당국 (Supervisory authority)\n은행의 건전성을 감독하고 규제를 집행하는 기관이다. 내부모형의 사용을 승인하며, 백테스팅 결과가 좋지 않으면 내부모형 사용을 제한하거나 표준 접근법을 적용하도록 요구할 수 있다.\n\n\n자기자본 요건 (Capital requirement)\n은행이 손실에 대비해 보유해야 하는 자기자본의 최소 수준이다. 시장위험 부분은 내부모형으로 산출한 VaR에 승수를 곱하여 정한다.\n\n\n자본요구액\n자기자본 요건에 따라 실제로 산출된 금액이다. 백테스팅의 예외 횟수가 늘어 승수가 커지면 함께 증가한다.\n\n\n승수 (Multiplication factor)\n자기자본 요건을 계산할 때 VaR에 곱하는 배율이며 권장 배율이라고도 한다. 250개 관측치에 대한 백테스팅의 예외 횟수에 따라 결정되고, 예외가 많을수록 커진다. 자세한 내용은 Backtesting 장에서 다룬다.\n\n\n표준 접근법 (Standardised approach)\n감독 당국이 정한 규칙과 위험가중치를 그대로 적용하여 자기자본 요건을 산출하는 방법이다. 내부모형을 사용할 수 없거나 사용이 제한된 경우에 적용된다.\n\n\n\n\n\n\nBasel Committee on Banking Supervision. 1996년. Supervisory framework for the use of “backtesting” in conjunction with the internal models approach to market risk capital requirements. Basel.\n\n\nBasel Committee on Banking Supervision. 2019년. Calculation of RWA for market risk: (MAR30) Internal models approach. Basel.",
     "crumbs": [
       "참고",
       "용어 정리"

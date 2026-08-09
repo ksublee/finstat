@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -289,6 +308,12 @@ window.Quarto = {
  <span class="menu-text">독립성</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../concepts/probability/conditional-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">조건부확률</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -339,8 +364,15 @@ window.Quarto = {
   <li><a href="#왜-필요한가" id="toc-왜-필요한가" class="nav-link" data-scroll-target="#왜-필요한가"><span class="header-section-number">9.3.1</span> 왜 필요한가</a></li>
   <li><a href="#세-가지-통계적-검정" id="toc-세-가지-통계적-검정" class="nav-link" data-scroll-target="#세-가지-통계적-검정"><span class="header-section-number">9.3.2</span> 세 가지 통계적 검정</a></li>
   <li><a href="#가설-검정-복습" id="toc-가설-검정-복습" class="nav-link" data-scroll-target="#가설-검정-복습"><span class="header-section-number">9.3.3</span> 가설 검정 복습</a></li>
-  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">9.3.4</span> 관련 페이지</a></li>
   </ul></li>
+  <li><a href="#coverage-test" id="toc-coverage-test" class="nav-link" data-scroll-target="#coverage-test"><span class="header-section-number">9.4</span> Coverage test</a>
+  <ul class="collapse">
+  <li><a href="#수치표로-확인하기" id="toc-수치표로-확인하기" class="nav-link" data-scroll-target="#수치표로-확인하기"><span class="header-section-number">9.4.1</span> 수치표로 확인하기</a></li>
+  <li><a href="#basel-규제-기준" id="toc-basel-규제-기준" class="nav-link" data-scroll-target="#basel-규제-기준"><span class="header-section-number">9.4.2</span> Basel 규제 기준</a></li>
+  <li><a href="#백테스팅-구현" id="toc-백테스팅-구현" class="nav-link" data-scroll-target="#백테스팅-구현"><span class="header-section-number">9.4.3</span> 백테스팅 구현</a></li>
+  <li><a href="#실행-결과" id="toc-실행-결과" class="nav-link" data-scroll-target="#실행-결과"><span class="header-section-number">9.4.4</span> 실행 결과</a></li>
+  </ul></li>
+  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">9.5</span> 관련 페이지</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/09-backtesting/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -380,10 +412,23 @@ window.Quarto = {
 </section>
 <section id="backtesting-var" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="backtesting-var"><span class="header-section-number">9.3</span> Backtesting VaR</h2>
-<p><a href="../../concepts/glossary.html">백테스트</a>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <a href="../../concepts/glossary.html">VaR</a> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</p>
+<p><a href="../../concepts/glossary.html#backtesting">백테스트</a>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <a href="../../concepts/glossary.html#value-at-risk">VaR</a> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</p>
 <section id="왜-필요한가" class="level3" data-number="9.3.1">
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="왜-필요한가"><span class="header-section-number">9.3.1</span> 왜 필요한가</h3>
 <p>하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>ES가 아니라 VaR로 검정하는 이유
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Basel III에서는 시장위험 자본요건 산출에 VaR 대신 Expected Shortfall(ES)을 사용한다. 다만 backtesting은 여전히 VaR를 기준으로 수행한다.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -398,19 +443,19 @@ window.Quarto = {
 </div>
 </div>
 <p>실제 손실이 예측한 손실과 일관되는지 확인하는 이 과정은, VaR 계산 모형이 올바르게 작동하는지 아니면 수정이 필요한지 판단하는 기준을 제공한다. 잘못된 결과의 원인은 잘못된 가정, 잘못 추정된 모수, 부적합한 모형 선택, 프로그램 오류 등 다양할 수 있다.</p>
-<p>바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 자기자본 요건 산정에 제한적으로 사용하도록 승인하면서 다음과 같이 설명했다.</p>
+<p>바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 <a href="../../concepts/glossary.html#자기자본-요건-capital-requirement">자기자본 요건</a> 산정에 제한적으로 사용하도록 승인하면서<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 다음과 같이 설명했다.</p>
 <blockquote class="blockquote">
 <p>내부 모형 기반 접근법을 채택한 많은 은행들은, 위험 측정 시스템의 품질과 정확성을 가늠하기 위해 일일 손익을 모형이 산출한 위험 측도와 정기적으로 비교한다. “백테스팅”이라 불리는 이 과정은, 여러 금융기관이 자체 위험 측정 모형을 개발하고 도입하는 과정에서 유용함이 확인되었다…</p>
 <p>바젤 위원회는 백테스팅이 다양한 상황을 포괄하면서도 일관된 방식으로, 내부 모형 접근법에 적절한 유인을 반영할 수 있는 가장 좋은 기회를 제공한다고 본다.</p>
-<p>— Basel Committee (1996)</p>
+<p>— <span class="citation" data-cites="Basel1996">(<a href="#ref-Basel1996" role="doc-biblioref">Basel Committee on Banking Supervision 1996년</a>)</span></p>
 </blockquote>
 </section>
 <section id="세-가지-통계적-검정" class="level3" data-number="9.3.2">
 <h3 data-number="9.3.2" class="anchored" data-anchor-id="세-가지-통계적-검정"><span class="header-section-number">9.3.2</span> 세 가지 통계적 검정</h3>
 <p>백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.</p>
 <ul>
-<li><strong><a href="../../concepts/glossary.html">커버리지 검정</a>(coverage test)</strong>: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</li>
-<li><strong><a href="../../concepts/glossary.html">분포 검정</a>(distribution test)</strong>: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</li>
+<li><strong><a href="../../concepts/glossary.html#커버리지-검정-coverage-test">커버리지 검정</a>(coverage test)</strong>: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</li>
+<li><strong><a href="../../concepts/glossary.html#분포-검정-distribution-test">분포 검정</a>(distribution test)</strong>: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</li>
 <li><strong><a href="../../concepts/probability/independence.html">독립성</a> 검정(independence test)</strong>: 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.</li>
 </ul>
 </section>
@@ -428,8 +473,8 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong><a href="../../concepts/glossary.html">제1종 오류</a>(Type I error)</strong>: 귀무가설이 참일 때 귀무가설을 기각하는 오류</li>
-<li><strong><a href="../../concepts/glossary.html">제2종 오류</a>(Type II error)</strong>: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</li>
+<li><strong><a href="../../concepts/glossary.html#제1종-오류-type-i-error">제1종 오류</a>(Type I error)</strong>: 귀무가설이 참일 때 귀무가설을 기각하는 오류</li>
+<li><strong><a href="../../concepts/glossary.html#제2종-오류-type-ii-error">제2종 오류</a>(Type II error)</strong>: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</li>
 <li><strong>제1종 오류율</strong>: 제1종 오류를 범할 확률</li>
 <li><strong>제2종 오류율</strong>: 제2종 오류를 범할 확률</li>
 </ul>
@@ -445,8 +490,786 @@ H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}
 <li><strong>제2종 오류</strong>: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우</li>
 </ul>
 </section>
-<section id="관련-페이지" class="level3" data-number="9.3.4">
-<h3 data-number="9.3.4" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">9.3.4</span> 관련 페이지</h3>
+</section>
+<section id="coverage-test" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="coverage-test"><span class="header-section-number">9.4</span> Coverage test</h2>
+<p>VaR를 넘어서는 손실의 실제 빈도가 모형이 예측하는 빈도와 일관되는지 검정한다. 손익에 대한 충분한 관찰 기간이 있고 각 시점에서 VaR를 계산할 수 있다면 적용할 수 있으며, 모수적·비모수적 방법 모두에 적용할 수 있다.</p>
+<p>VaR가 매일 계산된다고 하고, 유의수준 <span class="math inline">\(\alpha\)</span>에서 시점 <span class="math inline">\(t\)</span>의 손실에 대해 계산한 값을 <span class="math inline">\(\mathrm{VaR}_{\alpha,t}\)</span>라고 하자. 이 값은 시점 <span class="math inline">\(t\)</span> 직전에 계산된, 시점 <span class="math inline">\(t\)</span>의 예상 최대 손실이다. 시점 <span class="math inline">\(t\)</span>에 실제 발생한 손실을 <span class="math inline">\(L_t\)</span>라고 하면, <span class="math inline">\(L_t\)</span>가 <span class="math inline">\(\mathrm{VaR}_{\alpha,t}\)</span>를 넘어설 수도, 넘어서지 않을 수도 있다. VaR 계산이 정확하다면 대략 <span class="math inline">\(100\alpha\%\)</span>의 확률로 실제 손실이 VaR를 넘어설 것이다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>최대 손실인데 왜 넘어설 수 있는가
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>여기서 “예상 최대 손실”은 절대 넘지 않는 상한을 뜻하지 않는다. <a href="../../concepts/glossary.html#value-at-risk">VaR</a>는 손실분포의 분위수로 정의되므로(<a href="../../chapters/04-var-es/index.html">VaR와 ES</a> 참고), 손실분포가 연속적이라면</p>
+<p><span class="math display">\[
+\mathbb{P}(L_t &gt; \mathrm{VaR}_{\alpha,t}) = \alpha
+\]</span></p>
+<p>가 성립한다. 일반적인 분포에서는 이 초과확률이 <span class="math inline">\(\alpha\)</span> 이하일 수 있다.</p>
+<p>즉 초과가 발생하는 것 자체는 모형의 실패가 아니라, 애초에 <span class="math inline">\(\alpha\)</span> 정도의 비율로 일어나도록 설계된 결과다. <span class="math inline">\(\alpha = 0.01\)</span>이라면 100일 중 1일 정도는 넘어서는 것이 정상이다.</p>
+<p>정확히 말하면 <span class="math inline">\(\mathrm{VaR}_{\alpha,t}\)</span>는 “최악의 <span class="math inline">\(\alpha\)</span>에 해당하는 경우를 제외했을 때의 최대 손실”, 곧 신뢰수준 <span class="math inline">\(1-\alpha\)</span>에서의 최대 손실이다. 그래서 Coverage test는 초과가 일어났는지가 아니라 <strong>초과 빈도가 <span class="math inline">\(\alpha\)</span>와 맞는지</strong>를 검정한다.</p>
+</div>
+</div>
+<p>Coverage test에서는 <span class="math inline">\(L_t &gt; \mathrm{VaR}_{\alpha,t}\)</span>인 사건이 발생하는 비율이 미리 정한 <span class="math inline">\(\alpha\)</span>에 비해 지나치게 많지 않은지 살펴본다. 이를 위해</p>
+<p><span class="math display">\[
+I_t = \begin{cases} 1, &amp; L_t &gt; \mathrm{VaR}_{\alpha,t} \\ 0, &amp; \text{그 외} \end{cases}
+\]</span></p>
+<p>를 정의하면 <span class="math inline">\(I_t\)</span>는 베르누이 시행이다. 총 <span class="math inline">\(n\)</span>개의 손익 자료를 관찰했을 때, 이 중 VaR를 넘어서는 총 손실 횟수를 나타내는 확률변수</p>
+<p><span class="math display">\[
+X = \sum_{t=1}^n I_t
+\]</span></p>
+<p>는 이항분포 <span class="math inline">\(\mathrm{B}(n, \alpha)\)</span>를 따른다. 즉,</p>
+<p><span class="math display">\[
+\mathbb{P}(X = k) = \binom{n}{k} \alpha^k (1-\alpha)^{n-k}.
+\]</span></p>
+<p>VaR 산출에 사용한 모형이 잘 맞는지 검정하기 위해 다음 귀무가설을 생각한다.</p>
+<p><span class="math display">\[
+H_0 : X \sim \mathrm{B}(n, \alpha)
+\]</span></p>
+<p>대립가설은 단측 검정을 고려한다.</p>
+<p><span class="math display">\[
+H_1 : X \sim \mathrm{B}(n, \alpha'), \quad \alpha' &gt; \alpha.
+\]</span></p>
+<p>귀무가설의 기각 여부는 제1종 오류율과 제2종 오류율을 함께 고려해 결정한다. <span class="math inline">\(n\)</span>번의 관찰 기간 동안 VaR를 넘어서는 손실이 <span class="math inline">\(m\)</span>개 이상 발생하면 <span class="math inline">\(H_0\)</span>를 기각하는 검정 규칙을 생각하면, 이때의 제1종 오류율은</p>
+<p><span id="eq-type1"><span class="math display">\[
+\mathbb{P}(X \geq m) = \sum_{k=m}^n \binom{n}{k}\alpha^k(1-\alpha)^{n-k} = 1 - \sum_{k=0}^{m-1}\binom{n}{k}\alpha^k(1-\alpha)^{n-k}
+\tag{9.1}\]</span></span></p>
+<p>이다. 이와 대응해, <span class="math inline">\(H_1\)</span>이 참(<span class="math inline">\(\alpha' &gt; \alpha\)</span>)이라고 가정했을 때 <span class="math inline">\(m\)</span>개 미만의 예외만 발생해 <span class="math inline">\(H_0\)</span>를 기각하지 못할 확률인 제2종 오류율은</p>
+<p><span id="eq-type2"><span class="math display">\[
+\mathbb{P}(X &lt; m) = \sum_{k=0}^{m-1}\binom{n}{k}(\alpha')^k(1-\alpha')^{n-k}
+\tag{9.2}\]</span></span></p>
+<p>이다.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+힌트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="#eq-type1" class="quarto-xref">방정식&nbsp;<span>9.1</span></a> 의 값은 R의 <code>pbinom</code>(이항분포의 누적분포함수)으로 간단히 구할 수 있다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pbinom: 이항분포의 누적분포함수</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(m <span class="sc">-</span> <span class="dv">1</span>, n, alpha)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<section id="수치표로-확인하기" class="level3" data-number="9.4.1">
+<h3 data-number="9.4.1" class="anchored" data-anchor-id="수치표로-확인하기"><span class="header-section-number">9.4.1</span> 수치표로 확인하기</h3>
+<p><a href="#tbl-coverage-h0-true" class="quarto-xref">표&nbsp;<span>9.1</span></a> 는 위 논의를 <span class="math inline">\(n = 250\)</span>, <span class="math inline">\(\alpha = 0.01\)</span>에 대해 정리한 것이다. 예외 개수 <span class="math inline">\(m\)</span>이 가장 왼쪽 열에 나열되어 있다. 250번의 관찰 동안 VaR를 넘어서는 손실이 <span class="math inline">\(m\)</span>개 이상 발생하면 <span class="math inline">\(H_0\)</span>를 기각한다는 규칙을 정했다고 하자.</p>
+<p>이때 <span class="math inline">\(H_0\)</span>가 참임에도, 다시 말해 VaR 모형이 정확함에도 <span class="math inline">\(H_0\)</span>를 기각할 확률인 제1종 오류율이 Type 1 열에 기록되어 있다. 이는 <a href="#eq-type1" class="quarto-xref">방정식&nbsp;<span>9.1</span></a> 로 계산한 값이다. Exact 열에는 <span class="math inline">\(H_0\)</span>가 참이라는 가정에서 예외 개수가 정확히 <span class="math inline">\(m\)</span>일 확률</p>
+<p><span class="math display">\[
+\mathbb{P}(X = m) = \binom{n}{m}\alpha^m (1-\alpha)^{n-m}
+\]</span></p>
+<p>이 기록되어 있다.</p>
+<div id="tbl-coverage-h0-true" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-coverage-h0-true-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;9.1: <span class="math inline">\(H_0\)</span>가 참일 때(<span class="math inline">\(\alpha = 0.01\)</span>)의 예외 개수별 확률
+</figcaption>
+<div aria-describedby="tbl-coverage-h0-true-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">예외 개수 <span class="math inline">\(m\)</span></th>
+<th style="text-align: right;">Exact</th>
+<th style="text-align: right;">Type 1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8.10%</td>
+<td style="text-align: right;">100.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20.50%</td>
+<td style="text-align: right;">91.90%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">25.70%</td>
+<td style="text-align: right;">71.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">21.50%</td>
+<td style="text-align: right;">45.70%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">13.40%</td>
+<td style="text-align: right;">24.20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6.70%</td>
+<td style="text-align: right;">10.80%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.70%</td>
+<td style="text-align: right;">4.10%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1.00%</td>
+<td style="text-align: right;">1.40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.30%</td>
+<td style="text-align: right;">0.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.10%</td>
+<td style="text-align: right;">0.10%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>아래 네 표(<a href="#tbl-coverage-002" class="quarto-xref">표&nbsp;<span>9.2</span></a> ~ <a href="#tbl-coverage-005" class="quarto-xref">표&nbsp;<span>9.5</span></a>)도 250번의 관찰 동안 예외가 <span class="math inline">\(m\)</span>개 이상이면 <span class="math inline">\(H_0\)</span>를 기각한다는 규칙을 따르는 것은 같다. 다만 이번에는 <span class="math inline">\(H_0\)</span>가 거짓이고 <span class="math inline">\(H_1\)</span>이 참, 즉 <span class="math inline">\(X \sim \mathrm{B}(n, \alpha')\)</span>이라고 가정한다. 가능한 모든 <span class="math inline">\(\alpha'\)</span>에 대해 계산할 수는 없으므로 <span class="math inline">\(\alpha' = 0.02, 0.03, 0.04, 0.05\)</span>의 네 경우만 표로 정리했다.</p>
+<p>예를 들어 <span class="math inline">\(\alpha' = 0.02\)</span>는 내가 계산한 VaR의 유의수준이 사실 0.01이 아니라 0.02 수준이라는 뜻으로 해석할 수 있다. 즉 <span class="math inline">\(H_0\)</span>가 거짓(VaR 모형이 잘못되었음)인데도 <span class="math inline">\(m\)</span>개 미만의 예외만 발생해 귀무가설을 기각하지 못할 확률이며, <a href="#eq-type2" class="quarto-xref">방정식&nbsp;<span>9.2</span></a> 로 계산한다. 한편 Exact 열은</p>
+<p><span class="math display">\[
+\mathbb{P}(X = m) = \binom{n}{m}(\alpha')^m (1-\alpha')^{n-m}
+\]</span></p>
+<p>이다.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-coverage-002" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-coverage-002-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;9.2: 실제 수준이 <span class="math inline">\(\alpha' = 0.02\)</span>인 경우
+</figcaption>
+<div aria-describedby="tbl-coverage-002-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(m\)</span></th>
+<th style="text-align: right;">Exact</th>
+<th style="text-align: right;">Type 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.60%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.30%</td>
+<td style="text-align: right;">0.60%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">8.30%</td>
+<td style="text-align: right;">3.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">14.00%</td>
+<td style="text-align: right;">12.20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">17.70%</td>
+<td style="text-align: right;">26.20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">17.70%</td>
+<td style="text-align: right;">43.90%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">14.80%</td>
+<td style="text-align: right;">61.60%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">10.50%</td>
+<td style="text-align: right;">76.40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6.50%</td>
+<td style="text-align: right;">86.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.60%</td>
+<td style="text-align: right;">93.40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1.80%</td>
+<td style="text-align: right;">97.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.80%</td>
+<td style="text-align: right;">98.70%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.30%</td>
+<td style="text-align: right;">99.50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0.10%</td>
+<td style="text-align: right;">99.80%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">99.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">100.00%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-coverage-003" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-coverage-003-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;9.3: 실제 수준이 <span class="math inline">\(\alpha' = 0.03\)</span>인 경우
+</figcaption>
+<div aria-describedby="tbl-coverage-003-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(m\)</span></th>
+<th style="text-align: right;">Exact</th>
+<th style="text-align: right;">Type 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.40%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.50%</td>
+<td style="text-align: right;">0.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3.80%</td>
+<td style="text-align: right;">1.90%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7.20%</td>
+<td style="text-align: right;">5.70%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10.90%</td>
+<td style="text-align: right;">12.80%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">13.80%</td>
+<td style="text-align: right;">23.70%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">14.90%</td>
+<td style="text-align: right;">37.50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">14.00%</td>
+<td style="text-align: right;">52.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">11.60%</td>
+<td style="text-align: right;">66.30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">8.60%</td>
+<td style="text-align: right;">77.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">5.80%</td>
+<td style="text-align: right;">86.60%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">3.60%</td>
+<td style="text-align: right;">92.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2.00%</td>
+<td style="text-align: right;">96.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">1.10%</td>
+<td style="text-align: right;">98.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0.50%</td>
+<td style="text-align: right;">99.10%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-coverage-004" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-coverage-004-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;9.4: 실제 수준이 <span class="math inline">\(\alpha' = 0.04\)</span>인 경우
+</figcaption>
+<div aria-describedby="tbl-coverage-004-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(m\)</span></th>
+<th style="text-align: right;">Exact</th>
+<th style="text-align: right;">Type 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.20%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.70%</td>
+<td style="text-align: right;">0.20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.80%</td>
+<td style="text-align: right;">0.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3.60%</td>
+<td style="text-align: right;">2.70%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6.20%</td>
+<td style="text-align: right;">6.30%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">9.00%</td>
+<td style="text-align: right;">12.50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11.30%</td>
+<td style="text-align: right;">21.50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">12.70%</td>
+<td style="text-align: right;">32.80%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">12.80%</td>
+<td style="text-align: right;">45.50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">11.60%</td>
+<td style="text-align: right;">58.30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">9.60%</td>
+<td style="text-align: right;">69.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">7.30%</td>
+<td style="text-align: right;">79.50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">5.20%</td>
+<td style="text-align: right;">86.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3.40%</td>
+<td style="text-align: right;">92.10%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="tbl-coverage-005" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-coverage-005-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;9.5: 실제 수준이 <span class="math inline">\(\alpha' = 0.05\)</span>인 경우
+</figcaption>
+<div aria-describedby="tbl-coverage-005-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(m\)</span></th>
+<th style="text-align: right;">Exact</th>
+<th style="text-align: right;">Type 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.00%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.10%</td>
+<td style="text-align: right;">0.00%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.30%</td>
+<td style="text-align: right;">0.10%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.90%</td>
+<td style="text-align: right;">0.50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.80%</td>
+<td style="text-align: right;">1.30%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.40%</td>
+<td style="text-align: right;">3.10%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5.40%</td>
+<td style="text-align: right;">6.50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7.60%</td>
+<td style="text-align: right;">11.90%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">9.60%</td>
+<td style="text-align: right;">19.50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">11.10%</td>
+<td style="text-align: right;">29.10%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">11.60%</td>
+<td style="text-align: right;">40.20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">11.20%</td>
+<td style="text-align: right;">51.80%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">10.00%</td>
+<td style="text-align: right;">62.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8.20%</td>
+<td style="text-align: right;">72.90%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>위 표들의 값은 <a href="https://www.bis.org/basel_framework/chapter/MAR/99.htm">바젤은행감독위원회 규제 문서</a>에 정리된 250개 독립 관측치 기준 수치이다.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>표 읽는 법
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(H_0\)</span>를 기각하는 규칙이 “예외 개수 <span class="math inline">\(m \geq 7\)</span>”이라고 하자.</p>
+<p><strong><span class="math inline">\(H_0\)</span>가 참인 경우(<a href="#tbl-coverage-h0-true" class="quarto-xref">표&nbsp;<span>9.1</span></a>)</strong>: VaR 모형이 올바를 때 <span class="math inline">\(\alpha = 0.01\)</span> 수준에서 계산한 VaR를 넘어서는 손실이 250일 중 정확히 7일일 확률은 Exact 열에서 1.00%이다. <span class="math inline">\(m \geq 7\)</span>에서 기각한다고 하면 제1종 오류를 범할 확률은 Type 1 열에서 1.40%이다. 이 값은 <span class="math inline">\(m \geq 7\)</span>인 Exact 확률을 모두 더하거나, 100%에서 <span class="math inline">\(m &lt; 7\)</span>인 Exact 확률을 모두 빼서 얻을 수 있다.</p>
+<p><strong><span class="math inline">\(H_0\)</span>가 거짓인 경우(<a href="#tbl-coverage-004" class="quarto-xref">표&nbsp;<span>9.4</span></a>)</strong>: 실제 수준이 <span class="math inline">\(\alpha' = 0.04\)</span>일 때, 250일 중 예외가 <span class="math inline">\(m = 7\)</span>일일 확률은 Exact 열에서 9.00%이다. 여기에 <span class="math inline">\(m \geq 7\)</span>의 기각역을 적용하면 제2종 오류를 범할 확률은 12.50%이다. <span class="math inline">\(m \leq 6\)</span>이면 <span class="math inline">\(H_0\)</span>를 기각하지 않는다는 뜻이므로, 이 값은 같은 표에서 <span class="math inline">\(m = 0, 1, \cdots, 6\)</span>의 Exact 확률을 모두 더한 것과 같다.</p>
+</div>
+</div>
+</section>
+<section id="basel-규제-기준" class="level3" data-number="9.4.2">
+<h3 data-number="9.4.2" class="anchored" data-anchor-id="basel-규제-기준"><span class="header-section-number">9.4.2</span> Basel 규제 기준</h3>
+<p>위 확률값을 바탕으로 바젤은행감독위원회는 <span class="math inline">\(\alpha = 0.01\)</span>에서 250개 관측치에 대한 백테스트의 예외 개수를 다음과 같이 구분했다 <span class="citation" data-cites="Basel2019">(<a href="#ref-Basel2019" role="doc-biblioref">Basel Committee on Banking Supervision 2019년</a>)</span>.</p>
+<div id="tbl-basel-zone" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-basel-zone-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;9.6: Backtesting zone과 자본 권장 배율
+</figcaption>
+<div aria-describedby="tbl-basel-zone-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Backtesting zone</th>
+<th>예외 개수</th>
+<th>최소 자본 권장 배율</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Green</td>
+<td>0 - 4</td>
+<td>1.5</td>
+</tr>
+<tr class="even">
+<td>Amber</td>
+<td>5 - 9</td>
+<td>1.7 - 1.92</td>
+</tr>
+<tr class="odd">
+<td>Red</td>
+<td>10개 이상</td>
+<td>2.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Green zone은 이름 그대로 <a href="../../concepts/glossary.html#내부모형-internal-model">내부모형</a>의 신뢰를 유지할 수 있는 백테스트 결과이다. 반면 Red zone은 VaR 계산에 사용한 모형이 잘못되었을 가능성이 높다는 뜻으로, 내부모형 신뢰 상실로 간주하며 모형의 가정이나 모수 추정법을 전면 재검토할 필요가 있다. 또한 내부모형이 Red zone으로 자주 떨어지면 <a href="../../concepts/glossary.html#감독-당국-supervisory-authority">감독 당국</a>이 내부모형 사용을 제한하거나 <a href="../../concepts/glossary.html#표준-접근법-standardised-approach">표준 접근법</a> 사용을 강제할 수 있다.</p>
+<p>Amber zone은 모형이 옳을 수도, 그렇지 않을 수도 있다고 판단되는 구간이다. 이 경우 감독 당국은 특별한 조치를 취하기 전에 은행으로부터 모형에 대한 정확한 정보를 제시받아 검토하기를 권장하며, <a href="../../concepts/glossary.html#자본요구액">자본요구액</a>은 점진적으로 증가한다. 백테스팅 결과에 따라 은행의 자본 요건은 계산된 VaR에 <a href="../../concepts/glossary.html#승수-multiplication-factor">권장 배율</a>을 곱한 값으로 추천된다.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: zone 판정
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>어떤 회사가 자산 A를 매입했다. 자산 A의 일일 수익률 분포가 독립인 정규분포 <span class="math inline">\(N(0.001, 0.025^2)\)</span>을 따른다고 가정하면, 수익률 기준 일일 1% VaR는</p>
+<p><span class="math display">\[
+-0.001 + z_{0.01} \times 0.025 \approx 0.0572
+\]</span></p>
+<p>이다. 이 기준에 따르면 과거 250일의 일일 수익률에서 <span class="math inline">\(-5.72\%\)</span>를 넘어서는 손실이 5개 미만이면 green zone, 5개 이상 10개 미만이면 amber zone, 10개 이상이면 red zone에 속한다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>통계적 검정의 특성상 green zone에 속하더라도 VaR 산출 방법이 잘못되었을 수 있고(제2종 오류), red zone에 속하더라도 VaR 계산 방법이 옳을 가능성이 있다(제1종 오류). 이 점을 항상 염두에 두어야 한다.</p>
+</div>
+</div>
+</section>
+<section id="백테스팅-구현" class="level3" data-number="9.4.3">
+<h3 data-number="9.4.3" class="anchored" data-anchor-id="백테스팅-구현"><span class="header-section-number">9.4.3</span> 백테스팅 구현</h3>
+<p><a href="../../concepts/glossary.html#fhs-filtered-historical-simulation">FHS</a>(filtered historical simulation)를 바탕으로 한 VaR 계산 방법을 확장하면 백테스팅 과정을 구현할 수 있다. <a href="../../concepts/glossary.html#garch">GARCH</a> 모형과 FHS로 매일 VaR를 산출하고, 실제 수익률의 분포를 조사해 VaR를 넘어서는 손실이 몇 번 발생했는지 확인하는 과정이다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rugarch)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sp500ret)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> sp500ret[[<span class="dv">1</span>]]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>logLike <span class="ot">&lt;-</span> <span class="cf">function</span>(p, r){</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> p[<span class="st">"omega"</span>] <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> p[<span class="st">"alpha"</span>] <span class="sc">-</span> p[<span class="st">"beta"</span>])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  logL <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(r)){</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    v[i] <span class="ot">&lt;-</span> p[<span class="st">"omega"</span>] <span class="sc">+</span> p[<span class="st">"alpha"</span>] <span class="sc">*</span> r[i<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> p[<span class="st">"beta"</span>] <span class="sc">*</span> v[i<span class="dv">-1</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    logL <span class="ot">&lt;-</span> logL <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">log</span>(v[i]) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> r[i]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> v[i]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span> logL</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>starting <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># 2007-01-02</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="dv">5250</span>      <span class="co"># 2007-12-31</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>VaR <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> starting<span class="sc">:</span>end){</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># estimation performed daily</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> total[(j<span class="dv">-1000</span>)<span class="sc">:</span>(j<span class="dv">-1</span>)]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="fu">c</span>(<span class="at">omega=</span><span class="fl">0.00001</span>, <span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">beta=</span><span class="fl">0.8</span>), logLike, <span class="at">r=</span>r)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  omega <span class="ot">&lt;-</span> res<span class="sc">$</span>par[<span class="st">"omega"</span>]; alpha <span class="ot">&lt;-</span> res<span class="sc">$</span>par[<span class="st">"alpha"</span>]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> res<span class="sc">$</span>par[<span class="st">"beta"</span>]</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate epsilon and variance</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> omega <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">-</span> beta)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  epsilon <span class="ot">&lt;-</span> r[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(v[<span class="dv">1</span>])</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(r)){</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    v[i] <span class="ot">&lt;-</span> omega <span class="sc">+</span> alpha <span class="sc">*</span> r[i<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> beta <span class="sc">*</span> v[i<span class="dv">-1</span>]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    epsilon[i] <span class="ot">&lt;-</span> r[i] <span class="sc">/</span> <span class="fu">sqrt</span>(v[i])</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  Xs <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(v)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (m <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>){</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    epsilon_scenario <span class="ot">&lt;-</span> <span class="fu">sample</span>(epsilon, <span class="dv">1</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    v[n<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> omega <span class="sc">+</span> beta <span class="sc">*</span> v[n] <span class="sc">+</span> alpha <span class="sc">*</span> r[n]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    r[n<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> epsilon_scenario <span class="sc">*</span> <span class="fu">sqrt</span>(v[n<span class="sc">+</span><span class="dv">1</span>])</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    Xs[m] <span class="ot">&lt;-</span> r[n<span class="sc">+</span><span class="dv">1</span>]</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  VaR[j <span class="sc">-</span> starting <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">quantile</span>(Xs, <span class="fl">0.01</span>)  <span class="co"># 99% VaR</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이 코드는 251일 각각에 대해 GARCH 모수를 새로 추정하고, 매일 10만 번의 시뮬레이션을 수행한다. 전체 계산량이 크므로 실행에 상당한 시간이 걸린다. 동작을 확인해 보려면 <code>starting</code>과 <code>end</code>의 간격이나 시뮬레이션 횟수를 줄여서 먼저 시험해 보는 것이 좋다.</p>
+</div>
+</div>
+</section>
+<section id="실행-결과" class="level3" data-number="9.4.4">
+<h3 data-number="9.4.4" class="anchored" data-anchor-id="실행-결과"><span class="header-section-number">9.4.4</span> 실행 결과</h3>
+<p><a href="#fig-backtest-2005" class="quarto-xref">그림&nbsp;<span>9.1</span></a> 와 <a href="#fig-backtest-2007" class="quarto-xref">그림&nbsp;<span>9.2</span></a> 은 위 프로그램을 <code>rugarch</code> 패키지에 포함된 S&amp;P 500 수익률 자료(<code>sp500ret</code>)에 적용한 결과이다. 각 그림에서 회색 선은 실제 일일 수익률, 붉은 선은 매일 산출한 99% VaR의 음수값이며, 파란 점은 손실이 VaR를 넘어선 날이다.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-backtest-2005" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-backtest-2005-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Backtest_2005.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-backtest-2005-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;9.1: 2005년 자료로 백테스트한 결과
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-backtest-2007" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-backtest-2007-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Backtest_2007.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-backtest-2007-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;9.2: 2007년 자료로 백테스트한 결과
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>2005년 자료에서는 VaR를 넘어서는 초과 손해가 총 3번 발생해 green zone에 해당한다. 반면 2007년 자료에서는 총 11번 발생해 red zone에 해당한다. 2007년 이후 금융 위기가 발생했음을 상기하면, 이 시기에 red zone이 나온 것은 우연이 아닐 것이다.</p>
+</section>
+</section>
+<section id="관련-페이지" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">9.5</span> 관련 페이지</h2>
 <ul>
 <li><a href="../../concepts/glossary.html">용어 정리</a></li>
 <li><a href="../../concepts/probability/independence.html">독립성</a></li>
@@ -456,7 +1279,20 @@ H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Basel1996" class="csl-entry" role="listitem">
+Basel Committee on Banking Supervision. 1996년. <em>Supervisory framework for the use of <span>“backtesting”</span> in conjunction with the internal models approach to market risk capital requirements</em>. Basel.
+</div>
+<div id="ref-Basel2019" class="csl-entry" role="listitem">
+Basel Committee on Banking Supervision. 2019년. <em>Calculation of RWA for market risk: (MAR30) Internal models approach</em>. Basel.
+</div>
+</div>
 </section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>바젤 I 협약은 1988년에 위험가중자산 대비 최소자본비율 8%를 도입하였다. 1996년 시장위험 개정은 시장위험 자본요건을 추가하고, 감독당국 승인을 전제로 VaR 기반 내부모형을 활용할 수 있도록 하였다.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -974,76 +1810,400 @@ H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Backtesting</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>VaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는 방법을 다룬다.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>VaR 초과손실의 의미를 이해한다.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Backtesting의 기본 논리를 설명한다.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>간단한 검정 결과를 해석한다.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Backtesting VaR</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">백테스트</span><span class="co">](../../concepts/glossary.qmd)</span>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <span class="co">[</span><span class="ot">VaR</span><span class="co">](../../concepts/glossary.qmd)</span> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### 왜 필요한가</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>만약 실제로 초과 손실이 20일 발생했다면 VaR가 잘못 계산된 걸까? 15일이면 괜찮은 걸까? 이런 질문에 답하기 위한 통계적 검정 기법이 백테스팅이다.</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>실제 손실이 예측한 손실과 일관되는지 확인하는 이 과정은, VaR 계산 모형이 올바르게 작동하는지 아니면 수정이 필요한지 판단하는 기준을 제공한다. 잘못된 결과의 원인은 잘못된 가정, 잘못 추정된 모수, 부적합한 모형 선택, 프로그램 오류 등 다양할 수 있다.</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 자기자본 요건 산정에 제한적으로 사용하도록 승인하면서 다음과 같이 설명했다.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 내부 모형 기반 접근법을 채택한 많은 은행들은, 위험 측정 시스템의 품질과 정확성을 가늠하기 위해 일일 손익을 모형이 산출한 위험 측도와 정기적으로 비교한다. "백테스팅"이라 불리는 이 과정은, 여러 금융기관이 자체 위험 측정 모형을 개발하고 도입하는 과정에서 유용함이 확인되었다...</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 바젤 위원회는 백테스팅이 다양한 상황을 포괄하면서도 일관된 방식으로, 내부 모형 접근법에 적절한 유인을 반영할 수 있는 가장 좋은 기회를 제공한다고 본다.</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; — Basel Committee (1996)</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 세 가지 통계적 검정</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[커버리지 검정](../../concepts/glossary.qmd)(coverage test)**: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[분포 검정](../../concepts/glossary.qmd)(distribution test)**: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[독립성](../../concepts/probability/independence.qmd) 검정(independence test)**: 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### 가설 검정 복습</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>본격적으로 살펴보기 전에, 가설 검정과 관련된 정의를 복습한다.</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제1종 오류](../../concepts/glossary.qmd)(Type I error)**: 귀무가설이 참일 때 귀무가설을 기각하는 오류</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제2종 오류](../../concepts/glossary.qmd)(Type II error)**: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류율**: 제1종 오류를 범할 확률</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류율**: 제2종 오류를 범할 확률</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>백테스트에서의 <span class="co">[</span><span class="ot">귀무가설</span><span class="co">](../../concepts/notation.qmd)</span>($H_0$)은 다음과 같이 표현할 수 있다.</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>이를 VaR 계산과 연관지어 살펴보면 다음과 같다.</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류**: VaR 계산 모형이 실제로 현실과 일치함에도, 우연히 정상 범주를 벗어난 관찰값이 많이 발견되어 모형을 잘못 기각하는 경우</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류**: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">### 관련 페이지</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Backtesting</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>VaR 모형의 예측 결과를 실제 손실 자료와 비교하여 평가하는 방법을 다룬다.</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>VaR 초과손실의 의미를 이해한다.</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Backtesting의 기본 논리를 설명한다.</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>간단한 검정 결과를 해석한다.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Backtesting VaR</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">백테스트</span><span class="co">](../../concepts/glossary.qmd#backtesting)</span>(backtesting)는 시간이 지남에 따라 특정 포트폴리오에 적용된 리스크 측도의 예측 성능을 평가하는 과정이다. 포트폴리오의 손익(P&amp;L) 자료가 충분히 쌓이면, 통계적 방법을 이용해 사용한 <span class="co">[</span><span class="ot">VaR</span><span class="co">](../../concepts/glossary.qmd#value-at-risk)</span> 측정 방법이 실제 리스크를 얼마나 잘 반영했는지 평가할 수 있다.</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### 왜 필요한가</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>하루 동안의 95% VaR를 예로 들 수 있다. 95% VaR에서는 약 5%의 날짜에 실제 손실이 VaR를 초과할 것으로 예상된다. 따라서 1년(약 250 영업일) 동안 대략 12~13일 정도는 VaR를 넘는 손실이 발생할 것으로 기대할 수 있다.</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## ES가 아니라 VaR로 검정하는 이유</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>Basel III에서는 시장위험 자본요건 산출에 VaR 대신 Expected Shortfall(ES)을 사용한다. 다만 backtesting은 여전히 VaR를 기준으로 수행한다.</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>만약 실제로 초과 손실이 20일 발생했다면 VaR가 잘못 계산된 걸까? 15일이면 괜찮은 걸까? 이런 질문에 답하기 위한 통계적 검정 기법이 백테스팅이다.</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>실제 손실이 예측한 손실과 일관되는지 확인하는 이 과정은, VaR 계산 모형이 올바르게 작동하는지 아니면 수정이 필요한지 판단하는 기준을 제공한다. 잘못된 결과의 원인은 잘못된 가정, 잘못 추정된 모수, 부적합한 모형 선택, 프로그램 오류 등 다양할 수 있다.</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>바젤 은행 감독 위원회는 1996년 은행이 내부적으로 계산한 VaR를 <span class="co">[</span><span class="ot">자기자본 요건</span><span class="co">](../../concepts/glossary.qmd#자기자본-요건-capital-requirement)</span> 산정에 제한적으로 사용하도록 승인하면서^<span class="co">[</span><span class="ot">바젤 I 협약은 1988년에 위험가중자산 대비 최소자본비율 8%를 도입하였다. 1996년 시장위험 개정은 시장위험 자본요건을 추가하고, 감독당국 승인을 전제로 VaR 기반 내부모형을 활용할 수 있도록 하였다.</span><span class="co">]</span> 다음과 같이 설명했다.</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 내부 모형 기반 접근법을 채택한 많은 은행들은, 위험 측정 시스템의 품질과 정확성을 가늠하기 위해 일일 손익을 모형이 산출한 위험 측도와 정기적으로 비교한다. "백테스팅"이라 불리는 이 과정은, 여러 금융기관이 자체 위험 측정 모형을 개발하고 도입하는 과정에서 유용함이 확인되었다...</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 바젤 위원회는 백테스팅이 다양한 상황을 포괄하면서도 일관된 방식으로, 내부 모형 접근법에 적절한 유인을 반영할 수 있는 가장 좋은 기회를 제공한다고 본다.</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; — </span><span class="co">[</span><span class="ot">@Basel1996</span><span class="co">]</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="fu">### 세 가지 통계적 검정</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>백테스팅에 관한 통계적 검정은 크게 세 가지로 나눌 수 있다.</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[커버리지 검정](../../concepts/glossary.qmd#커버리지-검정-coverage-test)(coverage test)**: VaR를 초과하는 빈도가 사전에 정한 유의수준과 일치하는지 확인한다.</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[분포 검정](../../concepts/glossary.qmd#분포-검정-distribution-test)(distribution test)**: 적합도(goodness-of-fit) 검정을 통해 예측한 분포와 실제 자산의 분포가 일치하는지 확인한다.</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[독립성](../../concepts/probability/independence.qmd) 검정(independence test)**: 모형에서 독립으로 가정한 부분이 실제로 독립적으로 나타났는지 확인한다.</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### 가설 검정 복습</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>본격적으로 살펴보기 전에, 가설 검정과 관련된 정의를 복습한다.</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제1종 오류](../../concepts/glossary.qmd#제1종-오류-type-i-error)(Type I error)**: 귀무가설이 참일 때 귀무가설을 기각하는 오류</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**[제2종 오류](../../concepts/glossary.qmd#제2종-오류-type-ii-error)(Type II error)**: 귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류율**: 제1종 오류를 범할 확률</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류율**: 제2종 오류를 범할 확률</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>백테스트에서의 <span class="co">[</span><span class="ot">귀무가설</span><span class="co">](../../concepts/notation.qmd)</span>($H_0$)은 다음과 같이 표현할 수 있다.</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>H_0 : \text{VaR를 계산하는 데 사용한 모형의 가정이 옳다.}</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>이를 VaR 계산과 연관지어 살펴보면 다음과 같다.</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제1종 오류**: VaR 계산 모형이 실제로 현실과 일치함에도, 우연히 정상 범주를 벗어난 관찰값이 많이 발견되어 모형을 잘못 기각하는 경우</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**제2종 오류**: 모형의 가정이 실제와 맞지 않음에도, 자료에서 특이점을 발견하지 못해 모형이 잘못되었다고 기각하지 못하는 경우</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Coverage test</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>VaR를 넘어서는 손실의 실제 빈도가 모형이 예측하는 빈도와 일관되는지 검정한다. 손익에 대한 충분한 관찰 기간이 있고 각 시점에서 VaR를 계산할 수 있다면 적용할 수 있으며, 모수적·비모수적 방법 모두에 적용할 수 있다.</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>VaR가 매일 계산된다고 하고, 유의수준 $\alpha$에서 시점 $t$의 손실에 대해 계산한 값을 $\mathrm{VaR}_{\alpha,t}$라고 하자. 이 값은 시점 $t$ 직전에 계산된, 시점 $t$의 예상 최대 손실이다. 시점 $t$에 실제 발생한 손실을 $L_t$라고 하면, $L_t$가 $\mathrm{VaR}_{\alpha,t}$를 넘어설 수도, 넘어서지 않을 수도 있다. VaR 계산이 정확하다면 대략 $100\alpha\%$의 확률로 실제 손실이 VaR를 넘어설 것이다.</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## 최대 손실인데 왜 넘어설 수 있는가</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>여기서 "예상 최대 손실"은 절대 넘지 않는 상한을 뜻하지 않는다. <span class="co">[</span><span class="ot">VaR</span><span class="co">](../../concepts/glossary.qmd#value-at-risk)</span>는 손실분포의 분위수로 정의되므로(<span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span> 참고), 손실분포가 연속적이라면</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(L_t &gt; \mathrm{VaR}_{\alpha,t}) = \alpha</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>가 성립한다. 일반적인 분포에서는 이 초과확률이 $\alpha$ 이하일 수 있다.</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>즉 초과가 발생하는 것 자체는 모형의 실패가 아니라, 애초에 $\alpha$ 정도의 비율로 일어나도록 설계된 결과다. $\alpha = 0.01$이라면 100일 중 1일 정도는 넘어서는 것이 정상이다.</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>정확히 말하면 $\mathrm{VaR}_{\alpha,t}$는 "최악의 $\alpha$에 해당하는 경우를 제외했을 때의 최대 손실", 곧 신뢰수준 $1-\alpha$에서의 최대 손실이다. 그래서 Coverage test는 초과가 일어났는지가 아니라 **초과 빈도가 $\alpha$와 맞는지**를 검정한다.</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>Coverage test에서는 $L_t &gt; \mathrm{VaR}_{\alpha,t}$인 사건이 발생하는 비율이 미리 정한 $\alpha$에 비해 지나치게 많지 않은지 살펴본다. 이를 위해</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>I_t = \begin{cases} 1, &amp; L_t &gt; \mathrm{VaR}_{\alpha,t} <span class="sc">\\</span> 0, &amp; \text{그 외} \end{cases}</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>를 정의하면 $I_t$는 베르누이 시행이다. 총 $n$개의 손익 자료를 관찰했을 때, 이 중 VaR를 넘어서는 총 손실 횟수를 나타내는 확률변수</span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>X = \sum_{t=1}^n I_t</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>는 이항분포 $\mathrm{B}(n, \alpha)$를 따른다. 즉,</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X = k) = \binom{n}{k} \alpha^k (1-\alpha)^{n-k}.</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>VaR 산출에 사용한 모형이 잘 맞는지 검정하기 위해 다음 귀무가설을 생각한다.</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>H_0 : X \sim \mathrm{B}(n, \alpha)</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>대립가설은 단측 검정을 고려한다.</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>H_1 : X \sim \mathrm{B}(n, \alpha'), \quad \alpha' &gt; \alpha.</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>귀무가설의 기각 여부는 제1종 오류율과 제2종 오류율을 함께 고려해 결정한다. $n$번의 관찰 기간 동안 VaR를 넘어서는 손실이 $m$개 이상 발생하면 $H_0$를 기각하는 검정 규칙을 생각하면, 이때의 제1종 오류율은</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X \geq m) = \sum_{k=m}^n \binom{n}{k}\alpha^k(1-\alpha)^{n-k} = 1 - \sum_{k=0}^{m-1}\binom{n}{k}\alpha^k(1-\alpha)^{n-k}</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>$$ {#eq-type1}</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>이다. 이와 대응해, $H_1$이 참($\alpha' &gt; \alpha$)이라고 가정했을 때 $m$개 미만의 예외만 발생해 $H_0$를 기각하지 못할 확률인 제2종 오류율은</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X &lt; m) = \sum_{k=0}^{m-1}\binom{n}{k}(\alpha')^k(1-\alpha')^{n-k}</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>$$ {#eq-type2}</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>@eq-type1 의 값은 R의 <span class="in">`pbinom`</span>(이항분포의 누적분포함수)으로 간단히 구할 수 있다.</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a><span class="co"># pbinom: 이항분포의 누적분포함수</span></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(m <span class="sc">-</span> <span class="dv">1</span>, n, alpha)</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="fu">### 수치표로 확인하기</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>@tbl-coverage-h0-true 는 위 논의를 $n = 250$, $\alpha = 0.01$에 대해 정리한 것이다. 예외 개수 $m$이 가장 왼쪽 열에 나열되어 있다. 250번의 관찰 동안 VaR를 넘어서는 손실이 $m$개 이상 발생하면 $H_0$를 기각한다는 규칙을 정했다고 하자.</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>이때 $H_0$가 참임에도, 다시 말해 VaR 모형이 정확함에도 $H_0$를 기각할 확률인 제1종 오류율이 Type 1 열에 기록되어 있다. 이는 @eq-type1 로 계산한 값이다. Exact 열에는 $H_0$가 참이라는 가정에서 예외 개수가 정확히 $m$일 확률</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X = m) = \binom{n}{m}\alpha^m (1-\alpha)^{n-m}</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>이 기록되어 있다.</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 예외 개수 $m$ <span class="pp">|</span> Exact <span class="pp">|</span> Type 1 <span class="pp">|</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">|</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 8.10% <span class="pp">|</span> 100.00% <span class="pp">|</span></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 20.50% <span class="pp">|</span> 91.90% <span class="pp">|</span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 25.70% <span class="pp">|</span> 71.40% <span class="pp">|</span></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 21.50% <span class="pp">|</span> 45.70% <span class="pp">|</span></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> 13.40% <span class="pp">|</span> 24.20% <span class="pp">|</span></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> 6.70% <span class="pp">|</span> 10.80% <span class="pp">|</span></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> 2.70% <span class="pp">|</span> 4.10% <span class="pp">|</span></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7 <span class="pp">|</span> 1.00% <span class="pp">|</span> 1.40% <span class="pp">|</span></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8 <span class="pp">|</span> 0.30% <span class="pp">|</span> 0.40% <span class="pp">|</span></span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 9 <span class="pp">|</span> 0.10% <span class="pp">|</span> 0.10% <span class="pp">|</span></span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 11 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 12 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 13 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 14 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 15 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>: $H_0$가 참일 때($\alpha = 0.01$)의 예외 개수별 확률 {#tbl-coverage-h0-true}</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>아래 네 표(@tbl-coverage-002 ~ @tbl-coverage-005)도 250번의 관찰 동안 예외가 $m$개 이상이면 $H_0$를 기각한다는 규칙을 따르는 것은 같다. 다만 이번에는 $H_0$가 거짓이고 $H_1$이 참, 즉 $X \sim \mathrm{B}(n, \alpha')$이라고 가정한다. 가능한 모든 $\alpha'$에 대해 계산할 수는 없으므로 $\alpha' = 0.02, 0.03, 0.04, 0.05$의 네 경우만 표로 정리했다.</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>예를 들어 $\alpha' = 0.02$는 내가 계산한 VaR의 유의수준이 사실 0.01이 아니라 0.02 수준이라는 뜻으로 해석할 수 있다. 즉 $H_0$가 거짓(VaR 모형이 잘못되었음)인데도 $m$개 미만의 예외만 발생해 귀무가설을 기각하지 못할 확률이며, @eq-type2 로 계산한다. 한편 Exact 열은</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X = m) = \binom{n}{m}(\alpha')^m (1-\alpha')^{n-m}</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a>::: {layout-ncol=2}</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $m$ <span class="pp">|</span> Exact <span class="pp">|</span> Type 2 <span class="pp">|</span></span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">|</span></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0.60% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 3.30% <span class="pp">|</span> 0.60% <span class="pp">|</span></span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 8.30% <span class="pp">|</span> 3.90% <span class="pp">|</span></span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 14.00% <span class="pp">|</span> 12.20% <span class="pp">|</span></span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> 17.70% <span class="pp">|</span> 26.20% <span class="pp">|</span></span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> 17.70% <span class="pp">|</span> 43.90% <span class="pp">|</span></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> 14.80% <span class="pp">|</span> 61.60% <span class="pp">|</span></span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7 <span class="pp">|</span> 10.50% <span class="pp">|</span> 76.40% <span class="pp">|</span></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8 <span class="pp">|</span> 6.50% <span class="pp">|</span> 86.90% <span class="pp">|</span></span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 9 <span class="pp">|</span> 3.60% <span class="pp">|</span> 93.40% <span class="pp">|</span></span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> 1.80% <span class="pp">|</span> 97.00% <span class="pp">|</span></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 11 <span class="pp">|</span> 0.80% <span class="pp">|</span> 98.70% <span class="pp">|</span></span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 12 <span class="pp">|</span> 0.30% <span class="pp">|</span> 99.50% <span class="pp">|</span></span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 13 <span class="pp">|</span> 0.10% <span class="pp">|</span> 99.80% <span class="pp">|</span></span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 14 <span class="pp">|</span> 0.00% <span class="pp">|</span> 99.90% <span class="pp">|</span></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 15 <span class="pp">|</span> 0.00% <span class="pp">|</span> 100.00% <span class="pp">|</span></span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>: 실제 수준이 $\alpha' = 0.02$인 경우 {#tbl-coverage-002}</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $m$ <span class="pp">|</span> Exact <span class="pp">|</span> Type 2 <span class="pp">|</span></span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">|</span></span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 0.40% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 1.50% <span class="pp">|</span> 0.40% <span class="pp">|</span></span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 3.80% <span class="pp">|</span> 1.90% <span class="pp">|</span></span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> 7.20% <span class="pp">|</span> 5.70% <span class="pp">|</span></span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> 10.90% <span class="pp">|</span> 12.80% <span class="pp">|</span></span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> 13.80% <span class="pp">|</span> 23.70% <span class="pp">|</span></span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7 <span class="pp">|</span> 14.90% <span class="pp">|</span> 37.50% <span class="pp">|</span></span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8 <span class="pp">|</span> 14.00% <span class="pp">|</span> 52.40% <span class="pp">|</span></span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 9 <span class="pp">|</span> 11.60% <span class="pp">|</span> 66.30% <span class="pp">|</span></span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> 8.60% <span class="pp">|</span> 77.90% <span class="pp">|</span></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 11 <span class="pp">|</span> 5.80% <span class="pp">|</span> 86.60% <span class="pp">|</span></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 12 <span class="pp">|</span> 3.60% <span class="pp">|</span> 92.40% <span class="pp">|</span></span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 13 <span class="pp">|</span> 2.00% <span class="pp">|</span> 96.00% <span class="pp">|</span></span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 14 <span class="pp">|</span> 1.10% <span class="pp">|</span> 98.00% <span class="pp">|</span></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 15 <span class="pp">|</span> 0.50% <span class="pp">|</span> 99.10% <span class="pp">|</span></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>: 실제 수준이 $\alpha' = 0.03$인 경우 {#tbl-coverage-003}</span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $m$ <span class="pp">|</span> Exact <span class="pp">|</span> Type 2 <span class="pp">|</span></span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">|</span></span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 0.20% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 0.70% <span class="pp">|</span> 0.20% <span class="pp">|</span></span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> 1.80% <span class="pp">|</span> 0.90% <span class="pp">|</span></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> 3.60% <span class="pp">|</span> 2.70% <span class="pp">|</span></span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> 6.20% <span class="pp">|</span> 6.30% <span class="pp">|</span></span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7 <span class="pp">|</span> 9.00% <span class="pp">|</span> 12.50% <span class="pp">|</span></span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8 <span class="pp">|</span> 11.30% <span class="pp">|</span> 21.50% <span class="pp">|</span></span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 9 <span class="pp">|</span> 12.70% <span class="pp">|</span> 32.80% <span class="pp">|</span></span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> 12.80% <span class="pp">|</span> 45.50% <span class="pp">|</span></span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 11 <span class="pp">|</span> 11.60% <span class="pp">|</span> 58.30% <span class="pp">|</span></span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 12 <span class="pp">|</span> 9.60% <span class="pp">|</span> 69.90% <span class="pp">|</span></span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 13 <span class="pp">|</span> 7.30% <span class="pp">|</span> 79.50% <span class="pp">|</span></span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 14 <span class="pp">|</span> 5.20% <span class="pp">|</span> 86.90% <span class="pp">|</span></span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 15 <span class="pp">|</span> 3.40% <span class="pp">|</span> 92.10% <span class="pp">|</span></span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a>: 실제 수준이 $\alpha' = 0.04$인 경우 {#tbl-coverage-004}</span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $m$ <span class="pp">|</span> Exact <span class="pp">|</span> Type 2 <span class="pp">|</span></span>
+<span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">| ---:</span> <span class="pp">|</span></span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 0 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 0.00% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 0.10% <span class="pp">|</span> 0.00% <span class="pp">|</span></span>
+<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> 0.30% <span class="pp">|</span> 0.10% <span class="pp">|</span></span>
+<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> 0.90% <span class="pp">|</span> 0.50% <span class="pp">|</span></span>
+<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 6 <span class="pp">|</span> 1.80% <span class="pp">|</span> 1.30% <span class="pp">|</span></span>
+<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 7 <span class="pp">|</span> 3.40% <span class="pp">|</span> 3.10% <span class="pp">|</span></span>
+<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 8 <span class="pp">|</span> 5.40% <span class="pp">|</span> 6.50% <span class="pp">|</span></span>
+<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 9 <span class="pp">|</span> 7.60% <span class="pp">|</span> 11.90% <span class="pp">|</span></span>
+<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10 <span class="pp">|</span> 9.60% <span class="pp">|</span> 19.50% <span class="pp">|</span></span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 11 <span class="pp">|</span> 11.10% <span class="pp">|</span> 29.10% <span class="pp">|</span></span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 12 <span class="pp">|</span> 11.60% <span class="pp">|</span> 40.20% <span class="pp">|</span></span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 13 <span class="pp">|</span> 11.20% <span class="pp">|</span> 51.80% <span class="pp">|</span></span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 14 <span class="pp">|</span> 10.00% <span class="pp">|</span> 62.90% <span class="pp">|</span></span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 15 <span class="pp">|</span> 8.20% <span class="pp">|</span> 72.90% <span class="pp">|</span></span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a>: 실제 수준이 $\alpha' = 0.05$인 경우 {#tbl-coverage-005}</span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a>위 표들의 값은 <span class="co">[</span><span class="ot">바젤은행감독위원회 규제 문서</span><span class="co">](https://www.bis.org/basel_framework/chapter/MAR/99.htm)</span>에 정리된 250개 독립 관측치 기준 수치이다.</span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a><span class="fu">## 표 읽는 법</span></span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a>$H_0$를 기각하는 규칙이 "예외 개수 $m \geq 7$"이라고 하자.</span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a>**$H_0$가 참인 경우(@tbl-coverage-h0-true)**: VaR 모형이 올바를 때 $\alpha = 0.01$ 수준에서 계산한 VaR를 넘어서는 손실이 250일 중 정확히 7일일 확률은 Exact 열에서 1.00%이다. $m \geq 7$에서 기각한다고 하면 제1종 오류를 범할 확률은 Type 1 열에서 1.40%이다. 이 값은 $m \geq 7$인 Exact 확률을 모두 더하거나, 100%에서 $m &lt; 7$인 Exact 확률을 모두 빼서 얻을 수 있다.</span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>**$H_0$가 거짓인 경우(@tbl-coverage-004)**: 실제 수준이 $\alpha' = 0.04$일 때, 250일 중 예외가 $m = 7$일일 확률은 Exact 열에서 9.00%이다. 여기에 $m \geq 7$의 기각역을 적용하면 제2종 오류를 범할 확률은 12.50%이다. $m \leq 6$이면 $H_0$를 기각하지 않는다는 뜻이므로, 이 값은 같은 표에서 $m = 0, 1, \cdots, 6$의 Exact 확률을 모두 더한 것과 같다.</span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basel 규제 기준</span></span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a>위 확률값을 바탕으로 바젤은행감독위원회는 $\alpha = 0.01$에서 250개 관측치에 대한 백테스트의 예외 개수를 다음과 같이 구분했다 <span class="co">[</span><span class="ot">@Basel2019</span><span class="co">]</span>.</span>
+<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Backtesting zone <span class="pp">|</span> 예외 개수 <span class="pp">|</span> 최소 자본 권장 배율 <span class="pp">|</span></span>
+<span id="cb3-294"><a href="#cb3-294" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb3-295"><a href="#cb3-295" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Green <span class="pp">|</span> 0 - 4 <span class="pp">|</span> 1.5 <span class="pp">|</span></span>
+<span id="cb3-296"><a href="#cb3-296" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Amber <span class="pp">|</span> 5 - 9 <span class="pp">|</span> 1.7 - 1.92 <span class="pp">|</span></span>
+<span id="cb3-297"><a href="#cb3-297" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Red <span class="pp">|</span> 10개 이상 <span class="pp">|</span> 2.0 <span class="pp">|</span></span>
+<span id="cb3-298"><a href="#cb3-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-299"><a href="#cb3-299" aria-hidden="true" tabindex="-1"></a>: Backtesting zone과 자본 권장 배율 {#tbl-basel-zone}</span>
+<span id="cb3-300"><a href="#cb3-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-301"><a href="#cb3-301" aria-hidden="true" tabindex="-1"></a>Green zone은 이름 그대로 <span class="co">[</span><span class="ot">내부모형</span><span class="co">](../../concepts/glossary.qmd#내부모형-internal-model)</span>의 신뢰를 유지할 수 있는 백테스트 결과이다. 반면 Red zone은 VaR 계산에 사용한 모형이 잘못되었을 가능성이 높다는 뜻으로, 내부모형 신뢰 상실로 간주하며 모형의 가정이나 모수 추정법을 전면 재검토할 필요가 있다. 또한 내부모형이 Red zone으로 자주 떨어지면 <span class="co">[</span><span class="ot">감독 당국</span><span class="co">](../../concepts/glossary.qmd#감독-당국-supervisory-authority)</span>이 내부모형 사용을 제한하거나 <span class="co">[</span><span class="ot">표준 접근법</span><span class="co">](../../concepts/glossary.qmd#표준-접근법-standardised-approach)</span> 사용을 강제할 수 있다.</span>
+<span id="cb3-302"><a href="#cb3-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-303"><a href="#cb3-303" aria-hidden="true" tabindex="-1"></a>Amber zone은 모형이 옳을 수도, 그렇지 않을 수도 있다고 판단되는 구간이다. 이 경우 감독 당국은 특별한 조치를 취하기 전에 은행으로부터 모형에 대한 정확한 정보를 제시받아 검토하기를 권장하며, <span class="co">[</span><span class="ot">자본요구액</span><span class="co">](../../concepts/glossary.qmd#자본요구액)</span>은 점진적으로 증가한다. 백테스팅 결과에 따라 은행의 자본 요건은 계산된 VaR에 <span class="co">[</span><span class="ot">권장 배율</span><span class="co">](../../concepts/glossary.qmd#승수-multiplication-factor)</span>을 곱한 값으로 추천된다.</span>
+<span id="cb3-304"><a href="#cb3-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-305"><a href="#cb3-305" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb3-306"><a href="#cb3-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: zone 판정</span></span>
+<span id="cb3-307"><a href="#cb3-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-308"><a href="#cb3-308" aria-hidden="true" tabindex="-1"></a>어떤 회사가 자산 A를 매입했다. 자산 A의 일일 수익률 분포가 독립인 정규분포 $N(0.001, 0.025^2)$을 따른다고 가정하면, 수익률 기준 일일 1% VaR는</span>
+<span id="cb3-309"><a href="#cb3-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-310"><a href="#cb3-310" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-311"><a href="#cb3-311" aria-hidden="true" tabindex="-1"></a>-0.001 + z_{0.01} \times 0.025 \approx 0.0572</span>
+<span id="cb3-312"><a href="#cb3-312" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-313"><a href="#cb3-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-314"><a href="#cb3-314" aria-hidden="true" tabindex="-1"></a>이다. 이 기준에 따르면 과거 250일의 일일 수익률에서 $-5.72\%$를 넘어서는 손실이 5개 미만이면 green zone, 5개 이상 10개 미만이면 amber zone, 10개 이상이면 red zone에 속한다.</span>
+<span id="cb3-315"><a href="#cb3-315" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-316"><a href="#cb3-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-317"><a href="#cb3-317" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb3-318"><a href="#cb3-318" aria-hidden="true" tabindex="-1"></a>통계적 검정의 특성상 green zone에 속하더라도 VaR 산출 방법이 잘못되었을 수 있고(제2종 오류), red zone에 속하더라도 VaR 계산 방법이 옳을 가능성이 있다(제1종 오류). 이 점을 항상 염두에 두어야 한다.</span>
+<span id="cb3-319"><a href="#cb3-319" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-320"><a href="#cb3-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-321"><a href="#cb3-321" aria-hidden="true" tabindex="-1"></a><span class="fu">### 백테스팅 구현</span></span>
+<span id="cb3-322"><a href="#cb3-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-323"><a href="#cb3-323" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">FHS</span><span class="co">](../../concepts/glossary.qmd#fhs-filtered-historical-simulation)</span>(filtered historical simulation)를 바탕으로 한 VaR 계산 방법을 확장하면 백테스팅 과정을 구현할 수 있다. <span class="co">[</span><span class="ot">GARCH</span><span class="co">](../../concepts/glossary.qmd#garch)</span> 모형과 FHS로 매일 VaR를 산출하고, 실제 수익률의 분포를 조사해 VaR를 넘어서는 손실이 몇 번 발생했는지 확인하는 과정이다.</span>
+<span id="cb3-324"><a href="#cb3-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-325"><a href="#cb3-325" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb3-326"><a href="#cb3-326" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rugarch)</span>
+<span id="cb3-327"><a href="#cb3-327" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sp500ret)</span>
+<span id="cb3-328"><a href="#cb3-328" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> sp500ret[[<span class="dv">1</span>]]</span>
+<span id="cb3-329"><a href="#cb3-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-330"><a href="#cb3-330" aria-hidden="true" tabindex="-1"></a>logLike <span class="ot">&lt;-</span> <span class="cf">function</span>(p, r){</span>
+<span id="cb3-331"><a href="#cb3-331" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> p[<span class="st">"omega"</span>] <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> p[<span class="st">"alpha"</span>] <span class="sc">-</span> p[<span class="st">"beta"</span>])</span>
+<span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a>  logL <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-333"><a href="#cb3-333" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(r)){</span>
+<span id="cb3-334"><a href="#cb3-334" aria-hidden="true" tabindex="-1"></a>    v[i] <span class="ot">&lt;-</span> p[<span class="st">"omega"</span>] <span class="sc">+</span> p[<span class="st">"alpha"</span>] <span class="sc">*</span> r[i<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> p[<span class="st">"beta"</span>] <span class="sc">*</span> v[i<span class="dv">-1</span>]</span>
+<span id="cb3-335"><a href="#cb3-335" aria-hidden="true" tabindex="-1"></a>    logL <span class="ot">&lt;-</span> logL <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">log</span>(v[i]) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> r[i]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> v[i]</span>
+<span id="cb3-336"><a href="#cb3-336" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-337"><a href="#cb3-337" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span> logL</span>
+<span id="cb3-338"><a href="#cb3-338" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-339"><a href="#cb3-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-340"><a href="#cb3-340" aria-hidden="true" tabindex="-1"></a>starting <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># 2007-01-02</span></span>
+<span id="cb3-341"><a href="#cb3-341" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="dv">5250</span>      <span class="co"># 2007-12-31</span></span>
+<span id="cb3-342"><a href="#cb3-342" aria-hidden="true" tabindex="-1"></a>VaR <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb3-343"><a href="#cb3-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-344"><a href="#cb3-344" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> starting<span class="sc">:</span>end){</span>
+<span id="cb3-345"><a href="#cb3-345" aria-hidden="true" tabindex="-1"></a>  <span class="co"># estimation performed daily</span></span>
+<span id="cb3-346"><a href="#cb3-346" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">&lt;-</span> total[(j<span class="dv">-1000</span>)<span class="sc">:</span>(j<span class="dv">-1</span>)]</span>
+<span id="cb3-347"><a href="#cb3-347" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="fu">c</span>(<span class="at">omega=</span><span class="fl">0.00001</span>, <span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">beta=</span><span class="fl">0.8</span>), logLike, <span class="at">r=</span>r)</span>
+<span id="cb3-348"><a href="#cb3-348" aria-hidden="true" tabindex="-1"></a>  omega <span class="ot">&lt;-</span> res<span class="sc">$</span>par[<span class="st">"omega"</span>]; alpha <span class="ot">&lt;-</span> res<span class="sc">$</span>par[<span class="st">"alpha"</span>]</span>
+<span id="cb3-349"><a href="#cb3-349" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> res<span class="sc">$</span>par[<span class="st">"beta"</span>]</span>
+<span id="cb3-350"><a href="#cb3-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-351"><a href="#cb3-351" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate epsilon and variance</span></span>
+<span id="cb3-352"><a href="#cb3-352" aria-hidden="true" tabindex="-1"></a>  v <span class="ot">&lt;-</span> omega <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">-</span> beta)</span>
+<span id="cb3-353"><a href="#cb3-353" aria-hidden="true" tabindex="-1"></a>  epsilon <span class="ot">&lt;-</span> r[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(v[<span class="dv">1</span>])</span>
+<span id="cb3-354"><a href="#cb3-354" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(r)){</span>
+<span id="cb3-355"><a href="#cb3-355" aria-hidden="true" tabindex="-1"></a>    v[i] <span class="ot">&lt;-</span> omega <span class="sc">+</span> alpha <span class="sc">*</span> r[i<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> beta <span class="sc">*</span> v[i<span class="dv">-1</span>]</span>
+<span id="cb3-356"><a href="#cb3-356" aria-hidden="true" tabindex="-1"></a>    epsilon[i] <span class="ot">&lt;-</span> r[i] <span class="sc">/</span> <span class="fu">sqrt</span>(v[i])</span>
+<span id="cb3-357"><a href="#cb3-357" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-358"><a href="#cb3-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-359"><a href="#cb3-359" aria-hidden="true" tabindex="-1"></a>  Xs <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb3-360"><a href="#cb3-360" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(v)</span>
+<span id="cb3-361"><a href="#cb3-361" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (m <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>){</span>
+<span id="cb3-362"><a href="#cb3-362" aria-hidden="true" tabindex="-1"></a>    epsilon_scenario <span class="ot">&lt;-</span> <span class="fu">sample</span>(epsilon, <span class="dv">1</span>)</span>
+<span id="cb3-363"><a href="#cb3-363" aria-hidden="true" tabindex="-1"></a>    v[n<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> omega <span class="sc">+</span> beta <span class="sc">*</span> v[n] <span class="sc">+</span> alpha <span class="sc">*</span> r[n]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3-364"><a href="#cb3-364" aria-hidden="true" tabindex="-1"></a>    r[n<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> epsilon_scenario <span class="sc">*</span> <span class="fu">sqrt</span>(v[n<span class="sc">+</span><span class="dv">1</span>])</span>
+<span id="cb3-365"><a href="#cb3-365" aria-hidden="true" tabindex="-1"></a>    Xs[m] <span class="ot">&lt;-</span> r[n<span class="sc">+</span><span class="dv">1</span>]</span>
+<span id="cb3-366"><a href="#cb3-366" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-367"><a href="#cb3-367" aria-hidden="true" tabindex="-1"></a>  VaR[j <span class="sc">-</span> starting <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">quantile</span>(Xs, <span class="fl">0.01</span>)  <span class="co"># 99% VaR</span></span>
+<span id="cb3-368"><a href="#cb3-368" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-369"><a href="#cb3-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-370"><a href="#cb3-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-371"><a href="#cb3-371" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb3-372"><a href="#cb3-372" aria-hidden="true" tabindex="-1"></a>이 코드는 251일 각각에 대해 GARCH 모수를 새로 추정하고, 매일 10만 번의 시뮬레이션을 수행한다. 전체 계산량이 크므로 실행에 상당한 시간이 걸린다. 동작을 확인해 보려면 <span class="in">`starting`</span>과 <span class="in">`end`</span>의 간격이나 시뮬레이션 횟수를 줄여서 먼저 시험해 보는 것이 좋다.</span>
+<span id="cb3-373"><a href="#cb3-373" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-374"><a href="#cb3-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-375"><a href="#cb3-375" aria-hidden="true" tabindex="-1"></a><span class="fu">### 실행 결과</span></span>
+<span id="cb3-376"><a href="#cb3-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-377"><a href="#cb3-377" aria-hidden="true" tabindex="-1"></a>@fig-backtest-2005 와 @fig-backtest-2007 은 위 프로그램을 <span class="in">`rugarch`</span> 패키지에 포함된 S&amp;P 500 수익률 자료(<span class="in">`sp500ret`</span>)에 적용한 결과이다. 각 그림에서 회색 선은 실제 일일 수익률, 붉은 선은 매일 산출한 99% VaR의 음수값이며, 파란 점은 손실이 VaR를 넘어선 날이다.</span>
+<span id="cb3-378"><a href="#cb3-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-379"><a href="#cb3-379" aria-hidden="true" tabindex="-1"></a>::: {layout-ncol=2}</span>
+<span id="cb3-380"><a href="#cb3-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-381"><a href="#cb3-381" aria-hidden="true" tabindex="-1"></a><span class="al">![2005년 자료로 백테스트한 결과](../../assets/figures/Backtest_2005.svg)</span>{#fig-backtest-2005}</span>
+<span id="cb3-382"><a href="#cb3-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-383"><a href="#cb3-383" aria-hidden="true" tabindex="-1"></a><span class="al">![2007년 자료로 백테스트한 결과](../../assets/figures/Backtest_2007.svg)</span>{#fig-backtest-2007}</span>
+<span id="cb3-384"><a href="#cb3-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-385"><a href="#cb3-385" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-386"><a href="#cb3-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-387"><a href="#cb3-387" aria-hidden="true" tabindex="-1"></a>2005년 자료에서는 VaR를 넘어서는 초과 손해가 총 3번 발생해 green zone에 해당한다. 반면 2007년 자료에서는 총 11번 발생해 red zone에 해당한다. 2007년 이후 금융 위기가 발생했음을 상기하면, 이 시기에 red zone이 나온 것은 우연이 아닐 것이다.</span>
+<span id="cb3-388"><a href="#cb3-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-389"><a href="#cb3-389" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb3-390"><a href="#cb3-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-391"><a href="#cb3-391" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span>
+<span id="cb3-392"><a href="#cb3-392" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
+<span id="cb3-393"><a href="#cb3-393" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span></span>
+<span id="cb3-394"><a href="#cb3-394" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
