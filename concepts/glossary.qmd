@@ -14,11 +14,11 @@
 
 ## 위험 측정
 
-### Value at Risk
+### 위험가치(Value at Risk, VaR) {#value-at-risk}
 
 정해진 보유 기간과 신뢰수준에서 손실의 분위수를 나타내는 위험 측도이다.
 
-### Backtesting
+### 백테스팅(Backtesting) {#backtesting}
 
 위험 모형의 예측값과 실제 손실 자료를 비교하여 모형이 적절한지 확인하는 절차이다.
 
