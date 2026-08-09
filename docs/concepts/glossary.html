@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -319,6 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#backtesting" id="toc-backtesting" class="nav-link" data-scroll-target="#backtesting">Backtesting</a></li>
   <li><a href="#커버리지-검정-coverage-test" id="toc-커버리지-검정-coverage-test" class="nav-link" data-scroll-target="#커버리지-검정-coverage-test">커버리지 검정 (Coverage test)</a></li>
   <li><a href="#분포-검정-distribution-test" id="toc-분포-검정-distribution-test" class="nav-link" data-scroll-target="#분포-검정-distribution-test">분포 검정 (Distribution test)</a></li>
+  <li><a href="#fhs-filtered-historical-simulation" id="toc-fhs-filtered-historical-simulation" class="nav-link" data-scroll-target="#fhs-filtered-historical-simulation">FHS (Filtered historical simulation)</a></li>
   </ul></li>
   <li><a href="#가설-검정" id="toc-가설-검정" class="nav-link" data-scroll-target="#가설-검정">가설 검정</a>
   <ul class="collapse">
@@ -330,6 +350,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#변동성-1" id="toc-변동성-1" class="nav-link" data-scroll-target="#변동성-1">변동성</a></li>
   <li><a href="#실현변동성" id="toc-실현변동성" class="nav-link" data-scroll-target="#실현변동성">실현변동성</a></li>
   <li><a href="#내재변동성" id="toc-내재변동성" class="nav-link" data-scroll-target="#내재변동성">내재변동성</a></li>
+  <li><a href="#garch" id="toc-garch" class="nav-link" data-scroll-target="#garch">GARCH</a></li>
+  </ul></li>
+  <li><a href="#금융-규제" id="toc-금융-규제" class="nav-link" data-scroll-target="#금융-규제">금융 규제</a>
+  <ul class="collapse">
+  <li><a href="#내부모형-internal-model" id="toc-내부모형-internal-model" class="nav-link" data-scroll-target="#내부모형-internal-model">내부모형 (Internal model)</a></li>
+  <li><a href="#감독-당국-supervisory-authority" id="toc-감독-당국-supervisory-authority" class="nav-link" data-scroll-target="#감독-당국-supervisory-authority">감독 당국 (Supervisory authority)</a></li>
+  <li><a href="#자기자본-요건-capital-requirement" id="toc-자기자본-요건-capital-requirement" class="nav-link" data-scroll-target="#자기자본-요건-capital-requirement">자기자본 요건 (Capital requirement)</a></li>
+  <li><a href="#자본요구액" id="toc-자본요구액" class="nav-link" data-scroll-target="#자본요구액">자본요구액</a></li>
+  <li><a href="#승수-multiplication-factor" id="toc-승수-multiplication-factor" class="nav-link" data-scroll-target="#승수-multiplication-factor">승수 (Multiplication factor)</a></li>
+  <li><a href="#표준-접근법-standardised-approach" id="toc-표준-접근법-standardised-approach" class="nav-link" data-scroll-target="#표준-접근법-standardised-approach">표준 접근법 (Standardised approach)</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/concepts/glossary.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
@@ -386,6 +416,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="분포-검정-distribution-test">분포 검정 (Distribution test)</h3>
 <p>적합도(goodness-of-fit) 검정을 통해 위험 모형이 예측한 손익 분포와 실제 자산의 분포가 일치하는지 확인하는 백테스팅 기법이다.</p>
 </section>
+<section id="fhs-filtered-historical-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="fhs-filtered-historical-simulation">FHS (Filtered historical simulation)</h3>
+<p>역사적 시뮬레이션에 변동성의 변화를 반영한 VaR 산출 방법이다. GARCH 같은 변동성 모형으로 수익률을 표준화한 뒤, 그 표준화된 오차항을 다시 추출해 시나리오를 만든다. 모수적인 변동성 모형과 비모수적인 역사적 시뮬레이션을 결합했다는 점에서 준모수적 방법(semiparametric method)이라고도 한다. 자세한 내용은 <a href="../chapters/08-var-multiperiod/index.html">다기간 VaR</a> 장에서 다룬다.</p>
+</section>
 </section>
 <section id="가설-검정" class="level2">
 <h2 class="anchored" data-anchor-id="가설-검정">가설 검정</h2>
@@ -411,10 +445,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="내재변동성" class="level3">
 <h3 class="anchored" data-anchor-id="내재변동성">내재변동성</h3>
 <p>시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.</p>
+</section>
+<section id="garch" class="level3">
+<h3 class="anchored" data-anchor-id="garch">GARCH</h3>
+<p>일반화 자기회귀 조건부 이분산(generalized autoregressive conditional heteroscedasticity) 모형이다. 시간에 따라 변하는 변동성을 모형화하며, 과거 수익률과 과거 분산으로 현재 분산을 설명한다. ARCH 모형을 일반화한 형태이다. 자세한 내용은 <a href="../chapters/07-volatility/index.html">변동성</a> 장에서 다룬다.</p>
+</section>
+</section>
+<section id="금융-규제" class="level2">
+<h2 class="anchored" data-anchor-id="금융-규제">금융 규제</h2>
+<p>다음 용어는 바젤 시장위험 내부모형 규제의 맥락에서 사용하는 최소한의 정의이다 <span class="citation" data-cites="Basel1996 Basel2019">(<a href="#ref-Basel1996" role="doc-biblioref">Basel Committee on Banking Supervision 1996년</a>, <a href="#ref-Basel2019" role="doc-biblioref">2019년</a>)</span>.</p>
+<section id="내부모형-internal-model" class="level3">
+<h3 class="anchored" data-anchor-id="내부모형-internal-model">내부모형 (Internal model)</h3>
+<p>은행이 자체적으로 개발하여 시장위험을 측정하는 모형이다. 감독 당국의 승인을 받으면 이 모형으로 산출한 VaR를 자기자본 요건 계산에 사용할 수 있다.</p>
+</section>
+<section id="감독-당국-supervisory-authority" class="level3">
+<h3 class="anchored" data-anchor-id="감독-당국-supervisory-authority">감독 당국 (Supervisory authority)</h3>
+<p>은행의 건전성을 감독하고 규제를 집행하는 기관이다. 내부모형의 사용을 승인하며, 백테스팅 결과가 좋지 않으면 내부모형 사용을 제한하거나 표준 접근법을 적용하도록 요구할 수 있다.</p>
+</section>
+<section id="자기자본-요건-capital-requirement" class="level3">
+<h3 class="anchored" data-anchor-id="자기자본-요건-capital-requirement">자기자본 요건 (Capital requirement)</h3>
+<p>은행이 손실에 대비해 보유해야 하는 자기자본의 최소 수준이다. 시장위험 부분은 내부모형으로 산출한 VaR에 승수를 곱하여 정한다.</p>
+</section>
+<section id="자본요구액" class="level3">
+<h3 class="anchored" data-anchor-id="자본요구액">자본요구액</h3>
+<p>자기자본 요건에 따라 실제로 산출된 금액이다. 백테스팅의 예외 횟수가 늘어 승수가 커지면 함께 증가한다.</p>
+</section>
+<section id="승수-multiplication-factor" class="level3">
+<h3 class="anchored" data-anchor-id="승수-multiplication-factor">승수 (Multiplication factor)</h3>
+<p>자기자본 요건을 계산할 때 VaR에 곱하는 배율이며 권장 배율이라고도 한다. 250개 관측치에 대한 백테스팅의 예외 횟수에 따라 결정되고, 예외가 많을수록 커진다. 자세한 내용은 <a href="../chapters/09-backtesting/index.html">Backtesting</a> 장에서 다룬다.</p>
+</section>
+<section id="표준-접근법-standardised-approach" class="level3">
+<h3 class="anchored" data-anchor-id="표준-접근법-standardised-approach">표준 접근법 (Standardised approach)</h3>
+<p>감독 당국이 정한 규칙과 위험가중치를 그대로 적용하여 자기자본 요건을 산출하는 방법이다. 내부모형을 사용할 수 없거나 사용이 제한된 경우에 적용된다.</p>
 
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Basel1996" class="csl-entry" role="listitem">
+Basel Committee on Banking Supervision. 1996년. <em>Supervisory framework for the use of <span>“backtesting”</span> in conjunction with the internal models approach to market risk capital requirements</em>. Basel.
+</div>
+<div id="ref-Basel2019" class="csl-entry" role="listitem">
+Basel Committee on Banking Supervision. 2019년. <em>Calculation of RWA for market risk: (MAR30) Internal models approach</em>. Basel.
+</div>
+</div>
 </section>
 </section>
 
@@ -962,29 +1036,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>적합도(goodness-of-fit) 검정을 통해 위험 모형이 예측한 손익 분포와 실제 자산의 분포가 일치하는지 확인하는 백테스팅 기법이다.</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## 가설 검정</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">### FHS (Filtered historical simulation)</span></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### 제1종 오류 (Type I error)</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>역사적 시뮬레이션에 변동성의 변화를 반영한 VaR 산출 방법이다. GARCH 같은 변동성 모형으로 수익률을 표준화한 뒤, 그 표준화된 오차항을 다시 추출해 시나리오를 만든다. 모수적인 변동성 모형과 비모수적인 역사적 시뮬레이션을 결합했다는 점에서 준모수적 방법(semiparametric method)이라고도 한다. 자세한 내용은 <span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../chapters/08-var-multiperiod/index.qmd)</span> 장에서 다룬다.</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>귀무가설이 참일 때 귀무가설을 기각하는 오류이다.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## 가설 검정</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### 제2종 오류 (Type II error)</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### 제1종 오류 (Type I error)</span></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류이다.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>귀무가설이 참일 때 귀무가설을 기각하는 오류이다.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## 변동성</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### 제2종 오류 (Type II error)</span></span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### 변동성</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>귀무가설이 거짓임에도 귀무가설을 기각하지 않는 오류이다.</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>자산 수익률의 변동 정도를 나타내는 값이다. 많은 금융 모형에서 수익률의 표준편차로 표현된다.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## 변동성</span></span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### 실현변동성</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### 변동성</span></span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>관측된 수익률 자료로부터 계산한 변동성 추정값이다.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>자산 수익률의 변동 정도를 나타내는 값이다. 많은 금융 모형에서 수익률의 표준편차로 표현된다.</span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### 내재변동성</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### 실현변동성</span></span>
 <span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>관측된 수익률 자료로부터 계산한 변동성 추정값이다.</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="fu">### 내재변동성</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>시장 옵션 가격을 옵션 가격 결정 모형에 대입했을 때, 그 가격을 설명하는 변동성 값이다.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### GARCH</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>일반화 자기회귀 조건부 이분산(generalized autoregressive conditional heteroscedasticity) 모형이다. 시간에 따라 변하는 변동성을 모형화하며, 과거 수익률과 과거 분산으로 현재 분산을 설명한다. ARCH 모형을 일반화한 형태이다. 자세한 내용은 <span class="co">[</span><span class="ot">변동성</span><span class="co">](../chapters/07-volatility/index.qmd)</span> 장에서 다룬다.</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## 금융 규제</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>다음 용어는 바젤 시장위험 내부모형 규제의 맥락에서 사용하는 최소한의 정의이다 <span class="co">[</span><span class="ot">@Basel1996; @Basel2019</span><span class="co">]</span>.</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### 내부모형 (Internal model)</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>은행이 자체적으로 개발하여 시장위험을 측정하는 모형이다. 감독 당국의 승인을 받으면 이 모형으로 산출한 VaR를 자기자본 요건 계산에 사용할 수 있다.</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### 감독 당국 (Supervisory authority)</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>은행의 건전성을 감독하고 규제를 집행하는 기관이다. 내부모형의 사용을 승인하며, 백테스팅 결과가 좋지 않으면 내부모형 사용을 제한하거나 표준 접근법을 적용하도록 요구할 수 있다.</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">### 자기자본 요건 (Capital requirement)</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>은행이 손실에 대비해 보유해야 하는 자기자본의 최소 수준이다. 시장위험 부분은 내부모형으로 산출한 VaR에 승수를 곱하여 정한다.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### 자본요구액</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>자기자본 요건에 따라 실제로 산출된 금액이다. 백테스팅의 예외 횟수가 늘어 승수가 커지면 함께 증가한다.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="fu">### 승수 (Multiplication factor)</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>자기자본 요건을 계산할 때 VaR에 곱하는 배율이며 권장 배율이라고도 한다. 250개 관측치에 대한 백테스팅의 예외 횟수에 따라 결정되고, 예외가 많을수록 커진다. 자세한 내용은 <span class="co">[</span><span class="ot">Backtesting</span><span class="co">](../chapters/09-backtesting/index.qmd)</span> 장에서 다룬다.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### 표준 접근법 (Standardised approach)</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>감독 당국이 정한 규칙과 위험가중치를 그대로 적용하여 자기자본 요건을 산출하는 방법이다. 내부모형을 사용할 수 없거나 사용이 제한된 경우에 적용된다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
