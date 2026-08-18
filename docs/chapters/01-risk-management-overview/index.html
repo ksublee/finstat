@@ -127,6 +127,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../assets/styles/webbook.css">
 </head>
@@ -477,6 +506,109 @@ div.csl-indent {
 <div class="callout-body-container callout-body">
 <p>글로벌 금융위기 동안 원유 가격은 급등하여 2008년 7월 배럴당 약 147달러에 도달했다. 그러나 경제 침체로 수요가 급감하면서 같은 해 하반기에는 약 30달러대로 하락했다. 이는 약 6개월 만에 80% 가까이 하락한 것으로, 금융 시장 역사에서 매우 큰 원자재 가격 변동 사례에 해당한다.</p>
 <p>이러한 가격 변동은 산유국 경제와 에너지 산업에 큰 영향을 미쳤으며, 원자재 시장의 투기적 거래가 금융 시장의 변동성을 증폭할 수 있음을 보여주었다. 또한 항공사와 운송업체 등 에너지 집약적 산업이 원자재 가격 변동에 얼마나 취약한지도 드러냈다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="신용-위험credit-risk" class="level4" data-number="1.3.2.2">
+<h4 data-number="1.3.2.2" class="anchored" data-anchor-id="신용-위험credit-risk"><span class="header-section-number">1.3.2.2</span> 신용 위험(credit risk)</h4>
+<p>신용 위험은 계약 상대방이 계약상의 의무를 이행하지 않거나 이행할 수 없게 되거나, 이행할 수 없을 가능성이 높아지면서 발생하는 위험이다. 신용 위험은 흔히 거래상대방 위험(counterparty risk)이라고도 불린다.</p>
+<p>대표적으로, 채무자가 이자 혹은 원금을 상환하지 못하는 경우가 있다. 또한, 상대방의 신용 등급이 하락하여 신용 관련 증권(credit-linked security)의 가치가 하락하는 경우가 해당된다.</p>
+<p>신용 위험에 따른 손실의 분포는 정규분포에서 크게 벗어난 경우가 많으며, 시장 위험보다 분석이 까다롭다. 이는 신용 사건(credit event)이 비대칭적이고 극단적인 특성을 가지기 때문이다. 즉, 대부분의 경우 손실이 없거나 미미하지만, 일단 채무 불이행이 발생하면 큰 손실이 발생하는 구조를 가진다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="팻 테일 분포(fat-tailed distribution)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>팻 테일 분포(fat-tailed distribution)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이러한 분포를 팻 테일 분포(fat-tailed distribution)라고 하며, 극단적 손실의 가능성이 정규분포가 예측하는 것보다 훨씬 높다.</p>
+</div>
+</div>
+<section id="신용-위험의-유형" class="level5" data-number="1.3.2.2.1">
+<h5 data-number="1.3.2.2.1" class="anchored" data-anchor-id="신용-위험의-유형"><span class="header-section-number">1.3.2.2.1</span> 신용 위험의 유형</h5>
+<p>신용 위험은 채무 불이행 위험(default risk), 파산 위험(bankruptcy risk), 신용 등급 하락 위험(downgrade risk), 정산 위험(settlement risk)으로 구분하기도 한다.</p>
+<ul>
+<li><strong>채무 불이행 위험(default risk)</strong>: 채무자가 원리금을 상환하지 못하는 위험이다.</li>
+<li><strong>파산 위험(bankruptcy risk)</strong>: 채무자가 법적으로 파산 절차에 들어가는 위험이다.</li>
+<li><strong>신용 등급 하락 위험(downgrade risk)</strong>: 신용평가기관(S&amp;P, Moody’s, Fitch 등)이 채무자의 신용 등급을 낮추면서 보유 증권의 가치가 하락하는 위험이다.</li>
+<li><strong>정산 위험(settlement risk)</strong>: 거래 결제 과정에서 한쪽은 의무를 이행했으나 상대방이 이행하지 않는 위험이다.</li>
+</ul>
+</section>
+<section id="신용-위험의-크기를-결정하는-요소" class="level5" data-number="1.3.2.2.2">
+<h5 data-number="1.3.2.2.2" class="anchored" data-anchor-id="신용-위험의-크기를-결정하는-요소"><span class="header-section-number">1.3.2.2.2</span> 신용 위험의 크기를 결정하는 요소</h5>
+<p>신용 리스크의 크기를 결정하는 요소는 다음과 같다.</p>
+<p><strong>채무자나 계약 당사자(counterparty)의 채무 불이행 확률(Probability of Default, PD)</strong>: 채무자의 재무 상태, 영업 실적 등 개별적 특성뿐만 아니라 거시 경제적 상황에도 영향을 받는다. 예를 들어, 경기 침체기에는 전반적인 부도 확률이 상승하는 경향이 있다. 기업이나 국가의 신용 등급(credit rating)을 통해 어느 정도 유추할 수 있다. 신용등급은 일반적으로 AAA(최우량)에서 D(채무불이행)까지의 척도로 표시된다.</p>
+<p><strong>익스포저(Exposure at Default, EAD)</strong>: 부도 시점에서 리스크에 처한 총액, 혹은 노출된 잠재적 손실의 총액을 의미한다.</p>
+<ul>
+<li><strong>예</strong>: 채권의 액면가, 대출의 잔액, 파생상품의 시가평가 가격(marked-to-market value)</li>
+<li>파생상품의 경우 익스포저가 시간에 따라 변동하며, 특히 옵션의 경우 기초자산 가격에 따라 익스포저가 크게 달라질 수 있다.</li>
+</ul>
+<p><strong>부도 후 회수율(Recovery Rate, RR)</strong>: 채무 불이행 시 법적 절차(청산, 구조조정 등)에 따라 원금과 밀린 이자의 전부 혹은 일부를 회수할 수 있으며, 회수율은 액면가에 대한 비율로 표현한다.</p>
+<p>회수율은 상품 유형(선순위 채권이 후순위 채권보다 회수율이 높음), 담보 여부, 채무자의 특성 및 거시 경제 상황과 같은 여러 요인의 영향을 받기 때문에 매우 다양한 값을 가질 수 있는 확률 변수이다.</p>
+<p>손실되는 총액은 부도시 손실률(LGD, Loss Given Default)이라고 하며, 회수율과 다음 관계를 가진다.</p>
+<p><span class="math display">\[
+\text{LGD} = 1 - \text{RR}
+\]</span></p>
+<p>역사적으로 선순위 무담보 채권의 평균 회수율은 약 40%, 후순위 채권은 약 20% 수준으로 알려져 있다.</p>
+</section>
+<section id="기대-손실expected-loss-el" class="level5" data-number="1.3.2.2.3">
+<h5 data-number="1.3.2.2.3" class="anchored" data-anchor-id="기대-손실expected-loss-el"><span class="header-section-number">1.3.2.2.3</span> 기대 손실(Expected Loss, EL)</h5>
+<p>신용 위험의 총 기대 손실(Expected Loss, EL)은 다음과 같이 계산된다.</p>
+<p><span class="math display">\[
+\text{EL} = \text{PD} \times \text{EAD} \times \text{LGD}
+\]</span></p>
+</section>
+<section id="신용-위험이-증가하는-상황" class="level5" data-number="1.3.2.2.4">
+<h5 data-number="1.3.2.2.4" class="anchored" data-anchor-id="신용-위험이-증가하는-상황"><span class="header-section-number">1.3.2.2.4</span> 신용 위험이 증가하는 상황</h5>
+<p>또한, 다음의 상황에서 신용 위험은 더욱 증가한다.</p>
+<p><strong>집중 위험(concentration risk)</strong>: 적은 수의 큰 대출은 많은 수의 적은 대출보다 위험하다. 이는 분산의 효과를 얻지 못하기 때문이다. 예를 들어, 전체 대출 포트폴리오의 20%를 차지하는 한 건의 대출이 부도가 나면 큰 타격을 받지만, 같은 금액이 100건으로 나뉘어 있다면 일부 부도가 발생해도 전체 포트폴리오에 미치는 영향은 제한적이다.</p>
+<p><strong>상관관계 위험(correlation risk)</strong>: 대출들의 수익 혹은 부도 위험이 양의 상관관계를 가질 때 위험이 증가한다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="상관관계 위험의 사례">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>상관관계 위험의 사례
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>채무자들이 모두 동일한 산업 분야에서 종사하거나 동일한 지역에 거주하는 경우가 이에 해당한다. 2008년 금융위기 당시 미국의 서브프라임 모기지 대출들이 부동산 시장 침체로 동시 다발적으로 부도가 발생한 것이 대표적 사례이다.</p>
+<p>따라서 대출 포트폴리오를 산업, 지역, 채무자 특성 등 다양한 차원에서 효율적으로 분산할 필요가 있다.</p>
+</div>
+</div>
+<p><strong>잘못된 방향 위험(wrong-way risk)</strong>: 익스포저, 부도 확률, 부도 시 손실액이 양의 상관관계를 가질 때 위험이 극대화된다.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="잘못된 방향 위험의 사례">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">경고</span>잘못된 방향 위험의 사례
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>예를 들어, 항공사에 대한 대출에서 유가 파생상품으로 담보를 받는 경우, 유가 상승 시 항공사의 부도 확률이 높아지는 동시에 담보 가치도 항공사에 불리하게 변동하여 회수율이 낮아질 수 있다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="사례: 2008년 리먼 브라더스 파산">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">중요</span>사례: 2008년 리먼 브라더스 파산
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>역사적으로 중요한 신용 위험 사례로는 2008년 리먼 브라더스의 파산을 들 수 있다.</p>
+<p>1850년에 설립되어 158년의 역사를 가진 미국 4위의 투자은행이었던 리먼 브라더스는 2008년 9월 15일 파산 신청을 했으며, 이는 미국 역사상 최대 규모의 기업 파산이었다.</p>
+<p>서브프라임 모기지 관련 자산에 과도하게 노출되어 있던 리먼 브라더스의 파산은 전 세계 금융 시장에 신용 경색을 초래했고, 글로벌 금융 위기를 촉발했다.</p>
+<p>이 사건은 거대 금융기관의 신용 위험이 시스템 전체로 파급될 수 있는 시스템 리스크(systemic risk)의 전형적 사례로 기록되고 있다.</p>
 </div>
 </div>
 
@@ -1121,7 +1253,89 @@ Kaplan, Robert S., 와/과 Anette Mikes. 2016년. <span>“Risk Management—the
 <span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>글로벌 금융위기 동안 원유 가격은 급등하여 2008년 7월 배럴당 약 147달러에 도달했다. 그러나 경제 침체로 수요가 급감하면서 같은 해 하반기에는 약 30달러대로 하락했다. 이는 약 6개월 만에 80% 가까이 하락한 것으로, 금융 시장 역사에서 매우 큰 원자재 가격 변동 사례에 해당한다.</span>
 <span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>이러한 가격 변동은 산유국 경제와 에너지 산업에 큰 영향을 미쳤으며, 원자재 시장의 투기적 거래가 금융 시장의 변동성을 증폭할 수 있음을 보여주었다. 또한 항공사와 운송업체 등 에너지 집약적 산업이 원자재 가격 변동에 얼마나 취약한지도 드러냈다.</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 신용 위험(credit risk)</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>신용 위험은 계약 상대방이 계약상의 의무를 이행하지 않거나 이행할 수 없게 되거나, 이행할 수 없을 가능성이 높아지면서 발생하는 위험이다. 신용 위험은 흔히 거래상대방 위험(counterparty risk)이라고도 불린다.</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>대표적으로, 채무자가 이자 혹은 원금을 상환하지 못하는 경우가 있다. 또한, 상대방의 신용 등급이 하락하여 신용 관련 증권(credit-linked security)의 가치가 하락하는 경우가 해당된다.</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>신용 위험에 따른 손실의 분포는 정규분포에서 크게 벗어난 경우가 많으며, 시장 위험보다 분석이 까다롭다. 이는 신용 사건(credit event)이 비대칭적이고 극단적인 특성을 가지기 때문이다. 즉, 대부분의 경우 손실이 없거나 미미하지만, 일단 채무 불이행이 발생하면 큰 손실이 발생하는 구조를 가진다.</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="팻 테일 분포(fat-tailed distribution)"}</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>이러한 분포를 팻 테일 분포(fat-tailed distribution)라고 하며, 극단적 손실의 가능성이 정규분포가 예측하는 것보다 훨씬 높다.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="fu">##### 신용 위험의 유형</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>신용 위험은 채무 불이행 위험(default risk), 파산 위험(bankruptcy risk), 신용 등급 하락 위험(downgrade risk), 정산 위험(settlement risk)으로 구분하기도 한다.</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**채무 불이행 위험(default risk)**: 채무자가 원리금을 상환하지 못하는 위험이다.</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**파산 위험(bankruptcy risk)**: 채무자가 법적으로 파산 절차에 들어가는 위험이다.</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**신용 등급 하락 위험(downgrade risk)**: 신용평가기관(S&amp;P, Moody's, Fitch 등)이 채무자의 신용 등급을 낮추면서 보유 증권의 가치가 하락하는 위험이다.</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**정산 위험(settlement risk)**: 거래 결제 과정에서 한쪽은 의무를 이행했으나 상대방이 이행하지 않는 위험이다.</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="fu">##### 신용 위험의 크기를 결정하는 요소</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>신용 리스크의 크기를 결정하는 요소는 다음과 같다.</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>**채무자나 계약 당사자(counterparty)의 채무 불이행 확률(Probability of Default, PD)**: 채무자의 재무 상태, 영업 실적 등 개별적 특성뿐만 아니라 거시 경제적 상황에도 영향을 받는다. 예를 들어, 경기 침체기에는 전반적인 부도 확률이 상승하는 경향이 있다. 기업이나 국가의 신용 등급(credit rating)을 통해 어느 정도 유추할 수 있다. 신용등급은 일반적으로 AAA(최우량)에서 D(채무불이행)까지의 척도로 표시된다.</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>**익스포저(Exposure at Default, EAD)**: 부도 시점에서 리스크에 처한 총액, 혹은 노출된 잠재적 손실의 총액을 의미한다.</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**예**: 채권의 액면가, 대출의 잔액, 파생상품의 시가평가 가격(marked-to-market value)</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>파생상품의 경우 익스포저가 시간에 따라 변동하며, 특히 옵션의 경우 기초자산 가격에 따라 익스포저가 크게 달라질 수 있다.</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>**부도 후 회수율(Recovery Rate, RR)**: 채무 불이행 시 법적 절차(청산, 구조조정 등)에 따라 원금과 밀린 이자의 전부 혹은 일부를 회수할 수 있으며, 회수율은 액면가에 대한 비율로 표현한다.</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>회수율은 상품 유형(선순위 채권이 후순위 채권보다 회수율이 높음), 담보 여부, 채무자의 특성 및 거시 경제 상황과 같은 여러 요인의 영향을 받기 때문에 매우 다양한 값을 가질 수 있는 확률 변수이다.</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>손실되는 총액은 부도시 손실률(LGD, Loss Given Default)이라고 하며, 회수율과 다음 관계를 가진다.</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>\text{LGD} = 1 - \text{RR}</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>역사적으로 선순위 무담보 채권의 평균 회수율은 약 40%, 후순위 채권은 약 20% 수준으로 알려져 있다.</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">##### 기대 손실(Expected Loss, EL)</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>신용 위험의 총 기대 손실(Expected Loss, EL)은 다음과 같이 계산된다.</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>\text{EL} = \text{PD} \times \text{EAD} \times \text{LGD}</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="fu">##### 신용 위험이 증가하는 상황</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>또한, 다음의 상황에서 신용 위험은 더욱 증가한다.</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>**집중 위험(concentration risk)**: 적은 수의 큰 대출은 많은 수의 적은 대출보다 위험하다. 이는 분산의 효과를 얻지 못하기 때문이다. 예를 들어, 전체 대출 포트폴리오의 20%를 차지하는 한 건의 대출이 부도가 나면 큰 타격을 받지만, 같은 금액이 100건으로 나뉘어 있다면 일부 부도가 발생해도 전체 포트폴리오에 미치는 영향은 제한적이다.</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>**상관관계 위험(correlation risk)**: 대출들의 수익 혹은 부도 위험이 양의 상관관계를 가질 때 위험이 증가한다.</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="상관관계 위험의 사례"}</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>채무자들이 모두 동일한 산업 분야에서 종사하거나 동일한 지역에 거주하는 경우가 이에 해당한다. 2008년 금융위기 당시 미국의 서브프라임 모기지 대출들이 부동산 시장 침체로 동시 다발적으로 부도가 발생한 것이 대표적 사례이다.</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>따라서 대출 포트폴리오를 산업, 지역, 채무자 특성 등 다양한 차원에서 효율적으로 분산할 필요가 있다.</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>**잘못된 방향 위험(wrong-way risk)**: 익스포저, 부도 확률, 부도 시 손실액이 양의 상관관계를 가질 때 위험이 극대화된다.</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning title="잘못된 방향 위험의 사례"}</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>예를 들어, 항공사에 대한 대출에서 유가 파생상품으로 담보를 받는 경우, 유가 상승 시 항공사의 부도 확률이 높아지는 동시에 담보 가치도 항공사에 불리하게 변동하여 회수율이 낮아질 수 있다.</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="사례: 2008년 리먼 브라더스 파산"}</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>역사적으로 중요한 신용 위험 사례로는 2008년 리먼 브라더스의 파산을 들 수 있다.</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>1850년에 설립되어 158년의 역사를 가진 미국 4위의 투자은행이었던 리먼 브라더스는 2008년 9월 15일 파산 신청을 했으며, 이는 미국 역사상 최대 규모의 기업 파산이었다.</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>서브프라임 모기지 관련 자산에 과도하게 노출되어 있던 리먼 브라더스의 파산은 전 세계 금융 시장에 신용 경색을 초래했고, 글로벌 금융 위기를 촉발했다.</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>이 사건은 거대 금융기관의 신용 위험이 시스템 전체로 파급될 수 있는 시스템 리스크(systemic risk)의 전형적 사례로 기록되고 있다.</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
