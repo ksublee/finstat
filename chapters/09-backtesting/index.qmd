@@ -388,6 +388,7 @@ for(j in starting:end){
 
 ## 관련 페이지
 
+- [실습: Backtesting](../../labs/09-backtesting-lab.qmd)
 - [용어 정리](../../concepts/glossary.qmd)
 - [독립성](../../concepts/probability/independence.qmd)
 - [VaR와 ES](../04-var-es/index.qmd)

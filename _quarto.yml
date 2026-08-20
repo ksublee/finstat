@@ -41,6 +41,7 @@ book:
     - part: "실습"
       chapters:
         - labs/07-volatility-lab.qmd
+        - labs/09-backtesting-lab.qmd
     - part: "참고"
       chapters:
         - concepts/notation.qmd
