@@ -38,6 +38,9 @@ book:
       chapters: []
     - part: concepts/finance/index.qmd
       chapters: []
+    - part: "실습"
+      chapters:
+        - labs/07-volatility-lab.qmd
     - part: "참고"
       chapters:
         - concepts/notation.qmd
