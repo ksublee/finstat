@@ -58,7 +58,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -108,6 +127,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../assets/styles/webbook.css">
 </head>
@@ -311,6 +359,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#개요" id="toc-개요" class="nav-link active" data-scroll-target="#개요"><span class="header-section-number">2.1</span> 개요</a></li>
   <li><a href="#학습-목표" id="toc-학습-목표" class="nav-link" data-scroll-target="#학습-목표"><span class="header-section-number">2.2</span> 학습 목표</a></li>
+  <li><a href="#간단한-시장-모형" id="toc-간단한-시장-모형" class="nav-link" data-scroll-target="#간단한-시장-모형"><span class="header-section-number">2.3</span> 간단한 시장 모형</a>
+  <ul class="collapse">
+  <li><a href="#기본-가정" id="toc-기본-가정" class="nav-link" data-scroll-target="#기본-가정"><span class="header-section-number">2.3.1</span> 기본 가정</a></li>
+  <li><a href="#무위험자산" id="toc-무위험자산" class="nav-link" data-scroll-target="#무위험자산"><span class="header-section-number">2.3.2</span> 무위험자산</a></li>
+  <li><a href="#기대-수익률과-표준편차" id="toc-기대-수익률과-표준편차" class="nav-link" data-scroll-target="#기대-수익률과-표준편차"><span class="header-section-number">2.3.3</span> 기대 수익률과 표준편차</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/02-modern-portfolio-theory/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -347,10 +401,311 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>효율적 프론티어의 의미를 설명한다.</li>
 <li>자본시장선과 관련 개념을 해석한다.</li>
 </ul>
+</section>
+<section id="간단한-시장-모형" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="간단한-시장-모형"><span class="header-section-number">2.3</span> 간단한 시장 모형</h2>
+<section id="기본-가정" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="기본-가정"><span class="header-section-number">2.3.1</span> 기본 가정</h3>
+<p>이 장에서는 비교적 간단한 시장 모형(market model)을 가정한다. 자본 시장(capital market)은 저축이나 투자 등이 공급자와 수요자 사이에서 상호 전달되는 시장이다. 자본 시장 내에는 다양한 위험 및 무위험 금융 자산이 존재한다.</p>
+<p>일반적으로 실제 자본 시장에서 무위험 금융 자산(risk-free asset)으로 분류되는 대표적인 상품으로는 정부가 발행하는 단기 채권이 있다. 주식이나 신용/이자율 위험이 존재하는 채권, 원자재, 부동산 등의 상품은 위험자산(risky asset)으로 분류된다.</p>
+<p>간단한 시장 모형에서는 이들 자산 가치의 변화를 이산적인 두 시점인 0과 <span class="math inline">\(T\)</span>에서 살펴본다. 시점 0은 현재 시점, <span class="math inline">\(T\)</span>는 미래 시점으로 간주한다. 자본 시장 내에 존재하는 어떤 금융 자산(financial asset)을 <span class="math inline">\(S\)</span>라고 하고, 시점 0과 <span class="math inline">\(T\)</span>에서 이 자산의 가격을 각각 <span class="math inline">\(S(0)\)</span>과 <span class="math inline">\(S(T)\)</span>라고 하자.</p>
+<p>이 자산이 위험자산이라면, 미래 시점의 가격 <span class="math inline">\(S(T)\)</span>는 그 시점에 도달하기 전까지 알 수 없는 값이므로 <strong>확률변수</strong>로 표현된다. 즉,</p>
+<p><span class="math display">\[
+S(T): \Omega \rightarrow [0,\infty)
+\]</span></p>
+<p>이다.</p>
+<p>여기서 <span class="math inline">\(\Omega\)</span>는 확률공간(probability space) 혹은 표본공간(sample space)으로 불리는 집합이며, 확률적 현상을 표현하기 위한 추상적인 공간이다. 확률공간의 원소는 <span class="math inline">\(\omega\)</span>로 표현한다. 따라서 실제로 <span class="math inline">\(S\)</span>는 <span class="math inline">\(\Omega\)</span>의 원소인 <span class="math inline">\(\omega\)</span>에 대한 함수이므로 <span class="math inline">\(S(\omega,T)\)</span>로 나타내기도 하지만, 편의상 <span class="math inline">\(\omega\)</span>를 생략하여 사용하기도 한다.</p>
+<p>한편, <span class="math inline">\(S(T)\)</span>가 확률변수가 아닌 고정된 상수, 즉 모든 <span class="math inline">\(\omega \in \Omega\)</span>에 대해 동일한 값을 가지면 무위험자산이라고 한다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: 위험자산과 무위험자산">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: 위험자산과 무위험자산
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>어떤 자산의 <span class="math inline">\(T\)</span> 시점 가격 <span class="math inline">\(S(T)\)</span>가 상수이면 이를 <strong>무위험자산(risk-free asset)</strong>이라고 한다.</li>
+<li><span class="math inline">\(S(T)\)</span>가 상수가 아닌 확률변수이면 이를 <strong>위험자산(risky asset)</strong>이라고 한다.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: 수익률(return, rate of return)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: 수익률(return, rate of return)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>자산 <span class="math inline">\(S\)</span>의 시점 0에서 <span class="math inline">\(T\)</span> 사이의 수익률은 다음과 같이 정의한다.</p>
+<p><span class="math display">\[
+R(T)=\frac{S(T)-S(0)}{S(0)}
+\]</span></p>
+<p>이를 산술 수익률(arithmetic return) 혹은 단순 수익률(simple gross return)이라고도 한다.</p>
+<p>밑이 <span class="math inline">\(e\)</span>인 로그를 사용한 로그 수익률(log-return)은 다음과 같이 정의한다.</p>
+<p><span class="math display">\[
+r(T)=\log\frac{S(T)}{S(0)}
+=\log S(T)-\log S(0)
+\]</span></p>
+</div>
+</div>
+<p>위에서는 편의상 산술 수익률을 대문자 <span class="math inline">\(R\)</span>로, 로그 수익률을 소문자 <span class="math inline">\(r\)</span>로 표현하였지만 특별히 정해진 기준은 없다. <span class="math inline">\(S\)</span>의 값이 0 이상이라는 가정하에서 산술 수익률은 항상 <span class="math inline">\(R(T)\geq -1\)</span>이지만, 로그 수익률은 모든 실수 범위의 값을 가질 수 있다.</p>
+<p>이러한 점 때문에 수익률이 정규분포를 따른다고 가정할 때 로그 수익률이 선호되는 경향이 있다. 수익률의 값이 0에 가까우면 산술 수익률과 로그 수익률이 비슷하므로 실제 계산에서는 큰 차이가 없다. 이론을 적용할 때는 경우에 따라 산술 수익률이 편리하기도 하고, 로그 수익률이 편리하기도 하다.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제: 가격이 100에서 105로 상승한 경우">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 가격이 100에서 105로 상승한 경우
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(S(0)=100\)</span>이고 <span class="math inline">\(S(T)=105\)</span>라고 하자. 이 자산의 시점 0부터 <span class="math inline">\(T\)</span>까지의 산술 수익률은</p>
+<p><span class="math display">\[
+R(T)=\frac{105-100}{100}=0.05
+\]</span></p>
+<p>이다. 로그 수익률은</p>
+<p><span class="math display">\[
+r(T)=\log\frac{105}{100}\approx 0.049
+\]</span></p>
+<p>이다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제: 가격 변화가 큰 경우">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 가격 변화가 큰 경우
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(S(0)=100\)</span>이고 <span class="math inline">\(S(T)=200\)</span>이라고 하자. 이 자산의 시점 0부터 <span class="math inline">\(T\)</span>까지의 산술 수익률은</p>
+<p><span class="math display">\[
+R(T)=\frac{200-100}{100}=1
+\]</span></p>
+<p>이다. 로그 수익률은</p>
+<p><span class="math display">\[
+r(T)=\log\frac{200}{100}\approx 0.693
+\]</span></p>
+<p>이다. 이 경우 산술 수익률과 로그 수익률은 비슷하지 않다.</p>
+<p>이번에는 <span class="math inline">\(S(0)=100\)</span>이고 <span class="math inline">\(S(T)=0\)</span>이라고 하자. 산술 수익률은</p>
+<p><span class="math display">\[
+R(T)=\frac{0-100}{100}=-1
+\]</span></p>
+<p>이고, 로그 수익률은</p>
+<p><span class="math display">\[
+r(T)=\log\frac{0}{100}=-\infty
+\]</span></p>
+<p>이다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="참고: 명목 수익률과 실질 수익률">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>참고: 명목 수익률과 실질 수익률
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>수익률은 인플레이션(물가 상승)의 효과를 고려하지 않기 때문에 명목 수익률(nominal rate of return)이라고 불리기도 한다. 인플레이션은 화폐의 구매력을 감소시키므로, 시간이 흐른 뒤의 100달러는 오늘의 100달러와 같지 않다.</p>
+<p>인플레이션의 효과를 제거한 수익률을 실질 수익률(real rate of return)이라고 한다. 이 장의 간단한 시장 모형에서는 인플레이션의 효과를 고려하지 않는다.</p>
+</div>
+</div>
+<p>위험자산의 미래 가격 <span class="math inline">\(S(T)\)</span>가 확률변수이므로, 이것의 함수로 표현되는 <span class="math inline">\(R(T)\)</span>와 <span class="math inline">\(r(T)\)</span>도 확률변수이다. 즉, 시점 <span class="math inline">\(T\)</span>가 되기 전에는 <span class="math inline">\(R(T)\)</span>와 <span class="math inline">\(r(T)\)</span>의 값을 알 수 없지만 확률분포를 통해 분포적 성질을 가정할 수 있으며, 시점 <span class="math inline">\(T\)</span>에 이르면 실현된 값을 관찰할 수 있다.</p>
+</section>
+<section id="무위험자산" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="무위험자산"><span class="header-section-number">2.3.2</span> 무위험자산</h3>
+<p>한편, 무위험자산의 대표적인 예로는 신용도가 높은 정부가 발행한 단기 채권인 <strong>무이표채(zero-coupon bond)</strong>를 들 수 있다. 무이표채는 보유 기간 동안 중간 이자 지급이 없으며, 만기 시점에 미리 약정된 액면가(face value)를 한 번에 지급하는 채권이다. 따라서 무이표채의 가치는 만기 이전에는 확정된 방식으로 증가하며, 미래의 지급 금액이 확정되어 있다는 점에서 무위험자산으로 간주된다.</p>
+<p>이 경우 무이표채의 수익률에는 확률적 변동이 없으며, 모든 <span class="math inline">\(\omega \in \Omega\)</span>에 대해 동일한 값을 가진다. 즉, 무이표채는 앞서 정의한 의미에서 전형적인 무위험자산의 예가 된다.</p>
+<p>또한 신용 위험을 고려하지 않을 경우 일반적인 은행 예금도 무위험자산으로 볼 수 있다. 이 장에서는 시점 0부터 <span class="math inline">\(T\)</span>까지의 단일 기간만을 고려하기 때문에 복리나 단리 같은 이자율의 종류나, 예금 기간에 따라 이자율이 달라지는 만기 구조(term structure)를 고려하지 않는다.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 또한 신용 위험을 고려하지 않으므로 예금과 대출에 동일한 이자율이 적용된다고 가정한다.</p>
+<p>이 단원에서는 시점 0에서 <span class="math inline">\(T\)</span>까지의 (산술) 이자율을 상수 <span class="math inline">\(r_F\)</span>로 표현하며, 이에 따라 시점 0에서 <span class="math inline">\(A\)</span>의 금액을 예금했다면 시점 <span class="math inline">\(T\)</span>에서 예금의 가치는 다음과 같다.</p>
+<p><span id="eq-rf"><span class="math display">\[
+(1+r_F)A
+\tag{2.1}\]</span></span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제: 무위험 예금의 만기 가치">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 무위험 예금의 만기 가치
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>1000의 금액을 시점 0부터 <span class="math inline">\(T\)</span>까지 <span class="math inline">\(r_F=0.02\)</span>의 이자율을 제공하는 예금에 예치하면, 시점 <span class="math inline">\(T\)</span>에 다음 금액을 얻는다.</p>
+<p><span class="math display">\[
+1000(1+0.02)=1020
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제: 항상 가격이 오르는 자산은 무위험자산인가?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 항상 가격이 오르는 자산은 무위험자산인가?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(S(0)=100\)</span>이고, <span class="math inline">\(S(T)\)</span>는 <span class="math inline">\(\Omega=\{\omega_1,\omega_2\}\)</span>에서 정의된 확률변수라고 가정하자. 만약</p>
+<p><span class="math display">\[
+S(\omega_1,T)=100.5,\qquad S(\omega_2,T)=107
+\]</span></p>
+<p>이라고 하면, 이 자산은 항상 초기 투자 비용인 100보다 크므로 무위험자산이라고 할 수 있을까?</p>
+<p>일상적인 관점에서 이 자산은 위험이 없는 자산으로 간주될 수도 있겠지만, 수학적인 관점에서 <span class="math inline">\(S(T)\)</span>는 상수가 아닌 확률변수이므로 우리는 <span class="math inline">\(S\)</span>를 <strong>위험자산(risky asset)</strong>이라고 부른다.</p>
+</div>
+</div>
+</section>
+<section id="기대-수익률과-표준편차" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="기대-수익률과-표준편차"><span class="header-section-number">2.3.3</span> 기대 수익률과 표준편차</h3>
+<p>앞서 언급한 확률공간 <span class="math inline">\(\Omega\)</span>에 <strong>확률측도</strong> <span class="math inline">\(\mathbb{P}\)</span>를 도입하여, 앞으로 확률공간을 <span class="math inline">\((\Omega,\mathbb{P})\)</span>로 표현한다.</p>
+<p>확률측도는 확률공간에서 정의된 사건에 확률을 할당하는 방법이다. 확률분포를 도입하여 확률변수에 대한 기댓값, 분산 등을 계산할 수 있게 한다.</p>
+<p>한편, 통계학이나 확률 관련 과목에서 공부한 바와 같이 확률측도 <span class="math inline">\(\mathbb{P}\)</span>는 다음의 성질을 만족한다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: 확률측도">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: 확률측도
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>확률측도 <span class="math inline">\(\mathbb{P}\)</span>는 실수값 함수로서, 사건 <span class="math inline">\(A\subseteq\Omega\)</span>에 대해 다음을 만족한다.</p>
+<ol type="1">
+<li><span class="math inline">\(0\leq\mathbb{P}(A)\leq1\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(\Omega)=1\)</span></li>
+<li>상호배반인 사건들 <span class="math inline">\(A_i\)</span>에 대해 다음이 성립한다.</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{P}\left(\bigcup_{i=1}^{\infty}A_i\right)
+=
+\sum_{i=1}^{\infty}\mathbb{P}(A_i).
+\]</span></p>
+</div>
+</div>
+<p>다음 절에서 공부할 마코위츠 이론(Markowitz theory) 혹은 현대 포트폴리오 이론(MPT, modern portfolio theory)에서는 위험자산의 수익률이 정규분포를 따른다고 가정한다.</p>
+<p>정규성 가정은 모든 투자자들이 투자를 고려할 때 수익률의 분포에 대하여 다음의 두 가지만 살펴보면 됨을 의미한다.</p>
+<ul>
+<li>평균 - 성과(performance)</li>
+<li>분산 혹은 표준편차 - 리스크 (risk)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+</ul>
+<p>즉, 투자자는 분산이 작으면서 평균 수익률이 높은 자산을 찾는다. 또한 자본시장 내에 여러 자산이 존재할 때는 분산 투자(diversification)를 통해 포트폴리오의 분산을 최소화하면서 평균 수익률이 높은 조합을 찾는다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: 기대 수익률(expected return)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: 기대 수익률(expected return)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>시점 <span class="math inline">\(0\)</span>부터 <span class="math inline">\(T\)</span>까지의 <span class="math inline">\(S\)</span>의 기대 수익률은 다음과 같이 정의한다.</p>
+<p><span class="math display">\[
+\mu
+=
+\mathbb{E}[R(T)]
+=
+\mathbb{E}\left[\frac{S(T)-S(0)}{S(0)}\right]
+=
+\frac{\mathbb{E}[S(T)]-S(0)}{S(0)}.
+\]</span></p>
+<p>로그 수익률에 대해서도 마찬가지로 로그 기대 수익률을 정의할 수 있다.</p>
+<p><span class="math display">\[
+\mathbb{E}[r(T)]
+=
+\mathbb{E}\left[\log\frac{S(T)}{S(0)}\right]
+=
+\mathbb{E}[\log S(T)]-\log S(0).
+\]</span></p>
+<p>기대 수익률과 함께 자산 수익률의 분산은 다음과 같이 정의한다.</p>
+<p><span class="math display">\[
+\sigma^2
+=
+\operatorname{Var}(R(T))
+=
+\mathbb{E}\left[(R(T)-\mu)^2\right].
+\]</span></p>
+<p>표준편차는 다음과 같다.</p>
+<p><span class="math display">\[
+\sigma=\sqrt{\operatorname{Var}(R(T))}.
+\]</span></p>
+<p>기대 수익률, 분산과 표준편차는 이 장에서 시장 위험을 이해하기 위한 핵심 개념으로 사용된다.</p>
+</div>
+</div>
+<p>곧 살펴볼 현대 포트폴리오 이론에서는 수익률의 분포로 정규분포를 가정하지만, 일단 문제를 간단하게 살펴보기 위해 <span class="math inline">\(S(T)\)</span>의 이산 분포를 가정한 다음의 예제를 보자.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제: 기대 수익률과 로그 기대 수익률">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 기대 수익률과 로그 기대 수익률
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(S(0)=100\)</span>이고, <span class="math inline">\(S(T)\)</span>는 <span class="math inline">\(\Omega=\{\omega_1,\omega_2\}\)</span>에서 정의된 확률변수라고 가정하자. 각 사건의 확률은 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbb{P}(\{\omega_1\})=0.4,\qquad
+\mathbb{P}(\{\omega_2\})=0.6.
+\]</span></p>
+<p>시점 <span class="math inline">\(T\)</span>에서의 가격은 다음과 같다.</p>
+<p><span class="math display">\[
+S(\omega_1,T)=95,\qquad
+S(\omega_2,T)=110.
+\]</span></p>
+<p><span class="math inline">\(S\)</span>의 기대 수익률은 다음과 같다.</p>
+<p><span class="math display">\[
+\mu
+=
+\frac{95-100}{100}\times0.4
++
+\frac{110-100}{100}\times0.6
+=
+0.04.
+\]</span></p>
+<p>로그 기대 수익률은 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[r(T)]
+&amp;=
+0.4\times\log\left(\frac{95}{100}\right)
++
+0.6\times\log\left(\frac{110}{100}\right) \\
+&amp;\approx 0.037.
+\end{aligned}
+\]</span></p>
+</div>
+</div>
 
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Irving1906" class="csl-entry" role="listitem">
+Fisher, Irving. 1906년. <em>The Nature of Capital and Income</em>. Macmillan.
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>자세한 내용은 <a href="../../chapters/10-interest-rates-bonds/index.html">10장 이자율과 채권</a>에서 공부한다.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>분산이 경제적 리스크의 척도로 제안된 것은 아마 <span class="citation" data-cites="Irving1906">Fisher (<a href="#ref-Irving1906" role="doc-biblioref">1906년</a>)</span><!-- -->까지 거슬러 올라간다.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -880,7 +1235,257 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>효율적 프론티어의 의미를 설명한다.</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>자본시장선과 관련 개념을 해석한다.</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 간단한 시장 모형</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 기본 가정</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>이 장에서는 비교적 간단한 시장 모형(market model)을 가정한다. 자본 시장(capital market)은 저축이나 투자 등이 공급자와 수요자 사이에서 상호 전달되는 시장이다. 자본 시장 내에는 다양한 위험 및 무위험 금융 자산이 존재한다.</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>일반적으로 실제 자본 시장에서 무위험 금융 자산(risk-free asset)으로 분류되는 대표적인 상품으로는 정부가 발행하는 단기 채권이 있다. 주식이나 신용/이자율 위험이 존재하는 채권, 원자재, 부동산 등의 상품은 위험자산(risky asset)으로 분류된다.</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>간단한 시장 모형에서는 이들 자산 가치의 변화를 이산적인 두 시점인 0과 $T$에서 살펴본다. 시점 0은 현재 시점, $T$는 미래 시점으로 간주한다. 자본 시장 내에 존재하는 어떤 금융 자산(financial asset)을 $S$라고 하고, 시점 0과 $T$에서 이 자산의 가격을 각각 $S(0)$과 $S(T)$라고 하자.</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>이 자산이 위험자산이라면, 미래 시점의 가격 $S(T)$는 그 시점에 도달하기 전까지 알 수 없는 값이므로 **확률변수**로 표현된다. 즉,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>S(T): \Omega \rightarrow [0,\infty)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>여기서 $\Omega$는 확률공간(probability space) 혹은 표본공간(sample space)으로 불리는 집합이며, 확률적 현상을 표현하기 위한 추상적인 공간이다. 확률공간의 원소는 $\omega$로 표현한다. 따라서 실제로 $S$는 $\Omega$의 원소인 $\omega$에 대한 함수이므로 $S(\omega,T)$로 나타내기도 하지만, 편의상 $\omega$를 생략하여 사용하기도 한다.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>한편, $S(T)$가 확률변수가 아닌 고정된 상수, 즉 모든 $\omega \in \Omega$에 대해 동일한 값을 가지면 무위험자산이라고 한다.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: 위험자산과 무위험자산"}</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>어떤 자산의 $T$ 시점 가격 $S(T)$가 상수이면 이를 **무위험자산(risk-free asset)**이라고 한다.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$S(T)$가 상수가 아닌 확률변수이면 이를 **위험자산(risky asset)**이라고 한다.</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: 수익률(return, rate of return)"}</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>자산 $S$의 시점 0에서 $T$ 사이의 수익률은 다음과 같이 정의한다.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>R(T)=\frac{S(T)-S(0)}{S(0)}</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>이를 산술 수익률(arithmetic return) 혹은 단순 수익률(simple gross return)이라고도 한다.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>밑이 $e$인 로그를 사용한 로그 수익률(log-return)은 다음과 같이 정의한다.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>r(T)=\log\frac{S(T)}{S(0)}</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>=\log S(T)-\log S(0)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>위에서는 편의상 산술 수익률을 대문자 $R$로, 로그 수익률을 소문자 $r$로 표현하였지만 특별히 정해진 기준은 없다. $S$의 값이 0 이상이라는 가정하에서 산술 수익률은 항상 $R(T)\geq -1$이지만, 로그 수익률은 모든 실수 범위의 값을 가질 수 있다.</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>이러한 점 때문에 수익률이 정규분포를 따른다고 가정할 때 로그 수익률이 선호되는 경향이 있다. 수익률의 값이 0에 가까우면 산술 수익률과 로그 수익률이 비슷하므로 실제 계산에서는 큰 차이가 없다. 이론을 적용할 때는 경우에 따라 산술 수익률이 편리하기도 하고, 로그 수익률이 편리하기도 하다.</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제: 가격이 100에서 105로 상승한 경우"}</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>$S(0)=100$이고 $S(T)=105$라고 하자. 이 자산의 시점 0부터 $T$까지의 산술 수익률은</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>R(T)=\frac{105-100}{100}=0.05</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>이다. 로그 수익률은</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>r(T)=\log\frac{105}{100}\approx 0.049</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제: 가격 변화가 큰 경우"}</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>$S(0)=100$이고 $S(T)=200$이라고 하자. 이 자산의 시점 0부터 $T$까지의 산술 수익률은</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>R(T)=\frac{200-100}{100}=1</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>이다. 로그 수익률은</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>r(T)=\log\frac{200}{100}\approx 0.693</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>이다. 이 경우 산술 수익률과 로그 수익률은 비슷하지 않다.</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>이번에는 $S(0)=100$이고 $S(T)=0$이라고 하자. 산술 수익률은</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>R(T)=\frac{0-100}{100}=-1</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>이고, 로그 수익률은</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>r(T)=\log\frac{0}{100}=-\infty</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="참고: 명목 수익률과 실질 수익률"}</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>수익률은 인플레이션(물가 상승)의 효과를 고려하지 않기 때문에 명목 수익률(nominal rate of return)이라고 불리기도 한다. 인플레이션은 화폐의 구매력을 감소시키므로, 시간이 흐른 뒤의 100달러는 오늘의 100달러와 같지 않다.</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>인플레이션의 효과를 제거한 수익률을 실질 수익률(real rate of return)이라고 한다. 이 장의 간단한 시장 모형에서는 인플레이션의 효과를 고려하지 않는다.</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>위험자산의 미래 가격 $S(T)$가 확률변수이므로, 이것의 함수로 표현되는 $R(T)$와 $r(T)$도 확률변수이다. 즉, 시점 $T$가 되기 전에는 $R(T)$와 $r(T)$의 값을 알 수 없지만 확률분포를 통해 분포적 성질을 가정할 수 있으며, 시점 $T$에 이르면 실현된 값을 관찰할 수 있다.</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="fu">### 무위험자산</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>한편, 무위험자산의 대표적인 예로는 신용도가 높은 정부가 발행한 단기 채권인 **무이표채(zero-coupon bond)**를 들 수 있다. 무이표채는 보유 기간 동안 중간 이자 지급이 없으며, 만기 시점에 미리 약정된 액면가(face value)를 한 번에 지급하는 채권이다. 따라서 무이표채의 가치는 만기 이전에는 확정된 방식으로 증가하며, 미래의 지급 금액이 확정되어 있다는 점에서 무위험자산으로 간주된다.</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>이 경우 무이표채의 수익률에는 확률적 변동이 없으며, 모든 $\omega \in \Omega$에 대해 동일한 값을 가진다. 즉, 무이표채는 앞서 정의한 의미에서 전형적인 무위험자산의 예가 된다.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>또한 신용 위험을 고려하지 않을 경우 일반적인 은행 예금도 무위험자산으로 볼 수 있다. 이 장에서는 시점 0부터 $T$까지의 단일 기간만을 고려하기 때문에 복리나 단리 같은 이자율의 종류나, 예금 기간에 따라 이자율이 달라지는 만기 구조(term structure)를 고려하지 않는다.^<span class="co">[</span><span class="ot">자세한 내용은 [10장 이자율과 채권](../10-interest-rates-bonds/index.qmd)에서 공부한다.</span><span class="co">]</span> 또한 신용 위험을 고려하지 않으므로 예금과 대출에 동일한 이자율이 적용된다고 가정한다.</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>이 단원에서는 시점 0에서 $T$까지의 (산술) 이자율을 상수 $r_F$로 표현하며, 이에 따라 시점 0에서 $A$의 금액을 예금했다면 시점 $T$에서 예금의 가치는 다음과 같다.</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>(1+r_F)A</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>$$ {#eq-rf}</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제: 무위험 예금의 만기 가치"}</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>1000의 금액을 시점 0부터 $T$까지 $r_F=0.02$의 이자율을 제공하는 예금에 예치하면, 시점 $T$에 다음 금액을 얻는다.</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>1000(1+0.02)=1020</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제: 항상 가격이 오르는 자산은 무위험자산인가?"}</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>$S(0)=100$이고, $S(T)$는 $\Omega=<span class="sc">\{</span>\omega_1,\omega_2<span class="sc">\}</span>$에서 정의된 확률변수라고 가정하자. 만약</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>S(\omega_1,T)=100.5,\qquad S(\omega_2,T)=107</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>이라고 하면, 이 자산은 항상 초기 투자 비용인 100보다 크므로 무위험자산이라고 할 수 있을까?</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>일상적인 관점에서 이 자산은 위험이 없는 자산으로 간주될 수도 있겠지만, 수학적인 관점에서 $S(T)$는 상수가 아닌 확률변수이므로 우리는 $S$를 **위험자산(risky asset)**이라고 부른다.</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### 기대 수익률과 표준편차</span></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>앞서 언급한 확률공간 $\Omega$에 **확률측도** $\mathbb{P}$를 도입하여, 앞으로 확률공간을 $(\Omega,\mathbb{P})$로 표현한다.</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>확률측도는 확률공간에서 정의된 사건에 확률을 할당하는 방법이다. 확률분포를 도입하여 확률변수에 대한 기댓값, 분산 등을 계산할 수 있게 한다.</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>한편, 통계학이나 확률 관련 과목에서 공부한 바와 같이 확률측도 $\mathbb{P}$는 다음의 성질을 만족한다.</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: 확률측도"}</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>확률측도 $\mathbb{P}$는 실수값 함수로서, 사건 $A\subseteq\Omega$에 대해 다음을 만족한다.</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$0\leq\mathbb{P}(A)\leq1$</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>$\mathbb{P}(\Omega)=1$</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>상호배반인 사건들 $A_i$에 대해 다음이 성립한다.</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>\mathbb{P}\left(\bigcup_{i=1}^{\infty}A_i\right)</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{\infty}\mathbb{P}(A_i).</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>다음 절에서 공부할 마코위츠 이론(Markowitz theory) 혹은 현대 포트폴리오 이론(MPT, modern portfolio theory)에서는 위험자산의 수익률이 정규분포를 따른다고 가정한다.</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>정규성 가정은 모든 투자자들이 투자를 고려할 때 수익률의 분포에 대하여 다음의 두 가지만 살펴보면 됨을 의미한다.</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>평균 - 성과(performance)</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>분산 혹은 표준편차 - 리스크 (risk)^<span class="co">[</span><span class="ot">분산이 경제적 리스크의 척도로 제안된 것은 아마 @Irving1906&lt;!-- --&gt;까지 거슬러 올라간다.</span><span class="co">]</span></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>즉, 투자자는 분산이 작으면서 평균 수익률이 높은 자산을 찾는다. 또한 자본시장 내에 여러 자산이 존재할 때는 분산 투자(diversification)를 통해 포트폴리오의 분산을 최소화하면서 평균 수익률이 높은 조합을 찾는다.</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: 기대 수익률(expected return)"}</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>시점 $0$부터 $T$까지의 $S$의 기대 수익률은 다음과 같이 정의한다.</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>\mu</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">R(T)</span><span class="co">]</span></span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">\frac{S(T)-S(0)}{S(0)}\right</span><span class="co">]</span></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">S(T)</span><span class="co">]</span>-S(0)}{S(0)}.</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>로그 수익률에 대해서도 마찬가지로 로그 기대 수익률을 정의할 수 있다.</span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">r(T)</span><span class="co">]</span></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">\log\frac{S(T)}{S(0)}\right</span><span class="co">]</span></span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\log S(T)</span><span class="co">]</span>-\log S(0).</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>기대 수익률과 함께 자산 수익률의 분산은 다음과 같이 정의한다.</span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>\sigma^2</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>\operatorname{Var}(R(T))</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">(R(T)-\mu)^2\right</span><span class="co">]</span>.</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>표준편차는 다음과 같다.</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>\sigma=\sqrt{\operatorname{Var}(R(T))}.</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>기대 수익률, 분산과 표준편차는 이 장에서 시장 위험을 이해하기 위한 핵심 개념으로 사용된다.</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>곧 살펴볼 현대 포트폴리오 이론에서는 수익률의 분포로 정규분포를 가정하지만, 일단 문제를 간단하게 살펴보기 위해 $S(T)$의 이산 분포를 가정한 다음의 예제를 보자.</span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제: 기대 수익률과 로그 기대 수익률"}</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>$S(0)=100$이고, $S(T)$는 $\Omega=<span class="sc">\{</span>\omega_1,\omega_2<span class="sc">\}</span>$에서 정의된 확률변수라고 가정하자. 각 사건의 확률은 다음과 같다.</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(<span class="sc">\{</span>\omega_1<span class="sc">\}</span>)=0.4,\qquad</span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(<span class="sc">\{</span>\omega_2<span class="sc">\}</span>)=0.6.</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>시점 $T$에서의 가격은 다음과 같다.</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>S(\omega_1,T)=95,\qquad</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>S(\omega_2,T)=110.</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>$S$의 기대 수익률은 다음과 같다.</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>\mu</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>\frac{95-100}{100}\times0.4</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>\frac{110-100}{100}\times0.6</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>0.04.</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>로그 기대 수익률은 다음과 같다.</span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">r(T)</span><span class="co">]</span></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>0.4\times\log\left(\frac{95}{100}\right)</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>0.6\times\log\left(\frac{110}{100}\right) <span class="sc">\\</span></span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>&amp;\approx 0.037.</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
