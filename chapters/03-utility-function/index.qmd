@@ -471,7 +471,7 @@ $$
 
 개별 투자자는 서로 다른 위험 선호도(risk preference)를 가지며, 이는 효용 함수의 곡률을 통해 수학적으로 표현된다. @fig-utility-shape 및 아래의 분류를 참고하자.
 
-![오목 (concave), 볼록 (convex), 선형 (linear) 효용함수의 형태들](../../assets/figures/Ch2_utility_shape.svg){#fig-utility-shape width=80%}
+![오목 (concave), 볼록 (convex), 선형 (linear) 효용함수의 형태들](../../assets/figures/Ch3_utility_shape.svg){#fig-utility-shape width=80%}
 
 - $U''(x)>0$: **리스크 추구(risk seeking)**  
   효용함수는 $W$에 대해 볼록(convex)이며, 한계효용 $U'$는 $W$가 증가함에 따라 증가한다.
