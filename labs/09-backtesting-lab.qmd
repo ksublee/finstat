@@ -1,0 +1,207 @@
+---
+title: "실습: Backtesting"
+engine: markdown
+filters:
+  - webr
+webr:
+  show-startup-message: true
+---
+
+이 실습은 [Backtesting](../chapters/09-backtesting/index.qmd) 장과 연결된다.
+본문의 표에 적힌 값들을 직접 계산해 보고, 조건을 바꿔가며 검정 결과가 어떻게 달라지는지 확인한다.
+
+코드는 브라우저에서 바로 실행된다. R을 따로 설치하지 않아도 되며, 값을 고쳐서 `Run Code`를 다시 누르면 결과가 갱신된다.
+
+::: {.callout-note}
+아래 `WEBR STATUS`가 초록색 `Ready!`로 바뀐 뒤에 실행한다. 첫 실행은 R을 내려받는 시간이 걸린다.
+:::
+
+## 목표
+
+- 이항분포로 [커버리지 검정](../concepts/glossary.qmd#coverage-test)의 두 오류율을 계산한다.
+- 기각 규칙을 바꿀 때 제1종 오류율과 제2종 오류율이 어떻게 상충하는지 확인한다.
+- 백테스트 결과를 Basel zone으로 판정하는 절차를 구현한다.
+
+## 1. 제1종 오류율 계산
+
+본문 @eq-type1 은 $n$일 관찰에서 예외가 $m$개 이상이면 $H_0$를 기각할 때의 제1종 오류율이다.
+
+$$
+\mathbb{P}(X \geq m) = 1 - \sum_{k=0}^{m-1}\binom{n}{k}\alpha^k(1-\alpha)^{n-k}
+$$
+
+R에서는 `pbinom`으로 바로 구할 수 있다. 아래 코드는 본문 표 9.1을 재현한다.
+
+```{webr-r}
+n <- 250
+alpha <- 0.01
+m <- 0:15
+
+data.frame(
+  m     = m,
+  exact = round(100 * dbinom(m, n, alpha), 2),
+  type1 = round(100 * (1 - pbinom(m - 1, n, alpha)), 2)
+)
+```
+
+::: {.callout-tip}
+`m = 0`일 때 `pbinom(-1, n, alpha)`는 0이므로 제1종 오류율이 100%가 된다.
+예외가 0개 이상이면 무조건 기각한다는 규칙이니 항상 기각하게 되는 셈이다.
+:::
+
+::: {.callout-warning}
+## 본문 표와 끝자리가 다르게 보인다면
+
+본문 표 9.1은 규제 문서에 실린 값을 그대로 옮긴 것으로 소수점 **1자리**까지 반올림되어 있다.
+위 코드는 2자리까지 출력하므로 마지막 자리가 달라 보인다.
+예를 들어 $m = 6$의 Exact 값은 실제로 2.748174%이고, 1자리로 반올림하면 본문의 2.7%가 된다.
+`round(..., 1)`로 바꿔 출력하면 표와 그대로 일치한다.
+:::
+
+**해볼 것**: `alpha`를 `0.05`로 바꾸면 표가 어떻게 달라지는가? 95% VaR에서 기대되는 예외 개수와 비교해 보자.
+
+## 2. 제2종 오류율 계산
+
+이번에는 $H_0$가 거짓이고 실제 수준이 $\alpha'$이라고 가정한다.
+본문 @eq-type2 는 $m$개 미만의 예외만 발생해 기각하지 못할 확률이다.
+
+```{webr-r}
+n <- 250
+alpha_prime <- 0.02   # 실제 수준
+m <- 0:15
+
+data.frame(
+  m     = m,
+  exact = round(100 * dbinom(m, n, alpha_prime), 2),
+  type2 = round(100 * pbinom(m - 1, n, alpha_prime), 2)
+)
+```
+
+**해볼 것**: `alpha_prime`을 `0.03`, `0.04`, `0.05`로 바꿔 본문 표 9.3~9.5와 대조해 보자.
+실제 수준이 커질수록 같은 $m$에서 제2종 오류율은 커지는가, 작아지는가?
+
+## 3. 두 오류율의 상충 관계
+
+::: {.callout-note}
+## 추가 실습
+
+원고에는 없는 내용이다. 1절과 2절에서 계산한 두 오류율을 같은 그림에 겹쳐
+$m$에 따른 변화를 눈으로 확인하는 것이 목적이다.
+
+사용한 식은 본문 @eq-type1 과 @eq-type2 이고, 값은 아래 코드로 계산한다.
+가정은 $n = 250$, $\alpha = 0.01$, $\alpha' = 0.04$이다.
+:::
+
+기각 규칙 $m$을 크게 잡으면 좀처럼 기각하지 않으므로 제1종 오류율은 줄지만 제2종 오류율은 늘어난다.
+두 값을 한 그림에 그려 확인한다.
+
+```{webr-r}
+n <- 250
+alpha <- 0.01
+alpha_prime <- 0.04
+m <- 0:15
+
+type1 <- 100 * (1 - pbinom(m - 1, n, alpha))
+type2 <- 100 * pbinom(m - 1, n, alpha_prime)
+
+plot(m, type1, type = "b", pch = 16, col = "red",
+     ylim = c(0, 100), xlab = "기각 규칙 m", ylab = "오류율 (%)",
+     main = "제1종 오류율과 제2종 오류율")
+lines(m, type2, type = "b", pch = 17, col = "blue")
+legend("right", legend = c("제1종", "제2종"),
+       col = c("red", "blue"), pch = c(16, 17))
+```
+
+**해볼 것**: 두 곡선이 만나는 지점의 $m$은 얼마인가?
+`alpha_prime`을 `0.02`로 낮추면 교차점은 어느 쪽으로 움직이는가?
+그 이유를 모형이 얼마나 틀렸는지와 연결해 설명해 보자.
+
+## 4. Basel zone 판정
+
+본문 표 9.6의 구분을 함수로 만든다.
+예외 개수를 넣으면 zone과 최소 자본 [권장 배율](../concepts/glossary.qmd#multiplication-factor)을 돌려준다.
+
+```{webr-r}
+basel_zone <- function(exceptions) {
+  if (exceptions <= 4) {
+    list(zone = "Green", multiplier = 1.5)
+  } else if (exceptions <= 9) {
+    list(zone = "Amber", multiplier = "1.7 ~ 1.92")
+  } else {
+    list(zone = "Red", multiplier = 2.0)
+  }
+}
+
+# 본문 실행 결과와 대조: 2005년 3회, 2007년 11회
+for (x in c(3, 11)) {
+  r <- basel_zone(x)
+  cat("예외", x, "회 ->", r$zone, "zone, 배율", format(r$multiplier), "\n")
+}
+```
+
+**해볼 것**: 예외가 정확히 5회, 9회, 10회일 때를 넣어 경계가 의도대로 나뉘는지 확인해 보자.
+
+## 5. 모의실험으로 확인하기
+
+::: {.callout-note}
+## 추가 실습
+
+원고에는 없는 내용이다. 본문이 이론값으로 제시한 이항분포를 난수로 재현해,
+표의 확률이 실제로 그 비율로 나타나는지 확인하는 것이 목적이다.
+
+가정은 다음과 같다. 매일 확률 $\alpha$로 예외가 독립적으로 발생하고,
+$n = 250$일을 한 번의 백테스트로 보아 2,000회 반복한다.
+난수이므로 실행할 때마다 값이 조금씩 달라지며, `set.seed`로 재현성을 맞춘다.
+:::
+
+VaR 모형이 정확하다고 가정하고 250일을 여러 번 모의실험해, 예외 개수의 분포가
+이론값 $\mathrm{B}(250, 0.01)$과 맞는지 확인한다.
+
+```{webr-r}
+set.seed(1)
+n <- 250
+alpha <- 0.01
+reps <- 2000
+
+# 매일 확률 alpha로 예외가 발생하는 상황을 reps번 반복
+counts <- rbinom(reps, n, alpha)
+
+hist(counts, breaks = seq(-0.5, max(counts) + 0.5, by = 1),
+     freq = FALSE, xlab = "예외 개수", ylab = "비율",
+     main = paste0("모의실험 ", reps, "회"))
+points(0:15, dbinom(0:15, n, alpha), col = "red", pch = 16)
+legend("topright", legend = c("모의실험", "이론값"),
+       fill = c("grey", NA), border = c("black", NA),
+       pch = c(NA, 16), col = c(NA, "red"))
+
+cat("Red zone(10회 이상) 비율:",
+    round(100 * mean(counts >= 10), 2), "%\n")
+```
+
+**해볼 것**: 모형이 정확한데도 Red zone이 나오는 비율은 얼마인가?
+이 값이 본문 표 9.1의 어느 숫자와 대응하는지 찾아보자.
+
+## 과제
+
+::: {.callout-note}
+## 추가 실습
+
+원고에는 연습문제가 없다. 아래 세 문항은 이 실습의 학습 목표에 맞춰 추가한 것이며,
+모두 앞 절의 코드를 고쳐 답을 확인할 수 있다.
+새로운 모형이나 자료를 도입하지 않고, 본문 @eq-type1 · @eq-type2 와
+표 9.1~9.6의 범위 안에서만 묻는다.
+:::
+
+1. $n = 500$으로 늘리면 같은 $\alpha$에서 제1종 오류율 5% 아래를 유지하는 최소 $m$은 얼마인가?
+2. 관찰 기간을 늘리면 검정력이 좋아지는지, 1번 결과와 3절의 그림으로 설명하라.
+3. 5절의 모의실험에서 `alpha`만 `0.03`으로 바꿔 실행하라.
+   모형은 $\alpha = 0.01$을 가정했지만 실제 초과 비율이 3%인 상황에 해당한다.
+   (a) Red zone(예외 10회 이상)이 나오는 비율은 얼마인가?
+   (b) 예외가 7개 미만이어서 $m \geq 7$ 규칙으로 기각하지 못하는 비율을 구하고,
+   2절에서 계산한 $\alpha' = 0.03$, $m = 7$의 제2종 오류율과 비교하라.
+
+## 관련 페이지
+
+- [Backtesting](../chapters/09-backtesting/index.qmd)
+- [VaR와 ES](../chapters/04-var-es/index.qmd)
+- [용어 정리](../concepts/glossary.qmd)
