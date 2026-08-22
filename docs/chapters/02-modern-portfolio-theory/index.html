@@ -339,6 +339,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">실습: 변동성</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/09-backtesting-lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">실습: Backtesting</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -381,6 +387,7 @@ window.Quarto = {
   <li><a href="#기본-가정" id="toc-기본-가정" class="nav-link" data-scroll-target="#기본-가정"><span class="header-section-number">2.3.1</span> 기본 가정</a></li>
   <li><a href="#무위험자산" id="toc-무위험자산" class="nav-link" data-scroll-target="#무위험자산"><span class="header-section-number">2.3.2</span> 무위험자산</a></li>
   <li><a href="#기대-수익률과-표준편차" id="toc-기대-수익률과-표준편차" class="nav-link" data-scroll-target="#기대-수익률과-표준편차"><span class="header-section-number">2.3.3</span> 기대 수익률과 표준편차</a></li>
+  <li><a href="#수학적-프레임워크" id="toc-수학적-프레임워크" class="nav-link" data-scroll-target="#수학적-프레임워크"><span class="header-section-number">2.3.4</span> 수학적 프레임워크</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/02-modern-portfolio-theory/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
@@ -706,11 +713,99 @@ S(\omega_2,T)=110.
 \]</span></p>
 </div>
 </div>
+</section>
+<section id="수학적-프레임워크" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="수학적-프레임워크"><span class="header-section-number">2.3.4</span> 수학적 프레임워크</h3>
+<p>자산 수익률(혹은 로그 수익률)의 표준편차는 종종 리스크 메트릭(risk metric)으로 활용된다. 수익률의 표준편차가 클수록 리스크가 큰 것으로 간주한다.</p>
+<p>수익률의 평균-분산 분석(mean-variance analysis)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>은 이 장에서 소개하는 포트폴리오 이론의 핵심이 된다.</p>
+<p>이 장에서는 0과 <span class="math inline">\(T\)</span>의 두 시점만 고려하므로, 특별한 언급이 없을 경우 수익률, 기대 수익률, 분산 등의 계산에 있어 0부터 <span class="math inline">\(T\)</span>까지의 값을 계산하는 것으로 한다.</p>
+<p>두 개 이상의 금융 자산으로 구성된 투자의 집합을 <strong>포트폴리오(portfolio)</strong>라고 한다. <span class="citation" data-cites="Choe2016">Choe (<a href="#ref-Choe2016" role="doc-biblioref">2016년</a>)</span>는 다음과 같이 포트폴리오와 자산의 수학적 정의에 대해 설명하였다.</p>
+<blockquote class="blockquote">
+<p>A portfolio is a collection of financial assets such as government bonds, stocks, commodities and financial derivatives. Mathematically speaking, an asset is a time-indexed sequence of random variables, and a portfolio is a linear combination of assets.</p>
+</blockquote>
+<p>두 개 자산 <span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>가 있을 때 각각의 자산을 <span class="math inline">\(q_1\)</span>, <span class="math inline">\(q_2\)</span>주만큼 보유한다면, 이 포트폴리오의 시점 <span class="math inline">\(T\)</span>에서의 가치(value)는 다음과 같다.</p>
+<p><span class="math display">\[
+V(T) = q_1 S_1(T) + q_2 S_2(T)
+\]</span></p>
+<p>자산이 <span class="math inline">\(n\)</span>개인 경우에도 동일하게 확장된다.</p>
+<p><span class="math display">\[
+V(T) = q_1 S_1(T) + \cdots + q_n S_n(T)
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제: 두 자산 포트폴리오의 기대수익률">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 두 자산 포트폴리오의 기대수익률
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>자본 시장에 <span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>의 두 자산이 존재하며, 시점 0에서의 가격은 각각 다음과 같다.</p>
+<p><span class="math display">\[
+S_1(0) = \$200, \qquad S_2(0) = \$300
+\]</span></p>
+<p>두 개의 시나리오 <span class="math inline">\(\omega_1\)</span>, <span class="math inline">\(\omega_2 \in \Omega\)</span>에 대한 확률이 0.6, 0.4라 하자.</p>
+<p><span class="math display">\[
+\mathbb{P}(\{\omega_1\}) = 0.6, \qquad
+\mathbb{P}(\{\omega_2\}) = 0.4
+\]</span></p>
+<p>또한, 시점 <span class="math inline">\(T\)</span>에서 각 자산의 가격은 다음과 같다.</p>
+<p><span class="math display">\[
+S_1(\omega_1,T) = 240, \qquad
+S_1(\omega_2,T) = 180
+\]</span></p>
+<p><span class="math display">\[
+S_2(\omega_1,T) = 390, \qquad
+S_2(\omega_2,T) = 240
+\]</span></p>
+<p>만약, $1,000의 초기 자본을 가진 투자자가 <span class="math inline">\(S_1\)</span>과 <span class="math inline">\(S_2\)</span>를 각 2개씩 구입하였다면, 이 투자의 0부터 <span class="math inline">\(T\)</span>까지의 기대수익률은 다음과 같이 계산할 수 있다. 이 포트폴리오의 가치를 <span class="math inline">\(V\)</span>라고 하면,</p>
+<p><span class="math display">\[
+\begin{aligned}
+V(\omega_1,T) &amp;= 2 \times 240 + 2 \times 390 = 1260, \\
+V(\omega_2,T) &amp;= 2 \times 180 + 2 \times 240 = 840
+\end{aligned}
+\]</span></p>
+<p>이고,</p>
+<p><span class="math display">\[
+\mathbb{E}[R(T)]
+=
+\frac{\mathbb{E}[V(T)]}{V(0)}-1
+=
+\frac{1260 \times 0.6 + 840 \times 0.4}{1000}-1
+=
+0.092.
+\]</span></p>
+</div>
+</div>
+<p>이론적으로 <span class="math inline">\(q_i\)</span>는 실수값 중의 하나로 가정한다. 실제 세상에서는 자산을 임의의 소수점 단위로 거래하지는 않지만, 이 가정은 향후 필요한 여러 가지 계산을 간편히 해 준다.</p>
+<p>한편, <span class="math inline">\(q_i&gt;0\)</span>인 경우 해당 자산에 대해 <strong>매입 포지션(long position)</strong>을 취하고 있다고 말하며, 해당 자산을 구매하여 보유하고 있는 경우이다. 반대로, <span class="math inline">\(q_i&lt;0\)</span>인 경우 해당 자산에 대해 <strong>매도 포지션(short position)</strong>을 취한 것이며, 채권, 파생상품 등을 발행하거나, 현금을 빌려오거나, 주식을 <strong>공매도(short selling)</strong>한 경우이다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: 공매도(short selling)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: 공매도(short selling)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>공매도는 유가증권(security)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>을 빌려와 판매하는 행위를 말한다. 특정 시점이 지난 후 해당 증권을 시장에서 매입하여 대여자에게 상환한다.</p>
+<p>증권 가격이 하락할 것으로 예상하여 투기<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>적 목적(speculation)으로 사용되거나, 옵션 등 파생상품을 헤지하는 목적으로 사용된다.</p>
+</div>
+</div>
+<p>우리가 공부하는 이론적 모델에서의 공매도는 수수료나 이자 등의 비용이 고려되지 않는다. 또한, 투자자들이 필요한 만큼 공매도를 할 수 있으며, 공매도의 양이나 비율에 제한이 없다. 이는 포트폴리오 이론을 단순화하기 위한 가정이다.</p>
+<p>반면, 실제 금융 시장에서는 공매도를 실행할 때 담보가 요구되고, 주식을 대여하는 기관에서 수수료나 이자를 부과할 수 있다. 또한, 제도적으로 공매도에 여러 규제가 있을 수 있다.</p>
+<p>자본 시장에서 공매도의 역할에 대해서는 의견이 분분하다. 공매도의 장점으로는 시장 유동성 증가, 가격 발견 메커니즘의 강화를 통한 시장 효율성 증대, 위험 관리 도구로서의 활용 등이 있다. 공매도를 반대하는 입장에서는 시장 변동성 증가와 과도한 하락 압력, 시장 조작 가능성을 지적한다.</p>
+<p>다만, 이론적 측면에서 보았을 때 공매도가 가능하다는 가정은 수학적 이론을 전개하는 데 있어 편리함을 제공한다. 반대로 공매도가 불가능하다고 가정하면 이론 전개에 제약 조건이 추가되어 수식의 전개가 복잡해질 수 있다. 이 강의노트에서는 대부분의 경우 자유로운 공매도가 가능하다고 가정할 것이다.</p>
 
 
 <!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Choe2016" class="csl-entry" role="listitem">
+Choe, Geon Ho. 2016년. <em>Stochastic Analysis for Finance with Simulations</em>. Springer International Publishing.
+</div>
 <div id="ref-Irving1906" class="csl-entry" role="listitem">
 Fisher, Irving. 1906년. <em>The Nature of Capital and Income</em>. Macmillan.
 </div>
@@ -722,6 +817,9 @@ Fisher, Irving. 1906년. <em>The Nature of Capital and Income</em>. Macmillan.
 <ol>
 <li id="fn1"><p>자세한 내용은 <a href="../../chapters/10-interest-rates-bonds/index.html">10장 이자율과 채권</a>에서 공부한다.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>분산이 경제적 리스크의 척도로 제안된 것은 아마 <span class="citation" data-cites="Irving1906">Fisher (<a href="#ref-Irving1906" role="doc-biblioref">1906년</a>)</span><!-- -->까지 거슬러 올라간다.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>기대 수익에 대해 분산으로 표현되는 위험을 평가하는 과정<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>주식, 채권, 어음, 수표 등의 금융 자산<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>금융에서 투기는 가까운 장래에 어떤 자산의 가격이 특정 방향으로 움직일 것이라고 믿고, 매수 혹은 공매도하는 행위를 일컫는다.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1502,7 +1600,98 @@ Fisher, Irving. 1906년. <em>The Nature of Capital and Income</em>. Macmillan.
 <span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>&amp;\approx 0.037.</span>
 <span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
 <span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a><span class="fu">### 수학적 프레임워크</span></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>자산 수익률(혹은 로그 수익률)의 표준편차는 종종 리스크 메트릭(risk metric)으로 활용된다. 수익률의 표준편차가 클수록 리스크가 큰 것으로 간주한다.</span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>수익률의 평균-분산 분석(mean-variance analysis)^<span class="co">[</span><span class="ot">기대 수익에 대해 분산으로 표현되는 위험을 평가하는 과정</span><span class="co">]</span>은 이 장에서 소개하는 포트폴리오 이론의 핵심이 된다.</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>이 장에서는 0과 $T$의 두 시점만 고려하므로, 특별한 언급이 없을 경우 수익률, 기대 수익률, 분산 등의 계산에 있어 0부터 $T$까지의 값을 계산하는 것으로 한다.</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>두 개 이상의 금융 자산으로 구성된 투자의 집합을 **포트폴리오(portfolio)**라고 한다. @Choe2016[]는 다음과 같이 포트폴리오와 자산의 수학적 정의에 대해 설명하였다.</span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; A portfolio is a collection of financial assets such as government bonds, stocks, commodities and financial derivatives. Mathematically speaking, an asset is a time-indexed sequence of random variables, and a portfolio is a linear combination of assets.</span></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>두 개 자산 $S_1$, $S_2$가 있을 때 각각의 자산을 $q_1$, $q_2$주만큼 보유한다면, 이 포트폴리오의 시점 $T$에서의 가치(value)는 다음과 같다.</span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>V(T) = q_1 S_1(T) + q_2 S_2(T)</span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>자산이 $n$개인 경우에도 동일하게 확장된다.</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>V(T) = q_1 S_1(T) + \cdots + q_n S_n(T)</span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제: 두 자산 포트폴리오의 기대수익률"}</span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>자본 시장에 $S_1$, $S_2$의 두 자산이 존재하며, 시점 0에서의 가격은 각각 다음과 같다.</span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>S_1(0) = \$200, \qquad S_2(0) = \$300</span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a>두 개의 시나리오 $\omega_1$, $\omega_2 \in \Omega$에 대한 확률이 0.6, 0.4라 하자.</span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(<span class="sc">\{</span>\omega_1<span class="sc">\}</span>) = 0.6, \qquad</span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(<span class="sc">\{</span>\omega_2<span class="sc">\}</span>) = 0.4</span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a>또한, 시점 $T$에서 각 자산의 가격은 다음과 같다.</span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>S_1(\omega_1,T) = 240, \qquad</span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a>S_1(\omega_2,T) = 180</span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a>S_2(\omega_1,T) = 390, \qquad</span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a>S_2(\omega_2,T) = 240</span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>만약, \$1,000의 초기 자본을 가진 투자자가 $S_1$과 $S_2$를 각 2개씩 구입하였다면, 이 투자의 0부터 $T$까지의 기대수익률은 다음과 같이 계산할 수 있다. 이 포트폴리오의 가치를 $V$라고 하면,</span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>V(\omega_1,T) &amp;= 2 \times 240 + 2 \times 390 = 1260, <span class="sc">\\</span></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>V(\omega_2,T) &amp;= 2 \times 180 + 2 \times 240 = 840</span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>이고,</span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">R(T)</span><span class="co">]</span></span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">V(T)</span><span class="co">]</span>}{V(0)}-1</span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>\frac{1260 \times 0.6 + 840 \times 0.4}{1000}-1</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>0.092.</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a>이론적으로 $q_i$는 실수값 중의 하나로 가정한다. 실제 세상에서는 자산을 임의의 소수점 단위로 거래하지는 않지만, 이 가정은 향후 필요한 여러 가지 계산을 간편히 해 준다.</span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a>한편, $q_i&gt;0$인 경우 해당 자산에 대해 **매입 포지션(long position)**을 취하고 있다고 말하며, 해당 자산을 구매하여 보유하고 있는 경우이다. 반대로, $q_i&lt;0$인 경우 해당 자산에 대해 **매도 포지션(short position)**을 취한 것이며, 채권, 파생상품 등을 발행하거나, 현금을 빌려오거나, 주식을 **공매도(short selling)**한 경우이다.</span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: 공매도(short selling)"}</span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a>공매도는 유가증권(security)^<span class="co">[</span><span class="ot">주식, 채권, 어음, 수표 등의 금융 자산</span><span class="co">]</span>을 빌려와 판매하는 행위를 말한다. 특정 시점이 지난 후 해당 증권을 시장에서 매입하여 대여자에게 상환한다.</span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a>증권 가격이 하락할 것으로 예상하여 투기^<span class="co">[</span><span class="ot">금융에서 투기는 가까운 장래에 어떤 자산의 가격이 특정 방향으로 움직일 것이라고 믿고, 매수 혹은 공매도하는 행위를 일컫는다.</span><span class="co">]</span>적 목적(speculation)으로 사용되거나, 옵션 등 파생상품을 헤지하는 목적으로 사용된다.</span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a>우리가 공부하는 이론적 모델에서의 공매도는 수수료나 이자 등의 비용이 고려되지 않는다. 또한, 투자자들이 필요한 만큼 공매도를 할 수 있으며, 공매도의 양이나 비율에 제한이 없다. 이는 포트폴리오 이론을 단순화하기 위한 가정이다.</span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a>반면, 실제 금융 시장에서는 공매도를 실행할 때 담보가 요구되고, 주식을 대여하는 기관에서 수수료나 이자를 부과할 수 있다. 또한, 제도적으로 공매도에 여러 규제가 있을 수 있다.</span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a>자본 시장에서 공매도의 역할에 대해서는 의견이 분분하다. 공매도의 장점으로는 시장 유동성 증가, 가격 발견 메커니즘의 강화를 통한 시장 효율성 증대, 위험 관리 도구로서의 활용 등이 있다. 공매도를 반대하는 입장에서는 시장 변동성 증가와 과도한 하락 압력, 시장 조작 가능성을 지적한다.</span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>다만, 이론적 측면에서 보았을 때 공매도가 가능하다는 가정은 수학적 이론을 전개하는 데 있어 편리함을 제공한다. 반대로 공매도가 불가능하다고 가정하면 이론 전개에 제약 조건이 추가되어 수식의 전개가 복잡해질 수 있다. 이 강의노트에서는 대부분의 경우 자유로운 공매도가 가능하다고 가정할 것이다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

@@ -339,6 +339,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">실습: 변동성</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../labs/09-backtesting-lab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">실습: Backtesting</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -385,6 +391,7 @@ window.Quarto = {
   <li><a href="#효용-함수의-양의-아핀-변환" id="toc-효용-함수의-양의-아핀-변환" class="nav-link" data-scroll-target="#효용-함수의-양의-아핀-변환"><span class="header-section-number">3.3.5</span> 효용 함수의 양의 아핀 변환</a></li>
   <li><a href="#확실성-등가" id="toc-확실성-등가" class="nav-link" data-scroll-target="#확실성-등가"><span class="header-section-number">3.3.6</span> 확실성 등가</a></li>
   </ul></li>
+  <li><a href="#효용-함수의-형태와-리스크-성향" id="toc-효용-함수의-형태와-리스크-성향" class="nav-link" data-scroll-target="#효용-함수의-형태와-리스크-성향"><span class="header-section-number">3.4</span> 효용 함수의 형태와 리스크 성향</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/03-utility-function/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -826,6 +833,38 @@ U(\mathrm{CE}_W)
 </ul>
 </div>
 </div>
+</section>
+</section>
+<section id="효용-함수의-형태와-리스크-성향" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="효용-함수의-형태와-리스크-성향"><span class="header-section-number">3.4</span> 효용 함수의 형태와 리스크 성향</h2>
+<p>효용함수의 모양에 대해 알아보자. 다다익선이라는 격언처럼 효용함수는 <span class="math inline">\(W\)</span>에 대한 단조증가함수이다. 즉,</p>
+<p><span class="math display">\[
+U'(x)&gt;0
+\]</span></p>
+<p>이며, 이는 <strong>한계효용(marginal utility)</strong> <span class="math inline">\(U'\)</span>가 항상 양의 값을 가짐을 의미한다. 한편, 한계효용 <span class="math inline">\(U'(x)\)</span>는 부(Wealth)가 아주 미세하게 증가할 때 투자자가 느끼는 추가적인 만족감의 크기를 나타낸다.</p>
+<p>앞서 언급한 것처럼 위험 회피적 투자자의 경우 한계효용은 <span class="math inline">\(W\)</span>가 증가함에 따라 감소한다. 보다 일반적으로, 투자자의 위험 선호는 효용 함수의 곡률, 즉 이차 도함수 <span class="math inline">\(U''\)</span>의 부호에 의해 구분된다.</p>
+<p>개별 투자자는 서로 다른 위험 선호도(risk preference)를 가지며, 이는 효용 함수의 곡률을 통해 수학적으로 표현된다. <a href="#fig-utility-shape" class="quarto-xref">그림&nbsp;<span>3.1</span></a> 및 아래의 분류를 참고하자.</p>
+<div id="fig-utility-shape" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-utility-shape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch3_utility_shape.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-utility-shape-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;3.1: 오목 (concave), 볼록 (convex), 선형 (linear) 효용함수의 형태들
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><p><span class="math inline">\(U''(x)&gt;0\)</span>: <strong>리스크 추구(risk seeking)</strong><br>
+효용함수는 <span class="math inline">\(W\)</span>에 대해 볼록(convex)이며, 한계효용 <span class="math inline">\(U'\)</span>는 <span class="math inline">\(W\)</span>가 증가함에 따라 증가한다.</p></li>
+<li><p><span class="math inline">\(U''(x)&lt;0\)</span>: <strong>리스크 회피(risk averse)</strong><br>
+효용함수는 <span class="math inline">\(W\)</span>에 대해 오목(concave)이며, 한계효용 <span class="math inline">\(U'\)</span>는 <span class="math inline">\(W\)</span>가 증가함에 따라 감소한다.</p></li>
+<li><p><span class="math inline">\(U''(x)=0\)</span>: <strong>리스크 중립(risk neutral)</strong><br>
+효용함수는 <span class="math inline">\(W\)</span>에 대해 선형(linear)이며, 한계효용 <span class="math inline">\(U'\)</span>는 <span class="math inline">\(W\)</span>에 의존하지 않는다.</p></li>
+</ul>
+<p>일반적으로 리스크 회피적(<span class="math inline">\(U''&lt;0\)</span>)인 투자자에게 부의 증가에 따른 만족감은 여전히 커지지만(단조증가), 그 증가하는 속도는 점점 둔화된다.</p>
+<p>예를 들어, 자산이 거의 없는 상태에서 얻는 <span class="math inline">\(100\)</span>만 원의 가치(한계효용)는 이미 수십억 원을 보유한 상태에서 얻는 <span class="math inline">\(100\)</span>만 원의 가치보다 훨씬 크게 느껴진다.</p>
+<p>이를 수학적으로는 <span class="math inline">\(U'\)</span>가 감소함수임을 의미하는 <span class="math inline">\(U''&lt;0\)</span>으로 표현하며, <strong>한계효용 체감의 법칙(Law of diminishing marginal utility)</strong>이라고 한다.</p>
 
 
 <!-- -->
@@ -838,7 +877,6 @@ Alexander, Carol. 2008년. <em>Market Risk Analysis: Quantitative Methods in Fin
 Bernoulli, Daniel. 1954년. <span>“Exposition of a new theory on the measurement of risk”</span>. <em>Econometrica: Journal of the Econometric Society</em> 20: 23–36.
 </div>
 </div>
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -1820,7 +1858,38 @@ Bernoulli, Daniel. 1954년. <span>“Exposition of a new theory on the measureme
 <span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
 <span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a>  $$</span>
 <span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a><span class="fu">## 효용 함수의 형태와 리스크 성향</span></span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>효용함수의 모양에 대해 알아보자. 다다익선이라는 격언처럼 효용함수는 $W$에 대한 단조증가함수이다. 즉,</span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a>U'(x)&gt;0</span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a>이며, 이는 **한계효용(marginal utility)** $U'$가 항상 양의 값을 가짐을 의미한다. 한편, 한계효용 $U'(x)$는 부(Wealth)가 아주 미세하게 증가할 때 투자자가 느끼는 추가적인 만족감의 크기를 나타낸다.</span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a>앞서 언급한 것처럼 위험 회피적 투자자의 경우 한계효용은 $W$가 증가함에 따라 감소한다. 보다 일반적으로, 투자자의 위험 선호는 효용 함수의 곡률, 즉 이차 도함수 $U''$의 부호에 의해 구분된다.</span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a>개별 투자자는 서로 다른 위험 선호도(risk preference)를 가지며, 이는 효용 함수의 곡률을 통해 수학적으로 표현된다. @fig-utility-shape 및 아래의 분류를 참고하자.</span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a><span class="al">![오목 (concave), 볼록 (convex), 선형 (linear) 효용함수의 형태들](../../assets/figures/Ch3_utility_shape.svg)</span>{#fig-utility-shape width=80%}</span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$U''(x)&gt;0$: **리스크 추구(risk seeking)**  </span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a>  효용함수는 $W$에 대해 볼록(convex)이며, 한계효용 $U'$는 $W$가 증가함에 따라 증가한다.</span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$U''(x)&lt;0$: **리스크 회피(risk averse)**  </span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>  효용함수는 $W$에 대해 오목(concave)이며, 한계효용 $U'$는 $W$가 증가함에 따라 감소한다.</span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$U''(x)=0$: **리스크 중립(risk neutral)**  </span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a>  효용함수는 $W$에 대해 선형(linear)이며, 한계효용 $U'$는 $W$에 의존하지 않는다.</span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>일반적으로 리스크 회피적($U''&lt;0$)인 투자자에게 부의 증가에 따른 만족감은 여전히 커지지만(단조증가), 그 증가하는 속도는 점점 둔화된다.</span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>예를 들어, 자산이 거의 없는 상태에서 얻는 $100$만 원의 가치(한계효용)는 이미 수십억 원을 보유한 상태에서 얻는 $100$만 원의 가치보다 훨씬 크게 느껴진다.</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>이를 수학적으로는 $U'$가 감소함수임을 의미하는 $U''&lt;0$으로 표현하며, **한계효용 체감의 법칙(Law of diminishing marginal utility)**이라고 한다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

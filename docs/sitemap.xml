@@ -10,15 +10,15 @@
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/01-risk-management-overview/index.html</loc>
-    <lastmod>2026-08-20T01:21:50.851Z</lastmod>
+    <lastmod>2026-08-22T07:07:13.804Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/02-modern-portfolio-theory/index.html</loc>
-    <lastmod>2026-08-20T01:21:50.851Z</lastmod>
+    <lastmod>2026-08-22T07:07:13.804Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/03-utility-function/index.html</loc>
-    <lastmod>2026-08-20T08:04:47.413Z</lastmod>
+    <lastmod>2026-08-22T07:07:13.804Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/04-var-es/index.html</loc>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/09-backtesting/index.html</loc>
-    <lastmod>2026-08-17T11:19:16.706Z</lastmod>
+    <lastmod>2026-08-22T07:07:13.804Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/chapters/10-interest-rates-bonds/index.html</loc>
@@ -87,6 +87,10 @@
   <url>
     <loc>https://ksublee.github.io/finstat/labs/07-volatility-lab.html</loc>
     <lastmod>2026-07-09T05:48:11.549Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ksublee.github.io/finstat/labs/09-backtesting-lab.html</loc>
+    <lastmod>2026-08-22T07:07:13.804Z</lastmod>
   </url>
   <url>
     <loc>https://ksublee.github.io/finstat/concepts/notation.html</loc>
