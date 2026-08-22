@@ -378,9 +378,9 @@ for(j in starting:end){
 
 ::: {layout-ncol=2}
 
-![2005년 자료로 백테스트한 결과](../../assets/figures/Backtest_2005.svg){#fig-backtest-2005}
+![2005년 자료로 백테스트한 결과](../../assets/figures/Ch9_Backtest_2005.svg){#fig-backtest-2005}
 
-![2007년 자료로 백테스트한 결과](../../assets/figures/Backtest_2007.svg){#fig-backtest-2007}
+![2007년 자료로 백테스트한 결과](../../assets/figures/Ch9_Backtest_2007.svg){#fig-backtest-2007}
 
 :::
 
