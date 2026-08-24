@@ -507,7 +507,7 @@ $$
 
 :::
 
-![로그 함수의 테일러 근사: 원래 함수와 1차 및 2차 근사 비교](../../assets/figures/Ch3_taylor.png){#fig-taylor-approximations width=80%}
+![로그 함수의 테일러 근사: 원래 함수와 1차 및 2차 근사 비교](../../assets/figures/Ch3_taylor.svg){#fig-taylor-approximations width=80%}
 
 효용 함수 $U(x)$를 $x_0=\mathbb{E}[W]$에서 Taylor 전개하고 $x=W$를 대입하면,
 
