@@ -131,13 +131,13 @@ for (i in 1:100000){
   PnLs[i] <- X - X0
 }
 
-VaR <- - quantile(PnLs, 0.01)  # 678.3827
-ES <- - sum(PnLs[PnLs <= -VaR]) / length(PnLs[PnLs <= -VaR]) # 863.926
+VaR <- - quantile(PnLs, 0.01)
+ES <- - sum(PnLs[PnLs <= -VaR]) / length(PnLs[PnLs <= -VaR])
 # or
 ES <- - mean(PnLs[PnLs <= -VaR])
 ```
 
-99% VaR의 몬테카를로 시뮬레이션 결과는 대략 \$680, ES는 대략 \$864이다.
+99% VaR의 몬테카를로 시뮬레이션 결과는 대략 \$680, ES는 대략 \$864이다. 난수를 쓰므로 실행할 때마다 값이 조금씩 달라진다.
 
 ::: {.callout-note}
 ## 정규분포 가정과 비교하면
