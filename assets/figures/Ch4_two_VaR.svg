@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="576" height="432" viewBox="0 0 576 432" role="img" aria-labelledby="title desc">
+  <title id="title">누적분포함수에 수평인 부분이 있을 때 가능한 VaR의 위치</title>
+  <desc id="desc">계단형 누적분포함수에서 두 VaR 정의가 가리키는 q 위첨자 알파와 q 아래첨자 알파의 위치를 비교한 그림이다.</desc>
+  <rect width="576" height="432" fill="white"/>
+  <g fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 432) scale(1 -1)">
+    <path d="M52.31 108.76H216.82M216.82 200.44H381.33M381.33 292.11H545.84" stroke-width="2.13"/>
+    <circle cx="216.82" cy="108.76" r="2.485" stroke-width="0.71"/>
+    <circle cx="216.82" cy="200.44" r="2.485" fill="black" stroke-width="0.71"/>
+    <circle cx="381.33" cy="200.44" r="2.485" stroke-width="0.71"/>
+    <circle cx="381.33" cy="292.11" r="2.485" fill="black" stroke-width="0.71"/>
+    <path d="M52.31 47.65V353.23M45.22 340.95L52.31 353.23L59.40 340.95M52.31 47.65H545.84M533.57 40.56L545.84 47.65L533.57 54.73" stroke-width="2.13"/>
+    <path d="M52.31 200.44H216.82M216.82 47.65V200.44M381.33 47.65V200.44" stroke-width="1.07" stroke-dasharray="1.07 3.2"/>
+  </g>
+  <g fill="black" font-family="Helvetica, Arial, sans-serif">
+    <text x="30.54" y="233.53" font-family="Symbol, serif" font-size="23">α</text>
+    <text x="191.65" y="376.16" font-size="23">q</text>
+    <text x="204.44" y="380.37" font-family="Symbol, serif" font-size="16">α</text>
+    <text x="388.20" y="374.75" font-size="23">q</text>
+    <text x="400.99" y="363.33" font-family="Symbol, serif" font-size="16">α</text>
+    <text x="294.58" y="422.77" font-size="18">x</text>
+    <text transform="translate(18.4 233.8) rotate(-90)" font-size="18">F(x)</text>
+  </g>
+</svg>
