@@ -392,7 +392,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#리스크-식별identify-risk" id="toc-리스크-식별identify-risk" class="nav-link" data-scroll-target="#리스크-식별identify-risk"><span class="header-section-number">1.4.1</span> 리스크 식별(identify risk)</a></li>
   <li><a href="#리스크-분석과-측정" id="toc-리스크-분석과-측정" class="nav-link" data-scroll-target="#리스크-분석과-측정"><span class="header-section-number">1.4.2</span> 리스크 분석과 측정</a></li>
+  <li><a href="#충격-평가assess-impact" id="toc-충격-평가assess-impact" class="nav-link" data-scroll-target="#충격-평가assess-impact"><span class="header-section-number">1.4.3</span> 충격 평가(assess impact)</a></li>
+  <li><a href="#리스크-관리-1" id="toc-리스크-관리-1" class="nav-link" data-scroll-target="#리스크-관리-1"><span class="header-section-number">1.4.4</span> 리스크 관리</a></li>
   </ul></li>
+  <li><a href="#금융-이론에서의-확률과-통계의-역할" id="toc-금융-이론에서의-확률과-통계의-역할" class="nav-link" data-scroll-target="#금융-이론에서의-확률과-통계의-역할"><span class="header-section-number">1.5</span> 금융 이론에서의 확률과 통계의 역할</a></li>
+  <li><a href="#r-프로그래밍" id="toc-r-프로그래밍" class="nav-link" data-scroll-target="#r-프로그래밍"><span class="header-section-number">1.6</span> R 프로그래밍</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/01-risk-management-overview/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -821,13 +825,164 @@ window.Quarto = {
 <p>불확실성을 정량화하는 리스크 메트릭은 확률 기반인 경우가 많으며, 표준편차, 분산, 왜도(skewness), 첨도(kurtosis)와 같은 확률 분포의 모수(parameter)를 통해 위험을 요약한다. 특히 표준편차나 분산은 불확실성의 크기를 나타내는 가장 기본적인 척도이다.</p>
 <p>그러나 표준편차만으로는 분포의 비대칭성이나 극단적 사건(fat tail)을 포착하기 어렵기 때문에, VaR(Value at Risk), ES(Expected shortfall), 최대손실(maximum loss) 등 다양한 리스크 측도들이 개발되어 왔다.</p>
 <p>이 강의노트에서도 확률론을 바탕으로 리스크를 정량화하는 작업들에 대해 집중적으로 공부할 것이다. 특히 확률 분포, 통계적 추정, 시계열 분석, 몬테카를로 시뮬레이션 등의 도구들을 사용하여 다양한 금융 리스크를 측정하고 관리하는 방법을 다룬다.</p>
+</section>
+<section id="충격-평가assess-impact" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="충격-평가assess-impact"><span class="header-section-number">1.4.3</span> 충격 평가(assess impact)</h3>
+<p>손실이 발생할 때 미치는 영향을 평가하는 것으로, 리스크 측정 과정과 유사하지만 기업이나 투자자에게 발생할 수 있는 연쇄적·파급적 효과에 대한 분석을 포함한다.</p>
+<p>리스크 측정이 “얼마나 큰 손실이 발생할 수 있는가”에 초점을 맞춘다면, 충격 평가는 “그 손실이 조직 전체에 어떤 영향을 미칠 것인가”를 분석한다.</p>
+<p>충격 평가는 조직이 리스크의 2차적·시스템적 효과를 포괄적으로 이해하고 효과적인 대응 전략을 개발하는 데 필수적이며, 다음과 같은 영향들을 고려한다.</p>
+<ul>
+<li><strong>재정적 영향(Financial Impact)</strong>: 직접적인 금전적 손실로, 매출 감소, 비용 증가, 벌금 및 제재, 자산 가치 하락, 주가 하락 등이 포함된다.</li>
+<li><strong>운영적 영향(Operational Impact)</strong>: 조직의 일상적 운영에 미치는 영향으로, 생산성 저하, 공급망 차질, 시스템 중단 등이 해당된다. 2011년 동일본 대지진은 자동차 부품 공급망을 마비시켜 전 세계 자동차 제조업체의 생산 중단으로 이어졌다.</li>
+<li><strong>평판적 영향(Reputational Impact)</strong>: 조직의 이미지와 명성에 미치는 영향으로, 고객 신뢰도 하락, 브랜드 가치 손상을 초래한다. Volkswagen의 디젤게이트 사건처럼 평판 손상은 직접적 재무 손실보다 오래 지속되고 회복하기 어렵다.</li>
+<li><strong>법적 영향(Legal Impact)</strong>: 소송, 규제 위반, 법적 제재 등을 포함한다. 2017년 에퀴팩스 데이터 유출 사건은 약 7억 달러 규모의 합의금을 초래했다.</li>
+<li><strong>전략적 영향(Strategic Impact)</strong>: 장기적 목표와 전략적 계획에 미치는 영향으로, 시장 진입 기회 상실, 경쟁력 약화 등을 포함한다. Nokia의 스마트폰 전환 실패는 휴대전화 시장 리더십의 완전한 상실로 이어졌다.</li>
+</ul>
+<p>충격 평가를 수행하는 주요 방법론으로는 시나리오 분석(최선/기본/최악 시나리오), 비즈니스 영향 분석(BIA), 민감도 분석, 스트레스 테스트 등이 있다. 이를 통해 조직은 리스크 완화 계획을 수립하고 위험 감내도(risk tolerance)를 강화할 수 있다.</p>
+<p>충격 평가는 리스크 관리 전략의 핵심 요소로, 조직이 불확실한 환경에서 지속가능성을 유지하는 데 기여한다.</p>
+</section>
+<section id="리스크-관리-1" class="level3" data-number="1.4.4">
+<h3 data-number="1.4.4" class="anchored" data-anchor-id="리스크-관리-1"><span class="header-section-number">1.4.4</span> 리스크 관리</h3>
+<p>리스크를 식별하고 측정·평가한 후에는 이를 관리하기 위한 구체적인 전략을 수립해야 한다.</p>
+<p>리스크 관리의 주요 전략은 다음과 같이 요약될 수 있다.</p>
+<ul>
+<li><p><strong>리스크 회피(Avoid Risk)</strong>: 때로는 리스크 자체를 회피하는 것이 최선의 선택일 수 있다. 리스크 수준이 감당할 수 없다고 판단되는 경우 아예 관련 거래를 중단하거나, 위험자산을 매각하거나, 오프쇼어링(off-shoring)을 통해 국외 생산을 하여 정치적 혹은 환율 위험 등을 최소화하는 방법 등이 있다.</p>
+<p>예를 들어, 정치적으로 불안정한 국가에서의 사업을 철수하거나, 규제 리스크가 높은 산업 분야에 진입하지 않는 결정이 여기에 해당한다. 금융기관이 특정 고위험 파생상품 거래를 중단하거나, 신용등급이 매우 낮은 채무자에 대한 대출을 거부하는 것도 리스크 회피 전략이다.</p>
+<p>리스크 허용 수준을 지속적으로 점검하고 리스크 요소를 모니터링하는 것이 핵심이다.</p></li>
+<li><p><strong>리스크 유지(Retain Risk)</strong>: 기업이 리스크를 감당할 수 있다고 판단하면 그대로 리스크를 유지할 수 있다. 어느 정도의 리스크를 수용할지는 회사의 이사회에서 수립하는 리스크 성향(risk appetite)에 의해 결정된다. 리스크 성향은 조직이 전략적 목표를 달성하기 위해 기꺼이 감수할 수 있는 리스크의 양과 유형을 의미한다.</p>
+<p>이윤을 추구하는 과정에서 리스크를 감수하는 것은 필연적이기 때문에, 회사가 감당 가능한 리스크의 수준을 정확히 파악하는 것이 중요하다. 리스크 자본(risk capital) 또는 경제적 자본(economic capital)을 설정하여 위험 대비 자산을 축적하거나, 자가보험(self-insurance), 자회사 보험(captive insurance)과 같은 방법을 통해 리스크를 감당할 수 있다.</p>
+<p>자회사 보험은 기업이 자체적으로 설립한 보험회사를 통해 자신의 리스크를 보험화하는 방식으로, 보험료 절감과 세제 혜택을 누릴 수 있다.</p></li>
+<li><p><strong>리스크 완화(Mitigate Risk)</strong>: 익스포저, 위험 노출 빈도, 위험의 심각도를 줄임으로써 리스크를 완화할 수 있다. 리스크를 완전히 제거하지는 못하지만 그 영향을 감소시키는 전략이다.</p>
+<p>적절한 포트폴리오 구성을 통한 시장 위험 완화(분산투자), 담보 확보나 신용보강(credit enhancement)을 통한 신용 위험 완화, 운영 시스템의 개선과 내부통제 강화를 통한 운영 위험 완화 등의 예가 있다. 손실 예방 교육, 이중 승인 시스템(dual control), 직무 분리(segregation of duties) 등 회사 내부적인 리스크 통제를 통해서도 리스크를 완화할 수 있다.</p>
+<p>헷징(hedging)도 리스크 완화의 중요한 방법으로, 파생상품을 이용하여 보유 포지션의 위험을 줄이는 전략이다. 예를 들어, 수출 기업이 선물환 계약을 체결하여 환율 변동 위험을 줄이거나, 항공사가 유가 선물을 매수하여 연료비 상승 위험을 완화하는 것이 해당된다.</p></li>
+<li><p><strong>리스크 이전(Transfer Risk)</strong>: 파생상품이나 구조화 상품의 거래, 보험 상품 가입, 프리미엄 지불 등을 통해 제3자에게 리스크를 전부 또는 일부 이전하는 과정이다. 다양한 파생상품의 발달로 리스크 이전 시장의 규모는 매우 크게 확대되었다.</p>
+<p>예를 들어 신용부도스왑(Credit Default Swap, CDS)의 거래는 제3자에게 채권 발행자의 부도 위험을 전가할 수 있다. CDS 매입자는 일정한 프리미엄을 지불하고, 채무불이행 사건 발생 시 보상을 받는다. 전통적인 보험도 리스크 이전의 대표적 수단으로, 화재, 도난, 배상책임 등의 위험을 보험회사로 이전한다.</p>
+<p>반면, 리스크 이전 시장의 발달은 거래상대방 위험(counterparty risk)을 증가시키기도 하였다. 2008년 금융위기 당시 AIG가 발행한 CDS가 부실화되면서 시스템 위기로 확산된 것이 대표적 사례이다. 이를 해결하기 위해 중앙청산소(Central Counterparty, CCP)와 같은 시스템이 설립되었다. CCP는 거래 당사자 사이에서 매도자와 매수자 역할을 동시에 수행하여 거래상대방 위험을 줄이고, 증거금(margin) 제도를 통해 리스크를 관리한다.</p></li>
+</ul>
+<p>실무에서는 이러한 전략들을 조합하여 사용하는 경우가 많다. 예를 들어, 어떤 리스크는 일부는 유지하고(deductible), 일부는 보험으로 이전하며, 동시에 내부통제를 강화하여 완화하는 방식이다.</p>
+<p>리스크 관리의 일반적인 과정은 다음 그림에 요약되어 있다. (<a href="#fig-risk" class="quarto-xref">그림&nbsp;<span>1.2</span></a>)</p>
+<div id="fig-risk" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-risk-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch1_risk_management_process.png" class="img-fluid figure-img" style="width:40.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-risk-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;1.2: 리스크 관리의 과정
+</figcaption>
+</figure>
+</div>
+<p>하지만 실제 세상에서 교과서의 내용대로 모든 일이 순탄하게 흘러갈 것이라고 생각해서는 안 된다. 때로는 리스크를 식별하는 행위 자체가 매우 어려운 작업일 수도 있고(미지의 미지), 리스크를 이전하기 위한 마땅한 수단이 없을 수도 있다.</p>
+<p>또한 그림에서 표현한 과정들이 반드시 화살표의 흐름대로 순차적으로 진행되는 것이 아니라, 리스크 식별, 측정, 평가, 관리 전략 수립 등의 모든 과정이 매 순간 끊임없이 반복되고 상호작용하는 동적 프로세스(dynamic process)라고 이해해야 한다. 리스크 환경은 지속적으로 변화하며, 새로운 리스크가 출현하고 기존 리스크의 성격이 바뀔 수 있으므로, 리스크 관리는 일회성 활동이 아닌 지속적인 모니터링과 개선을 필요로 하는 순환 과정이다.</p>
+</section>
+</section>
+<section id="금융-이론에서의-확률과-통계의-역할" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="금융-이론에서의-확률과-통계의-역할"><span class="header-section-number">1.5</span> 금융 이론에서의 확률과 통계의 역할</h2>
+<p>이 절에서는 금융과 금융 경제학, 금융 계량경제학에서 확률과 통계의 다양한 쓰임새에 대해 훑어본다. 모든 관련된 사례를 나열하려면 많은 지면을 할애하여야 하므로, 그중에서도 특히 의미 있는 개념과 연구들을 설명하였다. 물론 아래의 설명에 누락되어 있다고 하여 중요성이 떨어진다는 것은 아니다.</p>
+<p>아래에 나열된 이론들 중 많은 것들은 높은 수준의 수학적 배경을 요구하기 때문에 한 번에 이해하기는 힘들 수 있다. 우리는 이 중에서 학부생 수준에서 이해할 수 있는 수학으로 공부할 수 있는 내용들을 살펴볼 것이다.</p>
+<p>확률론에서는 <strong>확률변수</strong>와 <strong>확률분포</strong>를 이용하여 미래에 발생할 수 있는 무작위적 사건을 표현한다. 금융 자산의 가격이나 변동성 등 여러 금융 지표들은 무작위적이고 미래의 값을 정확히 예측할 수 없어, 확률변수로만 표현할 수 있다.</p>
+<p>이에 따라 확률론에서 공부하는 분포, 기댓값, 분산, 공분산 등의 다양한 개념은 양적 금융 분석에 있어 중요한 역할을 담당해 왔다.</p>
+<p>현대 포트폴리오 이론의 시초로서 해리 마코위츠 <span class="citation" data-cites="Markowitz1952">(<a href="#ref-Markowitz1952" role="doc-biblioref">1952년</a>)</span>는 자산 수익률이 정규분포를 따른다고 가정하고, 평균-분산 분석을 통하여 포트폴리오의 자산 구성에 대한 원리를 설명하였다.</p>
+<p>윌리엄 샤프 <span class="citation" data-cites="sharpe1964capital">(<a href="#ref-sharpe1964capital" role="doc-biblioref">1964년</a>)</span>는 이를 발전시켜 공분산 개념을 이용하여 개별 자산 가격의 평가 방법인 자본 자산 가격 결정 이론(CAPM, capital asset pricing model)을 제시하였다. 이들에 대해서는 <a href="../../chapters/02-modern-portfolio-theory/index.html">2장 현대 포트폴리오 이론</a>에서 자세히 살펴본다.</p>
+<p>CAPM 모형과 이를 확장한 <span class="citation" data-cites="FAMA1993">Fama 와/과 French (<a href="#ref-FAMA1993" role="doc-biblioref">1993년</a>)</span><!-- -->의 자산 가격 결정 모형의 실증 분석을 위해서는 선형회귀방법이 이용된다.</p>
+<p>자산 가격의 확률분포와 분위수 함수 개념을 이용하여 VaR와 ES 같은 리스크 측도를 계산할 수 있는데, 이에 대해서는 <a href="../../chapters/04-var-es/index.html">4장 VaR와 ES</a>에서 설명한다.</p>
+<p>계산된 리스크 메트릭의 성능을 파악하기 위해 <strong>통계적 가설 검정</strong>을 이용한다. 공분산 행렬과 <span class="citation" data-cites="sklar1959">Sklar (<a href="#ref-sklar1959" role="doc-biblioref">1959년</a>)</span><!-- --> 등에 의해 연구된 코퓰라(copula) 방법을 이용하여 자산 가격 간의 종속 구조에 대해 분석할 수 있으며, 이러한 분석 방법은 포트폴리오 이론뿐만 아니라 신용 위험 관리에 있어서도 중요하다.</p>
+<p><strong>확률과정</strong>은 시간에 따른 확률변수들의 모임이다. 자산 가격은 한 시점에만 관찰하고 마는 것이 아니라 결국 시간에 따라 움직여가기 때문에, 확률변수들의 시간에 따른 모임인 확률과정의 역할이 금융의 양적 분석에 있어 필수적이다.</p>
+<p>학문적 관점에서 확률과정을 바탕으로 금융 이론에 대해 심도 있게 접근한 가장 첫 사례는 브라운 운동(Brownian motion)이라는 연속확률과정을 이용한 <span class="citation" data-cites="bachelier1900theorie">Bachelier (<a href="#ref-bachelier1900theorie" role="doc-biblioref">1900년</a>)</span><!-- -->의 옵션 가격 결정 이론이다.</p>
+<p>브라운 운동은 매질에 떠 있는 입자의 무작위 움직임을 수학적으로 표현한 것인데, 식물학자인 Robert Brown에 의해 발견되었으며, 수학자인 Norbert Wiener에 의해 연구되었고, 아인슈타인 또한 관련된 연구를 한 것으로 유명하다.</p>
+<p>이 무작위적 움직임과 주식의 랜덤성 간의 유사점에 착안한 접근법은 향후 수리적 금융 이론의 중요한 한 축으로 자리 잡았다.</p>
+<p>바쉘리에의 논문은 비록 초기에는 크게 주목받지 못했지만, 결국 <span class="citation" data-cites="black1973pricing">Black 와/과 Scholes (<a href="#ref-black1973pricing" role="doc-biblioref">1973년</a>)</span><!-- -->과 <span class="citation" data-cites="merton1973theory">Merton (<a href="#ref-merton1973theory" role="doc-biblioref">1973년</a>)</span><!-- -->의 옵션 가격 결정 이론으로 확장되었고<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>, <span class="citation" data-cites="cox1979option">Cox 기타 (<a href="#ref-cox1979option" role="doc-biblioref">1979년</a>)</span><!-- -->에 의해 이항나무 방법론으로도 표현되었다.</p>
+<p>이 연구들의 공통점은 기초 자산 가격의 움직임을 확률적인 현상으로 이해하고, 적절한 확률과정(시간에 따라 변화하는 확률변수들)으로 표현하였으며, 해당 확률과정의 수학적 성질에 따라 파생상품인 옵션의 가격을 유도하였다는 것이다.</p>
+<p>이들의 방법은 보다 일반화된 가격 결정 이론으로 확장되었다. 확률과정의 한 부류인 <strong>마틴게일</strong> 이론을 바탕으로, <span class="citation" data-cites="HARRISON1979">Harrison 와/과 Kreps (<a href="#ref-HARRISON1979" role="doc-biblioref">1979년</a>)</span><!-- -->와 <span class="citation" data-cites="HARRISON1981">Harrison 와/과 Pliska (<a href="#ref-HARRISON1981" role="doc-biblioref">1981년</a>)</span><!-- -->은 자산 가격의 기본 정리(fundamental theorem of asset pricing)와 무차익 가격 이론(no-arbitrage pricing)으로 발전시켰다.</p>
+<p>여기서 무차익 가격 이론이란 리스크를 감당하지 않고서는 무위험자산의 수익률을 넘어서는 수익을 얻을 수 없음을 의미한다.</p>
+<p>마틴게일은 미래의 기댓값이 현재의 값과 일치하는 확률과정을 일컬으며, <span class="citation" data-cites="doob1953">Doob (<a href="#ref-doob1953" role="doc-biblioref">1953년</a>)</span><!-- --> 등에 의해 발전한 개념이다.</p>
+<p>무차익 가격의 존재는 적절한 확률 측도의 변환하에 자산 가격 움직임을 마틴게일로 표현할 수 있다는 것과 거의 동치임이 알려지게 되는데, 이는 Delbaen과 Schachermayer의 연구<span class="citation" data-cites="delbaen1994general">(<a href="#ref-delbaen1994general" role="doc-biblioref">1994년</a>)</span>에서 다루어졌다. 블랙-숄즈 프레임워크의 경우에는 확률 측도 간의 변환 시 브라운 운동의 변화에 대해 설명한 <span class="citation" data-cites="girsanov1960">Girsanov (<a href="#ref-girsanov1960" role="doc-biblioref">1960년</a>)</span><!-- -->의 정리 등이 사용된다.</p>
+<p>확률과정은 금융경제학뿐만 아니라 경제학에서도 다양한 연구에 활용되는데, 확률과정을 기반으로 한 자산 가격 이론에 대한 연구는 또 다른 노벨경제학상 수상자인 <span class="citation" data-cites="lucas1978asset">Lucas (<a href="#ref-lucas1978asset" role="doc-biblioref">1978년</a>)</span><!-- -->의 논문이나 <span class="citation" data-cites="cox1985intertemporal">Cox 기타 (<a href="#ref-cox1985intertemporal" role="doc-biblioref">1985년</a>)</span><!-- -->의 중대한 연구에서도 찾아볼 수 있다.</p>
+<p>포트폴리오 이론과 최적 소비의 문제는 <strong>확률적 제어</strong>(stochastic control) 방법을 바탕으로 발전하였다. 이 문제는 Merton의 연구<span class="citation" data-cites="merton1969lifetime">(<a href="#ref-merton1969lifetime" role="doc-biblioref">1969년</a>)</span>에서 제시되었으며, 불확실성하에서의 의사 결정 문제 해결법 중 하나인 Hamilton–Jacobi–Bellman 방정식이나 Cox와 Huang의 마틴게일 방법<span class="citation" data-cites="cox1989">(<a href="#ref-cox1989" role="doc-biblioref">1989년</a>)</span>을 기반으로 다양한 상황에 대해 연구가 지속되고 있다.</p>
+<p>앞서 언급한 블랙-숄즈의 옵션 가격 공식은 <span class="citation" data-cites="ito1944">Itô (<a href="#ref-ito1944" role="doc-biblioref">1944년</a>)</span><!-- -->의 <strong>확률적분</strong>(stochastic integral)을 이용하여 유도할 수 있으며, 확률적분은 금융 분석의 중요한 도구로 자리 잡았다.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p>또한 블랙-숄즈 방정식은 일찍이 물리학에서 연구되었던 Feynman–Kac 정리의 특수한 사례이며, 확률과정의 일종인 <strong>마르코프 과정</strong>의 순간적인 변화를 묘사하는 <span class="citation" data-cites="kolmogoroff1931">Kolmogoroff (<a href="#ref-kolmogoroff1931" role="doc-biblioref">1931년</a>)</span><!-- -->의 후진 방정식과도 관련이 있다.</p>
+<p>마르코프 과정은 미래의 분포가 과거가 아닌 현재의 값에만 의존하는 확률과정을 말하며, 러시아의 수학자 마르코프에 의해 20세기 초부터 연구되었다.</p>
+<p>그리고 <span class="citation" data-cites="dupire1994"><span class="nocase">Dupire 기타</span> (<a href="#ref-dupire1994" role="doc-biblioref">1994년</a>)</span><!-- -->가 제안한 주식 시장에서의 로컬 변동성 모형은 확률밀도함수의 점진적 움직임을 묘사하는 Fokker–Planck 방정식<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>에 기반하고 있다.</p>
+<p>이산시간 확률과정(discrete time stochastic process) 중의 하나인 GARCH 변동성 모형은 시간에 따라 변하는 변동성을 잘 묘사한다. GARCH와 같은 <strong>시계열</strong> 분석 과정은 통계학의 중요한 한 분야 중 하나이다.</p>
+<p>이 모형은 ARCH(autoregressive conditional heteroscedasticity)라는 이름으로 <span class="citation" data-cites="engle1982autoregressive">Engle (<a href="#ref-engle1982autoregressive" role="doc-biblioref">1982년</a>)</span><!-- -->에 의해 소개되었고, 그 후 <span class="citation" data-cites="bollerslev1986generalized">Bollerslev (<a href="#ref-bollerslev1986generalized" role="doc-biblioref">1986년</a>)</span><!-- -->가 일반화된 모형을 제시하였다.</p>
+<p>GARCH 모형의 정상성 성질은 대수의 법칙에 근간하며, 에르고딕 성질과 혼합 성질은 마르코프 과정에서 사용되는 이론을 바탕으로 정립되었다.</p>
+<p>GARCH 모형의 <strong>모수 추정</strong>은 <span class="citation" data-cites="fisher1922">Fisher (<a href="#ref-fisher1922" role="doc-biblioref">1922년</a>)</span><!-- -->에 의해 정립된 최우도추정법에 기반하며, 추정량의 점근 분포는 중심극한정리에 기반하여 정규성을 기대할 수 있다.</p>
+<p>GARCH 모형을 비롯한 변동성 모형에 대해서는 7장에서 살펴볼 것이다.</p>
+<p>컴퓨터와 소프트웨어의 발전에 따라 주식 시장에서 발생하는 모든 종류의 사건에 대한 정보, 즉 모든 주문 정보와 거래 취소 등에 대한 정보를 기록하는 것이 가능해졌다.</p>
+<p>현대에 이르러서는 나노초 단위로 기록된 자료를 얻을 수 있게 되었는데, 이러한 자료들을 고빈도 금융자료라고 한다. 고빈도 금융자료는 변동성 추정과 호가창 모형에 대한 새로운 추정법과 모델링 방법을 제안할 수 있게 하였고, 고빈도 금융 계량경제학이라는 새로운 학문 분야가 개척되었다.</p>
+<p>대표적으로는 <span class="citation" data-cites="barndorff2002">Barndorff-Nielsen 와/과 Shephard (<a href="#ref-barndorff2002" role="doc-biblioref">2002년</a>)</span><!-- -->와 <span class="citation" data-cites="andersen2003">Andersen 기타 (<a href="#ref-andersen2003" role="doc-biblioref">2003년</a>)</span><!-- --> 등이 연구한 실현 변동성(realized volatility) 방법이 있으며, <span class="citation" data-cites="hawkes1971">Hawkes (<a href="#ref-hawkes1971" role="doc-biblioref">1971년</a>)</span><!-- --> 확률과정 등 점과정(point process)을 이용한 호가창 모형(limit order book modeling)에 대한 연구 또한 활발히 이루어지고 있다.</p>
+<p>사실 컴퓨터의 발달 이전에도 확률모형을 이용한 시장 미시구조에 관한 이론적 연구들이 많이 이루어졌었는데, 베이지안 정리를 기반으로 한 <span class="citation" data-cites="glosten1985bid">Glosten 와/과 Milgrom (<a href="#ref-glosten1985bid" role="doc-biblioref">1985년</a>)</span><!-- -->의 연구 등이 대표적이다.</p>
+<p>이 단원에서 소개한 바와 같이, 확률론과 통계적 방법론은 금융의 정량 분석에 있어 필수적인 요소이다. 확률론과 같은 수학적 이론과 통계적 방법론은 금융 및 경제 이론과 합쳐져, 금융 자료로부터 유용한 정보를 획득할 수 있게 한다.</p>
+<p>미국과 소련의 냉전이 끝난 후, 수많은 수학자들과 물리학자들이 금융 산업의 메카인 월스트리트로 몰렸다. 이들은 일확천금을 꿈꾸기도 하였지만, 애초에 학문적 호기심으로 미지의 세계를 탐구했던 많은 이들은 금융 산업에서 발생하는 지적 문제를 해결하는 것에 더 큰 흥미를 느꼈다.</p>
+<p>이 강의노트에서 공부하는 내용은 금융 산업에서 사용할 수 있는 여러 가지 통계적, 확률적 방법 중 극히 일부분일 것이다. 양적 금융 이론에서 사용하는 수학적 이론들은 수십, 수백 년에 걸쳐 발전한 것으로 한 학기나 일 년을 통해 전부 공부하기는 힘들 것이다.</p>
+<p>하지만 최소한의 수학적 이론을 사용하는 이 강의노트를 통해 정량적 방법론이 금융 자료에 적용되는 원리에 대해 탐구해 보길 바란다.</p>
+</section>
+<section id="r-프로그래밍" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="r-프로그래밍"><span class="header-section-number">1.6</span> R 프로그래밍</h2>
+<p>이 강의노트에서 배우는 내용은 이론적인 측면만으로도 충분한 가치가 있지만, 실제 활용을 하였을 때 그 중요성은 배가될 것이다. 여기서 배우는 양적 방법론을 적용하기 위해서는 컴퓨터 프로그래밍이 필수적이다.</p>
+<p>어떤 프로그래밍 언어를 사용하여도 상관없지만, 이 노트에서는 오픈 소스 소프트웨어인 R 프로그램을 이용한 몇몇 코드 예제들을 소개하였다. R 프로그램은 누구나 무료로 다운로드하여 설치할 수 있고, RStudio Cloud 등의 서비스를 통하여 컴퓨터에 설치하지 않아도 웹을 통해 접속하여 사용할 수도 있다.</p>
+<p>또한 금융과 통계에서 필요한 각종 패키지들이 배포되기 때문에 유용하게 사용할 수 있다. 하지만 아쉽게도 이 노트에서는 여건상 R 프로그래밍에 대해 자세히 다루지는 못한다.</p>
+<p>인터넷이나 각종 도서를 통해 누구나 기초적인 R 프로그래밍을 익힐 수 있기 때문에, 이들 자료를 개별적으로 참고하길 바란다.</p>
 
 
 <!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-andersen2003" class="csl-entry" role="listitem">
+Andersen, Torben G, Tim Bollerslev, Francis X Diebold, 와/과 Paul Labys. 2003년. <span>“Modeling and forecasting realized volatility”</span>. <em>Econometrica</em> 71: 579–625.
+</div>
+<div id="ref-bachelier1900theorie" class="csl-entry" role="listitem">
+Bachelier, Louis. 1900년. <span>“Th<span>é</span>orie de la sp<span>é</span>culation”</span>. <em>Annales scientifiques de l’<span>É</span>cole normale sup<span>é</span>rieure</em> 17: 21–86.
+</div>
+<div id="ref-barndorff2002" class="csl-entry" role="listitem">
+Barndorff-Nielsen, Ole E, 와/과 Neil Shephard. 2002년. <span>“Econometric analysis of realized volatility and its use in estimating stochastic volatility models”</span>. <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 64: 253–80.
+</div>
 <div id="ref-black1973pricing" class="csl-entry" role="listitem">
 Black, Fischer, 와/과 Myron Scholes. 1973년. <span>“The pricing of options and corporate liabilities”</span>. <em>Journal of Political Economy</em> 81: 637–54.
+</div>
+<div id="ref-bollerslev1986generalized" class="csl-entry" role="listitem">
+Bollerslev, Tim. 1986년. <span>“Generalized autoregressive conditional heteroskedasticity”</span>. <em>Journal of Econometrics</em> 31: 307–27.
+</div>
+<div id="ref-cox1989" class="csl-entry" role="listitem">
+Cox, John C, 와/과 Chi-fu Huang. 1989년. <span>“Optimal consumption and portfolio policies when asset prices follow a diffusion process”</span>. <em>Journal of Economic Theory</em> 49: 33–83.
+</div>
+<div id="ref-cox1985intertemporal" class="csl-entry" role="listitem">
+Cox, John C, Jonathan E Ingersoll, 와/과 Stephen A Ross. 1985년. <span>“An intertemporal general equilibrium model of asset prices”</span>. <em>Econometrica: Journal of the Econometric Society</em>, 363–84.
+</div>
+<div id="ref-cox1979option" class="csl-entry" role="listitem">
+Cox, John C, Stephen A Ross, 와/과 Mark Rubinstein. 1979년. <span>“Option pricing: A simplified approach”</span>. <em>Journal of Financial Economics</em> 7: 229–63.
+</div>
+<div id="ref-delbaen1994general" class="csl-entry" role="listitem">
+Delbaen, Freddy, 와/과 Walter Schachermayer. 1994년. <span>“A general version of the fundamental theorem of asset pricing”</span>. <em>Mathematische Annalen</em> 300: 463–520.
+</div>
+<div id="ref-doob1953" class="csl-entry" role="listitem">
+Doob, Joseph Leo. 1953년. <em>Stochastic processes</em>. Vol 10. New York Wiley.
+</div>
+<div id="ref-dupire1994" class="csl-entry" role="listitem">
+<span class="nocase">Dupire, Bruno 기타</span>. 1994년. <span>“Pricing with a smile”</span>. <em>Risk</em> 7: 18–20.
+</div>
+<div id="ref-engle1982autoregressive" class="csl-entry" role="listitem">
+Engle, Robert F. 1982년. <span>“Autoregressive conditional heteroscedasticity with estimates of the variance of <span>U</span>nited <span>K</span>ingdom inflation”</span>. <em>Econometrica: Journal of the Econometric Society</em> 50: 987–1007.
+</div>
+<div id="ref-FAMA1993" class="csl-entry" role="listitem">
+Fama, Eugene F., 와/과 Kenneth R. French. 1993년. <span>“Common risk factors in the returns on stocks and bonds”</span>. <em>Journal of Financial Economics</em> 33: 3–56.
+</div>
+<div id="ref-fisher1922" class="csl-entry" role="listitem">
+Fisher, Ronald A. 1922년. <span>“On the mathematical foundations of theoretical statistics”</span>. <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em> 222: 309–68.
+</div>
+<div id="ref-girsanov1960" class="csl-entry" role="listitem">
+Girsanov, Igor Vladimirovich. 1960년. <span>“On transforming a certain class of stochastic processes by absolutely continuous substitution of measures”</span>. <em>Theory of Probability &amp; Its Applications</em> 5: 285–301.
+</div>
+<div id="ref-glosten1985bid" class="csl-entry" role="listitem">
+Glosten, Lawrence R, 와/과 Paul R Milgrom. 1985년. <span>“Bid, ask and transaction prices in a specialist market with heterogeneously informed traders”</span>. <em>Journal of Financial Economics</em> 14: 71–100.
+</div>
+<div id="ref-HARRISON1979" class="csl-entry" role="listitem">
+Harrison, Michael J., 와/과 David M. Kreps. 1979년. <span>“Martingales and arbitrage in multiperiod securities markets”</span>. <em>Journal of Economic Theory</em> 20: 381–408.
+</div>
+<div id="ref-HARRISON1981" class="csl-entry" role="listitem">
+Harrison, Michael J., 와/과 Stanley R. Pliska. 1981년. <span>“Martingales and stochastic integrals in the theory of continuous trading”</span>. <em>Stochastic Processes and their Applications</em> 11: 215–60.
+</div>
+<div id="ref-hawkes1971" class="csl-entry" role="listitem">
+Hawkes, Alan G. 1971년. <span>“Spectra of some self-exciting and mutually exciting point processes”</span>. <em>Biometrika</em> 58: 83–90.
 </div>
 <div id="ref-Heston" class="csl-entry" role="listitem">
 Heston, Steven L. 1993년. <span>“<span>A Closed-Form Solution for Options with Stochastic Volatility with Applications to Bond and Currency Options</span>”</span>. <em>The Review of Financial Studies</em> 6: 327–43.
@@ -838,20 +993,46 @@ Holton, Glyn A. 2003년. <em>Value at Risk: Theory and Practice</em>. Academic P
 <div id="ref-Holton2004" class="csl-entry" role="listitem">
 Holton, Glyn A. 2004년. <span>“Defining risk”</span>. <em>Financial Analysts Journal</em> 60: 19–25.
 </div>
+<div id="ref-ito1944" class="csl-entry" role="listitem">
+Itô, Kiyosi. 1944년. <span>“Stochastic integral”</span>. <em>Proceedings of the Imperial Academy</em> 20: 519–24.
+</div>
+<div id="ref-jarrow2004short" class="csl-entry" role="listitem">
+<span class="nocase">Jarrow, Robert, Philip Protter, 기타</span>. 2004년. <span>“A short history of stochastic integration and mathematical finance: the early years, 1880–1970”</span>. In <em>A Festschrift for Herman Rubin</em>. Institute of Mathematical Statistics.
+</div>
 <div id="ref-Kaplan2016" class="csl-entry" role="listitem">
 Kaplan, Robert S., 와/과 Anette Mikes. 2016년. <span>“Risk Management—the Revealing Hand”</span>. <em>Journal of Applied Corporate Finance</em> 28: 8–18.
 </div>
 <div id="ref-Knight1921" class="csl-entry" role="listitem">
 Knight, Frank H. 1921년. <em>Risk, Uncertainty, and Profit</em>. Houghton Mifflin.
 </div>
+<div id="ref-kolmogoroff1931" class="csl-entry" role="listitem">
+Kolmogoroff, Andrei. 1931년. <span>“Uber die analytischen Methoden in der Wahrscheinlichkeitsrechnung”</span>. <em>Mathematische Annalen</em> 104: 415–58.
+</div>
 <div id="ref-lee2023modeling" class="csl-entry" role="listitem">
 Lee, Kyungsub, 와/과 Byoung Ki Seo. 2023년. <span>“Modeling bid and ask price dynamics with an extended hawkes process and its empirical applications for high-frequency stock market data”</span>. <em>Journal of Financial Econometrics</em> 21: 1099–142.
+</div>
+<div id="ref-lucas1978asset" class="csl-entry" role="listitem">
+Lucas, Robert E. 1978년. <span>“Asset prices in an exchange economy”</span>. <em>Econometrica: Journal of the Econometric Society</em>, 1429–45.
+</div>
+<div id="ref-Markowitz1952" class="csl-entry" role="listitem">
+Markowitz, Harry M. 1952년. <span>“Portfolio Selection”</span>. <em>The Journal of Finance</em> 7: 77–91.
+</div>
+<div id="ref-merton1969lifetime" class="csl-entry" role="listitem">
+Merton, Robert C. 1969년. <span>“Lifetime portfolio selection under uncertainty: The continuous-time case”</span>. <em>The Review of Economics and Statistics</em>, 247–57.
+</div>
+<div id="ref-merton1973theory" class="csl-entry" role="listitem">
+Merton, Robert C. 1973년. <span>“Theory of rational option pricing”</span>. <em>The Bell Journal of Economics and Management Science</em> 4: 141–83.
+</div>
+<div id="ref-sharpe1964capital" class="csl-entry" role="listitem">
+Sharpe, William F. 1964년. <span>“Capital asset prices: <span>A</span> theory of market equilibrium under conditions of risk”</span>. <em>The Journal of Finance</em> 19: 425–42.
+</div>
+<div id="ref-sklar1959" class="csl-entry" role="listitem">
+Sklar, M. 1959년. <span>“Fonctions de repartition an dimensions et leurs marges”</span>. <em>Publ. Inst. Statist. Univ. Paris</em> 8: 229–31.
 </div>
 <div id="ref-operational" class="csl-entry" role="listitem">
 조하현이승국. 2012년. <em>운영리스크관리</em>. 박영사.
 </div>
 </div>
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -866,6 +1047,9 @@ Lee, Kyungsub, 와/과 Byoung Ki Seo. 2023년. <span>“Modeling bid and ask pri
 <li id="fn8"><p>기초 자산 가격 변화에 따른 옵션 가격 변화의 민감도<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>체계적 위험을 측정하는 지표로, 시장 전체의 수익률 변화에 대한 개별 증권 수익률 변화의 민감도를 나타낸다.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>이자율 변화에 따른 채권 가격 변화의 민감도. 맥컬레이 듀레이션(Macaulay duration)은 채권의 현금흐름까지의 가중평균 시간을 의미하며, 수정 듀레이션(modified duration)은 이자율 변화에 대한 가격 탄력성을 나타낸다.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>이 중 머튼과 숄즈는 1997년 노벨경제학상을 수상하였고, 블랙은 일찍 타계하여 수상하지 못하였다.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><span class="citation" data-cites="jarrow2004short"><span class="nocase">Jarrow 기타</span> (<a href="#ref-jarrow2004short" role="doc-biblioref">2004년</a>)</span><!-- -->를 참고해 보라.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>콜모고로프 전진 방정식이라고도 한다.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1743,7 +1927,153 @@ Lee, Kyungsub, 와/과 Byoung Ki Seo. 2023년. <span>“Modeling bid and ask pri
 <span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a>그러나 표준편차만으로는 분포의 비대칭성이나 극단적 사건(fat tail)을 포착하기 어렵기 때문에, VaR(Value at Risk), ES(Expected shortfall), 최대손실(maximum loss) 등 다양한 리스크 측도들이 개발되어 왔다.</span>
 <span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a>이 강의노트에서도 확률론을 바탕으로 리스크를 정량화하는 작업들에 대해 집중적으로 공부할 것이다. 특히 확률 분포, 통계적 추정, 시계열 분석, 몬테카를로 시뮬레이션 등의 도구들을 사용하여 다양한 금융 리스크를 측정하고 관리하는 방법을 다룬다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a>이 강의노트에서도 확률론을 바탕으로 리스크를 정량화하는 작업들에 대해 집중적으로 공부할 것이다. 특히 확률 분포, 통계적 추정, 시계열 분석, 몬테카를로 시뮬레이션 등의 도구들을 사용하여 다양한 금융 리스크를 측정하고 관리하는 방법을 다룬다.</span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a><span class="fu">### 충격 평가(assess impact)</span></span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a>손실이 발생할 때 미치는 영향을 평가하는 것으로, 리스크 측정 과정과 유사하지만 기업이나 투자자에게 발생할 수 있는 연쇄적·파급적 효과에 대한 분석을 포함한다.</span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a>리스크 측정이 “얼마나 큰 손실이 발생할 수 있는가”에 초점을 맞춘다면, 충격 평가는 “그 손실이 조직 전체에 어떤 영향을 미칠 것인가”를 분석한다.</span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a>충격 평가는 조직이 리스크의 2차적·시스템적 효과를 포괄적으로 이해하고 효과적인 대응 전략을 개발하는 데 필수적이며, 다음과 같은 영향들을 고려한다.</span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**재정적 영향(Financial Impact)**: 직접적인 금전적 손실로, 매출 감소, 비용 증가, 벌금 및 제재, 자산 가치 하락, 주가 하락 등이 포함된다.</span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**운영적 영향(Operational Impact)**: 조직의 일상적 운영에 미치는 영향으로, 생산성 저하, 공급망 차질, 시스템 중단 등이 해당된다. 2011년 동일본 대지진은 자동차 부품 공급망을 마비시켜 전 세계 자동차 제조업체의 생산 중단으로 이어졌다.</span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**평판적 영향(Reputational Impact)**: 조직의 이미지와 명성에 미치는 영향으로, 고객 신뢰도 하락, 브랜드 가치 손상을 초래한다. Volkswagen의 디젤게이트 사건처럼 평판 손상은 직접적 재무 손실보다 오래 지속되고 회복하기 어렵다.</span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**법적 영향(Legal Impact)**: 소송, 규제 위반, 법적 제재 등을 포함한다. 2017년 에퀴팩스 데이터 유출 사건은 약 7억 달러 규모의 합의금을 초래했다.</span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**전략적 영향(Strategic Impact)**: 장기적 목표와 전략적 계획에 미치는 영향으로, 시장 진입 기회 상실, 경쟁력 약화 등을 포함한다. Nokia의 스마트폰 전환 실패는 휴대전화 시장 리더십의 완전한 상실로 이어졌다.</span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a>충격 평가를 수행하는 주요 방법론으로는 시나리오 분석(최선/기본/최악 시나리오), 비즈니스 영향 분석(BIA), 민감도 분석, 스트레스 테스트 등이 있다. 이를 통해 조직은 리스크 완화 계획을 수립하고 위험 감내도(risk tolerance)를 강화할 수 있다.</span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a>충격 평가는 리스크 관리 전략의 핵심 요소로, 조직이 불확실한 환경에서 지속가능성을 유지하는 데 기여한다.</span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a><span class="fu">### 리스크 관리</span></span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a>리스크를 식별하고 측정·평가한 후에는 이를 관리하기 위한 구체적인 전략을 수립해야 한다.</span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a>리스크 관리의 주요 전략은 다음과 같이 요약될 수 있다.</span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**리스크 회피(Avoid Risk)**: 때로는 리스크 자체를 회피하는 것이 최선의 선택일 수 있다. 리스크 수준이 감당할 수 없다고 판단되는 경우 아예 관련 거래를 중단하거나, 위험자산을 매각하거나, 오프쇼어링(off-shoring)을 통해 국외 생산을 하여 정치적 혹은 환율 위험 등을 최소화하는 방법 등이 있다.</span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a>  예를 들어, 정치적으로 불안정한 국가에서의 사업을 철수하거나, 규제 리스크가 높은 산업 분야에 진입하지 않는 결정이 여기에 해당한다. 금융기관이 특정 고위험 파생상품 거래를 중단하거나, 신용등급이 매우 낮은 채무자에 대한 대출을 거부하는 것도 리스크 회피 전략이다.</span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a>  리스크 허용 수준을 지속적으로 점검하고 리스크 요소를 모니터링하는 것이 핵심이다.</span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**리스크 유지(Retain Risk)**: 기업이 리스크를 감당할 수 있다고 판단하면 그대로 리스크를 유지할 수 있다. 어느 정도의 리스크를 수용할지는 회사의 이사회에서 수립하는 리스크 성향(risk appetite)에 의해 결정된다. 리스크 성향은 조직이 전략적 목표를 달성하기 위해 기꺼이 감수할 수 있는 리스크의 양과 유형을 의미한다.</span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>  이윤을 추구하는 과정에서 리스크를 감수하는 것은 필연적이기 때문에, 회사가 감당 가능한 리스크의 수준을 정확히 파악하는 것이 중요하다. 리스크 자본(risk capital) 또는 경제적 자본(economic capital)을 설정하여 위험 대비 자산을 축적하거나, 자가보험(self-insurance), 자회사 보험(captive insurance)과 같은 방법을 통해 리스크를 감당할 수 있다.</span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>  자회사 보험은 기업이 자체적으로 설립한 보험회사를 통해 자신의 리스크를 보험화하는 방식으로, 보험료 절감과 세제 혜택을 누릴 수 있다.</span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**리스크 완화(Mitigate Risk)**: 익스포저, 위험 노출 빈도, 위험의 심각도를 줄임으로써 리스크를 완화할 수 있다. 리스크를 완전히 제거하지는 못하지만 그 영향을 감소시키는 전략이다.</span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>  적절한 포트폴리오 구성을 통한 시장 위험 완화(분산투자), 담보 확보나 신용보강(credit enhancement)을 통한 신용 위험 완화, 운영 시스템의 개선과 내부통제 강화를 통한 운영 위험 완화 등의 예가 있다. 손실 예방 교육, 이중 승인 시스템(dual control), 직무 분리(segregation of duties) 등 회사 내부적인 리스크 통제를 통해서도 리스크를 완화할 수 있다.</span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a>  헷징(hedging)도 리스크 완화의 중요한 방법으로, 파생상품을 이용하여 보유 포지션의 위험을 줄이는 전략이다. 예를 들어, 수출 기업이 선물환 계약을 체결하여 환율 변동 위험을 줄이거나, 항공사가 유가 선물을 매수하여 연료비 상승 위험을 완화하는 것이 해당된다.</span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**리스크 이전(Transfer Risk)**: 파생상품이나 구조화 상품의 거래, 보험 상품 가입, 프리미엄 지불 등을 통해 제3자에게 리스크를 전부 또는 일부 이전하는 과정이다. 다양한 파생상품의 발달로 리스크 이전 시장의 규모는 매우 크게 확대되었다.</span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a>  예를 들어 신용부도스왑(Credit Default Swap, CDS)의 거래는 제3자에게 채권 발행자의 부도 위험을 전가할 수 있다. CDS 매입자는 일정한 프리미엄을 지불하고, 채무불이행 사건 발생 시 보상을 받는다. 전통적인 보험도 리스크 이전의 대표적 수단으로, 화재, 도난, 배상책임 등의 위험을 보험회사로 이전한다.</span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a>  반면, 리스크 이전 시장의 발달은 거래상대방 위험(counterparty risk)을 증가시키기도 하였다. 2008년 금융위기 당시 AIG가 발행한 CDS가 부실화되면서 시스템 위기로 확산된 것이 대표적 사례이다. 이를 해결하기 위해 중앙청산소(Central Counterparty, CCP)와 같은 시스템이 설립되었다. CCP는 거래 당사자 사이에서 매도자와 매수자 역할을 동시에 수행하여 거래상대방 위험을 줄이고, 증거금(margin) 제도를 통해 리스크를 관리한다.</span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a>실무에서는 이러한 전략들을 조합하여 사용하는 경우가 많다. 예를 들어, 어떤 리스크는 일부는 유지하고(deductible), 일부는 보험으로 이전하며, 동시에 내부통제를 강화하여 완화하는 방식이다.</span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a>리스크 관리의 일반적인 과정은 다음 그림에 요약되어 있다. (@fig-risk)</span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a><span class="al">![리스크 관리의 과정](../../assets/figures/Ch1_risk_management_process.png)</span>{#fig-risk width=40%}</span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>하지만 실제 세상에서 교과서의 내용대로 모든 일이 순탄하게 흘러갈 것이라고 생각해서는 안 된다. 때로는 리스크를 식별하는 행위 자체가 매우 어려운 작업일 수도 있고(미지의 미지), 리스크를 이전하기 위한 마땅한 수단이 없을 수도 있다.</span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a>또한 그림에서 표현한 과정들이 반드시 화살표의 흐름대로 순차적으로 진행되는 것이 아니라, 리스크 식별, 측정, 평가, 관리 전략 수립 등의 모든 과정이 매 순간 끊임없이 반복되고 상호작용하는 동적 프로세스(dynamic process)라고 이해해야 한다. 리스크 환경은 지속적으로 변화하며, 새로운 리스크가 출현하고 기존 리스크의 성격이 바뀔 수 있으므로, 리스크 관리는 일회성 활동이 아닌 지속적인 모니터링과 개선을 필요로 하는 순환 과정이다.</span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a><span class="fu">## 금융 이론에서의 확률과 통계의 역할</span></span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a>이 절에서는 금융과 금융 경제학, 금융 계량경제학에서 확률과 통계의 다양한 쓰임새에 대해 훑어본다. 모든 관련된 사례를 나열하려면 많은 지면을 할애하여야 하므로, 그중에서도 특히 의미 있는 개념과 연구들을 설명하였다. 물론 아래의 설명에 누락되어 있다고 하여 중요성이 떨어진다는 것은 아니다.</span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a>아래에 나열된 이론들 중 많은 것들은 높은 수준의 수학적 배경을 요구하기 때문에 한 번에 이해하기는 힘들 수 있다. 우리는 이 중에서 학부생 수준에서 이해할 수 있는 수학으로 공부할 수 있는 내용들을 살펴볼 것이다.</span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a>확률론에서는 **확률변수**와 **확률분포**를 이용하여 미래에 발생할 수 있는 무작위적 사건을 표현한다. 금융 자산의 가격이나 변동성 등 여러 금융 지표들은 무작위적이고 미래의 값을 정확히 예측할 수 없어, 확률변수로만 표현할 수 있다.</span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a>이에 따라 확률론에서 공부하는 분포, 기댓값, 분산, 공분산 등의 다양한 개념은 양적 금융 분석에 있어 중요한 역할을 담당해 왔다.</span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a>현대 포트폴리오 이론의 시초로서 해리 마코위츠 <span class="co">[</span><span class="ot">-@Markowitz1952</span><span class="co">]</span>는 자산 수익률이 정규분포를 따른다고 가정하고, 평균-분산 분석을 통하여 포트폴리오의 자산 구성에 대한 원리를 설명하였다.</span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a>윌리엄 샤프 <span class="co">[</span><span class="ot">-@sharpe1964capital</span><span class="co">]</span>는 이를 발전시켜 공분산 개념을 이용하여 개별 자산 가격의 평가 방법인 자본 자산 가격 결정 이론(CAPM, capital asset pricing model)을 제시하였다. 이들에 대해서는 <span class="co">[</span><span class="ot">2장 현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span>에서 자세히 살펴본다.</span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a>CAPM 모형과 이를 확장한 @FAMA1993<span class="co">&lt;!-- --&gt;</span>의 자산 가격 결정 모형의 실증 분석을 위해서는 선형회귀방법이 이용된다.</span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a>자산 가격의 확률분포와 분위수 함수 개념을 이용하여 VaR와 ES 같은 리스크 측도를 계산할 수 있는데, 이에 대해서는 <span class="co">[</span><span class="ot">4장 VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span>에서 설명한다.</span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>계산된 리스크 메트릭의 성능을 파악하기 위해 **통계적 가설 검정**을 이용한다. 공분산 행렬과 @sklar1959<span class="co">&lt;!-- --&gt;</span> 등에 의해 연구된 코퓰라(copula) 방법을 이용하여 자산 가격 간의 종속 구조에 대해 분석할 수 있으며, 이러한 분석 방법은 포트폴리오 이론뿐만 아니라 신용 위험 관리에 있어서도 중요하다.</span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a>**확률과정**은 시간에 따른 확률변수들의 모임이다. 자산 가격은 한 시점에만 관찰하고 마는 것이 아니라 결국 시간에 따라 움직여가기 때문에, 확률변수들의 시간에 따른 모임인 확률과정의 역할이 금융의 양적 분석에 있어 필수적이다.</span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a>학문적 관점에서 확률과정을 바탕으로 금융 이론에 대해 심도 있게 접근한 가장 첫 사례는 브라운 운동(Brownian motion)이라는 연속확률과정을 이용한 @bachelier1900theorie<span class="co">&lt;!-- --&gt;</span>의 옵션 가격 결정 이론이다.</span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a>브라운 운동은 매질에 떠 있는 입자의 무작위 움직임을 수학적으로 표현한 것인데, 식물학자인 Robert Brown에 의해 발견되었으며, 수학자인 Norbert Wiener에 의해 연구되었고, 아인슈타인 또한 관련된 연구를 한 것으로 유명하다.</span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a>이 무작위적 움직임과 주식의 랜덤성 간의 유사점에 착안한 접근법은 향후 수리적 금융 이론의 중요한 한 축으로 자리 잡았다.</span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a>바쉘리에의 논문은 비록 초기에는 크게 주목받지 못했지만, 결국 @black1973pricing<span class="co">&lt;!-- --&gt;</span>과 @merton1973theory<span class="co">&lt;!-- --&gt;</span>의 옵션 가격 결정 이론으로 확장되었고^<span class="co">[</span><span class="ot">이 중 머튼과 숄즈는 1997년 노벨경제학상을 수상하였고, 블랙은 일찍 타계하여 수상하지 못하였다.</span><span class="co">]</span>, @cox1979option<span class="co">&lt;!-- --&gt;</span>에 의해 이항나무 방법론으로도 표현되었다.</span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a>이 연구들의 공통점은 기초 자산 가격의 움직임을 확률적인 현상으로 이해하고, 적절한 확률과정(시간에 따라 변화하는 확률변수들)으로 표현하였으며, 해당 확률과정의 수학적 성질에 따라 파생상품인 옵션의 가격을 유도하였다는 것이다.</span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a>이들의 방법은 보다 일반화된 가격 결정 이론으로 확장되었다. 확률과정의 한 부류인 **마틴게일** 이론을 바탕으로, @HARRISON1979<span class="co">&lt;!-- --&gt;</span>와 @HARRISON1981<span class="co">&lt;!-- --&gt;</span>은 자산 가격의 기본 정리(fundamental theorem of asset pricing)와 무차익 가격 이론(no-arbitrage pricing)으로 발전시켰다.</span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>여기서 무차익 가격 이론이란 리스크를 감당하지 않고서는 무위험자산의 수익률을 넘어서는 수익을 얻을 수 없음을 의미한다.</span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a>마틴게일은 미래의 기댓값이 현재의 값과 일치하는 확률과정을 일컬으며, @doob1953<span class="co">&lt;!-- --&gt;</span> 등에 의해 발전한 개념이다.</span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a>무차익 가격의 존재는 적절한 확률 측도의 변환하에 자산 가격 움직임을 마틴게일로 표현할 수 있다는 것과 거의 동치임이 알려지게 되는데, 이는 Delbaen과 Schachermayer의 연구<span class="co">[</span><span class="ot">-@delbaen1994general</span><span class="co">]</span>에서 다루어졌다. 블랙-숄즈 프레임워크의 경우에는 확률 측도 간의 변환 시 브라운 운동의 변화에 대해 설명한 @girsanov1960<span class="co">&lt;!-- --&gt;</span>의 정리 등이 사용된다. </span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a>확률과정은 금융경제학뿐만 아니라 경제학에서도 다양한 연구에 활용되는데, 확률과정을 기반으로 한 자산 가격 이론에 대한 연구는 또 다른 노벨경제학상 수상자인 @lucas1978asset<span class="co">&lt;!-- --&gt;</span>의 논문이나 @cox1985intertemporal<span class="co">&lt;!-- --&gt;</span>의 중대한 연구에서도 찾아볼 수 있다.</span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>포트폴리오 이론과 최적 소비의 문제는 **확률적 제어**(stochastic control) 방법을 바탕으로 발전하였다. 이 문제는 Merton의 연구<span class="co">[</span><span class="ot">-@merton1969lifetime</span><span class="co">]</span>에서 제시되었으며, 불확실성하에서의 의사 결정 문제 해결법 중 하나인 Hamilton–Jacobi–Bellman 방정식이나 Cox와 Huang의 마틴게일 방법<span class="co">[</span><span class="ot">-@cox1989</span><span class="co">]</span>을 기반으로 다양한 상황에 대해 연구가 지속되고 있다. </span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a>앞서 언급한 블랙-숄즈의 옵션 가격 공식은 @ito1944<span class="co">&lt;!-- --&gt;</span>의 **확률적분**(stochastic integral)을 이용하여 유도할 수 있으며, 확률적분은 금융 분석의 중요한 도구로 자리 잡았다.^<span class="co">[</span><span class="ot">@jarrow2004short&lt;!-- --&gt;를 참고해 보라.</span><span class="co">]</span></span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a>또한 블랙-숄즈 방정식은 일찍이 물리학에서 연구되었던 Feynman–Kac 정리의 특수한 사례이며, 확률과정의 일종인 **마르코프 과정**의 순간적인 변화를 묘사하는 @kolmogoroff1931<span class="co">&lt;!-- --&gt;</span>의 후진 방정식과도 관련이 있다.</span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a>마르코프 과정은 미래의 분포가 과거가 아닌 현재의 값에만 의존하는 확률과정을 말하며, 러시아의 수학자 마르코프에 의해 20세기 초부터 연구되었다.</span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a>그리고 @dupire1994<span class="co">&lt;!-- --&gt;</span>가 제안한 주식 시장에서의 로컬 변동성 모형은 확률밀도함수의 점진적 움직임을 묘사하는 Fokker–Planck 방정식^<span class="co">[</span><span class="ot">콜모고로프 전진 방정식이라고도 한다.</span><span class="co">]</span>에 기반하고 있다.</span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a>이산시간 확률과정(discrete time stochastic process) 중의 하나인 GARCH 변동성 모형은 시간에 따라 변하는 변동성을 잘 묘사한다. GARCH와 같은 **시계열** 분석 과정은 통계학의 중요한 한 분야 중 하나이다.</span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a>이 모형은 ARCH(autoregressive conditional heteroscedasticity)라는 이름으로 @engle1982autoregressive<span class="co">&lt;!-- --&gt;</span>에 의해 소개되었고, 그 후 @bollerslev1986generalized<span class="co">&lt;!-- --&gt;</span>가 일반화된 모형을 제시하였다.</span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a>GARCH 모형의 정상성 성질은 대수의 법칙에 근간하며, 에르고딕 성질과 혼합 성질은 마르코프 과정에서 사용되는 이론을 바탕으로 정립되었다.</span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a>GARCH 모형의 **모수 추정**은 @fisher1922<span class="co">&lt;!-- --&gt;</span>에 의해 정립된 최우도추정법에 기반하며, 추정량의 점근 분포는 중심극한정리에 기반하여 정규성을 기대할 수 있다.</span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>GARCH 모형을 비롯한 변동성 모형에 대해서는 7장에서 살펴볼 것이다.</span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>컴퓨터와 소프트웨어의 발전에 따라 주식 시장에서 발생하는 모든 종류의 사건에 대한 정보, 즉 모든 주문 정보와 거래 취소 등에 대한 정보를 기록하는 것이 가능해졌다.</span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a>현대에 이르러서는 나노초 단위로 기록된 자료를 얻을 수 있게 되었는데, 이러한 자료들을 고빈도 금융자료라고 한다. 고빈도 금융자료는 변동성 추정과 호가창 모형에 대한 새로운 추정법과 모델링 방법을 제안할 수 있게 하였고, 고빈도 금융 계량경제학이라는 새로운 학문 분야가 개척되었다.</span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a>대표적으로는 @barndorff2002<span class="co">&lt;!-- --&gt;</span>와 @andersen2003<span class="co">&lt;!-- --&gt;</span> 등이 연구한 실현 변동성(realized volatility) 방법이 있으며, @hawkes1971<span class="co">&lt;!-- --&gt;</span> 확률과정 등 점과정(point process)을 이용한 호가창 모형(limit order book modeling)에 대한 연구 또한 활발히 이루어지고 있다.</span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a>사실 컴퓨터의 발달 이전에도 확률모형을 이용한 시장 미시구조에 관한 이론적 연구들이 많이 이루어졌었는데, 베이지안 정리를 기반으로 한 @glosten1985bid<span class="co">&lt;!-- --&gt;</span>의 연구 등이 대표적이다.</span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a>이 단원에서 소개한 바와 같이, 확률론과 통계적 방법론은 금융의 정량 분석에 있어 필수적인 요소이다. 확률론과 같은 수학적 이론과 통계적 방법론은 금융 및 경제 이론과 합쳐져, 금융 자료로부터 유용한 정보를 획득할 수 있게 한다.</span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a>미국과 소련의 냉전이 끝난 후, 수많은 수학자들과 물리학자들이 금융 산업의 메카인 월스트리트로 몰렸다. 이들은 일확천금을 꿈꾸기도 하였지만, 애초에 학문적 호기심으로 미지의 세계를 탐구했던 많은 이들은 금융 산업에서 발생하는 지적 문제를 해결하는 것에 더 큰 흥미를 느꼈다.</span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a>이 강의노트에서 공부하는 내용은 금융 산업에서 사용할 수 있는 여러 가지 통계적, 확률적 방법 중 극히 일부분일 것이다. 양적 금융 이론에서 사용하는 수학적 이론들은 수십, 수백 년에 걸쳐 발전한 것으로 한 학기나 일 년을 통해 전부 공부하기는 힘들 것이다.</span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a>하지만 최소한의 수학적 이론을 사용하는 이 강의노트를 통해 정량적 방법론이 금융 자료에 적용되는 원리에 대해 탐구해 보길 바란다.</span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a><span class="fu">## R 프로그래밍</span></span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a>이 강의노트에서 배우는 내용은 이론적인 측면만으로도 충분한 가치가 있지만, 실제 활용을 하였을 때 그 중요성은 배가될 것이다. 여기서 배우는 양적 방법론을 적용하기 위해서는 컴퓨터 프로그래밍이 필수적이다.</span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a>어떤 프로그래밍 언어를 사용하여도 상관없지만, 이 노트에서는 오픈 소스 소프트웨어인 R 프로그램을 이용한 몇몇 코드 예제들을 소개하였다. R 프로그램은 누구나 무료로 다운로드하여 설치할 수 있고, RStudio Cloud 등의 서비스를 통하여 컴퓨터에 설치하지 않아도 웹을 통해 접속하여 사용할 수도 있다.</span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a>또한 금융과 통계에서 필요한 각종 패키지들이 배포되기 때문에 유용하게 사용할 수 있다. 하지만 아쉽게도 이 노트에서는 여건상 R 프로그래밍에 대해 자세히 다루지는 못한다.</span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a>인터넷이나 각종 도서를 통해 누구나 기초적인 R 프로그래밍을 익힐 수 있기 때문에, 이들 자료를 개별적으로 참고하길 바란다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

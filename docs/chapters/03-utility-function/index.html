@@ -865,6 +865,131 @@ U'(x)&gt;0
 <p>일반적으로 리스크 회피적(<span class="math inline">\(U''&lt;0\)</span>)인 투자자에게 부의 증가에 따른 만족감은 여전히 커지지만(단조증가), 그 증가하는 속도는 점점 둔화된다.</p>
 <p>예를 들어, 자산이 거의 없는 상태에서 얻는 <span class="math inline">\(100\)</span>만 원의 가치(한계효용)는 이미 수십억 원을 보유한 상태에서 얻는 <span class="math inline">\(100\)</span>만 원의 가치보다 훨씬 크게 느껴진다.</p>
 <p>이를 수학적으로는 <span class="math inline">\(U'\)</span>가 감소함수임을 의미하는 <span class="math inline">\(U''&lt;0\)</span>으로 표현하며, <strong>한계효용 체감의 법칙(Law of diminishing marginal utility)</strong>이라고 한다.</p>
+<p>효용 함수의 곡률과 위험 성향의 관계는 Taylor 전개를 통해 보다 직관적으로 이해할 수 있다. 아래 정리와 <a href="#fig-taylor-approximations" class="quarto-xref">그림&nbsp;<span>3.2</span></a> 를 참고하자.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정리: Taylor 전개">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정리: Taylor 전개
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Taylor 전개는 함수 <span class="math inline">\(f(x)\)</span>를 특정 점 <span class="math inline">\(x_0\)</span> 주변에서 다항식으로 근사하는 방법이다. 일반적으로 <span class="math inline">\(n\)</span>차 Taylor 전개는 다음과 같이 표현된다.</p>
+<p><span class="math display">\[
+f(x) \approx f(x_0)
++ f'(x_0)(x-x_0)
++ \frac{f''(x_0)}{2!}(x-x_0)^2
++ \frac{f'''(x_0)}{3!}(x-x_0)^3
++ \cdots
++ \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n
+\]</span></p>
+<p>여기서 <span class="math inline">\(f^{(n)}(x_0)\)</span>는 <span class="math inline">\(f(x)\)</span>의 <span class="math inline">\(n\)</span>번째 도함수를 <span class="math inline">\(x=x_0\)</span>에서 계산한 값이다.</p>
+</div>
+</div>
+<div id="fig-taylor-approximations" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-taylor-approximations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch3_taylor.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-taylor-approximations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;3.2: 로그 함수의 테일러 근사: 원래 함수와 1차 및 2차 근사 비교
+</figcaption>
+</figure>
+</div>
+<p>효용 함수 <span class="math inline">\(U(x)\)</span>를 <span class="math inline">\(x_0=\mathbb{E}[W]\)</span>에서 Taylor 전개하고 <span class="math inline">\(x=W\)</span>를 대입하면,</p>
+<p><span class="math display">\[
+U(W)
+\approx
+U(\mathbb{E}[W])
++U'(\mathbb{E}[W])\bigl(W-\mathbb{E}[W]\bigr)
++\frac{1}{2}U''(\mathbb{E}[W])
+\bigl(W-\mathbb{E}[W]\bigr)^2
+\]</span></p>
+<p>이므로, 양변에 기댓값을 취하면,</p>
+<p><span id="eq-euw"><span class="math display">\[
+\mathbb{E}[U(W)]
+\approx
+U(\mathbb{E}[W])
++\frac{1}{2}U''(\mathbb{E}[W])\operatorname{Var}(W)
+\tag{3.1}\]</span></span></p>
+<p>으로 표현할 수 있다.</p>
+<p>정의에 따라 <span class="math inline">\(U(\mathrm{CE}_W)=\mathbb{E}[U(W)]\)</span>이므로,</p>
+<p><span id="eq-euw2"><span class="math display">\[
+U(\mathrm{CE}_W)
+\approx
+U(\mathbb{E}[W])
++\frac{1}{2}U''(\mathbb{E}[W])\operatorname{Var}(W)
+\tag{3.2}\]</span></span></p>
+<p>이며, 이제 <span class="math inline">\(U\)</span>가 단조증가 함수라는 사실을 이용하여 <span class="math inline">\(\mathrm{CE}_W\)</span>와 <span class="math inline">\(\mathbb{E}[W]\)</span>의 크기 관계를 해석할 수 있다.</p>
+<ul>
+<li><p><span class="math inline">\(U''(x)&gt;0\)</span>의 효용 함수를 지니는 투자자(위험 추구): <span class="math inline">\(\mathrm{CE}_W&gt;\mathbb{E}[W]\)</span>이며, 투자자는 불확실성 <span class="math inline">\(\operatorname{Var}(W)\)</span>로 인해 전체 효용이 증가했다고 여긴다. 따라서 도박이나 복권과 같은 불확실한 투자를 선호한다.</p></li>
+<li><p><span class="math inline">\(U''(\mathbb{E}[W])&lt;0\)</span>의 효용 함수를 지니는 투자자(위험 회피): <span class="math inline">\(\mathrm{CE}_W&lt;\mathbb{E}[W]\)</span>이며, 투자자는 불확실성 <span class="math inline">\(\operatorname{Var}(W)\)</span>로 인해 전체 효용이 감소했다고 여긴다. 따라서 도박과 같은 불확실한 투자를 기피한다.</p></li>
+<li><p><span class="math inline">\(U''(\mathbb{E}[W])=0\)</span>의 효용 함수를 지니는 투자자(위험 중립): <span class="math inline">\(\mathrm{CE}_W=\mathbb{E}[W]\)</span>이며, 투자자는 불확실성 <span class="math inline">\(\operatorname{Var}(W)\)</span>가 전체 효용에 영향을 미치지 않는다고 보고 오직 기댓값으로 투자의 가치를 판단한다.</p></li>
+</ul>
+<p>위험 회피자의 경우 <span class="math inline">\(\mathrm{CE}_W&lt;\mathbb{E}[W]\)</span>이므로, 양의 <span class="math inline">\(\pi_A\)</span>에 대하여 다음과 같이 표현할 수 있다.</p>
+<p><span id="eq-absolute-risk-premium"><span class="math display">\[
+\mathrm{CE}_W=\mathbb{E}[W]-\pi_A
+\tag{3.3}\]</span></span></p>
+<p>여기서 <span class="math inline">\(\pi_A\)</span>는 <span class="math inline">\(W\)</span>의 리스크를 피하기 위해 지불할 의사가 있는 최대 금액을 말하며, <strong>절대적 리스크 프리미엄(absolute risk premium)</strong>이라고 부른다.</p>
+<p>앞에서 살펴본 예에서 <span class="math inline">\(S_1\)</span>에 모두 투자하는 전략의 기대 부는 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbb{E}[W]
+=1200\times0.6+900\times0.4
+=1080
+\]</span></p>
+<p>따라서 거듭제곱 효용 함수의 확실성 등가와 비교하면 절대적 리스크 프리미엄은 다음과 같다.</p>
+<p><span class="math display">\[
+\pi_A=1080-1074.83=5.17
+\]</span></p>
+<p>한편, <span class="math inline">\(U(\mathrm{CE}_W)\)</span>에 대한 일차 근사와 <a href="#eq-absolute-risk-premium" class="quarto-xref">방정식&nbsp;<span>3.3</span></a> 을 이용하면,</p>
+<p><span class="math display">\[
+\begin{aligned}
+U(\mathrm{CE}_W)
+&amp;=U\bigl(\mathbb{E}[W]-\pi_A\bigr)\\
+&amp;\approx U\bigl(\mathbb{E}[W]\bigr)
+-\pi_AU'\bigl(\mathbb{E}[W]\bigr)
+\end{aligned}
+\]</span></p>
+<p>이다. 이를 <a href="#eq-euw2" class="quarto-xref">방정식&nbsp;<span>3.2</span></a> 와 결합하면,</p>
+<p><span class="math display">\[
+U\bigl(\mathbb{E}[W]\bigr)
+-\pi_AU'\bigl(\mathbb{E}[W]\bigr)
+\approx
+U\bigl(\mathbb{E}[W]\bigr)
++\frac{1}{2}U''\bigl(\mathbb{E}[W]\bigr)
+\operatorname{Var}(W)
+\]</span></p>
+<p>이며, 따라서 절대적 리스크 프리미엄은 다음과 같이 나타낼 수 있다.</p>
+<p><span class="math display">\[
+\pi_A
+\approx
+-\frac{1}{2}
+\frac{U''\bigl(\mathbb{E}[W]\bigr)}
+{U'\bigl(\mathbb{E}[W]\bigr)}
+\operatorname{Var}(W)
+\]</span></p>
+<p>비슷하게, <strong>상대적 리스크 프리미엄(relative risk premium)</strong>은 다음과 같이 정의한다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\pi_R
+&amp;=\frac{\pi_A}{\mathbb{E}[W]}\\
+&amp;\approx
+-\frac{1}{2}
+\frac{\mathbb{E}[W]U''\bigl(\mathbb{E}[W]\bigr)}
+{U'\bigl(\mathbb{E}[W]\bigr)}
+\frac{\operatorname{Var}(W)}
+{\mathbb{E}[W]^2}\\
+&amp;=
+-\frac{1}{2}
+\frac{\mathbb{E}[W]U''\bigl(\mathbb{E}[W]\bigr)}
+{U'\bigl(\mathbb{E}[W]\bigr)}
+\operatorname{Var}
+\left(\frac{W}{\mathbb{E}[W]}\right)
+\end{aligned}
+\]</span></p>
+<p>이러한 관점에서 다음 절에서는 위험회피도를 정의한다.</p>
 
 
 <!-- -->
@@ -1889,7 +2014,145 @@ Bernoulli, Daniel. 1954년. <span>“Exposition of a new theory on the measureme
 <span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>예를 들어, 자산이 거의 없는 상태에서 얻는 $100$만 원의 가치(한계효용)는 이미 수십억 원을 보유한 상태에서 얻는 $100$만 원의 가치보다 훨씬 크게 느껴진다.</span>
 <span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>이를 수학적으로는 $U'$가 감소함수임을 의미하는 $U''&lt;0$으로 표현하며, **한계효용 체감의 법칙(Law of diminishing marginal utility)**이라고 한다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>이를 수학적으로는 $U'$가 감소함수임을 의미하는 $U''&lt;0$으로 표현하며, **한계효용 체감의 법칙(Law of diminishing marginal utility)**이라고 한다.</span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a>효용 함수의 곡률과 위험 성향의 관계는 Taylor 전개를 통해 보다 직관적으로 이해할 수 있다. 아래 정리와 @fig-taylor-approximations 를 참고하자.</span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정리: Taylor 전개"}</span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a>Taylor 전개는 함수 $f(x)$를 특정 점 $x_0$ 주변에서 다항식으로 근사하는 방법이다. 일반적으로 $n$차 Taylor 전개는 다음과 같이 표현된다.</span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a>f(x) \approx f(x_0)</span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>f'(x_0)(x-x_0)</span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>\frac{f''(x_0)}{2!}(x-x_0)^2</span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>\frac{f'''(x_0)}{3!}(x-x_0)^3</span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>\cdots</span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n</span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a>여기서 $f^{(n)}(x_0)$는 $f(x)$의 $n$번째 도함수를 $x=x_0$에서 계산한 값이다.</span>
+<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a><span class="al">![로그 함수의 테일러 근사: 원래 함수와 1차 및 2차 근사 비교](../../assets/figures/Ch3_taylor.svg)</span>{#fig-taylor-approximations width=80%}</span>
+<span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a>효용 함수 $U(x)$를 $x_0=\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>$에서 Taylor 전개하고 $x=W$를 대입하면,</span>
+<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a>U(W)</span>
+<span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a>U(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)</span>
+<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a>+U'(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)\bigl(W-\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)</span>
+<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}U''(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)</span>
+<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a>\bigl(W-\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)^2</span>
+<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a>이므로, 양변에 기댓값을 취하면,</span>
+<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">U(W)</span><span class="co">]</span></span>
+<span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a>U(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)</span>
+<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}U''(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)\operatorname{Var}(W)</span>
+<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a>$$ {#eq-euw}</span>
+<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a>으로 표현할 수 있다.</span>
+<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a>정의에 따라 $U(\mathrm{CE}_W)=\mathbb{E}<span class="co">[</span><span class="ot">U(W)</span><span class="co">]</span>$이므로,</span>
+<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a>U(\mathrm{CE}_W)</span>
+<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a>U(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)</span>
+<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}U''(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)\operatorname{Var}(W)</span>
+<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a>$$ {#eq-euw2}</span>
+<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a>이며, 이제 $U$가 단조증가 함수라는 사실을 이용하여 $\mathrm{CE}_W$와 $\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>$의 크기 관계를 해석할 수 있다.</span>
+<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$U''(x)&gt;0$의 효용 함수를 지니는 투자자(위험 추구): $\mathrm{CE}_W&gt;\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>$이며, 투자자는 불확실성 $\operatorname{Var}(W)$로 인해 전체 효용이 증가했다고 여긴다. 따라서 도박이나 복권과 같은 불확실한 투자를 선호한다.</span>
+<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$U''(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)&lt;0$의 효용 함수를 지니는 투자자(위험 회피): $\mathrm{CE}_W&lt;\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>$이며, 투자자는 불확실성 $\operatorname{Var}(W)$로 인해 전체 효용이 감소했다고 여긴다. 따라서 도박과 같은 불확실한 투자를 기피한다.</span>
+<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$U''(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>)=0$의 효용 함수를 지니는 투자자(위험 중립): $\mathrm{CE}_W=\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>$이며, 투자자는 불확실성 $\operatorname{Var}(W)$가 전체 효용에 영향을 미치지 않는다고 보고 오직 기댓값으로 투자의 가치를 판단한다.</span>
+<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a>위험 회피자의 경우 $\mathrm{CE}_W&lt;\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>$이므로, 양의 $\pi_A$에 대하여 다음과 같이 표현할 수 있다.</span>
+<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a>\mathrm{CE}_W=\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>-\pi_A</span>
+<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a>$$ {#eq-absolute-risk-premium}</span>
+<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a>여기서 $\pi_A$는 $W$의 리스크를 피하기 위해 지불할 의사가 있는 최대 금액을 말하며, **절대적 리스크 프리미엄(absolute risk premium)**이라고 부른다.</span>
+<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a>앞에서 살펴본 예에서 $S_1$에 모두 투자하는 전략의 기대 부는 다음과 같다.</span>
+<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span></span>
+<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a>=1200\times0.6+900\times0.4</span>
+<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a>=1080</span>
+<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a>따라서 거듭제곱 효용 함수의 확실성 등가와 비교하면 절대적 리스크 프리미엄은 다음과 같다.</span>
+<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a>\pi_A=1080-1074.83=5.17</span>
+<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a>한편, $U(\mathrm{CE}_W)$에 대한 일차 근사와 @eq-absolute-risk-premium 을 이용하면,</span>
+<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a>U(\mathrm{CE}_W)</span>
+<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a>&amp;=U\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>-\pi_A\bigr)<span class="sc">\\</span></span>
+<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a>&amp;\approx U\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)</span>
+<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a>-\pi_AU'\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)</span>
+<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a>이다. 이를 @eq-euw2 와 결합하면,</span>
+<span id="cb1-585"><a href="#cb1-585" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a>U\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)</span>
+<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a>-\pi_AU'\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)</span>
+<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a>U\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)</span>
+<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}U''\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)</span>
+<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a>\operatorname{Var}(W)</span>
+<span id="cb1-593"><a href="#cb1-593" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a>이며, 따라서 절대적 리스크 프리미엄은 다음과 같이 나타낼 수 있다.</span>
+<span id="cb1-596"><a href="#cb1-596" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-598"><a href="#cb1-598" aria-hidden="true" tabindex="-1"></a>\pi_A</span>
+<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a>-\frac{1}{2}</span>
+<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a>\frac{U''\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)}</span>
+<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a>{U'\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)}</span>
+<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a>\operatorname{Var}(W)</span>
+<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a>비슷하게, **상대적 리스크 프리미엄(relative risk premium)**은 다음과 같이 정의한다.</span>
+<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-608"><a href="#cb1-608" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-609"><a href="#cb1-609" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-610"><a href="#cb1-610" aria-hidden="true" tabindex="-1"></a>\pi_R</span>
+<span id="cb1-611"><a href="#cb1-611" aria-hidden="true" tabindex="-1"></a>&amp;=\frac{\pi_A}{\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>}<span class="sc">\\</span></span>
+<span id="cb1-612"><a href="#cb1-612" aria-hidden="true" tabindex="-1"></a>&amp;\approx</span>
+<span id="cb1-613"><a href="#cb1-613" aria-hidden="true" tabindex="-1"></a>-\frac{1}{2}</span>
+<span id="cb1-614"><a href="#cb1-614" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>U''\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)}</span>
+<span id="cb1-615"><a href="#cb1-615" aria-hidden="true" tabindex="-1"></a>{U'\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)}</span>
+<span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a>\frac{\operatorname{Var}(W)}</span>
+<span id="cb1-617"><a href="#cb1-617" aria-hidden="true" tabindex="-1"></a>{\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>^2}<span class="sc">\\</span></span>
+<span id="cb1-618"><a href="#cb1-618" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-619"><a href="#cb1-619" aria-hidden="true" tabindex="-1"></a>-\frac{1}{2}</span>
+<span id="cb1-620"><a href="#cb1-620" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>U''\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)}</span>
+<span id="cb1-621"><a href="#cb1-621" aria-hidden="true" tabindex="-1"></a>{U'\bigl(\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>\bigr)}</span>
+<span id="cb1-622"><a href="#cb1-622" aria-hidden="true" tabindex="-1"></a>\operatorname{Var}</span>
+<span id="cb1-623"><a href="#cb1-623" aria-hidden="true" tabindex="-1"></a>\left(\frac{W}{\mathbb{E}<span class="co">[</span><span class="ot">W</span><span class="co">]</span>}\right)</span>
+<span id="cb1-624"><a href="#cb1-624" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-625"><a href="#cb1-625" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-626"><a href="#cb1-626" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a>이러한 관점에서 다음 절에서는 위험회피도를 정의한다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

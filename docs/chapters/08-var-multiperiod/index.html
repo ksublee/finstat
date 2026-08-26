@@ -108,6 +108,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../assets/styles/webbook.css">
 </head>
@@ -334,6 +363,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#개요" id="toc-개요" class="nav-link active" data-scroll-target="#개요"><span class="header-section-number">8.1</span> 개요</a></li>
   <li><a href="#학습-목표" id="toc-학습-목표" class="nav-link" data-scroll-target="#학습-목표"><span class="header-section-number">8.2</span> 학습 목표</a></li>
+  <li><a href="#몬테카를로-시뮬레이션" id="toc-몬테카를로-시뮬레이션" class="nav-link" data-scroll-target="#몬테카를로-시뮬레이션"><span class="header-section-number">8.3</span> 몬테카를로 시뮬레이션</a>
+  <ul class="collapse">
+  <li><a href="#iid-수익률" id="toc-iid-수익률" class="nav-link" data-scroll-target="#iid-수익률"><span class="header-section-number">8.3.1</span> IID 수익률</a></li>
+  </ul></li>
+  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">8.4</span> 관련 페이지</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/08-var-multiperiod/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -370,10 +404,171 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>시간제곱근 법칙의 의미와 한계를 설명한다.</li>
 <li>수익률 가정에 따른 VaR 변화를 비교한다.</li>
 </ul>
+</section>
+<section id="몬테카를로-시뮬레이션" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="몬테카를로-시뮬레이션"><span class="header-section-number">8.3</span> 몬테카를로 시뮬레이션</h2>
+<p><a href="../../concepts/glossary.html#value-at-risk">VaR</a>를 측정하려면 미래 자산 가치의 분포를 예측해야 한다. 그런데 금융 자산의 수익률 분포는 정규분포처럼 잘 알려진 확률분포와 일치하지 않으며, 정확한 분포를 예측하는 일은 쉽지 않다.</p>
+<p>자산 가격의 분포를 묘사하는 한 가지 방법으로 <a href="../../concepts/glossary.html#monte-carlo-simulation">몬테카를로 시뮬레이션</a>(확률 시뮬레이션)을 살펴본다.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 몬테카를로 시뮬레이션은 컴퓨터의 난수 발생기(random number generator)를 이용해 확률분포와 관련된 값을 통계적으로 계산하는 방법이다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>핵심은 <strong>컴퓨터로 가상의 수익률 또는 가격 경로를 만들어내는 것</strong>이다. 무작위로 생성된 가격들이 가상의 손익 분포를 이루고, 그 분포의 분위수에서 VaR를 읽어낸다.</p>
+</div>
+</div>
+<section id="iid-수익률" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="iid-수익률"><span class="header-section-number">8.3.1</span> IID 수익률</h3>
+<p>가장 간단한 경우부터 살펴본다. 어떤 자산의 일일 수익률이 서로 <a href="../../concepts/probability/independence.html">독립</a>이고 같은 분포를 따르는(IID, independent and identically distributed) 확률변수라고 가정한다.</p>
+<p>분포로는 정규분포, <span class="math inline">\(t\)</span>-분포, 로그정규분포 등을 쓸 수 있는데, 여기서는 자유도 4의 <span class="math inline">\(t\)</span>-분포를 사용한다. 자유도 4를 고른 특별한 이유는 없고, 정규분포보다 두꺼운 꼬리를 표현하기 위한 선택이다.</p>
+<p>어떤 포트폴리오의 향후 <span class="math inline">\(M\)</span>일간 VaR에 관심이 있다고 하자. 아래 예제에서는 변동성에 시간제곱근 법칙(square-root-of-time rule)을 사용한다. 어떤 자산의 연간 변동성이 <span class="math inline">\(\sigma\)</span>이고 1년을 250거래일로 보면, 일간 변동성을 <span class="math inline">\(\sigma / \sqrt{250}\)</span>으로 계산하는 방법이다.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 5일간 VaR를 위한 가격 경로 생성
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>어떤 투자자가 0 시점에 자산 또는 포트폴리오를 <span class="math inline">\(X_0 = \$10{,}000\)</span>만큼 보유하고 있다. 이 자산의 연간 기대수익률은 대략 0.05, 분산은 0.04로 알려져 있다. 이 투자자는 향후 5일간의 VaR에 관심이 있다.</p>
+<p>1년을 250 영업일로 보면 일간 기대수익률과 일간 분산은 각각 대략 다음과 같다.</p>
+<p><span class="math display">\[
+0.05 / 250 = 0.0002, \qquad 0.04 / 250 = 0.00016
+\]</span></p>
+<p>일일 수익률 분포의 모양이 자유도 4의 <span class="math inline">\(t\)</span>-분포와 같다고 가정하자. 자유도 4의 <span class="math inline">\(t\)</span>-분포의 분산은</p>
+<p><span class="math display">\[
+\frac{\mathrm{df}}{\mathrm{df} - 2} = \frac{4}{2} = 2
+\]</span></p>
+<p>이므로, 자유도 4의 <span class="math inline">\(t\)</span>-분포를 따르는 확률변수 <span class="math inline">\(T_1\)</span>을 다음과 같이 조정해 1일째 수익률을 만든다.</p>
+<p><span class="math display">\[
+R_1 = 0.0002 + \sqrt{\frac{0.00016}{2}}\, T_1
+\]</span></p>
+<p>이 수익률로 1일째 자산 가격을 시뮬레이션한다.</p>
+<p><span class="math display">\[
+X_1 = X_0 (1 + R_1)
+\]</span></p>
+<p>향후 5일간의 VaR가 필요하므로 같은 과정을 반복한다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+R_2 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_2, &amp;\quad X_2 &amp;= X_1(1 + R_2) \\
+R_3 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_3, &amp;\quad X_3 &amp;= X_2(1 + R_3) \\
+R_4 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_4, &amp;\quad X_4 &amp;= X_3(1 + R_4) \\
+R_5 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_5, &amp;\quad X_5 &amp;= X_4(1 + R_5)
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(T_i\)</span>는 컴퓨터의 난수 알고리즘이 생성하며 자유도 4의 <span class="math inline">\(t\)</span>-분포를 따른다. 이렇게 얻은 <span class="math inline">\(X_5\)</span>는 컴퓨터로 만들어낸 <strong>하나의</strong> 가상 가격으로, 5일 후 자산의 가격을 나타낸다.</p>
+</div>
+</div>
+<p>위 예제는 시나리오를 하나만 만들었다. 분포를 시뮬레이션하고 VaR를 계산하려면 시나리오를 여러 개 만들어야 한다.</p>
+<p><span class="math inline">\(X_{i,M}\)</span>을 <span class="math inline">\(i\)</span>번째 시나리오가 만들어낸 <span class="math inline">\(M\)</span>일 후의 가상 자산 가격이라고 하자. 시나리오를 <span class="math inline">\(L\)</span>개 생성하면</p>
+<p><span id="eq-pnl-scenarios"><span class="math display">\[
+X_{1,M} - X_0,\; X_{2,M} - X_0,\; \cdots,\; X_{i,M} - X_0,\; \cdots,\; X_{L,M} - X_0
+\tag{8.1}\]</span></span></p>
+<p>라는 가상의 손익(P&amp;L) 분포를 얻고, 이 분포에서 VaR나 ES를 계산할 수 있다.</p>
+<p>이 손익 값들을 오름차순으로 정렬해 <span class="math inline">\(\mathrm{PnL}_{(1)}, \cdots, \mathrm{PnL}_{(L)}\)</span>이라고 쓰자. 아래첨자의 괄호는 정렬된 자료임을 뜻한다. 그러면 <span class="math inline">\(\mathrm{VaR}_{\alpha}\)</span>는 <span class="math inline">\([\alpha L + 1]\)</span>번째 값에 <span class="math inline">\(-1\)</span>을 곱한 것이다.</p>
+<p><span id="eq-simul-var"><span class="math display">\[
+\mathrm{VaR}_{\alpha} = - \mathrm{PnL}_{([\alpha L + 1])}
+\tag{8.2}\]</span></span></p>
+<p>여기서 <span class="math inline">\([\,\cdot\,]\)</span>는 그 값을 넘지 않는 가장 큰 정수, 곧 소수점 아래 버림이다. 예를 들어 10,000번 시뮬레이션했고 <span class="math inline">\(\alpha = 0.01\)</span>이면 정렬된 손익 값 중 101번째를 취한다.</p>
+<p>조건부 기댓값인 ES는 다음과 같다.</p>
+<p><span id="eq-simul-es"><span class="math display">\[
+\mathrm{ES}_{\alpha} = - \frac{\sum_{i=1}^{[\alpha L + 1]} \mathrm{PnL}_{(i)}}{[\alpha L + 1]}
+\tag{8.3}\]</span></span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>왜 하필 <span class="math inline">\([\alpha L + 1]\)</span>번째인가
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>VaR의 정의 때문이다. 손익의 누적분포함수는 시뮬레이션 값들로 계단형 함수처럼 근사되며</p>
+<p><span class="math display">\[
+F\left(\mathrm{PnL}_{(k)}\right) = \mathbb{P}\left(\mathrm{PnL} \leq \mathrm{PnL}_{(k)}\right) \approx \frac{k}{L}
+\]</span></p>
+<p>이다. 전체 <span class="math inline">\(L\)</span>개의 시뮬레이션 결과 중 <span class="math inline">\(\mathrm{PnL}_{(k)}\)</span>보다 작거나 같은 값을 <span class="math inline">\(k\)</span>개 관찰했기 때문이다.</p>
+<p>VaR의 정의에 따라 <span class="math inline">\(\alpha &lt; F(x)\)</span>인 가장 작은 <span class="math inline">\(x\)</span>를 찾아야 하는데,</p>
+<p><span class="math display">\[
+\frac{k}{L} &gt; \alpha \implies k &gt; \alpha L
+\]</span></p>
+<p>이므로 그런 가장 작은 <span class="math inline">\(k\)</span>는 <span class="math inline">\([\alpha L + 1]\)</span>이다.</p>
+<p>다만 <span class="math inline">\(L\)</span>이 충분히 크면 편의상 <span class="math inline">\([\alpha L]\)</span>로 보아도 큰 차이가 없다. 소수점 아래를 버리든 반올림하든 올림하든, 또는 인접한 두 값을 평균 내든, 시뮬레이션이 충분히 이루어졌다면 결과는 거의 같다.</p>
+</div>
+</div>
+<p>다음 R 코드는 위 과정을 구현한 것이다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> <span class="dv">10000</span>; PnLs <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>){</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> X0</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>){</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rt(1, 4) generates a random number with t(4) distribution.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fl">0.0002</span> <span class="sc">+</span> <span class="fu">sqrt</span>(<span class="fl">0.00016</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">rt</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> X <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> r)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  PnLs[i] <span class="ot">&lt;-</span> X <span class="sc">-</span> X0</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>VaR <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">quantile</span>(PnLs, <span class="fl">0.01</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ES <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">sum</span>(PnLs[PnLs <span class="sc">&lt;=</span> <span class="sc">-</span>VaR]) <span class="sc">/</span> <span class="fu">length</span>(PnLs[PnLs <span class="sc">&lt;=</span> <span class="sc">-</span>VaR])</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ES <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">mean</span>(PnLs[PnLs <span class="sc">&lt;=</span> <span class="sc">-</span>VaR])</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<p>99% VaR의 몬테카를로 시뮬레이션 결과는 대략 $680, ES는 대략 $864이다. 난수를 쓰므로 실행할 때마다 값이 조금씩 달라진다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정규분포 가정과 비교하면
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="../../chapters/04-var-es/index.html">VaR와 ES</a> 장에서 같은 설정(보유액 $10,000, 연간 기대수익률 0.05, 분산 0.04, 5일)을 <strong>정규분포</strong>로 계산하면 99% VaR가 약 $648이었다.</p>
+<p>여기서 자유도 4의 <span class="math inline">\(t\)</span>-분포로 시뮬레이션한 결과는 약 $680으로 더 크다. 꼬리가 두꺼운 분포를 가정하면 극단적 손실의 가능성이 커지므로 VaR도 커진다.</p>
+<p>이 예제는 일반 수익률을 사용했지만 로그수익률로 계산해도 비슷한 결과가 나온다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R의 <code>quantile()</code> 함수는 분위수를 계산할 때 기본값으로 선형 보간법을 쓴다. <a href="#eq-simul-var" class="quarto-xref">방정식&nbsp;<span>8.2</span></a> 로 정의한 시뮬레이션 VaR와는 조금 다르지만, 시뮬레이션 횟수가 충분하면 차이가 거의 없어 편의상 <code>quantile()</code>을 사용했다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="관련-페이지" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">8.4</span> 관련 페이지</h2>
+<ul>
+<li><a href="../../chapters/04-var-es/index.html">VaR와 ES</a></li>
+<li><a href="../../chapters/09-backtesting/index.html">Backtesting</a></li>
+<li><a href="../../concepts/probability/independence.html">독립성</a></li>
+<li><a href="../../concepts/glossary.html">용어 정리</a></li>
+</ul>
 
 
 <!-- -->
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>카지노가 있는 모나코의 도시 Monte Carlo의 이름을 따왔다.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -891,19 +1086,167 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 다기간 VaR</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>보유 기간이 길어질 때 위험 측도가 어떻게 변하는지 살펴본다.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>다기간 위험 측정의 필요성을 이해한다.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>시간제곱근 법칙의 의미와 한계를 설명한다.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>수익률 가정에 따른 VaR 변화를 비교한다.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 다기간 VaR</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>보유 기간이 길어질 때 위험 측도가 어떻게 변하는지 살펴본다.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>다기간 위험 측정의 필요성을 이해한다.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>시간제곱근 법칙의 의미와 한계를 설명한다.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>수익률 가정에 따른 VaR 변화를 비교한다.</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 몬테카를로 시뮬레이션</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">VaR</span><span class="co">](../../concepts/glossary.qmd#value-at-risk)</span>를 측정하려면 미래 자산 가치의 분포를 예측해야 한다. 그런데 금융 자산의 수익률 분포는 정규분포처럼 잘 알려진 확률분포와 일치하지 않으며, 정확한 분포를 예측하는 일은 쉽지 않다.</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>자산 가격의 분포를 묘사하는 한 가지 방법으로 <span class="co">[</span><span class="ot">몬테카를로 시뮬레이션</span><span class="co">](../../concepts/glossary.qmd#monte-carlo-simulation)</span>(확률 시뮬레이션)을 살펴본다.^<span class="co">[</span><span class="ot">카지노가 있는 모나코의 도시 Monte Carlo의 이름을 따왔다.</span><span class="co">]</span> 몬테카를로 시뮬레이션은 컴퓨터의 난수 발생기(random number generator)를 이용해 확률분포와 관련된 값을 통계적으로 계산하는 방법이다.</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>핵심은 **컴퓨터로 가상의 수익률 또는 가격 경로를 만들어내는 것**이다. 무작위로 생성된 가격들이 가상의 손익 분포를 이루고, 그 분포의 분위수에서 VaR를 읽어낸다.</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### IID 수익률</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>가장 간단한 경우부터 살펴본다. 어떤 자산의 일일 수익률이 서로 <span class="co">[</span><span class="ot">독립</span><span class="co">](../../concepts/probability/independence.qmd)</span>이고 같은 분포를 따르는(IID, independent and identically distributed) 확률변수라고 가정한다.</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>분포로는 정규분포, $t$-분포, 로그정규분포 등을 쓸 수 있는데, 여기서는 자유도 4의 $t$-분포를 사용한다. 자유도 4를 고른 특별한 이유는 없고, 정규분포보다 두꺼운 꼬리를 표현하기 위한 선택이다.</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>어떤 포트폴리오의 향후 $M$일간 VaR에 관심이 있다고 하자. 아래 예제에서는 변동성에 시간제곱근 법칙(square-root-of-time rule)을 사용한다. 어떤 자산의 연간 변동성이 $\sigma$이고 1년을 250거래일로 보면, 일간 변동성을 $\sigma / \sqrt{250}$으로 계산하는 방법이다.</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 5일간 VaR를 위한 가격 경로 생성</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>어떤 투자자가 0 시점에 자산 또는 포트폴리오를 $X_0 = \$10{,}000$만큼 보유하고 있다. 이 자산의 연간 기대수익률은 대략 0.05, 분산은 0.04로 알려져 있다. 이 투자자는 향후 5일간의 VaR에 관심이 있다.</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>1년을 250 영업일로 보면 일간 기대수익률과 일간 분산은 각각 대략 다음과 같다.</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>0.05 / 250 = 0.0002, \qquad 0.04 / 250 = 0.00016</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>일일 수익률 분포의 모양이 자유도 4의 $t$-분포와 같다고 가정하자. 자유도 4의 $t$-분포의 분산은</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{df}}{\mathrm{df} - 2} = \frac{4}{2} = 2</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>이므로, 자유도 4의 $t$-분포를 따르는 확률변수 $T_1$을 다음과 같이 조정해 1일째 수익률을 만든다.</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>R_1 = 0.0002 + \sqrt{\frac{0.00016}{2}}\, T_1</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>이 수익률로 1일째 자산 가격을 시뮬레이션한다.</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>X_1 = X_0 (1 + R_1)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>향후 5일간의 VaR가 필요하므로 같은 과정을 반복한다.</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>R_2 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_2, &amp;\quad X_2 &amp;= X_1(1 + R_2) <span class="sc">\\</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>R_3 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_3, &amp;\quad X_3 &amp;= X_2(1 + R_3) <span class="sc">\\</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>R_4 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_4, &amp;\quad X_4 &amp;= X_3(1 + R_4) <span class="sc">\\</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>R_5 &amp;= 0.0002 + \sqrt{\tfrac{0.00016}{2}}\, T_5, &amp;\quad X_5 &amp;= X_4(1 + R_5)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>$T_i$는 컴퓨터의 난수 알고리즘이 생성하며 자유도 4의 $t$-분포를 따른다. 이렇게 얻은 $X_5$는 컴퓨터로 만들어낸 **하나의** 가상 가격으로, 5일 후 자산의 가격을 나타낸다.</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>위 예제는 시나리오를 하나만 만들었다. 분포를 시뮬레이션하고 VaR를 계산하려면 시나리오를 여러 개 만들어야 한다.</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>$X_{i,M}$을 $i$번째 시나리오가 만들어낸 $M$일 후의 가상 자산 가격이라고 하자. 시나리오를 $L$개 생성하면</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>X_{1,M} - X_0,\; X_{2,M} - X_0,\; \cdots,\; X_{i,M} - X_0,\; \cdots,\; X_{L,M} - X_0</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>$$ {#eq-pnl-scenarios}</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>라는 가상의 손익(P&amp;L) 분포를 얻고, 이 분포에서 VaR나 ES를 계산할 수 있다.</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>이 손익 값들을 오름차순으로 정렬해 $\mathrm{PnL}_{(1)}, \cdots, \mathrm{PnL}_{(L)}$이라고 쓰자. 아래첨자의 괄호는 정렬된 자료임을 뜻한다. 그러면 $\mathrm{VaR}_{\alpha}$는 $<span class="co">[</span><span class="ot">\alpha L + 1</span><span class="co">]</span>$번째 값에 $-1$을 곱한 것이다.</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\alpha} = - \mathrm{PnL}_{(<span class="co">[</span><span class="ot">\alpha L + 1</span><span class="co">]</span>)}</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>$$ {#eq-simul-var}</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>여기서 $<span class="co">[</span><span class="ot">\,\cdot\,</span><span class="co">]</span>$는 그 값을 넘지 않는 가장 큰 정수, 곧 소수점 아래 버림이다. 예를 들어 10,000번 시뮬레이션했고 $\alpha = 0.01$이면 정렬된 손익 값 중 101번째를 취한다.</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>조건부 기댓값인 ES는 다음과 같다.</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_{\alpha} = - \frac{\sum_{i=1}^{[\alpha L + 1]} \mathrm{PnL}_{(i)}}{<span class="co">[</span><span class="ot">\alpha L + 1</span><span class="co">]</span>}</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>$$ {#eq-simul-es}</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## 왜 하필 $[\alpha L + 1]$번째인가</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>VaR의 정의 때문이다. 손익의 누적분포함수는 시뮬레이션 값들로 계단형 함수처럼 근사되며</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>F\left(\mathrm{PnL}_{(k)}\right) = \mathbb{P}\left(\mathrm{PnL} \leq \mathrm{PnL}_{(k)}\right) \approx \frac{k}{L}</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>이다. 전체 $L$개의 시뮬레이션 결과 중 $\mathrm{PnL}_{(k)}$보다 작거나 같은 값을 $k$개 관찰했기 때문이다.</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>VaR의 정의에 따라 $\alpha &lt; F(x)$인 가장 작은 $x$를 찾아야 하는데,</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>\frac{k}{L} &gt; \alpha \implies k &gt; \alpha L</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>이므로 그런 가장 작은 $k$는 $<span class="co">[</span><span class="ot">\alpha L + 1</span><span class="co">]</span>$이다.</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>다만 $L$이 충분히 크면 편의상 $<span class="co">[</span><span class="ot">\alpha L</span><span class="co">]</span>$로 보아도 큰 차이가 없다. 소수점 아래를 버리든 반올림하든 올림하든, 또는 인접한 두 값을 평균 내든, 시뮬레이션이 충분히 이루어졌다면 결과는 거의 같다.</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>다음 R 코드는 위 과정을 구현한 것이다.</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> <span class="dv">10000</span>; PnLs <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>){</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> X0</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>){</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>    <span class="co"># rt(1, 4) generates a random number with t(4) distribution.</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fl">0.0002</span> <span class="sc">+</span> <span class="fu">sqrt</span>(<span class="fl">0.00016</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">rt</span>(<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> X <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> r)</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>  PnLs[i] <span class="ot">&lt;-</span> X <span class="sc">-</span> X0</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>VaR <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">quantile</span>(PnLs, <span class="fl">0.01</span>)</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>ES <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">sum</span>(PnLs[PnLs <span class="sc">&lt;=</span> <span class="sc">-</span>VaR]) <span class="sc">/</span> <span class="fu">length</span>(PnLs[PnLs <span class="sc">&lt;=</span> <span class="sc">-</span>VaR])</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>ES <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">mean</span>(PnLs[PnLs <span class="sc">&lt;=</span> <span class="sc">-</span>VaR])</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>99% VaR의 몬테카를로 시뮬레이션 결과는 대략 \$680, ES는 대략 \$864이다. 난수를 쓰므로 실행할 때마다 값이 조금씩 달라진다.</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## 정규분포 가정과 비교하면</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span> 장에서 같은 설정(보유액 \$10,000, 연간 기대수익률 0.05, 분산 0.04, 5일)을 **정규분포**로 계산하면 99% VaR가 약 \$648이었다.</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>여기서 자유도 4의 $t$-분포로 시뮬레이션한 결과는 약 \$680으로 더 크다. 꼬리가 두꺼운 분포를 가정하면 극단적 손실의 가능성이 커지므로 VaR도 커진다.</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>이 예제는 일반 수익률을 사용했지만 로그수익률로 계산해도 비슷한 결과가 나온다.</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>R의 <span class="in">`quantile()`</span> 함수는 분위수를 계산할 때 기본값으로 선형 보간법을 쓴다. @eq-simul-var 로 정의한 시뮬레이션 VaR와는 조금 다르지만, 시뮬레이션 횟수가 충분하면 차이가 거의 없어 편의상 <span class="in">`quantile()`</span>을 사용했다.</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Backtesting</span><span class="co">](../09-backtesting/index.qmd)</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
