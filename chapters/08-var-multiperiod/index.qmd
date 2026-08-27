@@ -153,9 +153,125 @@ ES <- - mean(PnLs[PnLs <= -VaR])
 R의 `quantile()` 함수는 분위수를 계산할 때 기본값으로 선형 보간법을 쓴다. @eq-simul-var 로 정의한 시뮬레이션 VaR와는 조금 다르지만, 시뮬레이션 횟수가 충분하면 차이가 거의 없어 편의상 `quantile()`을 사용했다.
 :::
 
+### GARCH 변동성 모형
+
+[GARCH](../../concepts/glossary.qmd#garch) 변동성 모형으로 만든 시뮬레이션도 VaR 계산에 쓸 수 있다. 앞 절의 IID 가정과 달리 변동성이 시간에 따라 변하는 상황을 다룬다.
+
+::: {.callout-warning}
+GARCH 모형의 계수에도 $\alpha$가 등장하고 유의수준도 $\alpha$로 쓴다. 두 기호가 뜻하는 바가 다르므로 혼동하지 않도록 주의한다. [기호 정리](../../concepts/notation.qmd) 참고.
+:::
+
+현재 시점을 $N$이라 하고 향후 $M$일간의 VaR를 구한다고 하자. 이를 위해 가상의 수익률 $r_{N+1}, r_{N+2}, \cdots, r_{N+M}$을 만들어야 한다. 절차는 다음과 같다.
+
+**1단계. GARCH 모수를 추정한다.**
+
+과거에 관찰된 수익률 시계열 $\tilde r_1, \cdots, \tilde r_N$에 최우추정법을 적용해 추정치 $\hat\omega, \hat\alpha, \hat\beta$를 구한다. 추정 방법은 [변동성](../07-volatility/index.qmd) 장에서 다룬다.
+
+**2단계. 현재 시점의 조건부 분산을 추정한다.**
+
+$$
+\begin{aligned}
+\hat\sigma_N^2 &= \hat\omega + \hat\alpha \tilde r_{N-1}^2 + \hat\beta \hat\sigma^2_{N-1} \\
+&= \hat\omega + \hat\alpha \tilde r_{N-1}^2 + \hat\beta (\hat\omega + \hat\alpha \tilde r_{N-2}^2 + \hat\beta \hat\sigma^2_{N-2}) \\
+&\;\;\vdots \\
+&= \hat\omega (1 + \hat\beta + \cdots + \hat\beta^{N-2}) + \hat\alpha (\tilde r_{N-1}^2 + \hat\beta \tilde r_{N-2}^2 + \cdots + \hat\beta^{N-2} \tilde r_1^2 ) + \hat\beta^{N-1} \hat\sigma_1^2
+\end{aligned}
+$$
+
+여기서 편의상 다음과 같이 둔다.
+
+$$
+\hat\sigma_1^2 = \frac{\hat\omega}{1 - \hat\alpha - \hat\beta}
+$$
+
+**3단계. 미래의 변동성과 가상의 수익률을 생성한다.**
+
+$$
+\begin{aligned}
+\sigma_{N+1}^2 &= \hat\omega + \hat\alpha \tilde r_{N}^2 + \hat\beta \hat\sigma^2_{N}, &\quad r_{N+1} &= \sigma_{N+1} Z_1 \\
+\sigma_{N+2}^2 &= \hat\omega + \hat\alpha r_{N+1}^2 + \hat\beta \sigma^2_{N+1}, &\quad r_{N+2} &= \sigma_{N+2} Z_2 \\
+&\;\;\vdots & &\;\;\vdots \\
+\sigma_{N+M}^2 &= \hat\omega + \hat\alpha r_{N+M-1}^2 + \hat\beta \sigma^2_{N+M-1}, &\quad r_{N+M} &= \sigma_{N+M} Z_M
+\end{aligned}
+$$
+
+$Z_1, \cdots, Z_M$은 표준정규분포를 따르는 서로 [독립](../../concepts/probability/independence.qmd)인 확률변수로, 컴퓨터로 무작위 생성한다.
+
+**4단계. 가상의 자산 가격을 만든다.**
+
+생성한 수익률이 산술수익률이면
+
+$$
+X_{N+M} = X_N (1 + r_{N+1})(1 + r_{N+2}) \cdots (1 + r_{N+M})
+$$
+
+이고, 로그수익률이면 다음과 같다.
+
+$$
+X_{N+M} = X_N \exp\left( r_{N+1} + r_{N+2} + \cdots + r_{N+M} \right)
+$$
+
+**5단계. 시나리오를 여러 개 만든다.**
+
+지금까지 만든 가격은 첫 번째 시나리오의 결과이므로 $X_{1,N+M}$으로 쓴다. 충분히 많은 $L$개의 시나리오에 대해 3~4단계를 반복해 가상의 자산 가격과 손익 분포를 만든다.
+
+$$
+X_{1,N+M} - X_N,\; X_{2,N+M} - X_N,\; \cdots,\; X_{L,N+M} - X_N
+$$
+
+**6단계. VaR와 ES를 구한다.**
+
+손익을 오름차순으로 정렬해 $\mathrm{PnL}_{(1)}, \cdots, \mathrm{PnL}_{(L)}$이라 두고, 앞 절의 @eq-simul-var 와 @eq-simul-es 를 그대로 적용한다.
+
+::: {.callout-tip}
+## 예제: GARCH(1,1)로 5일 VaR 구하기
+
+어떤 금융 자산의 일일 수익률이 GARCH(1,1) 모형을 따르고 모수가 다음과 같이 추정되었다.
+
+$$
+\hat\omega = 10^{-7}, \quad \hat\alpha = 0.05, \quad \hat\beta = 0.9
+$$
+
+현재 시점의 조건부 분산은 $\hat\sigma_N^2 = 2 \times 10^{-6}$, 직전 수익률은 $\tilde r_N = 0.002$였다. 이 자산에 \$10,000를 투자했을 때 5일 후의 $\mathrm{VaR}_{0.01}$을 구한다.
+
+이런 문제는 수식으로 풀기 어려워 시뮬레이션이 사실상 필수적이다. 아래 코드로 계산하면 결과는 대략 \$76.5이다.
+
+조건부 분산이 $\hat\sigma_N^2 = 4 \times 10^{-6}$으로 더 컸다면 $\mathrm{VaR}_{0.01}$은 대략 \$102.5가 된다. 아래 코드에서 `v_N`만 바꿔 확인할 수 있다. 현재의 변동성이 클수록 앞으로의 위험도 크게 추정된다는 뜻이다.
+:::
+
+아래 코드는 산술수익률을 사용했으나 로그수익률로 해도 큰 차이는 없다.
+
+```r
+Xs <- c()
+omega <- 10^(-7); alpha <- 0.05; beta <- 0.9
+
+# 본문에서 가정한 현재 시점(N)의 값
+v_N <- 2e-6      # sigma_N^2, 비교 사례는 4e-6으로 바꾼다
+r_N <- 0.002     # tilde r_N
+X_N <- 10000
+
+for (i in 1:100000){
+  X <- X_N
+  v <- v_N; r <- r_N   # 시나리오마다 현재 시점 값에서 시작
+  for (j in 1:5){
+    v <- omega + alpha * r^2 + beta * v
+    r <- sqrt(v) * rnorm(1)
+    X <- X * (1 + r)
+  }
+  Xs[i] <- X
+}
+
+PnL <- Xs - X_N
+VaR <- - quantile(PnL, 0.01)  # 99% VaR
+ES <- - mean(PnL[PnL <= -VaR]) # 99% ES
+```
+
+앞 절과 마찬가지로 난수를 쓰므로 실행할 때마다 값이 조금씩 달라진다.
+
 ## 관련 페이지
 
 - [VaR와 ES](../04-var-es/index.qmd)
+- [변동성](../07-volatility/index.qmd)
 - [Backtesting](../09-backtesting/index.qmd)
 - [독립성](../../concepts/probability/independence.qmd)
 - [용어 정리](../../concepts/glossary.qmd)
