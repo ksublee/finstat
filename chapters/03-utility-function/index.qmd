@@ -885,7 +885,8 @@ $$
 \frac{
 (1+r_F)
 \left\{
-(1-p)(r_F-R_d)+p(R_u-r_F)
+p(R_u-r_F)
++(1-p)(R_d-r_F)
 \right\}
 }{
 (R_u-r_F)(r_F-R_d)
