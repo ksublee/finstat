@@ -391,7 +391,11 @@ window.Quarto = {
   <li><a href="#효용-함수의-양의-아핀-변환" id="toc-효용-함수의-양의-아핀-변환" class="nav-link" data-scroll-target="#효용-함수의-양의-아핀-변환"><span class="header-section-number">3.3.5</span> 효용 함수의 양의 아핀 변환</a></li>
   <li><a href="#확실성-등가" id="toc-확실성-등가" class="nav-link" data-scroll-target="#확실성-등가"><span class="header-section-number">3.3.6</span> 확실성 등가</a></li>
   </ul></li>
-  <li><a href="#효용-함수의-형태와-리스크-성향" id="toc-효용-함수의-형태와-리스크-성향" class="nav-link" data-scroll-target="#효용-함수의-형태와-리스크-성향"><span class="header-section-number">3.4</span> 효용 함수의 형태와 리스크 성향</a></li>
+  <li><a href="#효용-함수의-형태와-리스크-성향" id="toc-효용-함수의-형태와-리스크-성향" class="nav-link" data-scroll-target="#효용-함수의-형태와-리스크-성향"><span class="header-section-number">3.4</span> 효용 함수의 형태와 리스크 성향</a>
+  <ul class="collapse">
+  <li><a href="#위험회피도" id="toc-위험회피도" class="nav-link" data-scroll-target="#위험회피도"><span class="header-section-number">3.4.1</span> 위험회피도</a></li>
+  </ul></li>
+  <li><a href="#효용-함수와-포트폴리오-이론" id="toc-효용-함수와-포트폴리오-이론" class="nav-link" data-scroll-target="#효용-함수와-포트폴리오-이론"><span class="header-section-number">3.5</span> 효용 함수와 포트폴리오 이론</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/03-utility-function/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -433,7 +437,7 @@ window.Quarto = {
 <h2 data-number="3.3" class="anchored" data-anchor-id="효용-함수-기대-효용-확실성-등가"><span class="header-section-number">3.3</span> 효용 함수, 기대 효용, 확실성 등가</h2>
 <section id="효용-함수의-도입" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="효용-함수의-도입"><span class="header-section-number">3.3.1</span> 효용 함수의 도입</h3>
-<p><a href="../../chapters/02-modern-portfolio-theory/index.html">2장 현대 포트폴리오 이론</a>에서 이성적인 투자자의 포트폴리오 선택 문제를 살펴보았다. 무위험자산이 존재하지 않는다면 이성적인 투자자들은 효율적 투자선 위에서 자신의 위험 선호도에 맞는 포트폴리오를 선택할 것이다. 무위험자산이 존재한다면 시장 포트폴리오와 무위험자산을 적절히 조합하여 자신의 위험 성향에 맞도록 선택할 것이다.</p>
+<p><a href="../../chapters/02-modern-portfolio-theory/index.html">2장 현대 포트폴리오 이론</a>에서 이성적인 투자자의 포트폴리오 선택 문제를 살펴보았다. 무위험자산이 존재하지 않는다면 이성적인 투자자들은 효율적 경계선 위에서 자신의 위험 선호도에 맞는 포트폴리오를 선택할 것이다. 무위험자산이 존재한다면 시장 포트폴리오와 무위험자산을 적절히 조합하여 자신의 위험 성향에 맞도록 선택할 것이다.</p>
 <p>그렇다면 효율적 포트폴리오 중 하나를 선택하는 과정은 개개인의 위험 선호도와 맞물려 어떻게 이루어질까? 이 장에서는 개별 투자자들의 포트폴리오 선택을 보다 자세히 살펴보며, 이를 효용 함수(utility function)를 바탕으로 설명한다.</p>
 <p>경제학에서 효용(utility)은 소비자가 재화나 서비스를 소비한 대가로 얻는 만족이나 즐거움을 나타낸다. 효용 함수는 일련의 재화와 서비스에 대한 소비자의 선호도를 측정한다.</p>
 <p>이 단원에서 효용 함수는 온전히 금융 자산에 대한 선호도를 측정하는 데 활용되며, 이를 위해 수학적 내용을 최대한 간단하게 구성한다.</p>
@@ -990,6 +994,477 @@ U\bigl(\mathbb{E}[W]\bigr)
 \end{aligned}
 \]</span></p>
 <p>이러한 관점에서 다음 절에서는 위험회피도를 정의한다.</p>
+<section id="위험회피도" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="위험회피도"><span class="header-section-number">3.4.1</span> 위험회피도</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: 위험회피도 함수^[위험회피도 함수는 Arrow–Pratt measure of risk aversion이라고도 불리운다.]">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: 위험회피도 함수<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>다음의 두 함수는 효용함수 <span class="math inline">\(U(x)\)</span>의 위험회피도를 측정하는 척도로 사용된다.</p>
+<ul>
+<li><strong>절대위험회피도(absolute risk aversion) 함수</strong></li>
+</ul>
+<p><span class="math display">\[
+c_A(x)
+=
+-\frac{U''(x)}{U'(x)}
+\]</span></p>
+<ul>
+<li><strong>상대위험회피도(relative risk aversion) 함수</strong></li>
+</ul>
+<p><span class="math display">\[
+c_R(x)
+=
+-\frac{xU''(x)}{U'(x)}
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="예제: 이차 효용 함수의 위험회피도">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>예제: 이차 효용 함수의 위험회피도
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이차 효용 함수</p>
+<p><span class="math display">\[
+U(x)=x-\frac{1}{2}bx^2,
+\qquad
+x&lt;\frac{1}{b}
+\]</span></p>
+<p>의 절대위험회피도와 상대위험회피도는 각각 다음과 같다.</p>
+<p><span class="math display">\[
+c_A(x)=\frac{b}{1-bx},
+\qquad
+c_R(x)=\frac{xb}{1-bx}.
+\]</span></p>
+<p>이 효용 함수는 부가 증가할수록 절대위험회피도와 상대위험회피도가 모두 증가하므로, 부유해질수록 더 위험을 회피하는 성향을 보인다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: CARA">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: CARA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>절대위험회피도가 상수인 효용 함수를 <strong>CARA(constant absolute risk aversion)</strong>라고 한다. 대표적인 예는 다음과 같다.</p>
+<ul>
+<li>선형 효용 함수(linear utility function): <span class="math inline">\(c_A(x)=0\)</span></li>
+<li>지수 효용 함수(exponential utility function): <span class="math inline">\(c_A(x)=\gamma\)</span></li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: CRRA">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: CRRA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>상대위험회피도가 상수인 효용 함수를 <strong>CRRA(constant relative risk aversion)</strong>라고 한다. 대표적인 예는 다음과 같다.</p>
+<ul>
+<li>로그 효용 함수: <span class="math inline">\(c_R(x)=1\)</span></li>
+<li>거듭제곱 효용 함수: <span class="math inline">\(c_R(x)=1-a\)</span></li>
+</ul>
+</div>
+</div>
+<p>어떤 투자자가 CARA 효용 함수를 가진다는 것은 위험자산의 최적 투자 금액이 총자산의 수준과 무관하게 결정된다는 것을 의미한다.</p>
+<p>즉, 총자산이 변화하더라도 위험자산에 투자하는 절대 금액은 변하지 않는다(다른 조건이 동일하다면). 예를 들어, 어떤 투자자가 총자산이 100만 달러일 때 위험자산에 50만 달러를 투자하는 것이 최적이라 하자. 동일한 투자 기회하에서 총자산이 120만 달러로 증가하더라도 CARA 효용을 가진 투자자는 여전히 위험자산에 50만 달러를 투자한다.</p>
+<p>한편, 어떤 투자자가 CRRA 효용 함수를 가진다는 것은 투자 포트폴리오에서 위험자산의 비중이 총자산의 수준과 무관하게 일정함을 의미한다.</p>
+<p>즉, 자산 규모가 변하더라도 위험자산에 투자하는 비율은 변하지 않는다. 예를 들어, 총자산이 100만 달러인 사람이 그 사람의 위험 성향에 따라 위험자산에 50만 달러를 투자하고 있었는데, 총자산이 120만 달러로 늘어나면 위험자산에 60만 달러를 투자하는 경우이다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="참고: 로그 정규분포">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>참고: 로그 정규분포
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>확률변수 <span class="math inline">\(X&gt;0\)</span>가 다음을 만족하면 로그 정규분포를 따른다.</p>
+<p><span class="math display">\[
+\log(X)\sim N(\mu,\sigma^2)
+\]</span></p>
+<p>그리고 <span class="math inline">\(X\)</span>의 기댓값은 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbb{E}[X]
+=
+\exp\left(\mu+\frac{\sigma^2}{2}\right).
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="예제: CARA 효용 함수와 최적 투자 금액">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>예제: CARA 효용 함수와 최적 투자 금액
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>CARA인 지수 효용 함수</p>
+<p><span class="math display">\[
+U(x)=-\exp(-\gamma x)
+\]</span></p>
+<p>를 지니는 투자자가 <span class="math inline">\(W_0\)</span>의 초기 자본을 가지고 있다. 자본 시장에 수익률</p>
+<p><span class="math display">\[
+R\sim N(\mu,\sigma^2)
+\]</span></p>
+<p>의 위험자산과 <span class="math inline">\(r_F\)</span>의 이자율을 가지는 무위험자산이 있다고 하자.</p>
+<p>이때 초기 자본 중 <span class="math inline">\(y\)</span>만큼을 위험자산에 투자하고, <span class="math inline">\(W_0-y\)</span>를 무위험자산에 투자한다고 하자. 그러면 미래의 부는 다음과 같다.</p>
+<p><span class="math display">\[
+W(T)
+=
+y(1+R)+(W_0-y)(1+r_F).
+\]</span></p>
+<p>기대 효용은</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[U(W(T))]
+&amp;=
+\mathbb{E}\left[
+-\exp\left\{
+-\gamma\left[
+y(1+R)+(W_0-y)(1+r_F)
+\right]
+\right\}
+\right]\\
+&amp;=
+-\exp\left\{
+-\gamma\left[-yr_F+W_0(1+r_F)\right]
+\right\}
+\mathbb{E}\left[\exp(-\gamma yR)\right]
+\end{aligned}
+\]</span></p>
+<p>이다. 그런데 <span class="math inline">\(\exp(-\gamma yR)\)</span>는 로그 정규분포를 따르며, 로그 정규분포의 기댓값 공식에 따라</p>
+<p><span class="math display">\[
+\mathbb{E}\left[\exp(-\gamma yR)\right]
+=
+\exp\left(
+-\gamma\mu y
++\frac{1}{2}\gamma^2\sigma^2y^2
+\right)
+\]</span></p>
+<p>이므로,</p>
+<p><span class="math display">\[
+\mathbb{E}[U(W(T))]
+=
+-\exp\left\{
+-\gamma\left[
+W_0(1+r_F)+(\mu-r_F)y
+\right]
++\frac{1}{2}\gamma^2\sigma^2y^2
+\right\}.
+\]</span></p>
+<p>기대 효용을 최대화하는 <span class="math inline">\(y\)</span>를 찾기 위해 <span class="math inline">\(y\)</span>로 미분했을 때 0이 되도록 하는 <span class="math inline">\(y\)</span>를 찾는다.</p>
+<p><span class="math display">\[
+\frac{\mathrm{d}\mathbb{E}[U(W(T))]}{\mathrm{d}y}
+=
+\left[
+-\gamma(\mu-r_F)
++\gamma^2\sigma^2y
+\right]
+\mathbb{E}[U(W(T))]
+=
+0.
+\]</span></p>
+<p>따라서</p>
+<p><span class="math display">\[
+y=\frac{\mu-r_F}{\gamma\sigma^2}
+\]</span></p>
+<p>이며, <span class="math inline">\(W_0\)</span>와 관계없이 결정된다. 이는 CARA 효용 함수의 정의와 일치한다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="예제: CRRA 효용 함수와 최적 투자 비율">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>예제: CRRA 효용 함수와 최적 투자 비율
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>CRRA인 로그 효용 함수</p>
+<p><span class="math display">\[
+U(x)=\log(x)
+\]</span></p>
+<p>를 지니는 투자자가 <span class="math inline">\(W_0\)</span>의 초기 자본을 가지고 있다.</p>
+<p>자본 시장에 존재하는 위험자산의 수익률은 다음의 이산 분포를 따르고, 상수 <span class="math inline">\(R_u\)</span>, <span class="math inline">\(R_d\)</span>에 대해,</p>
+<p><span class="math display">\[
+R=
+\begin{cases}
+R_u, &amp; \text{with }p,\\
+R_d, &amp; \text{with }1-p.
+\end{cases}
+\]</span></p>
+<p>무위험자산은 <span class="math inline">\(r_F\)</span>의 이자율을 따른다. 초기 자본 중 <span class="math inline">\(y\)</span>만큼을 위험자산에 투자하고, <span class="math inline">\(W_0-y\)</span>를 무위험자산에 투자한다고 하자. 그러면 미래의 부는 다음과 같다.</p>
+<p><span class="math display">\[
+W(T)=
+\begin{cases}
+y(1+R_u)+(W_0-y)(1+r_F),
+&amp; \text{with }p,\\
+y(1+R_d)+(W_0-y)(1+r_F),
+&amp; \text{with }1-p.
+\end{cases}
+\]</span></p>
+<p>기대 효용은</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[U(W(T))]
+={}&amp;
+p\log\left\{
+y(1+R_u)+(W_0-y)(1+r_F)
+\right\}\\
+&amp;+
+(1-p)\log\left\{
+y(1+R_d)+(W_0-y)(1+r_F)
+\right\}
+\end{aligned}
+\]</span></p>
+<p>이다.</p>
+<p>기대 효용을 최대화하는 <span class="math inline">\(y\)</span>를 찾기 위해 <span class="math inline">\(y\)</span>로 미분했을 때 0이 되도록 하는 <span class="math inline">\(y\)</span>를 찾는다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{\mathrm{d}\mathbb{E}[U(W(T))]}{\mathrm{d}y}
+={}&amp;
+p\frac{R_u-r_F}
+{y(R_u-r_F)+W_0(1+r_F)}\\
+&amp;+
+(1-p)\frac{R_d-r_F}
+{y(R_d-r_F)+W_0(1+r_F)}
+=
+0.
+\end{aligned}
+\]</span></p>
+<p>따라서</p>
+<p><span class="math display">\[
+\frac{y}{W_0}
+=
+\frac{
+(1+r_F)
+\left\{
+p(R_u-r_F)
++(1-p)(R_d-r_F)
+\right\}
+}{
+(R_u-r_F)(r_F-R_d)
+}
+\]</span></p>
+<p>이며, 위험자산에 투자되는 비율 <span class="math inline">\(y/W_0\)</span>가 일정하다. 이는 CRRA 효용 함수의 정의와 일치한다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="효용-함수와-포트폴리오-이론" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="효용-함수와-포트폴리오-이론"><span class="header-section-number">3.5</span> 효용 함수와 포트폴리오 이론</h2>
+<p>앞서 살펴본 효율적 경계선에서 투자자들이 어떤 포트폴리오를 선택하게 될지 효용 함수의 관점에서 살펴보자. 보다 쉬운 수학적 전개를 위해 지수 효용 함수를 가지는 투자자에 대해 알아보자.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="명제: 지수 효용 함수의 기대 효용과 확실성 등가">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>명제: 지수 효용 함수의 기대 효용과 확실성 등가
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>지수 효용 함수</p>
+<p><span class="math display">\[
+U(x)=-\exp(-\gamma x)
+\]</span></p>
+<p>를 가지는 투자자의 정규 수익률 분포를 따르는 투자 <span class="math inline">\(W\)</span>를 고려해 보자.</p>
+<p>이 투자의 수익률을 다음으로 나타내었을 때,</p>
+<p><span class="math display">\[
+R_W
+=
+\frac{W(T)-W(0)}{W(0)}
+\sim N(\mu_W,\sigma_W^2)
+\]</span></p>
+<p>이 투자에 대한 기대 효용은 다음과 같다.</p>
+<p><span id="eq-euw-terminal"><span class="math display">\[
+\mathbb{E}[U(W(T))]
+=
+-\exp\left\{
+-\gamma(1+\mu_W)W(0)
++\frac{1}{2}\gamma^2\sigma_W^2W^2(0)
+\right\}
+\tag{3.4}\]</span></span></p>
+<p>또한 확실성 등가는 다음과 같다.</p>
+<p><span id="eq-cew"><span class="math display">\[
+\mathrm{CE}_W
+=
+(1+\mu_W)W(0)
+-\frac{1}{2}\gamma\sigma_W^2W^2(0)
+\tag{3.5}\]</span></span></p>
+</div>
+</div>
+<p><span class="math inline">\(R_W\)</span>가 평균이 <span class="math inline">\(\mu_W\)</span>이고 분산이 <span class="math inline">\(\sigma_W^2\)</span>인 정규분포를 따르므로,</p>
+<p><span class="math display">\[
+-\gamma W(T)
+=
+-\gamma W(0)(1+R_W)
+\sim
+N\left(
+-\gamma(1+\mu_W)W(0),
+\gamma^2\sigma_W^2W^2(0)
+\right)
+\]</span></p>
+<p>이다.</p>
+<p>따라서 <span class="math inline">\(\exp(-\gamma W(T))\)</span>는 로그 정규분포를 따르며, 로그 정규분포의 기댓값 공식에 따라</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[U(W(T))]
+&amp;=
+-\mathbb{E}\left[\exp(-\gamma W(T))\right]\\
+&amp;=
+-\exp\left\{
+-\gamma(1+\mu_W)W(0)
++\frac{1}{2}\gamma^2\sigma_W^2W^2(0)
+\right\}
+\end{aligned}
+\]</span></p>
+<p>이다.</p>
+<p>확실성 등가의 정의에 따라</p>
+<p><span class="math display">\[
+-\exp(-\gamma\mathrm{CE}_W)
+=
+-\exp\left\{
+-\gamma(1+\mu_W)W(0)
++\frac{1}{2}\gamma^2\sigma_W^2W^2(0)
+\right\}
+\]</span></p>
+<p>이므로,</p>
+<p><span class="math display">\[
+\mathrm{CE}_W
+=
+(1+\mu_W)W(0)
+-\frac{1}{2}\gamma\sigma_W^2W^2(0)
+\]</span></p>
+<p>이다. 효용 함수가 CARA이므로 위험 프리미엄이 분산에 비례함을 확인할 수 있다.</p>
+<p><a href="#eq-cew" class="quarto-xref">방정식&nbsp;<span>3.5</span></a> 에서 <span class="math inline">\((1+\mu_W)W(0)\)</span>는 <span class="math inline">\(W(0)\)</span>를 투자했을 때의 미래 기대 가치이며,</p>
+<p><span class="math display">\[
+\frac{1}{2}\gamma\sigma_W^2W^2(0)
+\]</span></p>
+<p>는 위험 프리미엄으로 투자자가 위험을 회피하기 위해 기꺼이 포기하는 금액이라고 볼 수 있다. 투자자의 위험회피도 <span class="math inline">\(\gamma\)</span>와 위험 <span class="math inline">\(\sigma\)</span>가 클수록 이 값은 크다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: 무차별 곡선(indifference curve)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: 무차별 곡선(indifference curve)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>무차별 곡선(indifference curve)</strong>은 효용 함수의 등량곡선으로, 부(wealth) 자체가 아니라 포트폴리오 특성 변수로 표현된다. 여기서는 포트폴리오 수익률의 기대치와 표준편차로 정의된다.</p>
+<p>무차별 곡선은 지도상의 등고선처럼 효용이 동일한 모든 점을 연결하는 공간상의 곡선이다. 즉, 어떤 투자자가 특정 효용 함수 <span class="math inline">\(U\)</span>를 가지고 있으면 <span class="math inline">\(U\)</span>를 통해 정의되는 같은 값의 무차별 곡선 위의 포트폴리오에 대해서는 어떤 것을 다른 것에 비해 더 선호하거나 덜 선호하지 않는다.</p>
+</div>
+</div>
+<div id="fig-utility" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-utility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch3_utility.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>리스크 회피형 투자자의 무차별 곡선</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch3_utility2.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>리스크 추구형 투자자의 무차별 곡선</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-utility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;3.3: 무차별 곡선의 예: 리스크 회피(왼쪽)와 리스크 추구(오른쪽)
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-utility" class="quarto-xref">그림&nbsp;<span>3.3</span></a> 는 지수 효용 함수를 가정한 투자자의 무차별 곡선을 보여준다.</p>
+<p>이 예제에서 초기 자본은 <span class="math inline">\(10{,}000\)</span>으로 가정하였고, 왼쪽은 <span class="math inline">\(\gamma=7\times10^{-4}\)</span>인 지수 효용 함수를, 오른쪽은 <span class="math inline">\(\gamma=-7\times10^{-4}\)</span>인 지수 효용 함수를 가정하였다.</p>
+<p><span class="math inline">\(\gamma\)</span>가 양수인 리스크 회피형 투자자는 왼쪽 아래에서 오른쪽 위로 올라가는 형태의 무차별 곡선을 볼 수 있다. 이는 일반적으로 가정되는 위험회피적 투자자의 무차별 곡선 형태이다.</p>
+<p>반면, <span class="math inline">\(\gamma\)</span>가 음수인 리스크 추구형 투자자의 무차별 곡선은 그림의 오른쪽과 같이 왼쪽 위에서 오른쪽 아래로 내려가는 모양이다.</p>
+<p>한편, 실현 가능한 포트폴리오로서 <a href="#eq-cew" class="quarto-xref">방정식&nbsp;<span>3.5</span></a> 를 다음과 같이 나타낼 수 있다.</p>
+<p><span class="math display">\[
+\mathrm{CE}_W
+\approx
+W(0)
++W(0)\mathbf{w}^{\mathsf{T}}\boldsymbol{\mu}
+-\frac{1}{2}\gamma W^2(0)
+\mathbf{w}^{\mathsf{T}}
+\mathbf{C}
+\mathbf{w}
+\]</span></p>
+<p>여기서 <span class="math inline">\(\boldsymbol{\mu}\)</span>는 위험자산 수익률의 기댓값 벡터, <span class="math inline">\(\mathbf{C}\)</span>는 공분산 행렬이며, <span class="math inline">\(\mathbf{w}\)</span>는 자산 가중치 벡터이다.</p>
+<p>따라서 이 경우 투자자의 목적은 다음을 최대화하는 포트폴리오의 가중치 <span class="math inline">\(\mathbf{w}\)</span>를 찾는 것이다.</p>
+<p><span class="math display">\[
+\max_{\mathbf{w}}
+\left\{
+W(0)\mathbf{w}^{\mathsf{T}}\boldsymbol{\mu}
+-\frac{1}{2}\gamma W^2(0)
+\mathbf{w}^{\mathsf{T}}
+\mathbf{C}
+\mathbf{w}
+\right\}
+\]</span></p>
+<p>이제 이 곡선들과 효율적 경계선을 같이 그려보자.</p>
+<p>리스크를 회피하는 투자자의 무차별 곡선과 효율적 경계선이 만나는 경우는 <a href="#fig-indifference-frontier" class="quarto-xref">그림&nbsp;<span>3.4</span></a> 의 왼쪽과 같다. 앞에서 관찰한 대로 무차별 곡선은 왼쪽 아래에서 위쪽으로 올라가는 형태이다. 이 무차별 곡선과 효율적 경계선이 접하는 지점이 있음을 확인할 수 있다.</p>
+<p>반면, 리스크 추구형 투자자의 무차별 곡선은 앞에서 관찰한 바와 같이, <a href="#fig-indifference-frontier" class="quarto-xref">그림&nbsp;<span>3.4</span></a> 의 오른쪽에서 왼쪽 위에서 오른쪽 아래로 내려가고 있다.</p>
+<p>이 경우는 앞의 예와 달리 기대 효용을 최대로 하는 점을 찾을 수 없으며, 효율적 경계선을 따라 리스크와 기대수익률이 증가할수록, 즉 오른쪽 위 방향으로 올라갈수록, 투자자가 더욱 선호하는 포트폴리오가 된다.</p>
+<p>여기서는 무위험자산이 없는 효율적 경계선을 예로 들었지만, 무위험자산이 추가된 효율적 경계선에 대해서도 동일한 논의를 전개할 수 있다.</p>
+<div id="fig-indifference-frontier" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-indifference-frontier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch3_IC_EF1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>리스크 회피형 투자자</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch3_IC_EF2.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>리스크 추구형 투자자</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-indifference-frontier-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;3.4: 무차별 곡선과 효율적 경계선: 리스크 회피형 투자자(왼쪽)와 리스크 추구형 투자자(오른쪽)
+</figcaption>
+</figure>
+</div>
 
 
 <!-- -->
@@ -1008,6 +1483,7 @@ Bernoulli, Daniel. 1954년. <span>“Exposition of a new theory on the measureme
 <ol>
 <li id="fn1"><p>이 표현이 가능한 조건은 <span class="citation" data-cites="alexander2008market1">(<a href="#ref-alexander2008market1" role="doc-biblioref">Alexander 2008년</a>)</span>을 참고하라.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>영어로 번역되어 재출판된 <span class="citation" data-cites="bernoulli1954exposition">(<a href="#ref-bernoulli1954exposition" role="doc-biblioref">Bernoulli 1954년</a>)</span>을 참고하라.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>위험회피도 함수는 Arrow–Pratt measure of risk aversion이라고도 불리운다.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1542,7 +2018,7 @@ Bernoulli, Daniel. 1954년. <span>“Exposition of a new theory on the measureme
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 효용 함수의 도입</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">2장 현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span>에서 이성적인 투자자의 포트폴리오 선택 문제를 살펴보았다. 무위험자산이 존재하지 않는다면 이성적인 투자자들은 효율적 투자선 위에서 자신의 위험 선호도에 맞는 포트폴리오를 선택할 것이다. 무위험자산이 존재한다면 시장 포트폴리오와 무위험자산을 적절히 조합하여 자신의 위험 성향에 맞도록 선택할 것이다.</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">2장 현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span>에서 이성적인 투자자의 포트폴리오 선택 문제를 살펴보았다. 무위험자산이 존재하지 않는다면 이성적인 투자자들은 효율적 경계선 위에서 자신의 위험 선호도에 맞는 포트폴리오를 선택할 것이다. 무위험자산이 존재한다면 시장 포트폴리오와 무위험자산을 적절히 조합하여 자신의 위험 성향에 맞도록 선택할 것이다.</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>그렇다면 효율적 포트폴리오 중 하나를 선택하는 과정은 개개인의 위험 선호도와 맞물려 어떻게 이루어질까? 이 장에서는 개별 투자자들의 포트폴리오 선택을 보다 자세히 살펴보며, 이를 효용 함수(utility function)를 바탕으로 설명한다.</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
@@ -2152,7 +2628,457 @@ Bernoulli, Daniel. 1954년. <span>“Exposition of a new theory on the measureme
 <span id="cb1-624"><a href="#cb1-624" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
 <span id="cb1-625"><a href="#cb1-625" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-626"><a href="#cb1-626" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a>이러한 관점에서 다음 절에서는 위험회피도를 정의한다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a>이러한 관점에서 다음 절에서는 위험회피도를 정의한다.</span>
+<span id="cb1-628"><a href="#cb1-628" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-629"><a href="#cb1-629" aria-hidden="true" tabindex="-1"></a><span class="fu">### 위험회피도</span></span>
+<span id="cb1-630"><a href="#cb1-630" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-631"><a href="#cb1-631" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: 위험회피도 함수^<span class="co">[</span><span class="ot">위험회피도 함수는 Arrow–Pratt measure of risk aversion이라고도 불리운다.</span><span class="co">]</span>"}</span>
+<span id="cb1-632"><a href="#cb1-632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-633"><a href="#cb1-633" aria-hidden="true" tabindex="-1"></a>다음의 두 함수는 효용함수 $U(x)$의 위험회피도를 측정하는 척도로 사용된다.</span>
+<span id="cb1-634"><a href="#cb1-634" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-635"><a href="#cb1-635" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**절대위험회피도(absolute risk aversion) 함수**</span>
+<span id="cb1-636"><a href="#cb1-636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-637"><a href="#cb1-637" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-638"><a href="#cb1-638" aria-hidden="true" tabindex="-1"></a>c_A(x)</span>
+<span id="cb1-639"><a href="#cb1-639" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-640"><a href="#cb1-640" aria-hidden="true" tabindex="-1"></a>-\frac{U''(x)}{U'(x)}</span>
+<span id="cb1-641"><a href="#cb1-641" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-642"><a href="#cb1-642" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-643"><a href="#cb1-643" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**상대위험회피도(relative risk aversion) 함수**</span>
+<span id="cb1-644"><a href="#cb1-644" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-645"><a href="#cb1-645" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-646"><a href="#cb1-646" aria-hidden="true" tabindex="-1"></a>c_R(x)</span>
+<span id="cb1-647"><a href="#cb1-647" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-648"><a href="#cb1-648" aria-hidden="true" tabindex="-1"></a>-\frac{xU''(x)}{U'(x)}</span>
+<span id="cb1-649"><a href="#cb1-649" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-650"><a href="#cb1-650" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-651"><a href="#cb1-651" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-652"><a href="#cb1-652" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-653"><a href="#cb1-653" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="예제: 이차 효용 함수의 위험회피도"}</span>
+<span id="cb1-654"><a href="#cb1-654" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-655"><a href="#cb1-655" aria-hidden="true" tabindex="-1"></a>이차 효용 함수</span>
+<span id="cb1-656"><a href="#cb1-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-657"><a href="#cb1-657" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-658"><a href="#cb1-658" aria-hidden="true" tabindex="-1"></a>U(x)=x-\frac{1}{2}bx^2,</span>
+<span id="cb1-659"><a href="#cb1-659" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-660"><a href="#cb1-660" aria-hidden="true" tabindex="-1"></a>x&lt;\frac{1}{b}</span>
+<span id="cb1-661"><a href="#cb1-661" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-662"><a href="#cb1-662" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-663"><a href="#cb1-663" aria-hidden="true" tabindex="-1"></a>의 절대위험회피도와 상대위험회피도는 각각 다음과 같다.</span>
+<span id="cb1-664"><a href="#cb1-664" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-665"><a href="#cb1-665" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-666"><a href="#cb1-666" aria-hidden="true" tabindex="-1"></a>c_A(x)=\frac{b}{1-bx},</span>
+<span id="cb1-667"><a href="#cb1-667" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-668"><a href="#cb1-668" aria-hidden="true" tabindex="-1"></a>c_R(x)=\frac{xb}{1-bx}.</span>
+<span id="cb1-669"><a href="#cb1-669" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-670"><a href="#cb1-670" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-671"><a href="#cb1-671" aria-hidden="true" tabindex="-1"></a>이 효용 함수는 부가 증가할수록 절대위험회피도와 상대위험회피도가 모두 증가하므로, 부유해질수록 더 위험을 회피하는 성향을 보인다.</span>
+<span id="cb1-672"><a href="#cb1-672" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-673"><a href="#cb1-673" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-674"><a href="#cb1-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-675"><a href="#cb1-675" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: CARA"}</span>
+<span id="cb1-676"><a href="#cb1-676" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-677"><a href="#cb1-677" aria-hidden="true" tabindex="-1"></a>절대위험회피도가 상수인 효용 함수를 **CARA(constant absolute risk aversion)**라고 한다. 대표적인 예는 다음과 같다.</span>
+<span id="cb1-678"><a href="#cb1-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-679"><a href="#cb1-679" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>선형 효용 함수(linear utility function): $c_A(x)=0$</span>
+<span id="cb1-680"><a href="#cb1-680" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>지수 효용 함수(exponential utility function): $c_A(x)=\gamma$</span>
+<span id="cb1-681"><a href="#cb1-681" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-682"><a href="#cb1-682" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-683"><a href="#cb1-683" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-684"><a href="#cb1-684" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: CRRA"}</span>
+<span id="cb1-685"><a href="#cb1-685" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-686"><a href="#cb1-686" aria-hidden="true" tabindex="-1"></a>상대위험회피도가 상수인 효용 함수를 **CRRA(constant relative risk aversion)**라고 한다. 대표적인 예는 다음과 같다.</span>
+<span id="cb1-687"><a href="#cb1-687" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-688"><a href="#cb1-688" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>로그 효용 함수: $c_R(x)=1$</span>
+<span id="cb1-689"><a href="#cb1-689" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>거듭제곱 효용 함수: $c_R(x)=1-a$</span>
+<span id="cb1-690"><a href="#cb1-690" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-691"><a href="#cb1-691" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-692"><a href="#cb1-692" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-693"><a href="#cb1-693" aria-hidden="true" tabindex="-1"></a>어떤 투자자가 CARA 효용 함수를 가진다는 것은 위험자산의 최적 투자 금액이 총자산의 수준과 무관하게 결정된다는 것을 의미한다.</span>
+<span id="cb1-694"><a href="#cb1-694" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-695"><a href="#cb1-695" aria-hidden="true" tabindex="-1"></a>즉, 총자산이 변화하더라도 위험자산에 투자하는 절대 금액은 변하지 않는다(다른 조건이 동일하다면). 예를 들어, 어떤 투자자가 총자산이 100만 달러일 때 위험자산에 50만 달러를 투자하는 것이 최적이라 하자. 동일한 투자 기회하에서 총자산이 120만 달러로 증가하더라도 CARA 효용을 가진 투자자는 여전히 위험자산에 50만 달러를 투자한다.</span>
+<span id="cb1-696"><a href="#cb1-696" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-697"><a href="#cb1-697" aria-hidden="true" tabindex="-1"></a>한편, 어떤 투자자가 CRRA 효용 함수를 가진다는 것은 투자 포트폴리오에서 위험자산의 비중이 총자산의 수준과 무관하게 일정함을 의미한다.</span>
+<span id="cb1-698"><a href="#cb1-698" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-699"><a href="#cb1-699" aria-hidden="true" tabindex="-1"></a>즉, 자산 규모가 변하더라도 위험자산에 투자하는 비율은 변하지 않는다. 예를 들어, 총자산이 100만 달러인 사람이 그 사람의 위험 성향에 따라 위험자산에 50만 달러를 투자하고 있었는데, 총자산이 120만 달러로 늘어나면 위험자산에 60만 달러를 투자하는 경우이다.</span>
+<span id="cb1-700"><a href="#cb1-700" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-701"><a href="#cb1-701" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="참고: 로그 정규분포"}</span>
+<span id="cb1-702"><a href="#cb1-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-703"><a href="#cb1-703" aria-hidden="true" tabindex="-1"></a>확률변수 $X&gt;0$가 다음을 만족하면 로그 정규분포를 따른다.</span>
+<span id="cb1-704"><a href="#cb1-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-705"><a href="#cb1-705" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-706"><a href="#cb1-706" aria-hidden="true" tabindex="-1"></a>\log(X)\sim N(\mu,\sigma^2)</span>
+<span id="cb1-707"><a href="#cb1-707" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-708"><a href="#cb1-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-709"><a href="#cb1-709" aria-hidden="true" tabindex="-1"></a>그리고 $X$의 기댓값은 다음과 같다.</span>
+<span id="cb1-710"><a href="#cb1-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-711"><a href="#cb1-711" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-712"><a href="#cb1-712" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">X</span><span class="co">]</span></span>
+<span id="cb1-713"><a href="#cb1-713" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-714"><a href="#cb1-714" aria-hidden="true" tabindex="-1"></a>\exp\left(\mu+\frac{\sigma^2}{2}\right).</span>
+<span id="cb1-715"><a href="#cb1-715" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-716"><a href="#cb1-716" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-717"><a href="#cb1-717" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-718"><a href="#cb1-718" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-719"><a href="#cb1-719" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="예제: CARA 효용 함수와 최적 투자 금액"}</span>
+<span id="cb1-720"><a href="#cb1-720" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-721"><a href="#cb1-721" aria-hidden="true" tabindex="-1"></a>CARA인 지수 효용 함수</span>
+<span id="cb1-722"><a href="#cb1-722" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-723"><a href="#cb1-723" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-724"><a href="#cb1-724" aria-hidden="true" tabindex="-1"></a>U(x)=-\exp(-\gamma x)</span>
+<span id="cb1-725"><a href="#cb1-725" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-726"><a href="#cb1-726" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-727"><a href="#cb1-727" aria-hidden="true" tabindex="-1"></a>를 지니는 투자자가 $W_0$의 초기 자본을 가지고 있다. 자본 시장에 수익률</span>
+<span id="cb1-728"><a href="#cb1-728" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-729"><a href="#cb1-729" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-730"><a href="#cb1-730" aria-hidden="true" tabindex="-1"></a>R\sim N(\mu,\sigma^2)</span>
+<span id="cb1-731"><a href="#cb1-731" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-732"><a href="#cb1-732" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-733"><a href="#cb1-733" aria-hidden="true" tabindex="-1"></a>의 위험자산과 $r_F$의 이자율을 가지는 무위험자산이 있다고 하자.</span>
+<span id="cb1-734"><a href="#cb1-734" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-735"><a href="#cb1-735" aria-hidden="true" tabindex="-1"></a>이때 초기 자본 중 $y$만큼을 위험자산에 투자하고, $W_0-y$를 무위험자산에 투자한다고 하자. 그러면 미래의 부는 다음과 같다.</span>
+<span id="cb1-736"><a href="#cb1-736" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-737"><a href="#cb1-737" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-738"><a href="#cb1-738" aria-hidden="true" tabindex="-1"></a>W(T)</span>
+<span id="cb1-739"><a href="#cb1-739" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-740"><a href="#cb1-740" aria-hidden="true" tabindex="-1"></a>y(1+R)+(W_0-y)(1+r_F).</span>
+<span id="cb1-741"><a href="#cb1-741" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-742"><a href="#cb1-742" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-743"><a href="#cb1-743" aria-hidden="true" tabindex="-1"></a>기대 효용은</span>
+<span id="cb1-744"><a href="#cb1-744" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-745"><a href="#cb1-745" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-746"><a href="#cb1-746" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-747"><a href="#cb1-747" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span></span>
+<span id="cb1-748"><a href="#cb1-748" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-749"><a href="#cb1-749" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left[</span>
+<span id="cb1-750"><a href="#cb1-750" aria-hidden="true" tabindex="-1"></a>-\exp\left<span class="sc">\{</span></span>
+<span id="cb1-751"><a href="#cb1-751" aria-hidden="true" tabindex="-1"></a>-\gamma\left[</span>
+<span id="cb1-752"><a href="#cb1-752" aria-hidden="true" tabindex="-1"></a>y(1+R)+(W_0-y)(1+r_F)</span>
+<span id="cb1-753"><a href="#cb1-753" aria-hidden="true" tabindex="-1"></a>\right]</span>
+<span id="cb1-754"><a href="#cb1-754" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-755"><a href="#cb1-755" aria-hidden="true" tabindex="-1"></a>\right]<span class="sc">\\</span></span>
+<span id="cb1-756"><a href="#cb1-756" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-757"><a href="#cb1-757" aria-hidden="true" tabindex="-1"></a>-\exp\left<span class="sc">\{</span></span>
+<span id="cb1-758"><a href="#cb1-758" aria-hidden="true" tabindex="-1"></a>-\gamma\left<span class="co">[</span><span class="ot">-yr_F+W_0(1+r_F)\right</span><span class="co">]</span></span>
+<span id="cb1-759"><a href="#cb1-759" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-760"><a href="#cb1-760" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">\exp(-\gamma yR)\right</span><span class="co">]</span></span>
+<span id="cb1-761"><a href="#cb1-761" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-762"><a href="#cb1-762" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-763"><a href="#cb1-763" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-764"><a href="#cb1-764" aria-hidden="true" tabindex="-1"></a>이다. 그런데 $\exp(-\gamma yR)$는 로그 정규분포를 따르며, 로그 정규분포의 기댓값 공식에 따라</span>
+<span id="cb1-765"><a href="#cb1-765" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-766"><a href="#cb1-766" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-767"><a href="#cb1-767" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">\exp(-\gamma yR)\right</span><span class="co">]</span></span>
+<span id="cb1-768"><a href="#cb1-768" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-769"><a href="#cb1-769" aria-hidden="true" tabindex="-1"></a>\exp\left(</span>
+<span id="cb1-770"><a href="#cb1-770" aria-hidden="true" tabindex="-1"></a>-\gamma\mu y</span>
+<span id="cb1-771"><a href="#cb1-771" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}\gamma^2\sigma^2y^2</span>
+<span id="cb1-772"><a href="#cb1-772" aria-hidden="true" tabindex="-1"></a>\right)</span>
+<span id="cb1-773"><a href="#cb1-773" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-774"><a href="#cb1-774" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-775"><a href="#cb1-775" aria-hidden="true" tabindex="-1"></a>이므로,</span>
+<span id="cb1-776"><a href="#cb1-776" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-777"><a href="#cb1-777" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-778"><a href="#cb1-778" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span></span>
+<span id="cb1-779"><a href="#cb1-779" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-780"><a href="#cb1-780" aria-hidden="true" tabindex="-1"></a>-\exp\left<span class="sc">\{</span></span>
+<span id="cb1-781"><a href="#cb1-781" aria-hidden="true" tabindex="-1"></a>-\gamma\left[</span>
+<span id="cb1-782"><a href="#cb1-782" aria-hidden="true" tabindex="-1"></a>W_0(1+r_F)+(\mu-r_F)y</span>
+<span id="cb1-783"><a href="#cb1-783" aria-hidden="true" tabindex="-1"></a>\right]</span>
+<span id="cb1-784"><a href="#cb1-784" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}\gamma^2\sigma^2y^2</span>
+<span id="cb1-785"><a href="#cb1-785" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span>.</span>
+<span id="cb1-786"><a href="#cb1-786" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-787"><a href="#cb1-787" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-788"><a href="#cb1-788" aria-hidden="true" tabindex="-1"></a>기대 효용을 최대화하는 $y$를 찾기 위해 $y$로 미분했을 때 0이 되도록 하는 $y$를 찾는다.</span>
+<span id="cb1-789"><a href="#cb1-789" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-790"><a href="#cb1-790" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-791"><a href="#cb1-791" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{d}\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span>}{\mathrm{d}y}</span>
+<span id="cb1-792"><a href="#cb1-792" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-793"><a href="#cb1-793" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb1-794"><a href="#cb1-794" aria-hidden="true" tabindex="-1"></a>-\gamma(\mu-r_F)</span>
+<span id="cb1-795"><a href="#cb1-795" aria-hidden="true" tabindex="-1"></a>+\gamma^2\sigma^2y</span>
+<span id="cb1-796"><a href="#cb1-796" aria-hidden="true" tabindex="-1"></a>\right]</span>
+<span id="cb1-797"><a href="#cb1-797" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span></span>
+<span id="cb1-798"><a href="#cb1-798" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-799"><a href="#cb1-799" aria-hidden="true" tabindex="-1"></a>0.</span>
+<span id="cb1-800"><a href="#cb1-800" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-801"><a href="#cb1-801" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-802"><a href="#cb1-802" aria-hidden="true" tabindex="-1"></a>따라서</span>
+<span id="cb1-803"><a href="#cb1-803" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-804"><a href="#cb1-804" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-805"><a href="#cb1-805" aria-hidden="true" tabindex="-1"></a>y=\frac{\mu-r_F}{\gamma\sigma^2}</span>
+<span id="cb1-806"><a href="#cb1-806" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-807"><a href="#cb1-807" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-808"><a href="#cb1-808" aria-hidden="true" tabindex="-1"></a>이며, $W_0$와 관계없이 결정된다. 이는 CARA 효용 함수의 정의와 일치한다.</span>
+<span id="cb1-809"><a href="#cb1-809" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-810"><a href="#cb1-810" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-811"><a href="#cb1-811" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-812"><a href="#cb1-812" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="예제: CRRA 효용 함수와 최적 투자 비율"}</span>
+<span id="cb1-813"><a href="#cb1-813" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-814"><a href="#cb1-814" aria-hidden="true" tabindex="-1"></a>CRRA인 로그 효용 함수</span>
+<span id="cb1-815"><a href="#cb1-815" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-816"><a href="#cb1-816" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-817"><a href="#cb1-817" aria-hidden="true" tabindex="-1"></a>U(x)=\log(x)</span>
+<span id="cb1-818"><a href="#cb1-818" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-819"><a href="#cb1-819" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-820"><a href="#cb1-820" aria-hidden="true" tabindex="-1"></a>를 지니는 투자자가 $W_0$의 초기 자본을 가지고 있다.</span>
+<span id="cb1-821"><a href="#cb1-821" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-822"><a href="#cb1-822" aria-hidden="true" tabindex="-1"></a>자본 시장에 존재하는 위험자산의 수익률은 다음의 이산 분포를 따르고, 상수 $R_u$, $R_d$에 대해,</span>
+<span id="cb1-823"><a href="#cb1-823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-824"><a href="#cb1-824" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-825"><a href="#cb1-825" aria-hidden="true" tabindex="-1"></a>R=</span>
+<span id="cb1-826"><a href="#cb1-826" aria-hidden="true" tabindex="-1"></a>\begin{cases}</span>
+<span id="cb1-827"><a href="#cb1-827" aria-hidden="true" tabindex="-1"></a>R_u, &amp; \text{with }p,<span class="sc">\\</span></span>
+<span id="cb1-828"><a href="#cb1-828" aria-hidden="true" tabindex="-1"></a>R_d, &amp; \text{with }1-p.</span>
+<span id="cb1-829"><a href="#cb1-829" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb1-830"><a href="#cb1-830" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-831"><a href="#cb1-831" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-832"><a href="#cb1-832" aria-hidden="true" tabindex="-1"></a>무위험자산은 $r_F$의 이자율을 따른다. 초기 자본 중 $y$만큼을 위험자산에 투자하고, $W_0-y$를 무위험자산에 투자한다고 하자. 그러면 미래의 부는 다음과 같다.</span>
+<span id="cb1-833"><a href="#cb1-833" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-834"><a href="#cb1-834" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-835"><a href="#cb1-835" aria-hidden="true" tabindex="-1"></a>W(T)=</span>
+<span id="cb1-836"><a href="#cb1-836" aria-hidden="true" tabindex="-1"></a>\begin{cases}</span>
+<span id="cb1-837"><a href="#cb1-837" aria-hidden="true" tabindex="-1"></a>y(1+R_u)+(W_0-y)(1+r_F),</span>
+<span id="cb1-838"><a href="#cb1-838" aria-hidden="true" tabindex="-1"></a>&amp; \text{with }p,<span class="sc">\\</span></span>
+<span id="cb1-839"><a href="#cb1-839" aria-hidden="true" tabindex="-1"></a>y(1+R_d)+(W_0-y)(1+r_F),</span>
+<span id="cb1-840"><a href="#cb1-840" aria-hidden="true" tabindex="-1"></a>&amp; \text{with }1-p.</span>
+<span id="cb1-841"><a href="#cb1-841" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb1-842"><a href="#cb1-842" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-843"><a href="#cb1-843" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-844"><a href="#cb1-844" aria-hidden="true" tabindex="-1"></a>기대 효용은</span>
+<span id="cb1-845"><a href="#cb1-845" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-846"><a href="#cb1-846" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-847"><a href="#cb1-847" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-848"><a href="#cb1-848" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span></span>
+<span id="cb1-849"><a href="#cb1-849" aria-hidden="true" tabindex="-1"></a>={}&amp;</span>
+<span id="cb1-850"><a href="#cb1-850" aria-hidden="true" tabindex="-1"></a>p\log\left<span class="sc">\{</span></span>
+<span id="cb1-851"><a href="#cb1-851" aria-hidden="true" tabindex="-1"></a>y(1+R_u)+(W_0-y)(1+r_F)</span>
+<span id="cb1-852"><a href="#cb1-852" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}\\</span></span>
+<span id="cb1-853"><a href="#cb1-853" aria-hidden="true" tabindex="-1"></a>&amp;+</span>
+<span id="cb1-854"><a href="#cb1-854" aria-hidden="true" tabindex="-1"></a>(1-p)\log\left<span class="sc">\{</span></span>
+<span id="cb1-855"><a href="#cb1-855" aria-hidden="true" tabindex="-1"></a>y(1+R_d)+(W_0-y)(1+r_F)</span>
+<span id="cb1-856"><a href="#cb1-856" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-857"><a href="#cb1-857" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-858"><a href="#cb1-858" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-859"><a href="#cb1-859" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-860"><a href="#cb1-860" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-861"><a href="#cb1-861" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-862"><a href="#cb1-862" aria-hidden="true" tabindex="-1"></a>기대 효용을 최대화하는 $y$를 찾기 위해 $y$로 미분했을 때 0이 되도록 하는 $y$를 찾는다.</span>
+<span id="cb1-863"><a href="#cb1-863" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-864"><a href="#cb1-864" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-865"><a href="#cb1-865" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-866"><a href="#cb1-866" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{d}\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span>}{\mathrm{d}y}</span>
+<span id="cb1-867"><a href="#cb1-867" aria-hidden="true" tabindex="-1"></a>={}&amp;</span>
+<span id="cb1-868"><a href="#cb1-868" aria-hidden="true" tabindex="-1"></a>p\frac{R_u-r_F}</span>
+<span id="cb1-869"><a href="#cb1-869" aria-hidden="true" tabindex="-1"></a>{y(R_u-r_F)+W_0(1+r_F)}<span class="sc">\\</span></span>
+<span id="cb1-870"><a href="#cb1-870" aria-hidden="true" tabindex="-1"></a>&amp;+</span>
+<span id="cb1-871"><a href="#cb1-871" aria-hidden="true" tabindex="-1"></a>(1-p)\frac{R_d-r_F}</span>
+<span id="cb1-872"><a href="#cb1-872" aria-hidden="true" tabindex="-1"></a>{y(R_d-r_F)+W_0(1+r_F)}</span>
+<span id="cb1-873"><a href="#cb1-873" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-874"><a href="#cb1-874" aria-hidden="true" tabindex="-1"></a>0.</span>
+<span id="cb1-875"><a href="#cb1-875" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-876"><a href="#cb1-876" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-877"><a href="#cb1-877" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-878"><a href="#cb1-878" aria-hidden="true" tabindex="-1"></a>따라서</span>
+<span id="cb1-879"><a href="#cb1-879" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-880"><a href="#cb1-880" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-881"><a href="#cb1-881" aria-hidden="true" tabindex="-1"></a>\frac{y}{W_0}</span>
+<span id="cb1-882"><a href="#cb1-882" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-883"><a href="#cb1-883" aria-hidden="true" tabindex="-1"></a>\frac{</span>
+<span id="cb1-884"><a href="#cb1-884" aria-hidden="true" tabindex="-1"></a>(1+r_F)</span>
+<span id="cb1-885"><a href="#cb1-885" aria-hidden="true" tabindex="-1"></a>\left<span class="sc">\{</span></span>
+<span id="cb1-886"><a href="#cb1-886" aria-hidden="true" tabindex="-1"></a>p(R_u-r_F)</span>
+<span id="cb1-887"><a href="#cb1-887" aria-hidden="true" tabindex="-1"></a>+(1-p)(R_d-r_F)</span>
+<span id="cb1-888"><a href="#cb1-888" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-889"><a href="#cb1-889" aria-hidden="true" tabindex="-1"></a>}{</span>
+<span id="cb1-890"><a href="#cb1-890" aria-hidden="true" tabindex="-1"></a>(R_u-r_F)(r_F-R_d)</span>
+<span id="cb1-891"><a href="#cb1-891" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-892"><a href="#cb1-892" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-893"><a href="#cb1-893" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-894"><a href="#cb1-894" aria-hidden="true" tabindex="-1"></a>이며, 위험자산에 투자되는 비율 $y/W_0$가 일정하다. 이는 CRRA 효용 함수의 정의와 일치한다.</span>
+<span id="cb1-895"><a href="#cb1-895" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-896"><a href="#cb1-896" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-897"><a href="#cb1-897" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-898"><a href="#cb1-898" aria-hidden="true" tabindex="-1"></a><span class="fu">## 효용 함수와 포트폴리오 이론</span></span>
+<span id="cb1-899"><a href="#cb1-899" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-900"><a href="#cb1-900" aria-hidden="true" tabindex="-1"></a>앞서 살펴본 효율적 경계선에서 투자자들이 어떤 포트폴리오를 선택하게 될지 효용 함수의 관점에서 살펴보자. 보다 쉬운 수학적 전개를 위해 지수 효용 함수를 가지는 투자자에 대해 알아보자.</span>
+<span id="cb1-901"><a href="#cb1-901" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-902"><a href="#cb1-902" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="명제: 지수 효용 함수의 기대 효용과 확실성 등가"}</span>
+<span id="cb1-903"><a href="#cb1-903" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-904"><a href="#cb1-904" aria-hidden="true" tabindex="-1"></a>지수 효용 함수</span>
+<span id="cb1-905"><a href="#cb1-905" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-906"><a href="#cb1-906" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-907"><a href="#cb1-907" aria-hidden="true" tabindex="-1"></a>U(x)=-\exp(-\gamma x)</span>
+<span id="cb1-908"><a href="#cb1-908" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-909"><a href="#cb1-909" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-910"><a href="#cb1-910" aria-hidden="true" tabindex="-1"></a>를 가지는 투자자의 정규 수익률 분포를 따르는 투자 $W$를 고려해 보자. </span>
+<span id="cb1-911"><a href="#cb1-911" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-912"><a href="#cb1-912" aria-hidden="true" tabindex="-1"></a>이 투자의 수익률을 다음으로 나타내었을 때,</span>
+<span id="cb1-913"><a href="#cb1-913" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-914"><a href="#cb1-914" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-915"><a href="#cb1-915" aria-hidden="true" tabindex="-1"></a>R_W</span>
+<span id="cb1-916"><a href="#cb1-916" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-917"><a href="#cb1-917" aria-hidden="true" tabindex="-1"></a>\frac{W(T)-W(0)}{W(0)}</span>
+<span id="cb1-918"><a href="#cb1-918" aria-hidden="true" tabindex="-1"></a>\sim N(\mu_W,\sigma_W^2)</span>
+<span id="cb1-919"><a href="#cb1-919" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-920"><a href="#cb1-920" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-921"><a href="#cb1-921" aria-hidden="true" tabindex="-1"></a>이 투자에 대한 기대 효용은 다음과 같다.</span>
+<span id="cb1-922"><a href="#cb1-922" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-923"><a href="#cb1-923" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-924"><a href="#cb1-924" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span></span>
+<span id="cb1-925"><a href="#cb1-925" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-926"><a href="#cb1-926" aria-hidden="true" tabindex="-1"></a>-\exp\left<span class="sc">\{</span></span>
+<span id="cb1-927"><a href="#cb1-927" aria-hidden="true" tabindex="-1"></a>-\gamma(1+\mu_W)W(0)</span>
+<span id="cb1-928"><a href="#cb1-928" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}\gamma^2\sigma_W^2W^2(0)</span>
+<span id="cb1-929"><a href="#cb1-929" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-930"><a href="#cb1-930" aria-hidden="true" tabindex="-1"></a>$$ {#eq-euw-terminal}</span>
+<span id="cb1-931"><a href="#cb1-931" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-932"><a href="#cb1-932" aria-hidden="true" tabindex="-1"></a>또한 확실성 등가는 다음과 같다.</span>
+<span id="cb1-933"><a href="#cb1-933" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-934"><a href="#cb1-934" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-935"><a href="#cb1-935" aria-hidden="true" tabindex="-1"></a>\mathrm{CE}_W</span>
+<span id="cb1-936"><a href="#cb1-936" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-937"><a href="#cb1-937" aria-hidden="true" tabindex="-1"></a>(1+\mu_W)W(0)</span>
+<span id="cb1-938"><a href="#cb1-938" aria-hidden="true" tabindex="-1"></a>-\frac{1}{2}\gamma\sigma_W^2W^2(0)</span>
+<span id="cb1-939"><a href="#cb1-939" aria-hidden="true" tabindex="-1"></a>$$ {#eq-cew}</span>
+<span id="cb1-940"><a href="#cb1-940" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-941"><a href="#cb1-941" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-942"><a href="#cb1-942" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-943"><a href="#cb1-943" aria-hidden="true" tabindex="-1"></a>$R_W$가 평균이 $\mu_W$이고 분산이 $\sigma_W^2$인 정규분포를 따르므로,</span>
+<span id="cb1-944"><a href="#cb1-944" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-945"><a href="#cb1-945" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-946"><a href="#cb1-946" aria-hidden="true" tabindex="-1"></a>-\gamma W(T)</span>
+<span id="cb1-947"><a href="#cb1-947" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-948"><a href="#cb1-948" aria-hidden="true" tabindex="-1"></a>-\gamma W(0)(1+R_W)</span>
+<span id="cb1-949"><a href="#cb1-949" aria-hidden="true" tabindex="-1"></a>\sim</span>
+<span id="cb1-950"><a href="#cb1-950" aria-hidden="true" tabindex="-1"></a>N\left(</span>
+<span id="cb1-951"><a href="#cb1-951" aria-hidden="true" tabindex="-1"></a>-\gamma(1+\mu_W)W(0),</span>
+<span id="cb1-952"><a href="#cb1-952" aria-hidden="true" tabindex="-1"></a>\gamma^2\sigma_W^2W^2(0)</span>
+<span id="cb1-953"><a href="#cb1-953" aria-hidden="true" tabindex="-1"></a>\right)</span>
+<span id="cb1-954"><a href="#cb1-954" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-955"><a href="#cb1-955" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-956"><a href="#cb1-956" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-957"><a href="#cb1-957" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-958"><a href="#cb1-958" aria-hidden="true" tabindex="-1"></a>따라서 $\exp(-\gamma W(T))$는 로그 정규분포를 따르며, 로그 정규분포의 기댓값 공식에 따라</span>
+<span id="cb1-959"><a href="#cb1-959" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-960"><a href="#cb1-960" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-961"><a href="#cb1-961" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-962"><a href="#cb1-962" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">U(W(T))</span><span class="co">]</span></span>
+<span id="cb1-963"><a href="#cb1-963" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-964"><a href="#cb1-964" aria-hidden="true" tabindex="-1"></a>-\mathbb{E}\left<span class="co">[</span><span class="ot">\exp(-\gamma W(T))\right</span><span class="co">]</span><span class="sc">\\</span></span>
+<span id="cb1-965"><a href="#cb1-965" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-966"><a href="#cb1-966" aria-hidden="true" tabindex="-1"></a>-\exp\left<span class="sc">\{</span></span>
+<span id="cb1-967"><a href="#cb1-967" aria-hidden="true" tabindex="-1"></a>-\gamma(1+\mu_W)W(0)</span>
+<span id="cb1-968"><a href="#cb1-968" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}\gamma^2\sigma_W^2W^2(0)</span>
+<span id="cb1-969"><a href="#cb1-969" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-970"><a href="#cb1-970" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-971"><a href="#cb1-971" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-972"><a href="#cb1-972" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-973"><a href="#cb1-973" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-974"><a href="#cb1-974" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-975"><a href="#cb1-975" aria-hidden="true" tabindex="-1"></a>확실성 등가의 정의에 따라</span>
+<span id="cb1-976"><a href="#cb1-976" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-977"><a href="#cb1-977" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-978"><a href="#cb1-978" aria-hidden="true" tabindex="-1"></a>-\exp(-\gamma\mathrm{CE}_W)</span>
+<span id="cb1-979"><a href="#cb1-979" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-980"><a href="#cb1-980" aria-hidden="true" tabindex="-1"></a>-\exp\left<span class="sc">\{</span></span>
+<span id="cb1-981"><a href="#cb1-981" aria-hidden="true" tabindex="-1"></a>-\gamma(1+\mu_W)W(0)</span>
+<span id="cb1-982"><a href="#cb1-982" aria-hidden="true" tabindex="-1"></a>+\frac{1}{2}\gamma^2\sigma_W^2W^2(0)</span>
+<span id="cb1-983"><a href="#cb1-983" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-984"><a href="#cb1-984" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-985"><a href="#cb1-985" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-986"><a href="#cb1-986" aria-hidden="true" tabindex="-1"></a>이므로,</span>
+<span id="cb1-987"><a href="#cb1-987" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-988"><a href="#cb1-988" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-989"><a href="#cb1-989" aria-hidden="true" tabindex="-1"></a>\mathrm{CE}_W</span>
+<span id="cb1-990"><a href="#cb1-990" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-991"><a href="#cb1-991" aria-hidden="true" tabindex="-1"></a>(1+\mu_W)W(0)</span>
+<span id="cb1-992"><a href="#cb1-992" aria-hidden="true" tabindex="-1"></a>-\frac{1}{2}\gamma\sigma_W^2W^2(0)</span>
+<span id="cb1-993"><a href="#cb1-993" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-994"><a href="#cb1-994" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-995"><a href="#cb1-995" aria-hidden="true" tabindex="-1"></a>이다. 효용 함수가 CARA이므로 위험 프리미엄이 분산에 비례함을 확인할 수 있다.</span>
+<span id="cb1-996"><a href="#cb1-996" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-997"><a href="#cb1-997" aria-hidden="true" tabindex="-1"></a>@eq-cew 에서 $(1+\mu_W)W(0)$는 $W(0)$를 투자했을 때의 미래 기대 가치이며,</span>
+<span id="cb1-998"><a href="#cb1-998" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-999"><a href="#cb1-999" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1000"><a href="#cb1-1000" aria-hidden="true" tabindex="-1"></a>\frac{1}{2}\gamma\sigma_W^2W^2(0)</span>
+<span id="cb1-1001"><a href="#cb1-1001" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1002"><a href="#cb1-1002" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1003"><a href="#cb1-1003" aria-hidden="true" tabindex="-1"></a>는 위험 프리미엄으로 투자자가 위험을 회피하기 위해 기꺼이 포기하는 금액이라고 볼 수 있다. 투자자의 위험회피도 $\gamma$와 위험 $\sigma$가 클수록 이 값은 크다.</span>
+<span id="cb1-1004"><a href="#cb1-1004" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1005"><a href="#cb1-1005" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: 무차별 곡선(indifference curve)"}</span>
+<span id="cb1-1006"><a href="#cb1-1006" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1007"><a href="#cb1-1007" aria-hidden="true" tabindex="-1"></a>**무차별 곡선(indifference curve)**은 효용 함수의 등량곡선으로, 부(wealth) 자체가 아니라 포트폴리오 특성 변수로 표현된다. 여기서는 포트폴리오 수익률의 기대치와 표준편차로 정의된다.</span>
+<span id="cb1-1008"><a href="#cb1-1008" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1009"><a href="#cb1-1009" aria-hidden="true" tabindex="-1"></a>무차별 곡선은 지도상의 등고선처럼 효용이 동일한 모든 점을 연결하는 공간상의 곡선이다. 즉, 어떤 투자자가 특정 효용 함수 $U$를 가지고 있으면 $U$를 통해 정의되는 같은 값의 무차별 곡선 위의 포트폴리오에 대해서는 어떤 것을 다른 것에 비해 더 선호하거나 덜 선호하지 않는다.</span>
+<span id="cb1-1010"><a href="#cb1-1010" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1011"><a href="#cb1-1011" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1012"><a href="#cb1-1012" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1013"><a href="#cb1-1013" aria-hidden="true" tabindex="-1"></a>::: {#fig-utility layout-ncol=2}</span>
+<span id="cb1-1014"><a href="#cb1-1014" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1015"><a href="#cb1-1015" aria-hidden="true" tabindex="-1"></a><span class="al">![리스크 회피형 투자자의 무차별 곡선](../../assets/figures/Ch3_utility.svg)</span>{width=100%}</span>
+<span id="cb1-1016"><a href="#cb1-1016" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1017"><a href="#cb1-1017" aria-hidden="true" tabindex="-1"></a><span class="al">![리스크 추구형 투자자의 무차별 곡선](../../assets/figures/Ch3_utility2.svg)</span>{width=100%}</span>
+<span id="cb1-1018"><a href="#cb1-1018" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1019"><a href="#cb1-1019" aria-hidden="true" tabindex="-1"></a>무차별 곡선의 예: 리스크 회피(왼쪽)와 리스크 추구(오른쪽)</span>
+<span id="cb1-1020"><a href="#cb1-1020" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1021"><a href="#cb1-1021" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1022"><a href="#cb1-1022" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1023"><a href="#cb1-1023" aria-hidden="true" tabindex="-1"></a>@fig-utility 는 지수 효용 함수를 가정한 투자자의 무차별 곡선을 보여준다.</span>
+<span id="cb1-1024"><a href="#cb1-1024" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1025"><a href="#cb1-1025" aria-hidden="true" tabindex="-1"></a>이 예제에서 초기 자본은 $10{,}000$으로 가정하였고, 왼쪽은 $\gamma=7\times10^{-4}$인 지수 효용 함수를, 오른쪽은 $\gamma=-7\times10^{-4}$인 지수 효용 함수를 가정하였다.</span>
+<span id="cb1-1026"><a href="#cb1-1026" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1027"><a href="#cb1-1027" aria-hidden="true" tabindex="-1"></a>$\gamma$가 양수인 리스크 회피형 투자자는 왼쪽 아래에서 오른쪽 위로 올라가는 형태의 무차별 곡선을 볼 수 있다. 이는 일반적으로 가정되는 위험회피적 투자자의 무차별 곡선 형태이다.</span>
+<span id="cb1-1028"><a href="#cb1-1028" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1029"><a href="#cb1-1029" aria-hidden="true" tabindex="-1"></a>반면, $\gamma$가 음수인 리스크 추구형 투자자의 무차별 곡선은 그림의 오른쪽과 같이 왼쪽 위에서 오른쪽 아래로 내려가는 모양이다.</span>
+<span id="cb1-1030"><a href="#cb1-1030" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1031"><a href="#cb1-1031" aria-hidden="true" tabindex="-1"></a>한편, 실현 가능한 포트폴리오로서 @eq-cew 를 다음과 같이 나타낼 수 있다.</span>
+<span id="cb1-1032"><a href="#cb1-1032" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1033"><a href="#cb1-1033" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1034"><a href="#cb1-1034" aria-hidden="true" tabindex="-1"></a>\mathrm{CE}_W</span>
+<span id="cb1-1035"><a href="#cb1-1035" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1036"><a href="#cb1-1036" aria-hidden="true" tabindex="-1"></a>W(0)</span>
+<span id="cb1-1037"><a href="#cb1-1037" aria-hidden="true" tabindex="-1"></a>+W(0)\mathbf{w}^{\mathsf{T}}\boldsymbol{\mu}</span>
+<span id="cb1-1038"><a href="#cb1-1038" aria-hidden="true" tabindex="-1"></a>-\frac{1}{2}\gamma W^2(0)</span>
+<span id="cb1-1039"><a href="#cb1-1039" aria-hidden="true" tabindex="-1"></a>\mathbf{w}^{\mathsf{T}}</span>
+<span id="cb1-1040"><a href="#cb1-1040" aria-hidden="true" tabindex="-1"></a>\mathbf{C}</span>
+<span id="cb1-1041"><a href="#cb1-1041" aria-hidden="true" tabindex="-1"></a>\mathbf{w}</span>
+<span id="cb1-1042"><a href="#cb1-1042" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1043"><a href="#cb1-1043" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1044"><a href="#cb1-1044" aria-hidden="true" tabindex="-1"></a>여기서 $\boldsymbol{\mu}$는 위험자산 수익률의 기댓값 벡터, $\mathbf{C}$는 공분산 행렬이며, $\mathbf{w}$는 자산 가중치 벡터이다.</span>
+<span id="cb1-1045"><a href="#cb1-1045" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1046"><a href="#cb1-1046" aria-hidden="true" tabindex="-1"></a>따라서 이 경우 투자자의 목적은 다음을 최대화하는 포트폴리오의 가중치 $\mathbf{w}$를 찾는 것이다.</span>
+<span id="cb1-1047"><a href="#cb1-1047" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1048"><a href="#cb1-1048" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1049"><a href="#cb1-1049" aria-hidden="true" tabindex="-1"></a>\max_{\mathbf{w}}</span>
+<span id="cb1-1050"><a href="#cb1-1050" aria-hidden="true" tabindex="-1"></a>\left<span class="sc">\{</span></span>
+<span id="cb1-1051"><a href="#cb1-1051" aria-hidden="true" tabindex="-1"></a>W(0)\mathbf{w}^{\mathsf{T}}\boldsymbol{\mu}</span>
+<span id="cb1-1052"><a href="#cb1-1052" aria-hidden="true" tabindex="-1"></a>-\frac{1}{2}\gamma W^2(0)</span>
+<span id="cb1-1053"><a href="#cb1-1053" aria-hidden="true" tabindex="-1"></a>\mathbf{w}^{\mathsf{T}}</span>
+<span id="cb1-1054"><a href="#cb1-1054" aria-hidden="true" tabindex="-1"></a>\mathbf{C}</span>
+<span id="cb1-1055"><a href="#cb1-1055" aria-hidden="true" tabindex="-1"></a>\mathbf{w}</span>
+<span id="cb1-1056"><a href="#cb1-1056" aria-hidden="true" tabindex="-1"></a>\right<span class="sc">\}</span></span>
+<span id="cb1-1057"><a href="#cb1-1057" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1058"><a href="#cb1-1058" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1059"><a href="#cb1-1059" aria-hidden="true" tabindex="-1"></a>이제 이 곡선들과 효율적 경계선을 같이 그려보자.</span>
+<span id="cb1-1060"><a href="#cb1-1060" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1061"><a href="#cb1-1061" aria-hidden="true" tabindex="-1"></a>리스크를 회피하는 투자자의 무차별 곡선과 효율적 경계선이 만나는 경우는 @fig-indifference-frontier 의 왼쪽과 같다. 앞에서 관찰한 대로 무차별 곡선은 왼쪽 아래에서 위쪽으로 올라가는 형태이다. 이 무차별 곡선과 효율적 경계선이 접하는 지점이 있음을 확인할 수 있다.</span>
+<span id="cb1-1062"><a href="#cb1-1062" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1063"><a href="#cb1-1063" aria-hidden="true" tabindex="-1"></a>반면, 리스크 추구형 투자자의 무차별 곡선은 앞에서 관찰한 바와 같이, @fig-indifference-frontier 의 오른쪽에서 왼쪽 위에서 오른쪽 아래로 내려가고 있다.</span>
+<span id="cb1-1064"><a href="#cb1-1064" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1065"><a href="#cb1-1065" aria-hidden="true" tabindex="-1"></a>이 경우는 앞의 예와 달리 기대 효용을 최대로 하는 점을 찾을 수 없으며, 효율적 경계선을 따라 리스크와 기대수익률이 증가할수록, 즉 오른쪽 위 방향으로 올라갈수록, 투자자가 더욱 선호하는 포트폴리오가 된다.</span>
+<span id="cb1-1066"><a href="#cb1-1066" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1067"><a href="#cb1-1067" aria-hidden="true" tabindex="-1"></a>여기서는 무위험자산이 없는 효율적 경계선을 예로 들었지만, 무위험자산이 추가된 효율적 경계선에 대해서도 동일한 논의를 전개할 수 있다.</span>
+<span id="cb1-1068"><a href="#cb1-1068" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1069"><a href="#cb1-1069" aria-hidden="true" tabindex="-1"></a>::: {#fig-indifference-frontier layout-ncol=2}</span>
+<span id="cb1-1070"><a href="#cb1-1070" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1071"><a href="#cb1-1071" aria-hidden="true" tabindex="-1"></a><span class="al">![리스크 회피형 투자자](../../assets/figures/Ch3_IC_EF1.svg)</span>{width=100%}</span>
+<span id="cb1-1072"><a href="#cb1-1072" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1073"><a href="#cb1-1073" aria-hidden="true" tabindex="-1"></a><span class="al">![리스크 추구형 투자자](../../assets/figures/Ch3_IC_EF2.svg)</span>{width=100%}</span>
+<span id="cb1-1074"><a href="#cb1-1074" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1075"><a href="#cb1-1075" aria-hidden="true" tabindex="-1"></a>무차별 곡선과 효율적 경계선: 리스크 회피형 투자자(왼쪽)와 리스크 추구형 투자자(오른쪽)</span>
+<span id="cb1-1076"><a href="#cb1-1076" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1077"><a href="#cb1-1077" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
