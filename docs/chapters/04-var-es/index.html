@@ -390,6 +390,16 @@ window.Quarto = {
   <li><a href="#분위수-함수" id="toc-분위수-함수" class="nav-link" data-scroll-target="#분위수-함수"><span class="header-section-number">4.3.4</span> 분위수 함수</a></li>
   <li><a href="#var의-정의" id="toc-var의-정의" class="nav-link" data-scroll-target="#var의-정의"><span class="header-section-number">4.3.5</span> VaR의 정의</a></li>
   </ul></li>
+  <li><a href="#var의-성질" id="toc-var의-성질" class="nav-link" data-scroll-target="#var의-성질"><span class="header-section-number">4.4</span> VaR의 성질</a>
+  <ul class="collapse">
+  <li><a href="#정규분포-수익률의-var" id="toc-정규분포-수익률의-var" class="nav-link" data-scroll-target="#정규분포-수익률의-var"><span class="header-section-number">4.4.1</span> 정규분포 수익률의 VaR</a></li>
+  <li><a href="#예제-연간-var" id="toc-예제-연간-var" class="nav-link" data-scroll-target="#예제-연간-var"><span class="header-section-number">4.4.2</span> 예제: 연간 VaR</a></li>
+  <li><a href="#기간-확대" id="toc-기간-확대" class="nav-link" data-scroll-target="#기간-확대"><span class="header-section-number">4.4.3</span> 기간 확대</a></li>
+  <li><a href="#예제-5일-var" id="toc-예제-5일-var" class="nav-link" data-scroll-target="#예제-5일-var"><span class="header-section-number">4.4.4</span> 예제: 5일 VaR</a></li>
+  <li><a href="#분산투자와-var의-한계" id="toc-분산투자와-var의-한계" class="nav-link" data-scroll-target="#분산투자와-var의-한계"><span class="header-section-number">4.4.5</span> 분산투자와 VaR의 한계</a></li>
+  <li><a href="#var의-기본-성질" id="toc-var의-기본-성질" class="nav-link" data-scroll-target="#var의-기본-성질"><span class="header-section-number">4.4.6</span> VaR의 기본 성질</a></li>
+  <li><a href="#var의-장점과-한계" id="toc-var의-장점과-한계" class="nav-link" data-scroll-target="#var의-장점과-한계"><span class="header-section-number">4.4.7</span> VaR의 장점과 한계</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/04-var-es/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -559,6 +569,209 @@ Q(p) = F^{-1}(p).
 </figure>
 </div>
 <p>다음 그림(<a href="#fig-two-var" class="quarto-xref">그림&nbsp;<span>4.1</span></a>)에서 <span class="math inline">\(q^\alpha\)</span>는 손익 기준 VaR 정의(<a href="#eq-var-pnl" class="quarto-xref">방정식&nbsp;<span>4.3</span></a>)에 따른 VaR의 위치이고, <span class="math inline">\(q_\alpha\)</span>는 분위수 기준 정의(<a href="#eq-var-pnl-quantile" class="quarto-xref">방정식&nbsp;<span>4.5</span></a>)에 따른 VaR의 위치이다.</p>
+</section>
+</section>
+<section id="var의-성질" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="var의-성질"><span class="header-section-number">4.4</span> VaR의 성질</h2>
+<section id="정규분포-수익률의-var" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="정규분포-수익률의-var"><span class="header-section-number">4.4.1</span> 정규분포 수익률의 VaR</h3>
+<p>특정 기간의 수익률이 정규분포 <span class="math inline">\(N(\mu,\sigma^2)\)</span>를 따른다고 하자. 초기 투자금이 <span class="math inline">\(V_0\)</span>이면, 해당 기간의 손익은 표준정규확률변수 <span class="math inline">\(Z\)</span>를 이용해 다음과 같이 나타낼 수 있다.</p>
+<p><span class="math display">\[
+V_T - V_0 = V_0(\mu + \sigma Z).
+\]</span></p>
+<p>유의수준 <span class="math inline">\(\alpha\)</span>에 대해 <span class="math inline">\(z_\alpha\)</span>를</p>
+<p><span class="math display">\[
+\mathbb{P}(Z &gt; z_\alpha) = \alpha
+\]</span></p>
+<p>를 만족하는 표준정규분포의 상위 <span class="math inline">\(\alpha\)</span> 분위수라고 하자. 그러면 손익 기준 VaR는 다음과 같다.</p>
+<p><span id="eq-normal-var"><span class="math display">\[
+\mathrm{VaR}_\alpha
+=
+(-\mu+\sigma z_\alpha)V_0.
+\tag{4.6}\]</span></span></p>
+<p>즉, 기대수익률이 높을수록 VaR는 작아지고 변동성이 클수록 VaR는 커진다. 또한 같은 수익률 분포라도 투자금 <span class="math inline">\(V_0\)</span>가 커지면 VaR도 같은 비율로 커진다.</p>
+<p>정규분포에서 자주 사용하는 <span class="math inline">\(z_\alpha\)</span>의 값은 다음과 같다.</p>
+<table class="caption-top table">
+<caption>유의수준별 표준정규분포 분위수</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(\alpha\)</span></th>
+<th style="text-align: right;">0.005</th>
+<th style="text-align: right;">0.01</th>
+<th style="text-align: right;">0.025</th>
+<th style="text-align: right;">0.05</th>
+<th style="text-align: right;">0.1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\(z_\alpha\)</span></td>
+<td style="text-align: right;">2.5758</td>
+<td style="text-align: right;">2.3263</td>
+<td style="text-align: right;">1.9600</td>
+<td style="text-align: right;">1.6449</td>
+<td style="text-align: right;">1.2816</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>예를 들어 <span class="math inline">\(\alpha=0.01\)</span>은 99% 신뢰수준에 해당한다. 따라서 <span class="math inline">\(z_{0.01}\)</span>은 표준정규분포에서 상위 1%에 해당하는 값이다.</p>
+</div>
+</div>
+</section>
+<section id="예제-연간-var" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="예제-연간-var"><span class="header-section-number">4.4.2</span> 예제: 연간 VaR</h3>
+<p>연간 기대수익률이 5%, 변동성이 12%인 정규분포를 따르는 자산에 2백만 달러를 투자했다고 하자. 1년 90% VaR는 <span class="math inline">\(\alpha=0.1\)</span>을 사용해 계산한다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{VaR}_{0.1}
+&amp;=
+(-0.05 + z_{0.1} \times 0.12)
+\times 2{,}000{,}000 \\
+&amp;\approx 207{,}572.
+\end{aligned}
+\]</span></p>
+<p>여기서 <span class="math inline">\(z_{0.1}\)</span>는 <span class="math inline">\(\mathbb{P}(Z &lt; -z_{0.1})=0.1\)</span>을 만족하는 분위수이며, <span class="math inline">\(z_{0.1}\approx 1.2816\)</span>이다. 표의 값은 표시를 위한 반올림값이다.</p>
+<p>따라서 정상적인 시장 조건을 가정하면, 향후 1년 동안 손실이 약 207,572달러를 초과하지 않을 확률은 90%이다. 반대로 말하면 약 10%의 확률로 이 금액을 초과하는 손실이 발생할 수 있다.</p>
+</section>
+<section id="기간-확대" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="기간-확대"><span class="header-section-number">4.4.3</span> 기간 확대</h3>
+<p>여러 기간의 VaR를 계산하려면 기간별 수익률이 어떻게 누적되는지 살펴야 한다. 일간 수익률이 서로 독립이고 동일한 분포를 따른다고 가정하면, <span class="math inline">\(h\)</span>일 수익률의 기대수익률과 분산은 다음과 같이 확대된다.</p>
+<p><span class="math display">\[
+\mu_h = h\mu_{\text{day}},
+\qquad
+\sigma_h^2 = h\sigma_{\text{day}}^2.
+\]</span></p>
+<p>따라서 표준편차는 기간의 제곱근에 비례한다.</p>
+<p><span class="math display">\[
+\sigma_h = \sqrt{h}\sigma_{\text{day}}.
+\]</span></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>기간 확대는 일간 수익률이 독립이고 동일한 분포를 따른다는 가정에 의존한다. 금융 수익률에는 변동성 군집이 나타날 수 있으므로, 이 가정이 적절하지 않은 경우에는 단순한 제곱근 시간 법칙을 그대로 적용하기 어렵다.</p>
+</div>
+</div>
+</section>
+<section id="예제-5일-var" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="예제-5일-var"><span class="header-section-number">4.4.4</span> 예제: 5일 VaR</h3>
+<p>어떤 투자자가 10,000달러어치 자산을 보유하고 있다고 하자. 연간 수익률의 기댓값은 0.05이고 분산은 0.04이다. 1년을 250거래일로 두고, 일간 수익률이 독립이고 동일한 분포를 따른다고 가정한다.</p>
+<p>일간 기대수익률과 분산은 각각 다음과 같다.</p>
+<p><span class="math display">\[
+\mu_{\text{day}}
+=
+\frac{0.05}{250}
+=
+0.0002,
+\qquad
+\sigma_{\text{day}}^2
+=
+\frac{0.04}{250}
+=
+0.00016.
+\]</span></p>
+<p>따라서 5일 수익률의 기대수익률과 분산은 다음과 같다.</p>
+<p><span class="math display">\[
+\mu_5
+=
+5 \times 0.0002
+=
+0.001,
+\qquad
+\sigma_5^2
+=
+5 \times 0.00016
+=
+0.0008.
+\]</span></p>
+<p>5일 99% VaR는 식 <a href="#eq-normal-var" class="quarto-xref">방정식&nbsp;<span>4.6</span></a> 에 따라 계산할 수 있다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{VaR}_{0.01}
+&amp;=
+(-0.001 + 2.3263\sqrt{0.0008})
+\times 10{,}000 \\
+&amp;\approx 647.99.
+\end{aligned}
+\]</span></p>
+<p>즉, 이 가정 아래에서 향후 5일 동안 손실이 약 647.99달러를 초과할 확률은 1%이다.</p>
+</section>
+<section id="분산투자와-var의-한계" class="level3" data-number="4.4.5">
+<h3 data-number="4.4.5" class="anchored" data-anchor-id="분산투자와-var의-한계"><span class="header-section-number">4.4.5</span> 분산투자와 VaR의 한계</h3>
+<p>분산은 일반적으로 분산투자를 하면 같거나 감소한다. VaR도 많은 경우 이러한 성질을 보이지만, 항상 그런 것은 아니다. 특히 이산형 손실분포에서는 분산투자 후 VaR가 오히려 커질 수 있다.</p>
+<p>어떤 은행이 한 기업에 100,000달러를 대출했다고 하자. 부도확률은 0.008이고, 부도하면 회수금은 없다고 가정한다. 이 대출의 손익 <span class="math inline">\(X\)</span>는 다음과 같다.</p>
+<p><span class="math display">\[
+X =
+\begin{cases}
+0, &amp; \text{확률 } 0.992, \\
+-100{,}000, &amp; \text{확률 } 0.008.
+\end{cases}
+\]</span></p>
+<p>유의수준 <span class="math inline">\(\alpha=0.01\)</span>에서 부도확률 0.008은 0.01보다 작으므로 이 대출의 VaR는 0달러이다.</p>
+<p>이제 서로 독립인 두 기업에 각각 50,000달러씩 대출했다고 하자. 각 기업의 부도확률은 앞과 같이 0.008이다. 전체 대출의 손익은 다음과 같이 분포한다.</p>
+<p><span class="math display">\[
+X =
+\begin{cases}
+0, &amp; \text{확률 } 0.992^2 = 0.984064, \\
+-50{,}000, &amp; \text{확률 } 2 \times 0.008 \times 0.992 = 0.015872, \\
+-100{,}000, &amp; \text{확률 } 0.008^2 = 0.000064.
+\end{cases}
+\]</span></p>
+<p>이 경우 <span class="math inline">\(\alpha=0.01\)</span>에서 VaR는 50,000달러이다. 개별 대출의 VaR는 각각 0달러이지만, 두 대출을 합친 포트폴리오의 VaR는 50,000달러가 된다.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이 결과는 분산투자가 실제 위험을 높였다는 뜻이 아니다. 특정 분위수만 보는 VaR가 이산형 손실분포에서 분산투자의 효과를 충분히 반영하지 못할 수 있음을 보여주는 예이다.</p>
+</div>
+</div>
+<p>이러한 현상은 VaR가 항상 다음의 부가산성(subadditivity)을 만족하지는 않는다는 뜻이다.</p>
+<p><span class="math display">\[
+\mathrm{VaR}_\alpha(X+Y)
+\leq
+\mathrm{VaR}_\alpha(X)
++
+\mathrm{VaR}_\alpha(Y).
+\]</span></p>
+<p>다만 손익이 정규분포나 <span class="math inline">\(t\)</span>분포처럼 타원형 분포(elliptical distribution)를 따르면 VaR는 부가산성을 만족한다.</p>
+</section>
+<section id="var의-기본-성질" class="level3" data-number="4.4.6">
+<h3 data-number="4.4.6" class="anchored" data-anchor-id="var의-기본-성질"><span class="header-section-number">4.4.6</span> VaR의 기본 성질</h3>
+<p>손익을 나타내는 확률변수 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>에 대해 VaR는 다음 성질을 가진다.</p>
+<ul>
+<li><span class="math inline">\(X\geq0\)</span>이면 <span class="math inline">\(\mathrm{VaR}_\alpha(X)\leq0\)</span>이다. 손익이 항상 0 이상이면 손실 위험은 없거나 음수이다.</li>
+<li><span class="math inline">\(X\geq Y\)</span>이면 <span class="math inline">\(\mathrm{VaR}_\alpha(X)\leq\mathrm{VaR}_\alpha(Y)\)</span>이다. 항상 더 좋은 성과를 내는 자산의 VaR는 더 작다.</li>
+<li><span class="math inline">\(\lambda\geq0\)</span>이면 <span class="math inline">\(\mathrm{VaR}_\alpha(\lambda X)=\lambda\mathrm{VaR}_\alpha(X)\)</span>이다. 포지션 규모를 <span class="math inline">\(\lambda\)</span>배로 키우면 VaR도 <span class="math inline">\(\lambda\)</span>배가 된다.</li>
+<li>실수 <span class="math inline">\(k\)</span>에 대해 <span class="math inline">\(\mathrm{VaR}_\alpha(X+k)=\mathrm{VaR}_\alpha(X)-k\)</span>이다. 확정된 수익 <span class="math inline">\(k\)</span>가 추가되면 VaR는 그만큼 감소한다.</li>
+</ul>
+</section>
+<section id="var의-장점과-한계" class="level3" data-number="4.4.7">
+<h3 data-number="4.4.7" class="anchored" data-anchor-id="var의-장점과-한계"><span class="header-section-number">4.4.7</span> VaR의 장점과 한계</h3>
+<p>VaR는 채권, 주식, 파생상품 등 다양한 금융자산에 공통적으로 적용할 수 있고, 복잡한 포트폴리오의 위험을 하나의 통화 단위로 요약할 수 있다는 장점이 있다. 또한 공분산 행렬을 이용한 모형뿐 아니라 시뮬레이션과 역사적 자료를 이용한 방법에도 적용할 수 있다.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>반면 VaR는 모형의 가정과 추정 방법에 따라 크게 달라질 수 있다. 또한 VaR는 특정 분위수에서의 손실만 알려 줄 뿐, VaR를 초과한 더 큰 손실의 규모와 꼬리위험의 형태는 설명하지 못한다.</p>
+<p>이러한 한계는 다음 절에서 다룰 Expected Shortfall(ES)이 필요한 이유가 된다.</p>
 
 
 <!-- -->
@@ -581,6 +794,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <ol>
 <li id="fn1"><p>RiskMetrics의 역사적 배경은 <span class="citation" data-cites="Dowd2007">Dowd (<a href="#ref-Dowd2007" role="doc-biblioref">2007년</a>)</span> 참고.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>이산형 또는 비연속 분포에서 VaR 정의의 차이는 <span class="citation" data-cites="Elliott2005">Elliott 와/과 Kopp (<a href="#ref-Elliott2005" role="doc-biblioref">2005년</a>)</span> 참고.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>VaR와 포트폴리오 이론의 관계 및 VaR 방법의 특징은 <span class="citation" data-cites="Dowd2007">Dowd (<a href="#ref-Dowd2007" role="doc-biblioref">2007년</a>)</span> 참고.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1234,7 +1448,197 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="al">![누적분포함수에 수평인 부분이 있을 때 가능한 VaR의 위치](../../assets/figures/Ch4_two_VaR.svg)</span>{#fig-two-var width="60%"}</span>
 <span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>다음 그림(@fig-two-var)에서 $q^\alpha$는 손익 기준 VaR 정의(@eq-var-pnl)에 따른 VaR의 위치이고, $q_\alpha$는 분위수 기준 정의(@eq-var-pnl-quantile)에 따른 VaR의 위치이다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>다음 그림(@fig-two-var)에서 $q^\alpha$는 손익 기준 VaR 정의(@eq-var-pnl)에 따른 VaR의 위치이고, $q_\alpha$는 분위수 기준 정의(@eq-var-pnl-quantile)에 따른 VaR의 위치이다.</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## VaR의 성질</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="fu">### 정규분포 수익률의 VaR</span></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>특정 기간의 수익률이 정규분포 $N(\mu,\sigma^2)$를 따른다고 하자. 초기 투자금이 $V_0$이면, 해당 기간의 손익은 표준정규확률변수 $Z$를 이용해 다음과 같이 나타낼 수 있다.</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>V_T - V_0 = V_0(\mu + \sigma Z).</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>유의수준 $\alpha$에 대해 $z_\alpha$를</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(Z &gt; z_\alpha) = \alpha</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>를 만족하는 표준정규분포의 상위 $\alpha$ 분위수라고 하자. 그러면 손익 기준 VaR는 다음과 같다.</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_\alpha</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>(-\mu+\sigma z_\alpha)V_0.</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>$$ {#eq-normal-var}</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>즉, 기대수익률이 높을수록 VaR는 작아지고 변동성이 클수록 VaR는 커진다. 또한 같은 수익률 분포라도 투자금 $V_0$가 커지면 VaR도 같은 비율로 커진다.</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>정규분포에서 자주 사용하는 $z_\alpha$의 값은 다음과 같다.</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   $\alpha$ <span class="pp">|</span>  0.005 <span class="pp">|</span>   0.01 <span class="pp">|</span>  0.025 <span class="pp">|</span>   0.05 <span class="pp">|</span>    0.1 <span class="pp">|</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------:|-------:|-------:|-------:|-------:|-------:|</span></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $z_\alpha$ <span class="pp">|</span> 2.5758 <span class="pp">|</span> 2.3263 <span class="pp">|</span> 1.9600 <span class="pp">|</span> 1.6449 <span class="pp">|</span> 1.2816 <span class="pp">|</span></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>: 유의수준별 표준정규분포 분위수</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>예를 들어 $\alpha=0.01$은 99% 신뢰수준에 해당한다. 따라서 $z_{0.01}$은 표준정규분포에서 상위 1%에 해당하는 값이다.</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 연간 VaR</span></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>연간 기대수익률이 5%, 변동성이 12%인 정규분포를 따르는 자산에 2백만 달러를 투자했다고 하자. 1년 90% VaR는 $\alpha=0.1$을 사용해 계산한다.</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{0.1}</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>(-0.05 + z_{0.1} \times 0.12)</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>\times 2{,}000{,}000 <span class="sc">\\</span></span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>&amp;\approx 207{,}572.</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>여기서 $z_{0.1}$는 $\mathbb{P}(Z &lt; -z_{0.1})=0.1$을 만족하는 분위수이며, $z_{0.1}\approx 1.2816$이다. 표의 값은 표시를 위한 반올림값이다.</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>따라서 정상적인 시장 조건을 가정하면, 향후 1년 동안 손실이 약 207,572달러를 초과하지 않을 확률은 90%이다. 반대로 말하면 약 10%의 확률로 이 금액을 초과하는 손실이 발생할 수 있다.</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a><span class="fu">### 기간 확대</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>여러 기간의 VaR를 계산하려면 기간별 수익률이 어떻게 누적되는지 살펴야 한다. 일간 수익률이 서로 독립이고 동일한 분포를 따른다고 가정하면, $h$일 수익률의 기대수익률과 분산은 다음과 같이 확대된다.</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>\mu_h = h\mu_{\text{day}},</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>\sigma_h^2 = h\sigma_{\text{day}}^2.</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>따라서 표준편차는 기간의 제곱근에 비례한다.</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>\sigma_h = \sqrt{h}\sigma_{\text{day}}.</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>기간 확대는 일간 수익률이 독립이고 동일한 분포를 따른다는 가정에 의존한다. 금융 수익률에는 변동성 군집이 나타날 수 있으므로, 이 가정이 적절하지 않은 경우에는 단순한 제곱근 시간 법칙을 그대로 적용하기 어렵다.</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 5일 VaR</span></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>어떤 투자자가 10,000달러어치 자산을 보유하고 있다고 하자. 연간 수익률의 기댓값은 0.05이고 분산은 0.04이다. 1년을 250거래일로 두고, 일간 수익률이 독립이고 동일한 분포를 따른다고 가정한다.</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>일간 기대수익률과 분산은 각각 다음과 같다.</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>\mu_{\text{day}}</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>\frac{0.05}{250}</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>0.0002,</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>\sigma_{\text{day}}^2</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>\frac{0.04}{250}</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>0.00016.</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>따라서 5일 수익률의 기대수익률과 분산은 다음과 같다.</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>\mu_5</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>5 \times 0.0002</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>0.001,</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>\sigma_5^2</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>5 \times 0.00016</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>0.0008.</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>5일 99% VaR는 식 @eq-normal-var 에 따라 계산할 수 있다.</span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{0.01}</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>(-0.001 + 2.3263\sqrt{0.0008})</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>\times 10{,}000 <span class="sc">\\</span></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>&amp;\approx 647.99.</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>즉, 이 가정 아래에서 향후 5일 동안 손실이 약 647.99달러를 초과할 확률은 1%이다.</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a><span class="fu">### 분산투자와 VaR의 한계</span></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>분산은 일반적으로 분산투자를 하면 같거나 감소한다. VaR도 많은 경우 이러한 성질을 보이지만, 항상 그런 것은 아니다. 특히 이산형 손실분포에서는 분산투자 후 VaR가 오히려 커질 수 있다.</span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>어떤 은행이 한 기업에 100,000달러를 대출했다고 하자. 부도확률은 0.008이고, 부도하면 회수금은 없다고 가정한다. 이 대출의 손익 $X$는 다음과 같다.</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>X =</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>\begin{cases}</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>0, &amp; \text{확률 } 0.992, <span class="sc">\\</span></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>-100{,}000, &amp; \text{확률 } 0.008.</span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>유의수준 $\alpha=0.01$에서 부도확률 0.008은 0.01보다 작으므로 이 대출의 VaR는 0달러이다.</span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>이제 서로 독립인 두 기업에 각각 50,000달러씩 대출했다고 하자. 각 기업의 부도확률은 앞과 같이 0.008이다. 전체 대출의 손익은 다음과 같이 분포한다.</span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>X =</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>\begin{cases}</span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>0, &amp; \text{확률 } 0.992^2 = 0.984064, <span class="sc">\\</span></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>-50{,}000, &amp; \text{확률 } 2 \times 0.008 \times 0.992 = 0.015872, <span class="sc">\\</span></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>-100{,}000, &amp; \text{확률 } 0.008^2 = 0.000064.</span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>이 경우 $\alpha=0.01$에서 VaR는 50,000달러이다. 개별 대출의 VaR는 각각 0달러이지만, 두 대출을 합친 포트폴리오의 VaR는 50,000달러가 된다.</span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>이 결과는 분산투자가 실제 위험을 높였다는 뜻이 아니다. 특정 분위수만 보는 VaR가 이산형 손실분포에서 분산투자의 효과를 충분히 반영하지 못할 수 있음을 보여주는 예이다.</span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a>이러한 현상은 VaR가 항상 다음의 부가산성(subadditivity)을 만족하지는 않는다는 뜻이다.</span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_\alpha(X+Y)</span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a>\leq</span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_\alpha(X)</span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_\alpha(Y).</span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>다만 손익이 정규분포나 $t$분포처럼 타원형 분포(elliptical distribution)를 따르면 VaR는 부가산성을 만족한다.</span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a><span class="fu">### VaR의 기본 성질</span></span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>손익을 나타내는 확률변수 $X$와 $Y$에 대해 VaR는 다음 성질을 가진다.</span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$X\geq0$이면 $\mathrm{VaR}_\alpha(X)\leq0$이다. 손익이 항상 0 이상이면 손실 위험은 없거나 음수이다.</span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$X\geq Y$이면 $\mathrm{VaR}_\alpha(X)\leq\mathrm{VaR}_\alpha(Y)$이다. 항상 더 좋은 성과를 내는 자산의 VaR는 더 작다.</span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$\lambda\geq0$이면 $\mathrm{VaR}_\alpha(\lambda X)=\lambda\mathrm{VaR}_\alpha(X)$이다. 포지션 규모를 $\lambda$배로 키우면 VaR도 $\lambda$배가 된다.</span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>실수 $k$에 대해 $\mathrm{VaR}_\alpha(X+k)=\mathrm{VaR}_\alpha(X)-k$이다. 확정된 수익 $k$가 추가되면 VaR는 그만큼 감소한다.</span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a><span class="fu">### VaR의 장점과 한계</span></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>VaR는 채권, 주식, 파생상품 등 다양한 금융자산에 공통적으로 적용할 수 있고, 복잡한 포트폴리오의 위험을 하나의 통화 단위로 요약할 수 있다는 장점이 있다. 또한 공분산 행렬을 이용한 모형뿐 아니라 시뮬레이션과 역사적 자료를 이용한 방법에도 적용할 수 있다.<span class="ot">[^index-3]</span></span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-3]: </span>VaR와 포트폴리오 이론의 관계 및 VaR 방법의 특징은 @Dowd2007 참고.</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>반면 VaR는 모형의 가정과 추정 방법에 따라 크게 달라질 수 있다. 또한 VaR는 특정 분위수에서의 손실만 알려 줄 뿐, VaR를 초과한 더 큰 손실의 규모와 꼬리위험의 형태는 설명하지 못한다.</span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>이러한 한계는 다음 절에서 다룰 Expected Shortfall(ES)이 필요한 이유가 된다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
