@@ -247,7 +247,7 @@ $$
 0.0008.
 $$
 
-5일 99% VaR는 식 @eq-normal-var에 따라 계산할 수 있다.
+5일 99% VaR는 식 @eq-normal-var 에 따라 계산할 수 있다.
 
 $$
 \begin{aligned}
