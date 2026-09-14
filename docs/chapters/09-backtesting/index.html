@@ -1199,7 +1199,7 @@ H_1 : X \sim \mathrm{B}(n, \alpha'), \quad \alpha' &gt; \alpha.
 </section>
 <section id="백테스팅-구현" class="level3" data-number="9.4.3">
 <h3 data-number="9.4.3" class="anchored" data-anchor-id="백테스팅-구현"><span class="header-section-number">9.4.3</span> 백테스팅 구현</h3>
-<p><a href="../../concepts/glossary.html#fhs">FHS</a>(filtered historical simulation)를 바탕으로 한 VaR 계산 방법을 확장하면 백테스팅 과정을 구현할 수 있다. <a href="../../concepts/glossary.html#garch">GARCH</a> 모형과 FHS로 매일 VaR를 산출하고, 실제 수익률의 분포를 조사해 VaR를 넘어서는 손실이 몇 번 발생했는지 확인하는 과정이다.</p>
+<p><a href="../../chapters/08-var-multiperiod/index.html#filtered-historical-simulation">FHS</a>(filtered historical simulation)를 바탕으로 한 VaR 계산 방법을 확장하면 백테스팅 과정을 구현할 수 있다. <a href="../../concepts/glossary.html#garch">GARCH</a> 모형과 FHS로 매일 VaR를 산출하고, 실제 수익률의 분포를 조사해 VaR를 넘어서는 손실이 몇 번 발생했는지 확인하는 과정이다.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rugarch)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sp500ret)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> sp500ret[[<span class="dv">1</span>]]</span>
@@ -2156,7 +2156,7 @@ Basel Committee on Banking Supervision. 2019년. <em>Calculation of RWA for mark
 <span id="cb3-320"><a href="#cb3-320" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-321"><a href="#cb3-321" aria-hidden="true" tabindex="-1"></a><span class="fu">### 백테스팅 구현</span></span>
 <span id="cb3-322"><a href="#cb3-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-323"><a href="#cb3-323" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">FHS</span><span class="co">](../../concepts/glossary.qmd#fhs)</span>(filtered historical simulation)를 바탕으로 한 VaR 계산 방법을 확장하면 백테스팅 과정을 구현할 수 있다. <span class="co">[</span><span class="ot">GARCH</span><span class="co">](../../concepts/glossary.qmd#garch)</span> 모형과 FHS로 매일 VaR를 산출하고, 실제 수익률의 분포를 조사해 VaR를 넘어서는 손실이 몇 번 발생했는지 확인하는 과정이다.</span>
+<span id="cb3-323"><a href="#cb3-323" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">FHS</span><span class="co">](../08-var-multiperiod/index.qmd#filtered-historical-simulation)</span>(filtered historical simulation)를 바탕으로 한 VaR 계산 방법을 확장하면 백테스팅 과정을 구현할 수 있다. <span class="co">[</span><span class="ot">GARCH</span><span class="co">](../../concepts/glossary.qmd#garch)</span> 모형과 FHS로 매일 VaR를 산출하고, 실제 수익률의 분포를 조사해 VaR를 넘어서는 손실이 몇 번 발생했는지 확인하는 과정이다.</span>
 <span id="cb3-324"><a href="#cb3-324" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-325"><a href="#cb3-325" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
 <span id="cb3-326"><a href="#cb3-326" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rugarch)</span>
