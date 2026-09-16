@@ -392,7 +392,8 @@ window.Quarto = {
   <li><a href="#간단한-역사적-시뮬레이션" id="toc-간단한-역사적-시뮬레이션" class="nav-link" data-scroll-target="#간단한-역사적-시뮬레이션"><span class="header-section-number">8.4.1</span> 간단한 역사적 시뮬레이션</a></li>
   <li><a href="#filtered-historical-simulation" id="toc-filtered-historical-simulation" class="nav-link" data-scroll-target="#filtered-historical-simulation"><span class="header-section-number">8.4.2</span> Filtered historical simulation</a></li>
   </ul></li>
-  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">8.5</span> 관련 페이지</a></li>
+  <li><a href="#가이드라인" id="toc-가이드라인" class="nav-link" data-scroll-target="#가이드라인"><span class="header-section-number">8.5</span> 가이드라인</a></li>
+  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">8.6</span> 관련 페이지</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/08-var-multiperiod/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -977,8 +978,41 @@ X_{1,N+M},\; \cdots,\; X_{i,N+M},\; \cdots,\; X_{L,N+M}
 </div>
 </section>
 </section>
-<section id="관련-페이지" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">8.5</span> 관련 페이지</h2>
+<section id="가이드라인" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="가이드라인"><span class="header-section-number">8.5</span> 가이드라인</h2>
+<p>은행 등 금융기관은 리스크를 측정하기 위해 <a href="../../concepts/glossary.html#internal-model">내부모형</a>을 설계하고, 그 모형을 바탕으로 VaR 같은 위험 측도를 계산한다. 은행은 이 내부모형을 어느 정도 유연하게 조정할 수 있다.</p>
+<p>다음은 전통적 VaR 내부모형접근법과 2009년 Basel II 시장위험 개정(통상 Basel 2.5라고 부른다)의 주요 기준이다 <span class="citation" data-cites="Basel2009">(<a href="#ref-Basel2009" role="doc-biblioref">Basel Committee on Banking Supervision 2009년</a>)</span>. 개별 은행이나 <a href="../../concepts/glossary.html#supervisory-authority">감독 당국</a>은 더 엄격한 기준을 적용할 수도 있다.</p>
+<ol type="1">
+<li>VaR는 매일 계산한다.</li>
+<li>99% VaR를 이용한다.</li>
+<li>최소 보유 기간은 10거래일로 한다. 더 짧은 기간의 VaR를 10거래일 기준으로 환산하는 경우에는 그 방법의 합리성을 감독 당국에 설명해야 한다.</li>
+<li>과거 표본 기간은 최소 1년으로 한다.</li>
+<li>시장 자료는 적어도 한 달에 한 번 이상 갱신하며, 시장 가격에 중대한 변화가 있으면 이를 더 신속하게 반영한다.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> 감독 당국은 변동성이 크게 증가하는 기간에는 그 기간을 충분히 반영해 VaR를 계산하도록 요구할 수 있다.</li>
+<li>특정 모형을 따로 지정하지는 않는다. 은행은 자체 판단에 따라 역사적 시뮬레이션, 몬테카를로 시뮬레이션, 공분산 행렬 등 다양한 방법을 이용할 수 있다.</li>
+<li>은행은 각 위험 범주 안의 경험적 상관관계를 측정하고 반영할 재량을 가진다. 위험 범주 사이의 상관관계를 반영하려면 감독 당국의 인정이 필요하다.</li>
+<li>옵션 또는 옵션과 유사한 포지션에 고유한 위험을 정확하게 포착해야 한다. 즉, 옵션 포지션의 기초자산 변동성 등 세부 사항을 파악하고 있어야 한다.</li>
+<li>2009년 Basel II 시장위험 개정에서 스트레스 VaR(sVaR)가 추가되었다. 스트레스 VaR는 현재 포트폴리오에 상당한 손실이 발생했을 연속 12개월의 역사적 스트레스 자료를 적용해 산출하며, 적어도 매주 계산한다.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>이 장의 내용과 어떻게 이어지는가
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>3번 기준이 이 장의 출발점이다. 규제는 10거래일 VaR를 요구하면서 “더 짧은 기간의 VaR를 환산하는 경우”를 함께 언급한다. 하루 VaR를 10일로 늘리는 가장 단순한 방법이 앞에서 본 시간제곱근 법칙이고, “그 방법의 합리성을 설명해야 한다”는 단서는 그 환산이 자동으로 정당화되지 않는다는 뜻이다. 이 장에서 다룬 몬테카를로 시뮬레이션, 역사적 시뮬레이션, FHS는 환산에 기대지 않고 다기간 분포를 직접 만드는 방법들이다.</p>
+<p>6번 기준은 그 방법들을 은행이 골라 쓸 수 있다고 말한다. 대신 선택한 모형이 실제로 잘 맞는지는 <a href="../../chapters/09-backtesting/index.html">백테스팅</a>으로 검증받는다.</p>
+</div>
+</div>
+<p>바젤 자본규제는 금융기관의 안정성과 건전성을 높이는 것을 목표로 1988년 Basel I에서 시작해 2004년 Basel II, 글로벌 금융위기 이후의 Basel III로 확장되었다. Basel III의 핵심 요소로는 더 높은 최소 <a href="../../concepts/glossary.html#capital-requirement">자기자본 요건</a>, 레버리지 비율의 도입, 단기 유동성 위험에 대한 유동성 커버리지 비율(Liquidity Coverage Ratio, LCR), 장기·구조적 유동성 위험에 대한 순안정자금조달비율(Net Stable Funding Ratio, NSFR), 경기대응완충자본(countercyclical capital buffer)의 도입 등이 있다.</p>
+<p>위 기준은 전통적 VaR와 Basel 2.5 내부모형 체계에 관한 것이다. 이후 FRTB(Fundamental Review of the Trading Book, 트레이딩 계정 규제의 근본적 개편) 시장위험 규제에서는 시장위험 자본요건 산정의 핵심 위험 측도가 스트레스 상황에 보정된 97.5% 단측 <a href="../../chapters/04-var-es/index.html">Expected Shortfall(ES)</a>로 바뀌고, 위험요인별 유동성 기간이 도입되었다 <span class="citation" data-cites="Basel2019">(<a href="#ref-Basel2019" role="doc-biblioref">Basel Committee on Banking Supervision 2019년</a>)</span>. 다만 내부모형의 <a href="../../chapters/09-backtesting/index.html">백테스팅</a>에는 일일 VaR가 계속 사용된다.</p>
+<p>자세한 사항은 <span class="citation" data-cites="Crouhy2014">(<a href="#ref-Crouhy2014" role="doc-biblioref">Crouhy 기타 2014년</a>)</span>를 참고한다.</p>
+</section>
+<section id="관련-페이지" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">8.6</span> 관련 페이지</h2>
 <ul>
 <li><a href="../../chapters/04-var-es/index.html">VaR와 ES</a></li>
 <li><a href="../../chapters/07-volatility/index.html">변동성</a></li>
@@ -997,8 +1031,17 @@ Alexander, Carol. 2008년. <em>Market Risk Analysis: Value-at-Risk Models</em>. 
 <div id="ref-barone1998don" class="csl-entry" role="listitem">
 Barone-Adesi, Giovanni, Frederick Bourgoin, 와/과 Kostas Giannopoulos. 1998년. <span>“Don’t look back”</span>. <em>Risk</em> 11: 100–103.
 </div>
+<div id="ref-Basel2009" class="csl-entry" role="listitem">
+Basel Committee on Banking Supervision. 2009년. <em>Revisions to the <span>Basel II</span> market risk framework</em>. Bank for International Settlements. <a href="https://www.bis.org/publ/bcbs158.pdf">https://www.bis.org/publ/bcbs158.pdf</a>.
+</div>
+<div id="ref-Basel2019" class="csl-entry" role="listitem">
+Basel Committee on Banking Supervision. 2019년. <em>Calculation of RWA for market risk: (MAR30) Internal models approach</em>. Basel.
+</div>
 <div id="ref-boudoukh1998best" class="csl-entry" role="listitem">
 Boudoukh, Jacob, Matthew Richardson, 와/과 Robert Whitelaw. 1998년. <span>“The best of both worlds”</span>. <em>Risk</em> 11: 64–67.
+</div>
+<div id="ref-Crouhy2014" class="csl-entry" role="listitem">
+Crouhy, Michel, Dan Galai, 와/과 Robert Mark. 2014년. <em>The Essentials of Risk Management, Second Edition</em>. McGraw-Hill Education.
 </div>
 </div>
 </section>
@@ -1006,6 +1049,7 @@ Boudoukh, Jacob, Matthew Richardson, 와/과 Robert Whitelaw. 1998년. <span>“
 <hr>
 <ol>
 <li id="fn1"><p>카지노가 있는 모나코의 도시 Monte Carlo의 이름을 따왔다.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>1996년과 2005년 시장위험 규정에서는 최소 3개월마다 갱신하도록 했으나, 2009년 Basel II 시장위험 개정에서 월별 갱신으로 강화되었다.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -2089,13 +2133,43 @@ Boudoukh, Jacob, Matthew Richardson, 와/과 Robert Whitelaw. 1998년. <span>“
 <span id="cb5-563"><a href="#cb5-563" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>과거에 일어나지 않았지만 미래에 일어날 수 있는 사건은 측정 과정에 넣을 수 없다.</span>
 <span id="cb5-564"><a href="#cb5-564" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb5-565"><a href="#cb5-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-566"><a href="#cb5-566" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb5-566"><a href="#cb5-566" aria-hidden="true" tabindex="-1"></a><span class="fu">## 가이드라인</span></span>
 <span id="cb5-567"><a href="#cb5-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-568"><a href="#cb5-568" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span></span>
-<span id="cb5-569"><a href="#cb5-569" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">변동성</span><span class="co">](../07-volatility/index.qmd)</span></span>
-<span id="cb5-570"><a href="#cb5-570" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Backtesting</span><span class="co">](../09-backtesting/index.qmd)</span></span>
-<span id="cb5-571"><a href="#cb5-571" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
-<span id="cb5-572"><a href="#cb5-572" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb5-568"><a href="#cb5-568" aria-hidden="true" tabindex="-1"></a>은행 등 금융기관은 리스크를 측정하기 위해 <span class="co">[</span><span class="ot">내부모형</span><span class="co">](../../concepts/glossary.qmd#internal-model)</span>을 설계하고, 그 모형을 바탕으로 VaR 같은 위험 측도를 계산한다. 은행은 이 내부모형을 어느 정도 유연하게 조정할 수 있다.</span>
+<span id="cb5-569"><a href="#cb5-569" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-570"><a href="#cb5-570" aria-hidden="true" tabindex="-1"></a>다음은 전통적 VaR 내부모형접근법과 2009년 Basel II 시장위험 개정(통상 Basel 2.5라고 부른다)의 주요 기준이다 <span class="co">[</span><span class="ot">@Basel2009</span><span class="co">]</span>. 개별 은행이나 <span class="co">[</span><span class="ot">감독 당국</span><span class="co">](../../concepts/glossary.qmd#supervisory-authority)</span>은 더 엄격한 기준을 적용할 수도 있다.</span>
+<span id="cb5-571"><a href="#cb5-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-572"><a href="#cb5-572" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>VaR는 매일 계산한다.</span>
+<span id="cb5-573"><a href="#cb5-573" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>99% VaR를 이용한다.</span>
+<span id="cb5-574"><a href="#cb5-574" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>최소 보유 기간은 10거래일로 한다. 더 짧은 기간의 VaR를 10거래일 기준으로 환산하는 경우에는 그 방법의 합리성을 감독 당국에 설명해야 한다.</span>
+<span id="cb5-575"><a href="#cb5-575" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>과거 표본 기간은 최소 1년으로 한다.</span>
+<span id="cb5-576"><a href="#cb5-576" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>시장 자료는 적어도 한 달에 한 번 이상 갱신하며, 시장 가격에 중대한 변화가 있으면 이를 더 신속하게 반영한다.^<span class="co">[</span><span class="ot">1996년과 2005년 시장위험 규정에서는 최소 3개월마다 갱신하도록 했으나, 2009년 Basel II 시장위험 개정에서 월별 갱신으로 강화되었다.</span><span class="co">]</span> 감독 당국은 변동성이 크게 증가하는 기간에는 그 기간을 충분히 반영해 VaR를 계산하도록 요구할 수 있다.</span>
+<span id="cb5-577"><a href="#cb5-577" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>특정 모형을 따로 지정하지는 않는다. 은행은 자체 판단에 따라 역사적 시뮬레이션, 몬테카를로 시뮬레이션, 공분산 행렬 등 다양한 방법을 이용할 수 있다.</span>
+<span id="cb5-578"><a href="#cb5-578" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>은행은 각 위험 범주 안의 경험적 상관관계를 측정하고 반영할 재량을 가진다. 위험 범주 사이의 상관관계를 반영하려면 감독 당국의 인정이 필요하다.</span>
+<span id="cb5-579"><a href="#cb5-579" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>옵션 또는 옵션과 유사한 포지션에 고유한 위험을 정확하게 포착해야 한다. 즉, 옵션 포지션의 기초자산 변동성 등 세부 사항을 파악하고 있어야 한다.</span>
+<span id="cb5-580"><a href="#cb5-580" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>2009년 Basel II 시장위험 개정에서 스트레스 VaR(sVaR)가 추가되었다. 스트레스 VaR는 현재 포트폴리오에 상당한 손실이 발생했을 연속 12개월의 역사적 스트레스 자료를 적용해 산출하며, 적어도 매주 계산한다.</span>
+<span id="cb5-581"><a href="#cb5-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-582"><a href="#cb5-582" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb5-583"><a href="#cb5-583" aria-hidden="true" tabindex="-1"></a><span class="fu">## 이 장의 내용과 어떻게 이어지는가</span></span>
+<span id="cb5-584"><a href="#cb5-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-585"><a href="#cb5-585" aria-hidden="true" tabindex="-1"></a>3번 기준이 이 장의 출발점이다. 규제는 10거래일 VaR를 요구하면서 "더 짧은 기간의 VaR를 환산하는 경우"를 함께 언급한다. 하루 VaR를 10일로 늘리는 가장 단순한 방법이 앞에서 본 시간제곱근 법칙이고, "그 방법의 합리성을 설명해야 한다"는 단서는 그 환산이 자동으로 정당화되지 않는다는 뜻이다. 이 장에서 다룬 몬테카를로 시뮬레이션, 역사적 시뮬레이션, FHS는 환산에 기대지 않고 다기간 분포를 직접 만드는 방법들이다.</span>
+<span id="cb5-586"><a href="#cb5-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-587"><a href="#cb5-587" aria-hidden="true" tabindex="-1"></a>6번 기준은 그 방법들을 은행이 골라 쓸 수 있다고 말한다. 대신 선택한 모형이 실제로 잘 맞는지는 <span class="co">[</span><span class="ot">백테스팅</span><span class="co">](../09-backtesting/index.qmd)</span>으로 검증받는다.</span>
+<span id="cb5-588"><a href="#cb5-588" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-589"><a href="#cb5-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-590"><a href="#cb5-590" aria-hidden="true" tabindex="-1"></a>바젤 자본규제는 금융기관의 안정성과 건전성을 높이는 것을 목표로 1988년 Basel I에서 시작해 2004년 Basel II, 글로벌 금융위기 이후의 Basel III로 확장되었다. Basel III의 핵심 요소로는 더 높은 최소 <span class="co">[</span><span class="ot">자기자본 요건</span><span class="co">](../../concepts/glossary.qmd#capital-requirement)</span>, 레버리지 비율의 도입, 단기 유동성 위험에 대한 유동성 커버리지 비율(Liquidity Coverage Ratio, LCR), 장기·구조적 유동성 위험에 대한 순안정자금조달비율(Net Stable Funding Ratio, NSFR), 경기대응완충자본(countercyclical capital buffer)의 도입 등이 있다.</span>
+<span id="cb5-591"><a href="#cb5-591" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-592"><a href="#cb5-592" aria-hidden="true" tabindex="-1"></a>위 기준은 전통적 VaR와 Basel 2.5 내부모형 체계에 관한 것이다. 이후 FRTB(Fundamental Review of the Trading Book, 트레이딩 계정 규제의 근본적 개편) 시장위험 규제에서는 시장위험 자본요건 산정의 핵심 위험 측도가 스트레스 상황에 보정된 97.5% 단측 <span class="co">[</span><span class="ot">Expected Shortfall(ES)</span><span class="co">](../04-var-es/index.qmd)</span>로 바뀌고, 위험요인별 유동성 기간이 도입되었다 <span class="co">[</span><span class="ot">@Basel2019</span><span class="co">]</span>. 다만 내부모형의 <span class="co">[</span><span class="ot">백테스팅</span><span class="co">](../09-backtesting/index.qmd)</span>에는 일일 VaR가 계속 사용된다.</span>
+<span id="cb5-593"><a href="#cb5-593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-594"><a href="#cb5-594" aria-hidden="true" tabindex="-1"></a>자세한 사항은 <span class="co">[</span><span class="ot">@Crouhy2014</span><span class="co">]</span>를 참고한다.</span>
+<span id="cb5-595"><a href="#cb5-595" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-596"><a href="#cb5-596" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb5-597"><a href="#cb5-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-598"><a href="#cb5-598" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">VaR와 ES</span><span class="co">](../04-var-es/index.qmd)</span></span>
+<span id="cb5-599"><a href="#cb5-599" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">변동성</span><span class="co">](../07-volatility/index.qmd)</span></span>
+<span id="cb5-600"><a href="#cb5-600" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Backtesting</span><span class="co">](../09-backtesting/index.qmd)</span></span>
+<span id="cb5-601"><a href="#cb5-601" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
+<span id="cb5-602"><a href="#cb5-602" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
