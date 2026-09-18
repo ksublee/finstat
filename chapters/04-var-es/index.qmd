@@ -247,7 +247,7 @@ $$
 0.0008.
 $$
 
-5일 99% VaR는 식(@eq-normal-var)에 따라 계산할 수 있다.
+5일 99% VaR는 식 @eq-normal-var 에 따라 계산할 수 있다.
 
 $$
 \begin{aligned}
@@ -502,4 +502,4 @@ VaR는 1996년 바젤위원회의 시장위험 규제에서 내부모형 기반 
 
 이에 따라 바젤위원회는 거래계정의 근본적 검토(Fundamental Review of the Trading Book, FRTB)를 통해 VaR 대신 97.5% 신뢰수준의 ES를 도입하였다. FRTB에서는 자산의 유동성에 따라 보유 기간을 달리 적용하고, 내부모형의 사용 기준도 강화하였다.[^index-5]
 
-[^index-5]: FRTB의 ES 도입 배경은 [바젤위원회 설명자료](https://www.bis.org/bcbs/publ/d457_note.pdf) 참고.
+[^index-5]: FRTB의 ES 도입 배경은 [@Basel2019] 참고.
