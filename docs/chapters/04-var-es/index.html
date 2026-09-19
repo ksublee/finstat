@@ -400,6 +400,16 @@ window.Quarto = {
   <li><a href="#var의-기본-성질" id="toc-var의-기본-성질" class="nav-link" data-scroll-target="#var의-기본-성질"><span class="header-section-number">4.4.6</span> VaR의 기본 성질</a></li>
   <li><a href="#var의-장점과-한계" id="toc-var의-장점과-한계" class="nav-link" data-scroll-target="#var의-장점과-한계"><span class="header-section-number">4.4.7</span> VaR의 장점과 한계</a></li>
   </ul></li>
+  <li><a href="#expected-shortfall" id="toc-expected-shortfall" class="nav-link" data-scroll-target="#expected-shortfall"><span class="header-section-number">4.5</span> Expected Shortfall</a>
+  <ul class="collapse">
+  <li><a href="#var가-설명하지-못하는-꼬리위험" id="toc-var가-설명하지-못하는-꼬리위험" class="nav-link" data-scroll-target="#var가-설명하지-못하는-꼬리위험"><span class="header-section-number">4.5.1</span> VaR가 설명하지 못하는 꼬리위험</a></li>
+  <li><a href="#expected-shortfall의-정의" id="toc-expected-shortfall의-정의" class="nav-link" data-scroll-target="#expected-shortfall의-정의"><span class="header-section-number">4.5.2</span> Expected Shortfall의 정의</a></li>
+  <li><a href="#정규분포에서의-es" id="toc-정규분포에서의-es" class="nav-link" data-scroll-target="#정규분포에서의-es"><span class="header-section-number">4.5.3</span> 정규분포에서의 ES</a></li>
+  <li><a href="#예제-표준정규분포의-var와-es" id="toc-예제-표준정규분포의-var와-es" class="nav-link" data-scroll-target="#예제-표준정규분포의-var와-es"><span class="header-section-number">4.5.4</span> 예제: 표준정규분포의 VaR와 ES</a></li>
+  <li><a href="#coherent-risk-measure" id="toc-coherent-risk-measure" class="nav-link" data-scroll-target="#coherent-risk-measure"><span class="header-section-number">4.5.5</span> Coherent Risk Measure</a></li>
+  <li><a href="#예제-분산-대출의-es" id="toc-예제-분산-대출의-es" class="nav-link" data-scroll-target="#예제-분산-대출의-es"><span class="header-section-number">4.5.6</span> 예제: 분산 대출의 ES</a></li>
+  <li><a href="#규제에서의-es" id="toc-규제에서의-es" class="nav-link" data-scroll-target="#규제에서의-es"><span class="header-section-number">4.5.7</span> 규제에서의 ES</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/04-var-es/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -772,11 +782,197 @@ X =
 <p>VaR는 채권, 주식, 파생상품 등 다양한 금융자산에 공통적으로 적용할 수 있고, 복잡한 포트폴리오의 위험을 하나의 통화 단위로 요약할 수 있다는 장점이 있다. 또한 공분산 행렬을 이용한 모형뿐 아니라 시뮬레이션과 역사적 자료를 이용한 방법에도 적용할 수 있다.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <p>반면 VaR는 모형의 가정과 추정 방법에 따라 크게 달라질 수 있다. 또한 VaR는 특정 분위수에서의 손실만 알려 줄 뿐, VaR를 초과한 더 큰 손실의 규모와 꼬리위험의 형태는 설명하지 못한다.</p>
 <p>이러한 한계는 다음 절에서 다룰 Expected Shortfall(ES)이 필요한 이유가 된다.</p>
+</section>
+</section>
+<section id="expected-shortfall" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="expected-shortfall"><span class="header-section-number">4.5</span> Expected Shortfall</h2>
+<section id="var가-설명하지-못하는-꼬리위험" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="var가-설명하지-못하는-꼬리위험"><span class="header-section-number">4.5.1</span> VaR가 설명하지 못하는 꼬리위험</h3>
+<p>VaR는 손실분포의 특정 분위수를 통화 단위로 요약한다. 그러나 VaR를 초과하는 손실이 발생했을 때 그 손실이 얼마나 클 수 있는지는 알려 주지 않는다.</p>
+<p>아래 그림의 두 손익(P&amp;L) 분포는 같은 VaR를 가진다고 하자. VaR 왼쪽 영역의 확률은 같지만, 파란색 분포는 더 긴 왼쪽 꼬리를 가진다. 따라서 VaR를 초과하는 손실이 발생하면 파란색 분포에서 더 큰 손실이 나타날 가능성이 높다.</p>
+<div id="fig-tail-compare" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tail-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch4_tail_compare.svg" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tail-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;4.2: 같은 VaR를 가지지만 VaR를 초과하는 손실의 분포 형태가 다른 두 손익 분포
+</figcaption>
+</figure>
+</div>
+<p>그림(<a href="#fig-tail-compare" class="quarto-xref">그림&nbsp;<span>4.2</span></a>)은 VaR가 꼬리 부분의 손실 규모를 충분히 설명하지 못할 수 있음을 보여 준다.</p>
+</section>
+<section id="expected-shortfall의-정의" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="expected-shortfall의-정의"><span class="header-section-number">4.5.2</span> Expected Shortfall의 정의</h3>
+<p>Expected Shortfall(ES)은 VaR 수준과 같거나 더 큰 손실이 발생했을 때의 평균 손실을 나타내는 위험 측도이다. 손익을 나타내는 확률변수 <span class="math inline">\(X\)</span>가 연속분포를 따르면, 유의수준 <span class="math inline">\(\alpha\)</span>에서 ES는 다음과 같이 정의한다.</p>
+<p><span id="eq-es-continuous"><span class="math display">\[
+\mathrm{ES}_{\alpha}(X)
+=
+-\mathbb{E}
+\left[
+X
+\mid
+X\leq-\mathrm{VaR}_{\alpha}(X)
+\right]
+=
+-\frac{1}{\alpha}
+\int_{-\infty}^{-\mathrm{VaR}_{\alpha}}
+x f(x)\,\mathrm{d}x.
+\tag{4.7}\]</span></span></p>
+<p>여기서 <span class="math inline">\(f\)</span>는 <span class="math inline">\(X\)</span>의 확률밀도함수이다. 즉, ES는 손실분포의 하위 <span class="math inline">\(\alpha\)</span> 영역에서 발생하는 손실의 평균을 측정한다.</p>
+<p>이 정의는 연속분포에서는 직관적이지만, 이산형 분포에서는 경계점에 확률질량이 모여 하위 <span class="math inline">\(\alpha\)</span> 영역의 확률이 정확히 <span class="math inline">\(\alpha\)</span>가 되지 않을 수 있다. 이 경우에도 사용할 수 있는 일반적 정의는 분위수 함수를 적분하는 방식이다.</p>
+<p><span id="eq-es-general"><span class="math display">\[
+\mathrm{ES}_{\alpha}(X)
+=
+\frac{1}{\alpha}
+\int_{0}^{\alpha}
+\mathrm{VaR}_{\gamma}(X)\,\mathrm{d}\gamma.
+\tag{4.8}\]</span></span></p>
+<p>일반적 정의(<a href="#eq-es-general" class="quarto-xref">방정식&nbsp;<span>4.8</span></a>)는 연속분포뿐 아니라 이산형 분포에도 적용할 수 있다.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>일반적으로 ES는 VaR보다 크다. ES가 VaR를 초과하는 손실들의 평균을 나타내기 때문이다.</p>
+<div id="fig-es-var" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-es-var-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch4_ES_VaR.svg" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-es-var-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;4.3: 손익 확률밀도함수에서 VaR와 ES의 위치
+</figcaption>
+</figure>
+</div>
+<p>그림(<a href="#fig-es-var" class="quarto-xref">그림&nbsp;<span>4.3</span></a>)에서 ES는 VaR보다 더 왼쪽, 즉 더 큰 손실이 발생하는 영역을 반영한다.</p>
+</section>
+<section id="정규분포에서의-es" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="정규분포에서의-es"><span class="header-section-number">4.5.3</span> 정규분포에서의 ES</h3>
+<p>손익 <span class="math inline">\(X\)</span>가 정규분포 <span class="math inline">\(N(\mu,\sigma^2)\)</span>를 따르고, <span class="math inline">\(z_\alpha\)</span>가 표준정규분포의 상위 <span class="math inline">\(\alpha\)</span> 분위수라고 하자. 이때 ES는 다음과 같다.</p>
+<p><span id="eq-normal-es"><span class="math display">\[
+\mathrm{ES}_{\alpha}
+=
+-\mu
++
+\sigma
+\frac{\exp(-z_\alpha^2/2)}
+{\alpha\sqrt{2\pi}}
+=
+-\mu
++
+\sigma
+\frac{\phi(z_\alpha)}{\alpha}.
+\tag{4.9}\]</span></span></p>
+<p>여기서 <span class="math inline">\(\phi(\cdot)\)</span>는 표준정규분포의 확률밀도함수이다.</p>
+</section>
+<section id="예제-표준정규분포의-var와-es" class="level3" data-number="4.5.4">
+<h3 data-number="4.5.4" class="anchored" data-anchor-id="예제-표준정규분포의-var와-es"><span class="header-section-number">4.5.4</span> 예제: 표준정규분포의 VaR와 ES</h3>
+<p>손익이 표준정규분포를 따른다고 하자. 유의수준 <span class="math inline">\(\alpha=0.01\)</span>에서는</p>
+<p><span class="math display">\[
+\mathrm{VaR}_{0.01}
+=
+z_{0.01}
+\approx
+2.3263
+\]</span></p>
+<p>이다. 같은 유의수준에서 ES는 식(<a href="#eq-normal-es" class="quarto-xref">방정식&nbsp;<span>4.9</span></a>)에 따라 다음과 같이 계산한다.</p>
+<p><span class="math display">\[
+\mathrm{ES}_{0.01}
+=
+\frac{\exp(-z_{0.01}^2/2)}
+{0.01\sqrt{2\pi}}
+\approx
+2.6652.
+\]</span></p>
+<p>따라서 <span class="math inline">\(\mathrm{ES}_{0.01}&gt;\mathrm{VaR}_{0.01}\)</span>이다. VaR가 1% 분위수의 손실을 나타낸다면, ES는 그보다 더 나쁜 1% 상황에서의 평균 손실을 나타낸다.</p>
+</section>
+<section id="coherent-risk-measure" class="level3" data-number="4.5.5">
+<h3 data-number="4.5.5" class="anchored" data-anchor-id="coherent-risk-measure"><span class="header-section-number">4.5.5</span> Coherent Risk Measure</h3>
+<p>손익 분포 확률변수 <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>에 대해 위험 측도 <span class="math inline">\(\rho\)</span>가 다음 성질을 만족하면 일관된 위험 측도(coherent risk measure)라고 한다.</p>
+<ul>
+<li><span class="math inline">\(X=0\)</span>이면 <span class="math inline">\(\rho(X)=0\)</span>이다.</li>
+<li><span class="math inline">\(X\geq Y\)</span>이면 <span class="math inline">\(\rho(X)\leq\rho(Y)\)</span>이다.</li>
+<li><span class="math inline">\(\lambda\geq0\)</span>이면 <span class="math inline">\(\rho(\lambda X)=\lambda\rho(X)\)</span>이다.</li>
+<li>실수 <span class="math inline">\(k\)</span>에 대해 <span class="math inline">\(\rho(X+k)=\rho(X)-k\)</span>이다.</li>
+<li><span class="math inline">\(\rho(X+Y)\leq\rho(X)+\rho(Y)\)</span>이다.</li>
+</ul>
+<p>마지막 성질은 부가산성(subadditivity)이다. 포트폴리오를 결합했을 때의 위험이 각 포지션 위험의 합보다 커지지 않아야 한다는 뜻이다.</p>
+<p>ES는 이 다섯 성질을 만족하는 일관된 위험 측도이다 <span class="citation" data-cites="artzner1999coherent">(<a href="#ref-artzner1999coherent" role="doc-biblioref">Artzner 기타 1999년</a>)</span>. 반면 VaR는 앞의 네 성질은 만족하지만, 이산형 분포에서는 부가산성을 만족하지 않을 수 있다.</p>
+</section>
+<section id="예제-분산-대출의-es" class="level3" data-number="4.5.6">
+<h3 data-number="4.5.6" class="anchored" data-anchor-id="예제-분산-대출의-es"><span class="header-section-number">4.5.6</span> 예제: 분산 대출의 ES</h3>
+<p>앞의 VaR 예제와 같이 부도확률이 0.008인 대출을 생각하자. 유의수준은 <span class="math inline">\(\alpha=0.01\)</span>이다.</p>
+<section id="단일-대출" class="level4" data-number="4.5.6.1">
+<h4 data-number="4.5.6.1" class="anchored" data-anchor-id="단일-대출"><span class="header-section-number">4.5.6.1</span> 단일 대출</h4>
+<p>100,000달러를 한 기업에 대출하고, 부도하면 전액을 잃는다고 하자. 이산형 분포의 일반적 정의(<a href="#eq-es-general" class="quarto-xref">방정식&nbsp;<span>4.8</span></a>)를 이용하면 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{ES}_{0.01}
+&amp;=
+\frac{1}{0.01}
+\left(
+\int_0^{0.008}
+100{,}000\,\mathrm{d}\gamma
++
+\int_{0.008}^{0.01}
+0\,\mathrm{d}\gamma
+\right) \\
+&amp;=
+\frac{800}{0.01}
+=
+80{,}000.
+\end{aligned}
+\]</span></p>
+<p>따라서 단일 대출의 ES는 80,000달러이다.</p>
+</section>
+<section id="두-기업에-나누어-대출" class="level4" data-number="4.5.6.2">
+<h4 data-number="4.5.6.2" class="anchored" data-anchor-id="두-기업에-나누어-대출"><span class="header-section-number">4.5.6.2</span> 두 기업에 나누어 대출</h4>
+<p>이제 서로 독립인 두 기업에 각각 50,000달러씩 대출한다고 하자. 손실 100,000달러가 발생할 확률은 <span class="math inline">\(0.008^2=0.000064\)</span>이고, 손실 50,000달러가 발생할 확률은 <span class="math inline">\(2\times0.008\times0.992=0.015872\)</span>이다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{ES}_{0.01}
+&amp;=
+\frac{1}{0.01}
+\left(
+\int_0^{0.000064}
+100{,}000\,\mathrm{d}\gamma
++
+\int_{0.000064}^{0.01}
+50{,}000\,\mathrm{d}\gamma
+\right) \\
+&amp;=
+\frac{6.4+496.8}{0.01}
+=
+50{,}320.
+\end{aligned}
+\]</span></p>
+<p>분산 대출의 ES는 50,320달러로 단일 대출의 ES보다 작다. ES는 이처럼 분산투자로 인한 꼬리위험 감소를 반영하며, 부가산성을 만족한다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>VaR는 두 대출을 결합했을 때 0달러에서 50,000달러로 증가하는 모습을 보일 수 있었다. 그러나 ES는 극단적 손실까지 평균에 반영하므로, 분산 대출의 위험 감소를 더 일관되게 보여 준다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="규제에서의-es" class="level3" data-number="4.5.7">
+<h3 data-number="4.5.7" class="anchored" data-anchor-id="규제에서의-es"><span class="header-section-number">4.5.7</span> 규제에서의 ES</h3>
+<p>VaR는 1996년 바젤위원회의 시장위험 규제에서 내부모형 기반 자본요건 산정에 사용되었다. 그러나 2007-2008년 금융위기에서는 VaR가 극단적 손실, 즉 꼬리위험을 충분히 반영하지 못한다는 한계가 드러났다.</p>
+<p>이에 따라 바젤위원회는 거래계정의 근본적 검토(Fundamental Review of the Trading Book, FRTB)를 통해 VaR 대신 97.5% 신뢰수준의 ES를 도입하였다. FRTB에서는 자산의 유동성에 따라 보유 기간을 달리 적용하고, 내부모형의 사용 기준도 강화하였다.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 
 
 <!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-artzner1999coherent" class="csl-entry" role="listitem">
+Artzner, Philippe, Freddy Delbaen, Jean-Marc Eber, 와/과 David Heath. 1999년. <span>“Coherent measures of risk”</span>. <em>Mathematical finance</em> 9: 203–28.
+</div>
+<div id="ref-Basel2019" class="csl-entry" role="listitem">
+Basel Committee on Banking Supervision. 2019년. <em>Calculation of RWA for market risk: (MAR30) Internal models approach</em>. Basel.
+</div>
 <div id="ref-Dowd2007" class="csl-entry" role="listitem">
 Dowd, Kevin. 2007년. <em>Measuring Market Risk</em>. John Wiley &amp; Sons.
 </div>
@@ -795,6 +991,8 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <li id="fn1"><p>RiskMetrics의 역사적 배경은 <span class="citation" data-cites="Dowd2007">Dowd (<a href="#ref-Dowd2007" role="doc-biblioref">2007년</a>)</span> 참고.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>이산형 또는 비연속 분포에서 VaR 정의의 차이는 <span class="citation" data-cites="Elliott2005">Elliott 와/과 Kopp (<a href="#ref-Elliott2005" role="doc-biblioref">2005년</a>)</span> 참고.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>VaR와 포트폴리오 이론의 관계 및 VaR 방법의 특징은 <span class="citation" data-cites="Dowd2007">Dowd (<a href="#ref-Dowd2007" role="doc-biblioref">2007년</a>)</span> 참고.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>이산형 또는 비연속 분포에서 Expected Shortfall의 일반적 정의는 <span class="citation" data-cites="Elliott2005">Elliott 와/과 Kopp (<a href="#ref-Elliott2005" role="doc-biblioref">2005년</a>)</span> 참고.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>FRTB의 ES 도입 배경은 <span class="citation" data-cites="Basel2019">(<a href="#ref-Basel2019" role="doc-biblioref">Basel Committee on Banking Supervision 2019년</a>)</span> 참고.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1335,7 +1533,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-1]: </span>RiskMetrics의 역사적 배경은 @Dowd2007 참고.</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>VaR는 포트폴리오가 부담하는 잠재적 손실을 나타내므로 위험 메트릭(risk metric)으로 볼 수 있다. 동시에 잠재적 손실을 측정하는 구체적인 방법이므로 위험 측도(risk measure)이기도 하다.</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
@@ -1355,7 +1553,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>따라서 $L_t&gt;0$이면 손실이 발생한 것이고, $L_t&lt;0$이면 이익이 발생한 것이다.</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>VaR는 손익을 기준으로 정의할 수도 있고 손실을 기준으로 정의할 수도 있다. 두 정의에서는 부호와 분위수의 위치가 달라지므로, 어떤 확률변수를 기준으로 삼는지 함께 확인해야 한다.</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
@@ -1379,7 +1577,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>하루 99% VaR가 10억 원이라는 것은 정상적인 시장 조건을 가정할 때 하루 손실이 10억 원을 초과할 날이 약 100일 중 1일이라는 뜻이다 <span class="co">[</span><span class="ot">@jorion2007value</span><span class="co">]</span>.</span>
 <span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
 <span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>VaR에서 말하는 최대 손실은 절대로 넘지 않는 상한이 아니다. VaR는 손실분포의 특정 분위수이므로, VaR를 초과하는 손실은 낮은 확률이지만 발생할 수 있다.</span>
 <span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
@@ -1484,7 +1682,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>: 유의수준별 표준정규분포 분위수</span>
 <span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
 <span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>예를 들어 $\alpha=0.01$은 99% 신뢰수준에 해당한다. 따라서 $z_{0.01}$은 표준정규분포에서 상위 1%에 해당하는 값이다.</span>
 <span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
@@ -1522,7 +1720,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>\sigma_h = \sqrt{h}\sigma_{\text{day}}.</span>
 <span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
 <span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>기간 확대는 일간 수익률이 독립이고 동일한 분포를 따른다는 가정에 의존한다. 금융 수익률에는 변동성 군집이 나타날 수 있으므로, 이 가정이 적절하지 않은 경우에는 단순한 제곱근 시간 법칙을 그대로 적용하기 어렵다.</span>
 <span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
@@ -1605,7 +1803,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>이 경우 $\alpha=0.01$에서 VaR는 50,000달러이다. 개별 대출의 VaR는 각각 0달러이지만, 두 대출을 합친 포트폴리오의 VaR는 50,000달러가 된다.</span>
 <span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
 <span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>이 결과는 분산투자가 실제 위험을 높였다는 뜻이 아니다. 특정 분위수만 보는 VaR가 이산형 손실분포에서 분산투자의 효과를 충분히 반영하지 못할 수 있음을 보여주는 예이다.</span>
 <span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a></span>
@@ -1638,7 +1836,186 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>반면 VaR는 모형의 가정과 추정 방법에 따라 크게 달라질 수 있다. 또한 VaR는 특정 분위수에서의 손실만 알려 줄 뿐, VaR를 초과한 더 큰 손실의 규모와 꼬리위험의 형태는 설명하지 못한다.</span>
 <span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>이러한 한계는 다음 절에서 다룰 Expected Shortfall(ES)이 필요한 이유가 된다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>이러한 한계는 다음 절에서 다룰 Expected Shortfall(ES)이 필요한 이유가 된다.</span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a><span class="fu">## Expected Shortfall</span></span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a><span class="fu">### VaR가 설명하지 못하는 꼬리위험</span></span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>VaR는 손실분포의 특정 분위수를 통화 단위로 요약한다. 그러나 VaR를 초과하는 손실이 발생했을 때 그 손실이 얼마나 클 수 있는지는 알려 주지 않는다.</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>아래 그림의 두 손익(P&amp;L) 분포는 같은 VaR를 가진다고 하자. VaR 왼쪽 영역의 확률은 같지만, 파란색 분포는 더 긴 왼쪽 꼬리를 가진다. 따라서 VaR를 초과하는 손실이 발생하면 파란색 분포에서 더 큰 손실이 나타날 가능성이 높다.</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a><span class="al">![같은 VaR를 가지지만 VaR를 초과하는 손실의 분포 형태가 다른 두 손익 분포](../../assets/figures/Ch4_tail_compare.svg)</span>{#fig-tail-compare width="60%"}</span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a>그림(@fig-tail-compare)은 VaR가 꼬리 부분의 손실 규모를 충분히 설명하지 못할 수 있음을 보여 준다.</span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a><span class="fu">### Expected Shortfall의 정의</span></span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a>Expected Shortfall(ES)은 VaR 수준과 같거나 더 큰 손실이 발생했을 때의 평균 손실을 나타내는 위험 측도이다. 손익을 나타내는 확률변수 $X$가 연속분포를 따르면, 유의수준 $\alpha$에서 ES는 다음과 같이 정의한다.</span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_{\alpha}(X)</span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a>-\mathbb{E}</span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a>X</span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a>\mid</span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a>X\leq-\mathrm{VaR}_{\alpha}(X)</span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a>\right]</span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>-\frac{1}{\alpha}</span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a>\int_{-\infty}^{-\mathrm{VaR}_{\alpha}}</span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a>x f(x)\,\mathrm{d}x.</span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a>$$ {#eq-es-continuous}</span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a>여기서 $f$는 $X$의 확률밀도함수이다. 즉, ES는 손실분포의 하위 $\alpha$ 영역에서 발생하는 손실의 평균을 측정한다.</span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>이 정의는 연속분포에서는 직관적이지만, 이산형 분포에서는 경계점에 확률질량이 모여 하위 $\alpha$ 영역의 확률이 정확히 $\alpha$가 되지 않을 수 있다. 이 경우에도 사용할 수 있는 일반적 정의는 분위수 함수를 적분하는 방식이다.</span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_{\alpha}(X)</span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a>\frac{1}{\alpha}</span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a>\int_{0}^{\alpha}</span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\gamma}(X)\,\mathrm{d}\gamma.</span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a>$$ {#eq-es-general}</span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>일반적 정의(@eq-es-general)는 연속분포뿐 아니라 이산형 분포에도 적용할 수 있다.<span class="ot">[^index-4]</span></span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-4]: </span>이산형 또는 비연속 분포에서 Expected Shortfall의 일반적 정의는 @Elliott2005 참고.</span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a>일반적으로 ES는 VaR보다 크다. ES가 VaR를 초과하는 손실들의 평균을 나타내기 때문이다.</span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a><span class="al">![손익 확률밀도함수에서 VaR와 ES의 위치](../../assets/figures/Ch4_ES_VaR.svg)</span>{#fig-es-var width="60%"}</span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a>그림(@fig-es-var)에서 ES는 VaR보다 더 왼쪽, 즉 더 큰 손실이 발생하는 영역을 반영한다.</span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a><span class="fu">### 정규분포에서의 ES</span></span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>손익 $X$가 정규분포 $N(\mu,\sigma^2)$를 따르고, $z_\alpha$가 표준정규분포의 상위 $\alpha$ 분위수라고 하자. 이때 ES는 다음과 같다.</span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_{\alpha}</span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a>-\mu</span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a>\sigma</span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a>\frac{\exp(-z_\alpha^2/2)}</span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a>{\alpha\sqrt{2\pi}}</span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>-\mu</span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>\sigma</span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha}.</span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>$$ {#eq-normal-es}</span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>여기서 $\phi(\cdot)$는 표준정규분포의 확률밀도함수이다.</span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 표준정규분포의 VaR와 ES</span></span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a>손익이 표준정규분포를 따른다고 하자. 유의수준 $\alpha=0.01$에서는</span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{0.01}</span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>z_{0.01}</span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>2.3263</span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a>이다. 같은 유의수준에서 ES는 식(@eq-normal-es)에 따라 다음과 같이 계산한다.</span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_{0.01}</span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a>\frac{\exp(-z_{0.01}^2/2)}</span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a>{0.01\sqrt{2\pi}}</span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a>2.6652.</span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a>따라서 $\mathrm{ES}_{0.01}&gt;\mathrm{VaR}_{0.01}$이다. VaR가 1% 분위수의 손실을 나타낸다면, ES는 그보다 더 나쁜 1% 상황에서의 평균 손실을 나타낸다.</span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a><span class="fu">### Coherent Risk Measure</span></span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a>손익 분포 확률변수 $X$, $Y$에 대해 위험 측도 $\rho$가 다음 성질을 만족하면 일관된 위험 측도(coherent risk measure)라고 한다.</span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$X=0$이면 $\rho(X)=0$이다.</span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$X\geq Y$이면 $\rho(X)\leq\rho(Y)$이다.</span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$\lambda\geq0$이면 $\rho(\lambda X)=\lambda\rho(X)$이다.</span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>실수 $k$에 대해 $\rho(X+k)=\rho(X)-k$이다.</span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$\rho(X+Y)\leq\rho(X)+\rho(Y)$이다.</span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>마지막 성질은 부가산성(subadditivity)이다. 포트폴리오를 결합했을 때의 위험이 각 포지션 위험의 합보다 커지지 않아야 한다는 뜻이다.</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a>ES는 이 다섯 성질을 만족하는 일관된 위험 측도이다 <span class="co">[</span><span class="ot">@artzner1999coherent</span><span class="co">]</span>. 반면 VaR는 앞의 네 성질은 만족하지만, 이산형 분포에서는 부가산성을 만족하지 않을 수 있다.</span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 분산 대출의 ES</span></span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a>앞의 VaR 예제와 같이 부도확률이 0.008인 대출을 생각하자. 유의수준은 $\alpha=0.01$이다.</span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 단일 대출</span></span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a>100,000달러를 한 기업에 대출하고, 부도하면 전액을 잃는다고 하자. 이산형 분포의 일반적 정의(@eq-es-general)를 이용하면 다음과 같다.</span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_{0.01}</span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a>\frac{1}{0.01}</span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>\left(</span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a>\int_0^{0.008}</span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a>100{,}000\,\mathrm{d}\gamma</span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a>\int_{0.008}^{0.01}</span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a>0\,\mathrm{d}\gamma</span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a>\right) <span class="sc">\\</span></span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>\frac{800}{0.01}</span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a>80{,}000.</span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a>따라서 단일 대출의 ES는 80,000달러이다.</span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 두 기업에 나누어 대출</span></span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a>이제 서로 독립인 두 기업에 각각 50,000달러씩 대출한다고 하자. 손실 100,000달러가 발생할 확률은 $0.008^2=0.000064$이고, 손실 50,000달러가 발생할 확률은 $2\times0.008\times0.992=0.015872$이다.</span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_{0.01}</span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a>\frac{1}{0.01}</span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a>\left(</span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>\int_0^{0.000064}</span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a>100{,}000\,\mathrm{d}\gamma</span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a>\int_{0.000064}^{0.01}</span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a>50{,}000\,\mathrm{d}\gamma</span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>\right) <span class="sc">\\</span></span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>\frac{6.4+496.8}{0.01}</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>50{,}320.</span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a>분산 대출의 ES는 50,320달러로 단일 대출의 ES보다 작다. ES는 이처럼 분산투자로 인한 꼬리위험 감소를 반영하며, 부가산성을 만족한다.</span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a>VaR는 두 대출을 결합했을 때 0달러에서 50,000달러로 증가하는 모습을 보일 수 있었다. 그러나 ES는 극단적 손실까지 평균에 반영하므로, 분산 대출의 위험 감소를 더 일관되게 보여 준다.</span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a><span class="fu">### 규제에서의 ES</span></span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a>VaR는 1996년 바젤위원회의 시장위험 규제에서 내부모형 기반 자본요건 산정에 사용되었다. 그러나 2007-2008년 금융위기에서는 VaR가 극단적 손실, 즉 꼬리위험을 충분히 반영하지 못한다는 한계가 드러났다.</span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a>이에 따라 바젤위원회는 거래계정의 근본적 검토(Fundamental Review of the Trading Book, FRTB)를 통해 VaR 대신 97.5% 신뢰수준의 ES를 도입하였다. FRTB에서는 자산의 유동성에 따라 보유 기간을 달리 적용하고, 내부모형의 사용 기준도 강화하였다.<span class="ot">[^index-5]</span></span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-5]: </span>FRTB의 ES 도입 배경은 <span class="co">[</span><span class="ot">@Basel2019</span><span class="co">]</span> 참고.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
