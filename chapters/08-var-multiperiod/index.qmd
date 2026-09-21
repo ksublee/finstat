@@ -165,7 +165,7 @@ GARCH 모형의 계수에도 $\alpha$가 등장하고 유의수준도 $\alpha$�
 
 **1단계. GARCH 모수를 추정한다.**
 
-과거에 관찰된 수익률 시계열 $\tilde r_1, \cdots, \tilde r_N$에 최우추정법을 적용해 추정치 $\hat\omega, \hat\alpha, \hat\beta$를 구한다. 추정 방법은 [변동성](../07-volatility/index.qmd) 장에서 다룬다.
+과거에 관찰된 수익률 시계열 $\tilde r_1, \cdots, \tilde r_N$에 최대우도추정법을 적용해 추정치 $\hat\omega, \hat\alpha, \hat\beta$를 구한다. 추정 방법은 [변동성](../07-volatility/index.qmd) 장에서 다룬다.
 
 **2단계. 현재 시점의 조건부 분산을 추정한다.**
 
