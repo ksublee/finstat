@@ -594,7 +594,7 @@ F\left(\mathrm{PnL}_{(k)}\right) = \mathbb{P}\left(\mathrm{PnL} \leq \mathrm{PnL
 </div>
 <p>현재 시점을 <span class="math inline">\(N\)</span>이라 하고 향후 <span class="math inline">\(M\)</span>일간의 VaR를 구한다고 하자. 이를 위해 가상의 수익률 <span class="math inline">\(r_{N+1}, r_{N+2}, \cdots, r_{N+M}\)</span>을 만들어야 한다. 절차는 다음과 같다.</p>
 <p><strong>1단계. GARCH 모수를 추정한다.</strong></p>
-<p>과거에 관찰된 수익률 시계열 <span class="math inline">\(\tilde r_1, \cdots, \tilde r_N\)</span>에 최우추정법을 적용해 추정치 <span class="math inline">\(\hat\omega, \hat\alpha, \hat\beta\)</span>를 구한다. 추정 방법은 <a href="../../chapters/07-volatility/index.html">변동성</a> 장에서 다룬다.</p>
+<p>과거에 관찰된 수익률 시계열 <span class="math inline">\(\tilde r_1, \cdots, \tilde r_N\)</span>에 최대우도추정법을 적용해 추정치 <span class="math inline">\(\hat\omega, \hat\alpha, \hat\beta\)</span>를 구한다. 추정 방법은 <a href="../../chapters/07-volatility/index.html">변동성</a> 장에서 다룬다.</p>
 <p><strong>2단계. 현재 시점의 조건부 분산을 추정한다.</strong></p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1735,7 +1735,7 @@ Crouhy, Michel, Dan Galai, 와/과 Robert Mark. 2014년. <em>The Essentials of R
 <span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>**1단계. GARCH 모수를 추정한다.**</span>
 <span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>과거에 관찰된 수익률 시계열 $\tilde r_1, \cdots, \tilde r_N$에 최우추정법을 적용해 추정치 $\hat\omega, \hat\alpha, \hat\beta$를 구한다. 추정 방법은 <span class="co">[</span><span class="ot">변동성</span><span class="co">](../07-volatility/index.qmd)</span> 장에서 다룬다.</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>과거에 관찰된 수익률 시계열 $\tilde r_1, \cdots, \tilde r_N$에 최대우도추정법을 적용해 추정치 $\hat\omega, \hat\alpha, \hat\beta$를 구한다. 추정 방법은 <span class="co">[</span><span class="ot">변동성</span><span class="co">](../07-volatility/index.qmd)</span> 장에서 다룬다.</span>
 <span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>**2단계. 현재 시점의 조건부 분산을 추정한다.**</span>
 <span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a></span>
