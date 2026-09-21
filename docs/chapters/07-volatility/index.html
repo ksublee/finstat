@@ -387,7 +387,11 @@ window.Quarto = {
   <li><a href="#표본-표준편차-방법" id="toc-표본-표준편차-방법" class="nav-link" data-scroll-target="#표본-표준편차-방법"><span class="header-section-number">7.3.1</span> 표본 표준편차 방법</a></li>
   <li><a href="#exponential-smoothing" id="toc-exponential-smoothing" class="nav-link" data-scroll-target="#exponential-smoothing"><span class="header-section-number">7.3.2</span> Exponential smoothing</a></li>
   </ul></li>
-  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">7.4</span> 관련 페이지</a></li>
+  <li><a href="#garch" id="toc-garch" class="nav-link" data-scroll-target="#garch"><span class="header-section-number">7.4</span> GARCH</a>
+  <ul class="collapse">
+  <li><a href="#garch-모형의-배경과-조건부-분포" id="toc-garch-모형의-배경과-조건부-분포" class="nav-link" data-scroll-target="#garch-모형의-배경과-조건부-분포"><span class="header-section-number">7.4.1</span> GARCH 모형의 배경과 조건부 분포</a></li>
+  </ul></li>
+  <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">7.5</span> 관련 페이지</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/07-volatility/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -664,8 +668,92 @@ w_0 \sum_{k=0}^{\infty} \lambda^k = \frac{w_0}{1 - \lambda}
 </div>
 </section>
 </section>
-<section id="관련-페이지" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">7.4</span> 관련 페이지</h2>
+<section id="garch" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="garch"><span class="header-section-number">7.4</span> GARCH</h2>
+<section id="garch-모형의-배경과-조건부-분포" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="garch-모형의-배경과-조건부-분포"><span class="header-section-number">7.4.1</span> GARCH 모형의 배경과 조건부 분포</h3>
+<p><a href="../../concepts/glossary.html#garch">GARCH</a>(generalized autoregressive conditional heteroscedasticity) 모형은 시간에 따라 변하는 변동성을 모형화하며, 수학적으로 완전한 모형이다. 관점에 따라 EWMA의 수학적 완성형으로 볼 수 있다. 이 변동성 모형은 ARCH(autoregressive conditional heteroscedasticity) 모형으로 처음 등장했고 <span class="citation" data-cites="engle1982autoregressive">(<a href="#ref-engle1982autoregressive" role="doc-biblioref">Engle 1982년</a>)</span>, 그 뒤 <span class="citation" data-cites="bollerslev1986generalized">(<a href="#ref-bollerslev1986generalized" role="doc-biblioref">Bollerslev 1986년</a>)</span>가 일반화된 형태로 완성했다. Robert F. Engle은 이 공로로 노벨 경제학상을 받았다.</p>
+<p>한편 Engle 교수는 2009~2010년 한국에서 키코(KIKO) 사태로 손해를 입은 파생상품 가입 기업 측과 판매자인 은행 측이 법정 공방을 벌였을 때, 가입 기업의 자문으로 한국 재판에 참여한 이력이 있다. 그러자 은행 측은 또 다른 유명 금융경제학자 Stephen Ross<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>를 증인으로 세워 반대 변론을 펼쳤다.</p>
+<p>한편 GARCH 모형을 만든 Bollerslev는 당시 Engle 교수의 연구 보조로 일하던 박사과정 학생이었다. Engle 교수의 동료 연구자 David Lilien이 “ARCH 모형을 ARMA(autoregressive moving average)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> 시계열처럼 일반적인 모형으로 확장할 수 없을까”라고 묻는 것을 듣고 GARCH 모형을 세우게 되었다고 한다 <span class="citation" data-cites="BOLLERSLEV202396">(<a href="#ref-BOLLERSLEV202396" role="doc-biblioref">Bollerslev 2023년</a>)</span>.</p>
+<p>GARCH 모형에서는 수익률 <span class="math inline">\(r_n\)</span>과 분산 <span class="math inline">\(\sigma_n^2\)</span>을 <strong>확률과정</strong>으로 간주한다. 즉 수익률뿐 아니라 수익률의 분산이나 표준편차도 시간에 따라 변하는 값이다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>확률과정
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>확률과정(stochastic process) <span class="math inline">\(X\)</span>는 시간으로 인덱스된 일련의 확률변수들이며, 다음과 같이 쓴다.</p>
+<p><span class="math display">\[
+\{ X_n : n \in T \}
+\]</span></p>
+<p>여기서 <span class="math inline">\(X_n\)</span>은 <span class="math inline">\((\Omega, \mathbb{P})\)</span>에서 정의된 확률변수이고, <span class="math inline">\(T\)</span>는 시간 또는 이산적으로 정의된 시간 인덱스 집합이다.</p>
+</div>
+</div>
+<p>확률과정은 연속 시간과 이산 시간 모두에서 정의할 수 있으나, 이 장에서는 이산 시간에서 정의된 이산 확률과정만 다룬다.</p>
+<p>GARCH 모형을 이해하려면 <a href="../../concepts/probability/conditional-probability.html">조건부 분포</a>, 특히 조건부 정규분포를 먼저 알아야 한다. 수익률 <span class="math inline">\(r_n\)</span>은 시점 <span class="math inline">\(n\)</span>에 관찰 가능한 확률변수다. 한편 <span class="math inline">\(r_n\)</span>의 분산을 나타내는 <span class="math inline">\(\sigma_n^2\)</span>도 확률변수인데, GARCH 모형에서는 <span class="math inline">\(\sigma_n^2\)</span>이 <strong>시점 <span class="math inline">\(n-1\)</span>까지의 정보 집합</strong>(information set)으로 표현된다고 가정한다.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> 즉 <span class="math inline">\(n\)</span> 시점 직전인 <span class="math inline">\(n-1\)</span> 시점에 이르면, 그때까지 관찰한 정보로 <span class="math inline">\(\sigma_n^2\)</span>의 값을 계산할 수 있다고 가정한다.</p>
+<p>수익률 <span class="math inline">\(r_n\)</span>의 조건부 분포가, 주어진 <span class="math inline">\(\sigma_n^2\)</span>에 대해 다음 조건부 정규분포를 따른다고 하자.</p>
+<p><span class="math display">\[
+r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)
+\]</span></p>
+<p>이는 <span class="math inline">\(n-1\)</span> 시점이 되어 <span class="math inline">\(\sigma_n^2\)</span>의 값을 알게 되면, <span class="math inline">\(r_n\)</span>의 분포를 그 값을 이용한 정규분포로 나타낼 수 있다는 뜻이다.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 변동성이 주어졌을 때의 조건부 분포
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>실증 연구 결과 <span class="math inline">\(\sigma_1 = 0.1\)</span>, <span class="math inline">\(\sigma_2 = 0.2\)</span>임이 밝혀졌다고 하자. <span class="math inline">\(r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)\)</span>을 따른다는 것은 다음을 뜻한다.</p>
+<p><span class="math display">\[
+r_1 \mid \sigma_1^2 \sim N(0, 0.01), \qquad r_2 \mid \sigma_2^2 \sim N(0, 0.04)
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 변동성이 식으로 주어졌을 때
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>어떤 이론적 연구 결과 분산이 다음과 같이 나타난다고 하자.</p>
+<p><span class="math display">\[
+\sigma_n^2 = 0.5 + \frac{1}{n}
+\]</span></p>
+<p>그러면 <span class="math inline">\(r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)\)</span>을 따른다는 것은, 예를 들어 <span class="math inline">\(n = 10\)</span>에서 다음을 뜻한다.</p>
+<p><span class="math display">\[
+r_{10} \mid \sigma_{10}^2 \sim N(0, 0.6)
+\]</span></p>
+</div>
+</div>
+<p><span class="math inline">\(\sigma_n^2\)</span> 같은 추가 정보가 없을 때의 <span class="math inline">\(r_n\)</span>의 분포는 <strong>비조건부 분포</strong>라 부르며, 이는 정규분포가 아니다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>매 시점의 조건부 분포는 정규분포인데 비조건부 분포는 정규분포가 아니라는 점이 GARCH 모형의 핵심이다. 앞 절에서 “시간에 따라 변하는 변동성은 수익률 분포가 정규분포가 아님을 뜻한다”고 한 것이 바로 이 구조다. 분산이 시점마다 다른 정규분포들이 섞이면 전체로는 꼬리가 두꺼운 분포가 된다. 이 성질은 다음 절에서 확인한다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="관련-페이지" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">7.5</span> 관련 페이지</h2>
 <ul>
 <li><a href="../../chapters/08-var-multiperiod/index.html">다기간 VaR</a></li>
 <li><a href="../../chapters/02-modern-portfolio-theory/index.html">현대 포트폴리오 이론</a></li>
@@ -678,6 +766,15 @@ w_0 \sum_{k=0}^{\infty} \lambda^k = \frac{w_0}{1 - \lambda}
 <!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bollerslev1986generalized" class="csl-entry" role="listitem">
+Bollerslev, Tim. 1986년. <span>“Generalized autoregressive conditional heteroskedasticity”</span>. <em>Journal of Econometrics</em> 31: 307–27.
+</div>
+<div id="ref-BOLLERSLEV202396" class="csl-entry" role="listitem">
+Bollerslev, Tim. 2023년. <span>“The story of GARCH: A personal odyssey”</span>. <em>Journal of Econometrics</em> 234: 96–100.
+</div>
+<div id="ref-engle1982autoregressive" class="csl-entry" role="listitem">
+Engle, Robert F. 1982년. <span>“Autoregressive conditional heteroscedasticity with estimates of the variance of <span>U</span>nited <span>K</span>ingdom inflation”</span>. <em>Econometrica: Journal of the Econometric Society</em> 50: 987–1007.
+</div>
 <div id="ref-mandelbort1963variation" class="csl-entry" role="listitem">
 Mandelbrot, Benoit. 1963년. <span>“The variation of certain speculative prices”</span>. <em>Journal of Business</em> 36: 394–419.
 </div>
@@ -687,6 +784,9 @@ Mandelbrot, Benoit. 1963년. <span>“The variation of certain speculative price
 <hr>
 <ol>
 <li id="fn1"><p>정확한 기준은 없지만 50개 이상을 고려한다.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="../../chapters/06-discrete-time-model/index.html">이산 시간 모형</a> 장에서 공부할 이항 나무 옵션 가격 결정 이론의 정립에 공헌했다.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>시계열에서 AR(autoregressive) 모형과 MA(moving average) 모형을 일반화한 것.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>수학적으로는 시그마 대수 <span class="math inline">\(\mathcal{F}_{n-1}\)</span>에 대해 가측(measurable)이라고 표현한다.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1421,13 +1521,81 @@ Mandelbrot, Benoit. 1963년. <span>“The variation of certain speculative price
 <span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>두 자료는 절댓값의 순서만 다르다. **표본 표준편차로 계산했다면 두 경우 모두 같은 값이 나온다.** EWMA는 최근 수익률에 큰 가중치를 주므로, 변동이 잦아드는 첫 번째 자료에서는 작게, 변동이 커지는 두 번째 자료에서는 크게 추정한다.</span>
 <span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## GARCH</span></span>
 <span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../08-var-multiperiod/index.qmd)</span></span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span></span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../../concepts/notation.qmd)</span></span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### GARCH 모형의 배경과 조건부 분포</span></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">GARCH</span><span class="co">](../../concepts/glossary.qmd#garch)</span>(generalized autoregressive conditional heteroscedasticity) 모형은 시간에 따라 변하는 변동성을 모형화하며, 수학적으로 완전한 모형이다. 관점에 따라 EWMA의 수학적 완성형으로 볼 수 있다. 이 변동성 모형은 ARCH(autoregressive conditional heteroscedasticity) 모형으로 처음 등장했고 <span class="co">[</span><span class="ot">@engle1982autoregressive</span><span class="co">]</span>, 그 뒤 <span class="co">[</span><span class="ot">@bollerslev1986generalized</span><span class="co">]</span>가 일반화된 형태로 완성했다. Robert F. Engle은 이 공로로 노벨 경제학상을 받았다.</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>한편 Engle 교수는 2009~2010년 한국에서 키코(KIKO) 사태로 손해를 입은 파생상품 가입 기업 측과 판매자인 은행 측이 법정 공방을 벌였을 때, 가입 기업의 자문으로 한국 재판에 참여한 이력이 있다. 그러자 은행 측은 또 다른 유명 금융경제학자 Stephen Ross^[<span class="co">[</span><span class="ot">이산 시간 모형</span><span class="co">](../06-discrete-time-model/index.qmd)</span> 장에서 공부할 이항 나무 옵션 가격 결정 이론의 정립에 공헌했다.]를 증인으로 세워 반대 변론을 펼쳤다.</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>한편 GARCH 모형을 만든 Bollerslev는 당시 Engle 교수의 연구 보조로 일하던 박사과정 학생이었다. Engle 교수의 동료 연구자 David Lilien이 "ARCH 모형을 ARMA(autoregressive moving average)^<span class="co">[</span><span class="ot">시계열에서 AR(autoregressive) 모형과 MA(moving average) 모형을 일반화한 것.</span><span class="co">]</span> 시계열처럼 일반적인 모형으로 확장할 수 없을까"라고 묻는 것을 듣고 GARCH 모형을 세우게 되었다고 한다 <span class="co">[</span><span class="ot">@BOLLERSLEV202396</span><span class="co">]</span>.</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>GARCH 모형에서는 수익률 $r_n$과 분산 $\sigma_n^2$을 **확률과정**으로 간주한다. 즉 수익률뿐 아니라 수익률의 분산이나 표준편차도 시간에 따라 변하는 값이다.</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="fu">## 확률과정</span></span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>확률과정(stochastic process) $X$는 시간으로 인덱스된 일련의 확률변수들이며, 다음과 같이 쓴다.</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span> X_n : n \in T <span class="sc">\}</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>여기서 $X_n$은 $(\Omega, \mathbb{P})$에서 정의된 확률변수이고, $T$는 시간 또는 이산적으로 정의된 시간 인덱스 집합이다.</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>확률과정은 연속 시간과 이산 시간 모두에서 정의할 수 있으나, 이 장에서는 이산 시간에서 정의된 이산 확률과정만 다룬다.</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>GARCH 모형을 이해하려면 <span class="co">[</span><span class="ot">조건부 분포</span><span class="co">](../../concepts/probability/conditional-probability.qmd)</span>, 특히 조건부 정규분포를 먼저 알아야 한다. 수익률 $r_n$은 시점 $n$에 관찰 가능한 확률변수다. 한편 $r_n$의 분산을 나타내는 $\sigma_n^2$도 확률변수인데, GARCH 모형에서는 $\sigma_n^2$이 **시점 $n-1$까지의 정보 집합**(information set)으로 표현된다고 가정한다.^<span class="co">[</span><span class="ot">수학적으로는 시그마 대수 $\mathcal{F}_{n-1}$에 대해 가측(measurable)이라고 표현한다.</span><span class="co">]</span> 즉 $n$ 시점 직전인 $n-1$ 시점에 이르면, 그때까지 관찰한 정보로 $\sigma_n^2$의 값을 계산할 수 있다고 가정한다.</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>수익률 $r_n$의 조건부 분포가, 주어진 $\sigma_n^2$에 대해 다음 조건부 정규분포를 따른다고 하자.</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>이는 $n-1$ 시점이 되어 $\sigma_n^2$의 값을 알게 되면, $r_n$의 분포를 그 값을 이용한 정규분포로 나타낼 수 있다는 뜻이다.</span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 변동성이 주어졌을 때의 조건부 분포</span></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>실증 연구 결과 $\sigma_1 = 0.1$, $\sigma_2 = 0.2$임이 밝혀졌다고 하자. $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은 다음을 뜻한다.</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>r_1 \mid \sigma_1^2 \sim N(0, 0.01), \qquad r_2 \mid \sigma_2^2 \sim N(0, 0.04)</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 변동성이 식으로 주어졌을 때</span></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>어떤 이론적 연구 결과 분산이 다음과 같이 나타난다고 하자.</span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = 0.5 + \frac{1}{n}</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>그러면 $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은, 예를 들어 $n = 10$에서 다음을 뜻한다.</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>r_{10} \mid \sigma_{10}^2 \sim N(0, 0.6)</span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>$\sigma_n^2$ 같은 추가 정보가 없을 때의 $r_n$의 분포는 **비조건부 분포**라 부르며, 이는 정규분포가 아니다.</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>매 시점의 조건부 분포는 정규분포인데 비조건부 분포는 정규분포가 아니라는 점이 GARCH 모형의 핵심이다. 앞 절에서 "시간에 따라 변하는 변동성은 수익률 분포가 정규분포가 아님을 뜻한다"고 한 것이 바로 이 구조다. 분산이 시점마다 다른 정규분포들이 섞이면 전체로는 꼬리가 두꺼운 분포가 된다. 이 성질은 다음 절에서 확인한다.</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../08-var-multiperiod/index.qmd)</span></span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../../concepts/notation.qmd)</span></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
