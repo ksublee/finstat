@@ -282,6 +282,200 @@ $\sigma_n^2$ 같은 추가 정보가 없을 때의 $r_n$의 분포는 **비조�
 매 시점의 조건부 분포는 정규분포인데 비조건부 분포는 정규분포가 아니라는 점이 GARCH 모형의 핵심이다. 앞 절에서 "시간에 따라 변하는 변동성은 수익률 분포가 정규분포가 아님을 뜻한다"고 한 것이 바로 이 구조다. 분산이 시점마다 다른 정규분포들이 섞이면 전체로는 꼬리가 두꺼운 분포가 된다. 이 성질은 다음 절에서 확인한다.
 :::
 
+### 정의와 기본 성질
+
+모형의 복잡도에 따라 양의 정수 $p$, $q$에 대해 GARCH($p,q$) 모형이 있지만, 여기서는 가장 간단한 GARCH(1,1) 모형을 살펴본다. 그중에서도 수익률 과정은 모형화하지 않고 변동성 $\sigma_n$만 모형화한 형태를 다룬다.
+
+::: {.callout-note}
+## GARCH(1,1)
+
+수익률 과정 $r_n$이 GARCH(1,1)를 따른다는 것은, $r_n$과 그 조건부 분산 $\sigma_n^2$이 다음을 만족한다는 뜻이다.^[$(r_n, \sigma_n^2)$이 GARCH(1,1)를 따른다고도 한다.]
+
+$$
+\sigma_n^2 = \omega + \alpha r_{n-1}^2 + \beta \sigma_{n-1}^2
+$$ {#eq-garch11}
+
+- 주어진 분산 $\sigma_n^2$에 대해 $r_n$의 조건부 분포는 정규분포다.
+  $$
+  r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)
+  $$
+- 표준화된 오차항 과정은 다음으로 정의한다.
+  $$
+  \varepsilon_n = \frac{r_n}{\sigma_n}
+  $$ {#eq-varepsilon}
+- $\omega, \alpha, \beta$는 모형 모수이며 양의 값이다.
+- 다음 **정상성**(stationarity) 조건 중 하나를 만족한다.
+  - 강정상성 조건
+    $$
+    -\infty < \mathbb{E}\left[\log(\beta + \alpha \varepsilon_0^2)\right] < 0
+    $$ {#eq-stationarity1}
+  - 약정상성 조건
+    $$
+    \alpha + \beta < 1
+    $$ {#eq-stationarity}
+:::
+
+위 정의에서는 편의상 기대수익률을 0으로 가정했으나, 조건부 평균 수익률 과정을 따로 정의하는 경우도 많다. GARCH 모형의 조건에는 어긋나지만, $\omega = 0$, $\alpha = 1 - \lambda$, $\beta = \lambda$로 두면 EWMA 공식과 같아진다는 점에 주목하자.
+
+금융 자산 수익률에서 $\beta$는 1에 가까운 값을 가진다. $\beta$가 1에 가까울수록 **지속성**(persistence)이 크다고 하며, $\beta$가 크면 먼 과거의 경향을, $\alpha$가 크면 최근의 경향을 더 많이 반영한다.^[[현대 포트폴리오 이론](../02-modern-portfolio-theory/index.qmd) 장에서 공부한 $\beta$와는 다른 것이므로 혼동하지 않는다. [기호 정리](../../concepts/notation.qmd)에도 정리해 두었다.]
+
+::: {.callout-note}
+## GARCH 과정의 확률적 성질
+
+적절한 조건 아래에서 GARCH 확률과정은 여러 좋은 성질을 가진다. 예를 들어 시간이 충분히 흐르면, 즉 먼 과거의 분산 $\sigma_{n-T}^2$과 현재의 분산 $\sigma_n^2$은 근사적으로 [독립](../../concepts/probability/independence.qmd)이 된다. 20년 전의 변동성이 내일의 변동성에 영향을 준다고 생각하기는 어렵다. 이를 **강혼합 성질**(strong mixing property)이라 한다. 혼합에는 여러 종류가 있는데, 관찰값 사이의 간격이 멀어질수록 공분산이 0에 가까워지면 **공분산 혼합**(covariance mixing)이라 한다.
+
+또한 적절한 조건 아래에서 GARCH 확률과정은 **에르고딕**(ergodic)이다. 에르고딕 확률과정이란, 관찰 기간이 충분하다면 하나의 실현된 경로(path) 안에서 그 확률과정의 모든 분포적 성질을 관찰할 수 있다는 뜻이다. 자세한 내용은 [@lindner2009stationarity]와 [@francq2019garch]를 참고한다.
+:::
+
+@eq-stationarity1 의 정상성 조건이란, @eq-garch11 로 정의된 분산 확률과정이 시간이 한참 흘러도 본래의 분포적 성질을 유지할 조건을 뜻한다. 위 정의처럼 표현되는 확률과정은 $\sigma_0$이나 $r_0$ 같은 초기값을 무엇으로 할지 명확하지 않다. 이때 편리한 방법은 이 확률과정이 **무한히 먼 과거로부터 시작했다**고 가정하는 것이다. 이 접근에는 시간이 오래 지나도 평균·분산·공분산 같은 분포 성질이 변하지 않는다는 성질이 필요하며, 이를 정상성이라 한다.
+
+::: {.callout-note}
+## 강정상성
+
+확률과정 $X_t$가 **강정상**(strictly stationary, strongly stationary)이라는 것은, 임의의 자연수 $k$와 정수 $h$에 대해 $(X_1, \cdots, X_k)$와 $(X_{1+h}, \cdots, X_{k+h})$가 같은 결합 분포를 가진다는 뜻이다. 즉 시간을 $h$만큼 이동해도 분포의 성질이 변하지 않는다.
+:::
+
+::: {.callout-note}
+## 약정상성
+
+확률과정 $X_t$가 **약정상**(weakly stationary, wide-sense stationary, second-order stationary)이라는 것은, $X_t$의 평균과 분산이 유한한 상수로 존재하고 $\mathrm{Cov}(X_t, X_{t+h})$가 오직 두 시점 사이의 거리 $h$에만 의존한다는 뜻이다.
+:::
+
+예를 들어 @fig-nonstationary1 처럼 시간에 따라 평균이 계속 증가하거나 감소하는 확률과정, @fig-nonstationary3 처럼 주기적으로 움직이는 확률과정, @fig-nonstationary2 처럼 분산이 계속 증가하거나 감소하는 확률과정은 정상과정(stationary process)이 아닐 가능성이 높다.
+
+::: {.callout-warning}
+정상 시계열이지만 비정상 시계열처럼 보이도록 인위적으로 만들 수 있다. 따라서 **관찰된 경로 하나만으로는** 정상과정인지 비정상과정인지 완벽히 판단하지 못한다. 아래 예제가 이 점을 보여준다.
+:::
+
+::: {#fig-stationarity layout-ncol=2}
+
+![정상 시계열](../../assets/figures/Ch7_stationary.svg){#fig-stationary width=100%}
+
+![비정상 시계열: 평균이 증가](../../assets/figures/Ch7_nonstationary1.svg){#fig-nonstationary1 width=100%}
+
+![비정상 시계열: 분산이 증가](../../assets/figures/Ch7_nonstationary2.svg){#fig-nonstationary2 width=100%}
+
+![비정상 시계열: 주기적 움직임](../../assets/figures/Ch7_nonstationary3.svg){#fig-nonstationary3 width=100%}
+
+(아마도) 정상 시계열과 비정상 시계열의 예
+
+:::
+
+::: {.callout-note}
+## 그림을 약정상성의 조건으로 읽기
+
+약정상성은 세 가지를 요구한다 — 평균이 일정할 것, 분산이 일정할 것, 공분산이 두 시점 사이의 거리 $h$에만 의존할 것. @fig-stationarity 의 비정상 시계열 세 개는 이 가운데 하나씩을 어긴다.
+
+- **(b)** 값이 시간에 따라 계속 올라간다 → **평균이 상수가 아니다.**
+- **(c)** 흔들리는 폭이 시간에 따라 커진다 → **분산이 상수가 아니다.**
+- **(d)** 주기적으로 오르내린다 → **평균이 시점에 따라 주기적으로 달라진다.** 어느 시점에서 보느냐에 따라 기대되는 값이 다르다.
+
+**(a)**는 이런 추세가 없어 정상과정처럼 보인다. 다만 캡션에 "(아마도)"를 붙인 이유가 있다 — 그림 하나만으로 정상성을 단정할 수는 없다. 아래 예제가 그 이유를 보여준다.
+:::
+
+::: {.callout-tip}
+## 예제: 같은 관찰값, 다른 확률과정
+
+다음 시계열 실현값을 관찰했다고 하자.
+
+$$
+1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; \cdots
+$$
+
+이 관찰값을 낳은 확률과정은 정상 시계열일 수도 있고 아닐 수도 있다.
+
+$X_t$가 확률 1로 $X_t = (-1)^t$로 정의되었고 위 관찰값이 $X_t$의 실현 결과라면, $\mathbb{E}[X_1] \neq \mathbb{E}[X_2]$이므로 $X_t$는 비정상 시계열이다.
+
+반면 $Y_t$가 다음과 같이 정의되었고
+
+$$
+Y_t = \begin{cases}
+1,\; -1,\; 1,\; -1,\; 1,\; -1,\; \cdots & \text{확률 } 0.5 \\
+-1,\; 1,\; -1,\; 1,\; -1,\; 1,\; \cdots & \text{확률 } 0.5
+\end{cases}
+$$
+
+위 관찰값이 $Y_t$의 실현 결과라면, $Y_t$는 정상 시계열이다. 같은 관찰값이 두 경우 모두에서 나올 수 있다.
+:::
+
+GARCH 모형에서 $\alpha$와 $\beta$가 너무 크게 설정되면(예를 들어 $\alpha + \beta > 1$) 시계열이 정상과정이 되지 못하고, 다음 논의에 따라 분산 과정이 **폭발**(explosive)한다. EWMA처럼 GARCH 모형도 재귀적 형태를 가지므로 다음과 같이 전개할 수 있다.
+
+$$
+\begin{aligned}
+\sigma_n^2 &= \omega + \beta \sigma_{n-1}^2 + \alpha r_{n-1}^2 \\
+&= \omega + \beta (\omega + \beta \sigma_{n-2}^2 + \alpha r_{n-2}^2) + \alpha r_{n-1}^2 \\
+&= (1 + \beta)\omega + \beta^2 \sigma_{n-2}^2 + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 \\
+&= (1 + \beta)\omega + \beta^2 (\omega + \beta \sigma_{n-3}^2 + \alpha r_{n-3}^2) + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 \\
+&= (1 + \beta + \beta^2)\omega + \beta^3 \sigma_{n-3}^2 + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 + \alpha \beta^2 r_{n-3}^2 \\
+&\;\;\vdots \\
+&= \frac{\omega}{1 - \beta} + \sum_{j=1}^{\infty} \alpha \beta^{j-1} r_{n-j}^2
+\end{aligned}
+$$ {#eq-garch-ex}
+
+EWMA처럼, $j$가 커질수록 감소하는 가중치 $\alpha \beta^{j-1}$를 과거의 실현 수익률 $r_{n-j}^2$에 곱해 모두 더하는 형태다. $\alpha$와 $\beta$가 커서 가중치 $\alpha \beta^{j-1}$가 $j$에 따라 충분히 빨리 줄지 않으면 $\sigma_n^2$은 발산한다. @fig-non-stationary 는 $\alpha = 0.05$, $\beta = 0.97$로 두어 발산하는 비정상 GARCH 확률과정을 보여준다. 왼쪽에서 $\sigma$가 발산하고, 오른쪽에서 $r$의 절댓값도 발산한다.
+
+::: {#fig-non-stationary layout-ncol=2}
+
+![$\sigma$의 경로](../../assets/figures/Ch7_non_stationary_sigma.svg){width=100%}
+
+![$r$의 경로](../../assets/figures/Ch7_non_stationary_r.svg){width=100%}
+
+GARCH(1,1) 모형에서 $\alpha = 0.05$, $\beta = 0.97$로 만든 비정상 시계열
+
+:::
+
+GARCH 변동성 과정이 정상성 조건 @eq-stationarity1 을 만족하면, GARCH 시계열이 먼 과거($-\infty$)로부터 시작했다고 가정할 수 있고, $\sigma_n^2$의 **비조건부 기댓값**(unconditional expectation)을 계산할 수 있다.
+
+::: {.callout-note title="정리: 비조건부 분산"}
+
+GARCH(1,1) 모형에서 $\sigma_n^2$의 비조건부 기댓값은 다음과 같다.
+
+$$
+\mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \alpha - \beta}
+$$ {#eq-uncond-v}
+:::
+
+::: {.callout-note title="증명"}
+
+간단히 기대수익률을 0이라 하면, 모든 $j$에 대해 $\mathbb{E}[r_{n-j}^2] = \mathbb{E}[\sigma_{n-j}^2]$이다. @eq-garch-ex 의 양변에 기댓값을 취하면
+
+$$
+\mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \beta} + \sum_{j=1}^{\infty} \alpha \beta^{j-1} \mathbb{E}[\sigma_{n-j}^2]
+$$
+
+이고, 정상성 조건을 만족하면 모든 $j$에 대해 $\mathbb{E}[\sigma_{n-j}^2] = \mathbb{E}[\sigma_n^2]$이다. 이를 대입해 정리하면 다음을 얻는다.
+
+$$
+\mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \alpha - \beta}
+$$
+:::
+
+정상성 조건을 만족하는 GARCH 변동성 모형으로 미래 변동성을 시뮬레이션할 수 있다. 앞의 가정처럼 자산 수익률의 조건부 분포(conditional distribution)가 정규분포를 따른다고 하자. 모형에 따라 정규분포 대신 $t$-분포 등을 가정하기도 한다. 과거 자료로 $\sigma_n^2$을 계산했으면, 컴퓨터로 $N(0, \sigma_n^2)$을 따르는 가상의 $r_n$을 생성할 수 있다. 이 $r_n$으로 $\sigma_{n+1}^2$을 계산하고, 다시 $N(0, \sigma_{n+1}^2)$을 따르는 가상의 $r_{n+1}$을 생성한다. 이 과정을 반복하면 임의의 미래 $M$ 기간에 대한 가상의 수익률을 만들 수 있다. @tbl-garch-sim-steps 가 이 과정을 요약한다.
+
+| 순서 | 작업 | 예 |
+|:---:|:---|:---:|
+| 1 | @eq-garch-ex 와 과거 수익률 자료로 $\sigma_n^2$ 계산 | $\sigma_n^2 = 0.002$ |
+| 2 | 컴퓨터로 $N(0, \sigma_n^2)$을 따르는 확률변수 $r_n$ 생성 | $r_n = 0.001$ |
+| 3 | @eq-garch11 과 1, 2의 결과로 $\sigma_{n+1}^2$ 계산 | $\sigma_{n+1}^2 = 0.0022$ |
+| 4 | 컴퓨터로 $N(0, \sigma_{n+1}^2)$을 따르는 확률변수 $r_{n+1}$ 생성 | $r_{n+1} = -0.0005$ |
+| $\vdots$ | $\vdots$ | $\vdots$ |
+
+: GARCH 모형으로 미래 수익률을 시뮬레이션하는 절차 {#tbl-garch-sim-steps}
+
+[다기간 VaR](../08-var-multiperiod/index.qmd) 장의 GARCH 변동성 모형 절이 이 절차를 그대로 써서 5일 VaR를 구한다.
+
+::: {.callout-warning}
+## EWMA는 시뮬레이션에 적합하지 않다
+
+EWMA는 변동성 과정의 모형이 아니므로 시뮬레이션에는 적합하지 않다. @eq-uncond-v 에 $\omega = 0$, $\alpha = 1 - \lambda$, $\beta = \lambda$를 대입하면 $0/0$ 형태가 된다. EWMA로 변동성 과정을 시뮬레이션하면 생성되는 변동성이 시간이 지날수록 0으로 수렴한다.
+
+반면 GARCH 모형은 **평균 복귀**(mean reversion) 성질이 있어, 변동성이 지나치게 작아지거나 커지면 평균 수준인 @eq-uncond-v 로 되돌아가려 한다.
+
+그럼에도 EWMA는 적은 수의 날짜에 대한 시뮬레이션에서는 어느 정도 만족할 만한 결과를 주기 때문에, EWMA 시뮬레이션을 바탕으로 한 역사적 시뮬레이션이 파생상품 거래의 증거금 제도 등 여러 금융 분야에서 활용되기도 한다.
+:::
+
+실제로 금융 시장의 변동성은 평균 복귀 현상을 보인다. 평균 복귀 성질이란, 확률과정의 값이 평균보다 높으면 평균을 향해 낮아지려 하고 평균보다 낮으면 평균을 향해 높아지려 하는 성질이다. 변동성 자체는 거래되는 대상이 아니라서 변동성이 특정 방향으로 움직이더라도 여기에 영향력을 행사하기는 어렵다. 그러나 변동성이 높거나 낮은 수준에 있다고 해서 그것이 영원히 지속되리라고는 생각하기 어렵다. 시간이 지나면 정상적인 수준으로 수렴하는 현상을 보인다.
+
 ## 관련 페이지
 
 - [다기간 VaR](../08-var-multiperiod/index.qmd)
