@@ -214,6 +214,74 @@ $$
 두 자료는 절댓값의 순서만 다르다. **표본 표준편차로 계산했다면 두 경우 모두 같은 값이 나온다.** EWMA는 최근 수익률에 큰 가중치를 주므로, 변동이 잦아드는 첫 번째 자료에서는 작게, 변동이 커지는 두 번째 자료에서는 크게 추정한다.
 :::
 
+## GARCH
+
+### GARCH 모형의 배경과 조건부 분포
+
+[GARCH](../../concepts/glossary.qmd#garch)(generalized autoregressive conditional heteroscedasticity) 모형은 시간에 따라 변하는 변동성을 모형화하며, 수학적으로 완전한 모형이다. 관점에 따라 EWMA의 수학적 완성형으로 볼 수 있다. 이 변동성 모형은 ARCH(autoregressive conditional heteroscedasticity) 모형으로 처음 등장했고 [@engle1982autoregressive], 그 뒤 [@bollerslev1986generalized]가 일반화된 형태로 완성했다. Robert F. Engle은 이 공로로 노벨 경제학상을 받았다.
+
+한편 Engle 교수는 2009~2010년 한국에서 키코(KIKO) 사태로 손해를 입은 파생상품 가입 기업 측과 판매자인 은행 측이 법정 공방을 벌였을 때, 가입 기업의 자문으로 한국 재판에 참여한 이력이 있다. 그러자 은행 측은 또 다른 유명 금융경제학자 Stephen Ross^[[이산 시간 모형](../06-discrete-time-model/index.qmd) 장에서 공부할 이항 나무 옵션 가격 결정 이론의 정립에 공헌했다.]를 증인으로 세워 반대 변론을 펼쳤다.
+
+한편 GARCH 모형을 만든 Bollerslev는 당시 Engle 교수의 연구 보조로 일하던 박사과정 학생이었다. Engle 교수의 동료 연구자 David Lilien이 "ARCH 모형을 ARMA(autoregressive moving average)^[시계열에서 AR(autoregressive) 모형과 MA(moving average) 모형을 일반화한 것.] 시계열처럼 일반적인 모형으로 확장할 수 없을까"라고 묻는 것을 듣고 GARCH 모형을 세우게 되었다고 한다 [@BOLLERSLEV202396].
+
+GARCH 모형에서는 수익률 $r_n$과 분산 $\sigma_n^2$을 **확률과정**으로 간주한다. 즉 수익률뿐 아니라 수익률의 분산이나 표준편차도 시간에 따라 변하는 값이다.
+
+::: {.callout-note}
+## 확률과정
+
+확률과정(stochastic process) $X$는 시간으로 인덱스된 일련의 확률변수들이며, 다음과 같이 쓴다.
+
+$$
+\{ X_n : n \in T \}
+$$
+
+여기서 $X_n$은 $(\Omega, \mathbb{P})$에서 정의된 확률변수이고, $T$는 시간 또는 이산적으로 정의된 시간 인덱스 집합이다.
+:::
+
+확률과정은 연속 시간과 이산 시간 모두에서 정의할 수 있으나, 이 장에서는 이산 시간에서 정의된 이산 확률과정만 다룬다.
+
+GARCH 모형을 이해하려면 [조건부 분포](../../concepts/probability/conditional-probability.qmd), 특히 조건부 정규분포를 먼저 알아야 한다. 수익률 $r_n$은 시점 $n$에 관찰 가능한 확률변수다. 한편 $r_n$의 분산을 나타내는 $\sigma_n^2$도 확률변수인데, GARCH 모형에서는 $\sigma_n^2$이 **시점 $n-1$까지의 정보 집합**(information set)으로 표현된다고 가정한다.^[수학적으로는 시그마 대수 $\mathcal{F}_{n-1}$에 대해 가측(measurable)이라고 표현한다.] 즉 $n$ 시점 직전인 $n-1$ 시점에 이르면, 그때까지 관찰한 정보로 $\sigma_n^2$의 값을 계산할 수 있다고 가정한다.
+
+수익률 $r_n$의 조건부 분포가, 주어진 $\sigma_n^2$에 대해 다음 조건부 정규분포를 따른다고 하자.
+
+$$
+r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)
+$$
+
+이는 $n-1$ 시점이 되어 $\sigma_n^2$의 값을 알게 되면, $r_n$의 분포를 그 값을 이용한 정규분포로 나타낼 수 있다는 뜻이다.
+
+::: {.callout-tip}
+## 예제: 변동성이 주어졌을 때의 조건부 분포
+
+실증 연구 결과 $\sigma_1 = 0.1$, $\sigma_2 = 0.2$임이 밝혀졌다고 하자. $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은 다음을 뜻한다.
+
+$$
+r_1 \mid \sigma_1^2 \sim N(0, 0.01), \qquad r_2 \mid \sigma_2^2 \sim N(0, 0.04)
+$$
+:::
+
+::: {.callout-tip}
+## 예제: 변동성이 식으로 주어졌을 때
+
+어떤 이론적 연구 결과 분산이 다음과 같이 나타난다고 하자.
+
+$$
+\sigma_n^2 = 0.5 + \frac{1}{n}
+$$
+
+그러면 $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은, 예를 들어 $n = 10$에서 다음을 뜻한다.
+
+$$
+r_{10} \mid \sigma_{10}^2 \sim N(0, 0.6)
+$$
+:::
+
+$\sigma_n^2$ 같은 추가 정보가 없을 때의 $r_n$의 분포는 **비조건부 분포**라 부르며, 이는 정규분포가 아니다.
+
+::: {.callout-note}
+매 시점의 조건부 분포는 정규분포인데 비조건부 분포는 정규분포가 아니라는 점이 GARCH 모형의 핵심이다. 앞 절에서 "시간에 따라 변하는 변동성은 수익률 분포가 정규분포가 아님을 뜻한다"고 한 것이 바로 이 구조다. 분산이 시점마다 다른 정규분포들이 섞이면 전체로는 꼬리가 두꺼운 분포가 된다. 이 성질은 다음 절에서 확인한다.
+:::
+
 ## 관련 페이지
 
 - [다기간 VaR](../08-var-multiperiod/index.qmd)
