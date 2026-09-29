@@ -398,7 +398,7 @@ $$
 위 관찰값이 $Y_t$의 실현 결과라면, $Y_t$는 정상 시계열이다. 같은 관찰값이 두 경우 모두에서 나올 수 있다.
 :::
 
-GARCH 모형에서 $\alpha$와 $\beta$가 너무 크게 설정되면(예를 들어 $\alpha + \beta > 1$) 시계열이 정상과정이 되지 못하고, 다음 논의에 따라 분산 과정이 **폭발**(explosive)한다. EWMA처럼 GARCH 모형도 재귀적 형태를 가지므로 다음과 같이 전개할 수 있다.
+GARCH 모형에서 $\alpha + \beta > 1$이면 유한한 비조건부 분산을 갖지 않으며, 분산 과정의 실현 경로가 크게 증가하거나 **폭발**(explosive)할 수 있다. EWMA처럼 GARCH 모형도 재귀적 형태를 가지므로 다음과 같이 전개할 수 있다.
 
 $$
 \begin{aligned}
@@ -412,7 +412,7 @@ $$
 \end{aligned}
 $$ {#eq-garch-ex}
 
-EWMA처럼, $j$가 커질수록 감소하는 가중치 $\alpha \beta^{j-1}$를 과거의 실현 수익률 $r_{n-j}^2$에 곱해 모두 더하는 형태다. $\alpha$와 $\beta$가 커서 가중치 $\alpha \beta^{j-1}$가 $j$에 따라 충분히 빨리 줄지 않으면 $\sigma_n^2$은 발산한다. @fig-non-stationary 는 $\alpha = 0.05$, $\beta = 0.97$로 두어 발산하는 비정상 GARCH 확률과정을 보여준다. 왼쪽에서 $\sigma$가 발산하고, 오른쪽에서 $r$의 절댓값도 발산한다.
+EWMA처럼, $j$가 커질수록 감소하는 가중치 $\alpha \beta^{j-1}$를 과거의 실현 수익률 $r_{n-j}^2$에 곱해 모두 더하는 형태다. $\alpha$와 $\beta$가 커서 가중치 $\alpha \beta^{j-1}$가 $j$에 따라 충분히 빨리 줄지 않으면 $\sigma_n^2$의 값이 크게 증가할 수 있다. @fig-non-stationary 는 $\alpha = 0.05$, $\beta = 0.97$로 두어 분산이 크게 증가하는 GARCH 시뮬레이션 경로를 보여준다. 왼쪽에서는 $\sigma$가, 오른쪽에서는 $r$의 절댓값이 크게 증가하는 모습을 볼 수 있다.
 
 ::: {#fig-non-stationary layout-ncol=2}
 
@@ -420,15 +420,15 @@ EWMA처럼, $j$가 커질수록 감소하는 가중치 $\alpha \beta^{j-1}$를 �
 
 ![$r$의 경로](../../assets/figures/Ch7_non_stationary_r.svg){width=100%}
 
-GARCH(1,1) 모형에서 $\alpha = 0.05$, $\beta = 0.97$로 만든 비정상 시계열
+GARCH(1,1) 모형에서 $\alpha = 0.05$, $\beta = 0.97$로 시뮬레이션한 경로
 
 :::
 
-GARCH 변동성 과정이 정상성 조건 @eq-stationarity1 을 만족하면, GARCH 시계열이 먼 과거($-\infty$)로부터 시작했다고 가정할 수 있고, $\sigma_n^2$의 **비조건부 기댓값**(unconditional expectation)을 계산할 수 있다.
+GARCH 변동성 과정이 $\alpha + \beta < 1$인 @eq-stationarity 의 조건을 만족하면, GARCH 시계열이 먼 과거($-\infty$)로부터 시작했다고 가정할 수 있고, $\sigma_n^2$의 **비조건부 기댓값**(unconditional expectation)을 계산할 수 있다.
 
 ::: {.callout-note title="정리: 비조건부 분산"}
 
-GARCH(1,1) 모형에서 $\sigma_n^2$의 비조건부 기댓값은 다음과 같다.
+위 정의의 GARCH(1,1) 모형이 @eq-stationarity 의 조건 $\alpha + \beta < 1$을 만족하면, $\sigma_n^2$의 비조건부 기댓값은 다음과 같다.
 
 $$
 \mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \alpha - \beta}
@@ -443,7 +443,7 @@ $$
 \mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \beta} + \sum_{j=1}^{\infty} \alpha \beta^{j-1} \mathbb{E}[\sigma_{n-j}^2]
 $$
 
-이고, 정상성 조건을 만족하면 모든 $j$에 대해 $\mathbb{E}[\sigma_{n-j}^2] = \mathbb{E}[\sigma_n^2]$이다. 이를 대입해 정리하면 다음을 얻는다.
+이고, $\alpha + \beta < 1$의 조건 아래에서는 모든 $j$에 대해 $\mathbb{E}[\sigma_{n-j}^2] = \mathbb{E}[\sigma_n^2]$이다. 이를 대입해 정리하면 다음을 얻는다.
 
 $$
 \mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \alpha - \beta}
