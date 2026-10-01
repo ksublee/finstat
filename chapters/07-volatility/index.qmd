@@ -471,10 +471,106 @@ EWMA는 변동성 과정의 모형이 아니므로 시뮬레이션에는 적합�
 
 반면 GARCH 모형은 **평균 복귀**(mean reversion) 성질이 있어, 변동성이 지나치게 작아지거나 커지면 평균 수준인 @eq-uncond-v 로 되돌아가려 한다.
 
-그럼에도 EWMA는 적은 수의 날짜에 대한 시뮬레이션에서는 어느 정도 만족할 만한 결과를 주기 때문에, EWMA 시뮬레이션을 바탕으로 한 역사적 시뮬레이션이 파생상품 거래의 증거금 제도 등 여러 금융 분야에서 활용되기도 한다.
+그럼에도 EWMA는 짧은 기간의 시뮬레이션에서는 어느 정도 만족할 만한 결과를 주기 때문에, EWMA 시뮬레이션을 바탕으로 한 역사적 시뮬레이션이 파생상품 거래의 증거금 제도 등 여러 금융 분야에서 활용되기도 한다.
 :::
 
 실제로 금융 시장의 변동성은 평균 복귀 현상을 보인다. 평균 복귀 성질이란, 확률과정의 값이 평균보다 높으면 평균을 향해 낮아지려 하고 평균보다 낮으면 평균을 향해 높아지려 하는 성질이다. 변동성 자체는 거래되는 대상이 아니라서 변동성이 특정 방향으로 움직이더라도 여기에 영향력을 행사하기는 어렵다. 그러나 변동성이 높거나 낮은 수준에 있다고 해서 그것이 영원히 지속되리라고는 생각하기 어렵다. 시간이 지나면 정상적인 수준으로 수렴하는 현상을 보인다.
+
+### 시뮬레이션
+
+다음은 GARCH(1,1) 모형에 대한 [몬테카를로 시뮬레이션](../../concepts/glossary.qmd#monte-carlo-simulation) R 코드 예제이다. 이 코드로 분산 $\sigma_n^2$, $n = 1, \cdots, 250$을 시뮬레이션한 결과가 @fig-garch-ewma 의 왼쪽에 있다.
+
+```r
+omega <- 10^(-7); alpha <- 0.05; beta <- 0.9
+v <- omega / (1- alpha - beta); r <- 0
+for (n in 2:250){
+  v[n] <- omega + alpha * r[n-1]^2 + beta * v[n-1]
+  r[n] <- sqrt(v[n]) * rnorm(1)
+}
+```
+
+첫 시점의 분산은 @eq-uncond-v 의 비조건부 분산 $\omega / (1 - \alpha - \beta)$로 두고, 매 시점 @eq-garch11 로 다음 분산을 계산한 뒤 그 분산을 갖는 정규분포에서 수익률을 뽑는다. @tbl-garch-sim-steps 의 절차를 그대로 옮긴 것이다.
+
+비슷하게 EWMA 모형에 대한 코드이다. 이 코드로 분산 $\sigma^2$을 시뮬레이션한 결과가 @fig-garch-ewma 의 오른쪽에 있다. GARCH(1,1) 모형과 달리 시간에 따라 0에 수렴해 가는 모양을 띠고 있다.
+
+```r
+lambda <- 0.94
+v <- 2*10^(-6); r <- 0
+for (n in 2:250){
+  v[n] <- (1 - lambda) * r[n-1]^2 + lambda * v[n-1]
+  r[n] <- sqrt(v[n]) * rnorm(1)
+}
+```
+
+::: {#fig-garch-ewma layout-ncol=2}
+
+![GARCH(1,1)](../../assets/figures/Ch7_GARCH.svg){width=100%}
+
+![EWMA](../../assets/figures/Ch7_EWMA.svg){width=100%}
+
+GARCH(1,1) 모형을 이용한 분산 시뮬레이션과 EWMA를 이용한 분산 시뮬레이션
+
+:::
+
+그림은 한 번의 시뮬레이션 결과이므로 난수에 따라 모양이 달라진다. EWMA 분산이 0으로 가는 것은 장기적인 경향이어서, 250기간 정도의 짧은 경로에서는 처음보다 커진 채 끝나기도 한다.
+
+GARCH 모형은 자기상관함수의 관점에서 실제 금융 수익률 시계열의 특징을 잘 설명한다.
+
+::: {.callout-note}
+## 자기상관함수(ACF)
+
+정상 시계열 $X_t$의 **자기공분산**(autocovariance)과 **자기상관함수**(autocorrelation function, ACF)는 다음과 같이 정의된다.
+
+$$
+\gamma(h) = \mathrm{cov}(X_t, X_{t-h}), \quad \rho(h) = \frac{\gamma(h)}{\gamma(0)}
+$$
+:::
+
+자기상관함수는 시계열의 각 값이 이전 값과 평균적으로 얼마나 상관되어 있는지를 잰다. 정의에 정상성이 들어간 이유는 자기상관함수가 두 시점 사이의 거리 $h$에만 의존하고 $t$에는 의존하지 않게 하기 위해서다.
+
+금융 수익률 시계열에서는 일반적으로 자기상관함수의 값이 $h = 0$을 제외한 시차에서 0에 가깝다. 그러나 수익률의 절댓값이나 제곱으로 이루어진 시계열은 양의 자기상관을 가진다. @fig-acf-r 의 왼쪽은 S&P 500 지수 수익률 시계열로 계산한 표본 ACF이고, 오른쪽은 수익률의 절댓값으로 계산한 ACF이다. 수익률 시계열 자체는 $h = 0$을 제외하면 자기상관계수가 거의 0이지만, 절댓값 시계열은 유의미하게 0보다 큰 양의 자기상관계수를 가지며 $h$가 커질수록 서서히 감소한다.
+
+::: {#fig-acf-r layout-ncol=2}
+
+![수익률](../../assets/figures/Ch7_ACF_r.svg){width=100%}
+
+![수익률의 절댓값](../../assets/figures/Ch7_ACF_abs_r.svg){width=100%}
+
+S&P 500 수익률 시계열의 ACF와 절댓값 시계열의 ACF
+
+:::
+
+GARCH 모형으로 생성한 수익률 시계열도 비슷한 성질을 가진다. @fig-acf-garch 의 왼쪽은 GARCH 모형 시뮬레이션으로 생성한 수익률 시계열의 ACF이고, 오른쪽은 그 절댓값으로 계산한 ACF이다. @fig-acf-r 과 비슷한 형태의 ACF를 관찰할 수 있다. 모수는 $\omega = 10^{-7}$, $\alpha = 0.07$, $\beta = 0.92$로 두었다.
+
+::: {#fig-acf-garch layout-ncol=2}
+
+![수익률](../../assets/figures/Ch7_ACF_GARCH.svg){width=100%}
+
+![수익률의 절댓값](../../assets/figures/Ch7_ACF_abs_GARCH.svg){width=100%}
+
+GARCH 수익률 시계열의 ACF와 절댓값 시계열의 ACF
+
+:::
+
+@fig-acf-garch 는 다음 코드로 만들 수 있다. 코드에서 `beta <- 0.99 - alpha`로 두었으므로 $\beta = 0.92$이다.
+
+```r
+omega <- 10^(-7); alpha <- 0.07; beta <- 0.99 - alpha
+v <- omega / (1 - alpha - beta); r <- 0
+
+for (i in 2:5000){
+  v[i] <- omega + alpha * r[i-1]^2 + beta * v[i-1]
+  r[i] <- sqrt(v[i]) * rnorm(1)
+}
+
+ac_return <- acf(r, plot = FALSE)
+plot(ac_return, main = "ACF of GARCH return series")
+
+ac_abs <- acf(abs(r), plot = FALSE)
+plot(ac_abs, main = "ACF of absolute GARCH return series")
+```
+
+난수를 쓰므로 실행할 때마다 ACF 값이 조금씩 달라진다.
 
 ## 관련 페이지
 
