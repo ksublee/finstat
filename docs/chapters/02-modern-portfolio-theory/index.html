@@ -398,7 +398,17 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#증권시장선" id="toc-증권시장선" class="nav-link" data-scroll-target="#증권시장선"><span class="header-section-number">2.5.1</span> 증권시장선</a></li>
   <li><a href="#균형-상태-이론" id="toc-균형-상태-이론" class="nav-link" data-scroll-target="#균형-상태-이론"><span class="header-section-number">2.5.2</span> 균형 상태 이론</a></li>
+  <li><a href="#체계적-비체계적-위험" id="toc-체계적-비체계적-위험" class="nav-link" data-scroll-target="#체계적-비체계적-위험"><span class="header-section-number">2.5.3</span> 체계적, 비체계적 위험</a></li>
+  <li><a href="#실증적-방법" id="toc-실증적-방법" class="nav-link" data-scroll-target="#실증적-방법"><span class="header-section-number">2.5.4</span> 실증적 방법</a></li>
+  <li><a href="#성과지표-performance-indices" id="toc-성과지표-performance-indices" class="nav-link" data-scroll-target="#성과지표-performance-indices"><span class="header-section-number">2.5.5</span> 성과지표 (Performance indices)</a></li>
   </ul></li>
+  <li><a href="#다른-가격-결정-이론" id="toc-다른-가격-결정-이론" class="nav-link" data-scroll-target="#다른-가격-결정-이론"><span class="header-section-number">2.6</span> 다른 가격 결정 이론</a>
+  <ul class="collapse">
+  <li><a href="#arbitrage-pricing-theory-apt" id="toc-arbitrage-pricing-theory-apt" class="nav-link" data-scroll-target="#arbitrage-pricing-theory-apt"><span class="header-section-number">2.6.1</span> Arbitrage Pricing Theory (APT)</a></li>
+  <li><a href="#실증적-다요인-모형" id="toc-실증적-다요인-모형" class="nav-link" data-scroll-target="#실증적-다요인-모형"><span class="header-section-number">2.6.2</span> 실증적 다요인 모형</a></li>
+  <li><a href="#효율적-시장-가설" id="toc-효율적-시장-가설" class="nav-link" data-scroll-target="#효율적-시장-가설"><span class="header-section-number">2.6.3</span> 효율적 시장 가설</a></li>
+  </ul></li>
+  <li><a href="#마무리" id="toc-마무리" class="nav-link" data-scroll-target="#마무리"><span class="header-section-number">2.7</span> 마무리</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/02-modern-portfolio-theory/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -2579,6 +2589,422 @@ S_A(0)
 <p>두 접근법의 차이는 무엇을 외생변수로, 무엇을 내생변수로 보느냐의 차이일 뿐, 균형 상태에서 도출되는 증권시장선의 관계식은 동일하다.</p>
 <p>균형 상태에서 모든 시장 참가자들은 시장 포트폴리오와 무위험자산의 조합으로 개개인의 투자를 구성하게 된다.</p>
 <p>자세한 내용은 <span class="citation" data-cites="Pennacchi">Pennacchi (<a href="#ref-Pennacchi" role="doc-biblioref">2008년</a>)</span> 와 <span class="citation" data-cites="Cochrane">Cochrane (<a href="#ref-Cochrane" role="doc-biblioref">2009년</a>)</span> 을 참고하라.</p>
+</section>
+<section id="체계적-비체계적-위험" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="체계적-비체계적-위험"><span class="header-section-number">2.5.3</span> 체계적, 비체계적 위험</h3>
+<p>증권시장선은 자산들의 기대 수익률 간의 관계식이다. 증권시장선의 관계를 확률 식의 관점에서 다시 살펴보자. 시장 포트폴리오의 수익률 <span class="math inline">\(R_M\)</span>과 개별 자산 (혹은, 어떤 또다른 포트폴리오) <span class="math inline">\(i\)</span>의 수익률 <span class="math inline">\(R_i\)</span>간에 다음 선형 확률 모형을 따른다고 가정하자.</p>
+<p><span id="eq-linear"><span class="math display">\[
+R_i = a + \beta R_M + \varepsilon_i.
+\tag{2.9}\]</span></span></p>
+<p>여기서 <span class="math inline">\(R_M\)</span>과 <span class="math inline">\(\varepsilon_i\)</span>의 상관관계가 0이라고 가정한다. 입력변수 <span class="math inline">\(R_M\)</span>이 확률변수이기 때문에 이를 랜덤 설계 (random design) 선형회귀 모형이라고 한다. 그리고 다음을 최소화하는 <span class="math inline">\(a\)</span>와 <span class="math inline">\(\beta\)</span>를 찾는 최소제곱법 문제를 생각해 보자.</p>
+<p><span class="math display">\[
+\mathbb{E}[\varepsilon_i^2]
+=
+\mathbb{E}[R_i^2]
+-2\beta\mathbb{E}[R_iR_M]
++\beta^2\mathbb{E}[R_M^2]
++a^2
+-2a\mathbb{E}[R_i]
++2a\beta\mathbb{E}[R_M].
+\]</span></p>
+<p>위 식에서 <span class="math inline">\(\mathbb{E}[\varepsilon^2]\)</span>는 <span class="math inline">\(a\)</span>와 <span class="math inline">\(\beta\)</span>에 대한 2차 함수이며, <span class="math inline">\(a^2\)</span>과 <span class="math inline">\(\beta^2\)</span>의 계수가 모두 양수이므로, 극소값을 가진다. <span class="math inline">\(\mathbb{E}[\varepsilon_i^2]\)</span>가 극소값을 가지는 위치를 <span class="math inline">\(a=a_i\)</span>와 <span class="math inline">\(\beta=\beta_i\)</span>라고 하면 다음으로 표현할 수 있다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\frac{\textrm{d}\mathbb{E}[\varepsilon_i^2]}{\textrm{d}a}
+(a=a_i,\beta=\beta_i)
+=
+2a_i-2\mathbb{E}[R_i]+2\beta_i\mathbb{E}[R_M]
+=0, \\
+&amp;\frac{\textrm{d}\mathbb{E}[\varepsilon_i^2]}{\textrm{d}\beta}
+(a=a_i,\beta=\beta_i)
+=
+-2\mathbb{E}[R_iR_M]
++2\beta_i\mathbb{E}[R_M^2]
++2a_i\mathbb{E}[R_M]
+=0.
+\end{aligned}
+\]</span></p>
+<p>다음을 이용하여</p>
+<p><span class="math display">\[
+\operatorname{Cov}(R_i,R_M)
+=
+\mathbb{E}[R_iR_M]-\mu_i\mu_M,
+\quad
+\sigma_M^2
+=
+\mathbb{E}[R_M^2]-\mu_M^2
+\]</span></p>
+<p>위 식을 정리하면,</p>
+<p><span class="math display">\[
+\beta_i
+=
+\frac{\mathrm{Cov}(R_i,R_M)}{\sigma_M^2},
+\qquad
+a_i=\mu_i-\beta_i\mu_M
+\]</span></p>
+<p>으로 앞에서 살펴본 <span class="math inline">\(\beta\)</span>의 정의를 얻는다. 위의 모집단 최소제곱 문제의 해는 표본에서의 단순 선형 회귀, 즉 OLS 추정량과 동일한 형태를 가진다. 다시 말해, CAPM의 <span class="math inline">\(\beta_i\)</span>는 <span class="math inline">\(R_i\)</span>를 <span class="math inline">\(R_M\)</span>에 회귀시켰을 때의 회귀계수와 같다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Remark">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>Remark
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>식 <a href="#eq-linear" class="quarto-xref">방정식&nbsp;<span>2.9</span></a> 의 타당성을 살펴보기 위해, 예를 들어, <span class="math inline">\(R_M\)</span>과 <span class="math inline">\(R_i\)</span>가 이변량 정규분포를 따른다고 가정해 보자. CAPM 모형에서는 자산 수익률들의 정규분포를 가정하기 때문에, <span class="math inline">\(R_M\)</span>과 <span class="math inline">\(R_i\)</span>가 이변량 정규분포를 따른다고 가정하는 것은 자연스럽다.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> 만약, 두 확률변수 <span class="math inline">\(R_M\)</span>과 <span class="math inline">\(R_i\)</span>가 이변량 정규분포를 따른다면, 서로 독립인 표준정규 확률변수 <span class="math inline">\(Z_1\)</span>과 <span class="math inline">\(Z_2\)</span>가 존재하여, 다음을 만족함이 알려져 있다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+R_M &amp;= \sigma_M Z_1+\mu_M, \\
+R_i &amp;= \sigma_i
+\left(\rho Z_1+\sqrt{1-\rho^2}Z_2\right)+\mu_i.
+\end{aligned}
+\]</span></p>
+<p>여기서</p>
+<p><span class="math display">\[
+Z_1=\frac{R_M-\mu_M}{\sigma_M}
+\]</span></p>
+<p>을 이용하여 <span class="math inline">\(R_i\)</span>에 대해 정리하면,</p>
+<p><span class="math display">\[
+R_i
+=
+\underbrace{
+\mu_i-\frac{\operatorname{Cov}(R_i,R_M)}{\sigma_M^2}\mu_M
+}_{a_i}
++
+\underbrace{
+\frac{\operatorname{Cov}(R_i,R_M)}{\sigma_M^2}
+}_{\beta_i}R_M
++
+\underbrace{
+\sigma_i\sqrt{1-\rho^2}Z_2
+}_{\varepsilon_i}
+\]</span></p>
+<p>를 얻을 수 있고, 위 식에서 <span class="math inline">\(\sigma_i\sqrt{1-\rho^2}Z_2\)</span>가 식 <a href="#eq-linear" class="quarto-xref">방정식&nbsp;<span>2.9</span></a> 의 <span class="math inline">\(\varepsilon_i\)</span>에 해당한다. 그리고, <span class="math inline">\(R_M\)</span>과 <span class="math inline">\(Z_2\)</span>가 독립이므로, <span class="math inline">\(R_M\)</span>과 <span class="math inline">\(\varepsilon_i\)</span> 또한 독립이다.</p>
+</div>
+</div>
+<p>식 <a href="#eq-linear" class="quarto-xref">방정식&nbsp;<span>2.9</span></a> 의 양변에 분산을 적용하면 다음의 결과를 얻을 수 있다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: Systematic and diversifiable risk">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: Systematic and diversifiable risk
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>개별 자산 혹은 포트폴리오의 분산은 다음과 같이 나타낼 수 있다.</p>
+<p><span class="math display">\[
+\sigma_i^2
+=
+\operatorname{Var}(\varepsilon_i)+\beta_i^2\sigma_M^2
+\]</span></p>
+<p>여기서</p>
+<ul>
+<li><span class="math inline">\(\operatorname{Var}(\varepsilon_i)\)</span>는 분산 가능한 리스크 (diversifiable risk<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a>)이다. 시장 포트폴리오의 경우 <span class="math inline">\(\operatorname{Var}(\varepsilon_M)=0\)</span>이다. 개별 증권의 경우 이 리스크는 시장 포트폴리오를 구성함으로써 분산 투자하여 제거할 수 있는 리스크이다.</li>
+<li><span class="math inline">\(\beta_i^2\sigma_M^2\)</span>는 체계적 리스크 (systematic risk) 혹은 분산 불가능한 리스크 (undiversifiable risk)라고 한다. 시장 포트폴리오에는 체계적 리스크만 존재하며 <span class="math inline">\(\beta_M=1\)</span>이다.</li>
+</ul>
+<p>베타는 개별 자산 혹은 포트폴리오의 체계적 리스크의 크기를 측정한다.</p>
+</div>
+</div>
+<p>분산 가능한 리스크는 추가적인 리스크 프리미엄을 요구하지 않는다. 분산 투자를 통해 상쇄할 수 있는 위험이라 판단하며, CAPM에서 분산 가능한 리스크인 <span class="math inline">\(\operatorname{Var}(\varepsilon_i)\)</span>는 개별 자산의 가격에 영향을 미치지 않는다. 따라서, <span class="math inline">\(\beta_i\)</span>는 개별 자산 혹은 포트폴리오의 기대 수익률 <span class="math inline">\(\mu_i\)</span>과 중요한 관계를 지닌다. 결국 <span class="math inline">\(\beta_i(\mu_M-r_F)\)</span>는 리스크 프리미엄으로 체계적 리스크로의 노출에 따른 보상을 의미한다.</p>
+<p>만약 시장이 균형 상태에 있고, 이 균형 상태가 지속된다고 가정해 보자. 이 가정 하에서는 CAPM 이론에 따라 모든 투자자들은 CAPM에서 규정한 리스크-수익 관계를 넘어서는 초과 수익을 거두지 못한다. 다시 말해 모든 효율적 투자 대상들은 자본시장선 위에서만 존재할 것이다.</p>
+<p>물론, 실제 세상에서는 항상 새로운 사건이 발생하고, 사건의 여파는 균형 상태를 벗어나게 한다. 투자자들은 새로운 정보를 바탕으로 기존에 있던 자산의 기대 수익률과 분산, 공분산을 새롭게 책정할 것이다. 만약 새롭게 계산된 값을 바탕으로 증권시장선에 대입했을 때, 이 자산이 리스크에 따른 충분한 보상을 제공하지 못하고 있다고 생각되면, 즉,</p>
+<p><span class="math display">\[
+\mu_i&lt;r_F+\beta_i(\mu_M-r_F)
+\]</span></p>
+<p>라면, 이 자산을 매도하려고 할 것이며, 이 자산의 공급은 늘어나고, 결과적으로 가격이 떨어져 기대 수익률이 올라가게 된다. 또한 어떤 자산이 리스크 프리미엄보다 과도한 수익을 제공한다고 판단되면, 이 자산에 대한 수요가 늘어나고 결과적으로 가격이 상승하여 기대 수익률은 조정된다.</p>
+</section>
+<section id="실증적-방법" class="level3" data-number="2.5.4">
+<h3 data-number="2.5.4" class="anchored" data-anchor-id="실증적-방법"><span class="header-section-number">2.5.4</span> 실증적 방법</h3>
+<p>접점 포트폴리오에 대한 정리의 결과식 <a href="#eq-wm" class="quarto-xref">방정식&nbsp;<span>2.5</span></a> 은 단순해 보이지만, 공분산 행렬의 역행렬 계산이 필요하므로 계산 비용이 크다. 또한 공분산 행렬을 추정하는 작업은 간단하지 않으며, 정확한 추정치를 보장하기 힘들다. 실증 분석에서는 시장 포트폴리오를 이론적 가중치를 이용하여 구성하기 보다는 실제 존재하는 포트폴리오, 즉, 현실에서 관측 가능한 대용 포트폴리오 (proxy portfolio)로 대체하여 활용한다.</p>
+<p>대표적인 예시는 미국의 S&amp;P 500 지수, 영국의 FTSE 100, 유럽의 Euro Stoxx 50, 그리고 우리나라의 KOSPI 지수와 같은 주가지수를 추종하는 인덱스 펀드<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>이다. 이러한 실증적 방법으로 개별 자산의 리스크를 계산할 때, 식 <a href="#eq-var-cov" class="quarto-xref">방정식&nbsp;<span>2.2</span></a> 처럼 자본 시장 내에 존재하는 모든 자산들 간의 공분산을 계산할 필요가 없다. 관심있는 자산과 시장 포트폴리오의 프록시 (proxy) 포트폴리오, 예를 들어 주가지수와의 관계를 살펴보면 된다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Remark">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>Remark
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>주가지수는 보통 시가총액 가중 방식이나 가격 가중 방식을 사용하여 계산된다. 예를 들어, S&amp;P 500 지수는 500개 대형 상장 기업의 시가총액 (<span class="math inline">\(=\text{주가}\times\text{유통 주식 수}\)</span>)을 계산하여 모두 합한 후, 지수 산출을 위한 조정 계수(divisor)로 나누어 계산된다. 인덱스 펀드는 이러한 주가지수를 추종하는 투자 상품으로, 특정 지수의 구성 종목과 동일한 비율로 주식을 보유하여 지수의 수익률을 복제하려고 한다.</p>
+</div>
+</div>
+<p>실증 분석에서는 개별 자산 <span class="math inline">\(i\)</span>의 <span class="math inline">\(\beta_i\)</span>는 자산들의 수익률 분포가 일정한 통계적 성질을 가진다는 가정하에, 실현된 수익률 자료를 바탕으로 다음의 선형 모형을 통해 살펴볼 수 있다<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a>.</p>
+<p><span id="eq-linear-capm"><span class="math display">\[
+R_{i,t}-r_{F,t}
+=
+\alpha_i+\beta_i(R_{M,t}-r_{F,t})+\varepsilon_t,
+\quad t=1,2,\cdots
+\tag{2.10}\]</span></span></p>
+<p>위 식은 기댓값으로 이루어진 식이 아니라 확률변수들로 구성한 식임을 살펴보라. 여기서 <span class="math inline">\(t\)</span>는 시간 인덱스 (index)이며, 식 <a href="#eq-sml" class="quarto-xref">방정식&nbsp;<span>2.8</span></a> 의 <span class="math inline">\(r_F\)</span>, <span class="math inline">\(\mu_i\)</span>와 <span class="math inline">\(\mu_M\)</span> 대신, 시점 <span class="math inline">\(t\)</span>에서 관찰된 <span class="math inline">\(r_{F,t}\)</span>, <span class="math inline">\(R_{i,t}\)</span>와 <span class="math inline">\(R_{M,t}\)</span>를 각각 이용한 것을 볼 수 있다. CAPM이 정확하다면, 균형 상태에서 <span class="math inline">\(\alpha_i=0\)</span>이어야 하며, 실증 분석에서는 이 값이 통계적으로 유의한지를 검정한다. <a href="#fig-beta" class="quarto-xref">그림&nbsp;<span>2.6</span></a> 은 이러한 분석에 대한 가상의 예를 보여준다.</p>
+<div id="fig-beta" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch2_empirical_beta.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;2.6: An example of empirical beta estimation using excess returns
+</figcaption>
+</figure>
+</div>
+<p>CAPM은 시장 내의 모든 금융 자산의 리스크 프리미엄이 오직 자산의 <span class="math inline">\(\beta\)</span>로만 결정되고, 이 <span class="math inline">\(\beta\)</span>는 오로지 시장 포트폴리오와의 관계에 의해서만 정해진다는 매우 단순한 결론을 가지고 있다. 이러한 간단한 결론은 실증 연구 결과와 완전히 들어맞지는 않는다. 그럼에도 불구하고 CAPM 모형은 자본 시장의 구조에 대한 중요한 직관을 제공한다는 점에서 여전히 가치가 있다. 첫째, 리스크는 특정 자산을 분리한 채로 고려하는 것이 아니라, 다른 자산들과의 상호 움직임으로 판단해야 한다는 것이다. 둘째, 비록 시장이 급격하게 변하는 특정 상황에서는 CAPM이 잘 들어맞지 않더라도, 평상시에는 근사적으로 시장의 움직임을 설명한다는 실용적 가치가 있다.</p>
+</section>
+<section id="성과지표-performance-indices" class="level3" data-number="2.5.5">
+<h3 data-number="2.5.5" class="anchored" data-anchor-id="성과지표-performance-indices"><span class="header-section-number">2.5.5</span> 성과지표 (Performance indices)</h3>
+<p>앞서 설명한 바와 같이 시장의 균형 상태는 매순간 조정되고 있기 때문에, 매 시점마다 특정 자산의 성능, 즉 리스크에 대한 충분한 프리미엄을 제공하고 있는지를 평가하는 수단이 있으면 좋을 것이다. 이 절에서는 몇 가지 performance index들을 알아본다. 이러한 index들은 다음과 같은 공통점을 시사한다. 더 높은 평균 수익률을 얻기 위해서는 더 높은 리스크를 감당해야 한다.</p>
+<section id="sharpe-performance-index" class="level4" data-number="2.5.5.1">
+<h4 data-number="2.5.5.1" class="anchored" data-anchor-id="sharpe-performance-index"><span class="header-section-number">2.5.5.1</span> Sharpe performance index</h4>
+<p>앞에서 살펴봤듯이, 자본시장선은</p>
+<p><span class="math display">\[
+\mu=r_F+\frac{\mu_M-r_F}{\sigma_M}\sigma
+\]</span></p>
+<p>이며, 여기서 기울기 <span class="math inline">\(\frac{\mu_M-r_F}{\sigma_M}\)</span>는 단위 변동성에 따른 초과 기대 수익을 의미한다. 이와 같은 관점에서, 특정 포트폴리오 혹은 자산 <span class="math inline">\(I\)</span>의 Sharpe performance index 혹은 Sharpe ratio는 다음과 같다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: Sharpe performance index">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: Sharpe performance index
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\mathrm{SPI}
+=
+\frac{\mathbb{E}[R_I]-r_F}{\sigma_I}
+\]</span></p>
+</div>
+</div>
+<p>여기서 <span class="math inline">\(\sigma_I\)</span>는 자산 <span class="math inline">\(I\)</span>의 수익률 분포의 표준편차이며, 위 식은 주어진 리스크 수준에서 포트폴리오가 얼마나 효율적으로 수익을 창출하는지 나타낸다. CAPM 이론에서는 시장 포트폴리오가 가장 Sharpe ratio가 높은 포트폴리오이다. <span class="citation" data-cites="sharpe1994">Sharpe (<a href="#ref-sharpe1994" role="doc-biblioref">1994년</a>)</span> 에서는 조금 다르게 초과 수익률에 대한 표준편차</p>
+<p><span class="math display">\[
+\sqrt{\operatorname{Var}(R_I-R_f)}
+\]</span></p>
+<p>를 분모로 하여 지수를 정의하기도 하였다. 실증적 관점에서 만약 Sharpe ratio가 자본시장선의 기울기인 <span class="math inline">\(\frac{\mu_M-r_F}{\sigma_M}\)</span>보다 크면 시장 균형 상태에서 기대했던 수익보다 우월한 성능을 나타냄을 의미하고, 기울기보다 작으면 떨어지는 성능을 의미한다.</p>
+</section>
+<section id="treynor-performance-index" class="level4" data-number="2.5.5.2">
+<h4 data-number="2.5.5.2" class="anchored" data-anchor-id="treynor-performance-index"><span class="header-section-number">2.5.5.2</span> Treynor performance index</h4>
+<p>Treynor performance index (TPI)는 다음과 같이 정의된다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정의: Treynor performance index">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정의: Treynor performance index
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\mathrm{TPI}
+=
+\frac{\mathbb{E}[R_I]-r_F}{\beta_I}
+\]</span></p>
+</div>
+</div>
+<p>SPI와는 다르게 분모에서 <span class="math inline">\(\sigma_I\)</span> 대신 <span class="math inline">\(\beta_I\)</span>를 사용하며, 이는 베타 자체가 체계적 리스크를 나타내는 리스크 측도(risk measure)로서 널리 사용되기 때문이다.</p>
+<p>CAPM에 따르면</p>
+<p><span class="math display">\[
+\mathbb{E}[R_I]
+=
+r_F+\beta_I(\mathbb{E}[R_M]-r_F)
+\]</span></p>
+<p>이며, 따라서,</p>
+<p><span class="math display">\[
+\mathrm{TPI}
+=
+\frac{\mathbb{E}[R_I]-r_F}{\beta_I}
+=
+\mathbb{E}[R_M]-r_F
+\]</span></p>
+<p>이다. 즉, CAPM의 가정 하에서는 시장 균형상태에서 모든 위험자산의 TPI는 동일할 것이다. 식 <a href="#eq-linear-capm" class="quarto-xref">방정식&nbsp;<span>2.10</span></a> 의 관점에서 보면, <span class="math inline">\(\mathbb{E}[R_M]-r_F\)</span>보다 큰 TPI를 가지면 양의 알파 (alpha)를 가진다 (superior performance)고 표현하고, 작은 TPI를 가지면 음의 알파 (alpha)를 가진다 (inferior performance)고 표현한다.</p>
+</section>
+<section id="jensens-performance-index" class="level4" data-number="2.5.5.3">
+<h4 data-number="2.5.5.3" class="anchored" data-anchor-id="jensens-performance-index"><span class="header-section-number">2.5.5.3</span> Jensen’s performance index</h4>
+<p>Jensen’s performance index (JPI) 또한 투자자가 분산 투자된 자산을 취하고 있다고 가정한다. 다음의 선형 모형을 생각해 보자.</p>
+<p><span id="eq-jensen"><span class="math display">\[
+R_{I,t}-r_{F,t}
+=
+\alpha_I+\beta_I(R_{M,t}-r_{F,t})+\varepsilon_{I,t}
+\tag{2.11}\]</span></span></p>
+<p>위 식은 시계열 회귀식으로 과거에 관찰된 시장 포트폴리오와 포트폴리오 <span class="math inline">\(I\)</span>의 수익률을 이용하여 모수들인 <span class="math inline">\(\alpha_I\)</span>, <span class="math inline">\(\beta_I\)</span>를 추정할 수 있다. CAPM에 따르면 균형 상태에서 <span class="math inline">\(\alpha_I=0\)</span>이나, 실증적 연구에 있어 <span class="math inline">\(\alpha_I\)</span>의 추정치가 항상 0이 되는 것은 아니다. JPI 혹은 Jensen’s alpha는 추정된 <span class="math inline">\(\hat\alpha\)</span>를 살펴본다. 만약 <span class="math inline">\(\hat\alpha\)</span>가 유의미하게 0보다 크다면, <span class="math inline">\(I\)</span>의 성능이 우월하다는 것이고, 유의미하게 음의 값이 나오면, <span class="math inline">\(I\)</span>의 성능이 떨어진다는 것이다.</p>
+<p>식 <a href="#eq-jensen" class="quarto-xref">방정식&nbsp;<span>2.11</span></a> 의 양변을 <span class="math inline">\(\beta_I\)</span>로 나누고 기댓값을 취하면,</p>
+<p><span class="math display">\[
+\frac{\mathbb{E}[R_I]-r_F}{\beta_I}
+=
+\frac{\alpha_I}{\beta_I}+\mathbb{E}[R_M]-r_F
+\]</span></p>
+<p>을 얻는다. 여기서 <span class="math inline">\(r_F=\mathbb{E}[r_{F,t}]\)</span>로 가정하였다. 따라서, <span class="math inline">\(\beta_I&gt;0\)</span>의 경우 (많은 자산의 경우 이에 해당할 것이다) TPI 방법에서 양의 alpha를 가졌다는 것은 양의 JPI와 동치이며, TPI 방법에서 음의 alpha는 음의 JPI를 의미한다.</p>
+</section>
+</section>
+</section>
+<section id="다른-가격-결정-이론" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="다른-가격-결정-이론"><span class="header-section-number">2.6</span> 다른 가격 결정 이론</h2>
+<section id="arbitrage-pricing-theory-apt" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="arbitrage-pricing-theory-apt"><span class="header-section-number">2.6.1</span> Arbitrage Pricing Theory (APT)</h3>
+<p><span class="citation" data-cites="ROSS1976">Ross (<a href="#ref-ROSS1976" role="doc-biblioref">1976년</a>)</span> 의 Arbitrage Pricing Theory (APT)는 CAPM의 이론적 대안으로 잘 알려져 있으며, CAPM과 흡사한 구조를 가진다. 그러나 APT는 CAPM보다 리스크 요인을 더 유연하게, 더 일반적으로 설명할 수 있다. 이름에서 알 수 있듯이, APT는 <strong>차익거래 부재(no-arbitrage)</strong>를 핵심 가정으로 삼는 이론으로, CAPM이 요구하는 시장 균형 상태나 수익률의 정규성 같은 강한 가정을 필요로 하지 않는다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="차익거래 부재">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>차익거래 부재
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>차익거래(arbitrage)란 아무런 초기 투자 없이, 손실 위험도 없이 양(+)의 수익을 얻는 거래를 말한다. 예를 들어 동일한 자산이 두 시장에서 서로 다른 가격에 거래된다면, 싼 곳에서 사서 비싼 곳에서 파는 것만으로 무위험 수익을 얻을 수 있다. 현실에서 이런 기회가 발생하면 투자자들이 즉시 이를 활용하여 가격 차이가 사라지므로, 균형 시장에서는 차익거래 기회가 존재하지 않는다고 보는 것이 합리적이다. APT는 이보다 약간 완화된 조건인 <strong>점근적 차익거래 부재</strong>를 사용한다. 이는 자산의 수가 충분히 많아질 때, 잘 분산된 포트폴리오를 이용한 차익거래 기회가 사라진다는 조건으로, 이로부터 자산의 기대 수익률 구조를 도출한다.</p>
+</div>
+</div>
+<section id="요인-모형-수익률의-확률적-구조" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="요인-모형-수익률의-확률적-구조">요인 모형: 수익률의 확률적 구조</h4>
+<p>APT는 자산 수익률이 공통 리스크 요인들의 선형 결합으로 설명된다고 가정하는 것에서 출발한다. 요인 <span class="math inline">\(F\)</span>에 대해 자산 <span class="math inline">\(i\)</span>의 수익률은 다음과 같이 분해된다.</p>
+<p><span id="eq-factor"><span class="math display">\[
+R_i
+=
+\mu_i+\beta_i\bigl(F-\mathbb{E}[F]\bigr)+\varepsilon_i
+\tag{2.12}\]</span></span></p>
+<p>여기서 <span class="math inline">\(\mu_i=\mathbb{E}[R_i]\)</span>는 기대 수익률, <span class="math inline">\(\beta_i\)</span>는 요인 <span class="math inline">\(F\)</span>에 대한 <strong>민감도(factor loading)</strong>, <span class="math inline">\(\varepsilon_i\)</span>는 자산 고유의 <strong>비체계적 리스크(idiosyncratic risk)</strong>이다. <span class="math inline">\(\varepsilon_i\)</span>는 평균이 0이며, 요인 <span class="math inline">\(F\)</span>와 독립이고, 자산 간에도 서로 독립이라고 가정한다.</p>
+<p>이 식은 수익률의 <em>확률적 변동</em>에 관한 가정이며, 기대 수익률 <span class="math inline">\(\mu_i\)</span>가 어떤 값을 가져야 하는지에 대해서는 아직 아무것도 말하지 않는다. 식 <a href="#eq-factor" class="quarto-xref">방정식&nbsp;<span>2.12</span></a> 에서 기대값을 취하면 양변이 <span class="math inline">\(\mu_i=\mu_i\)</span>로 항등식이 되어, <span class="math inline">\(\mu_i\)</span>는 요인 구조와 독립적으로 자유롭게 남아 있음을 확인할 수 있다.</p>
+<p>CAPM과 비슷하게 APT에서도 식 <a href="#eq-factor" class="quarto-xref">방정식&nbsp;<span>2.12</span></a> 에 따라 자산의 리스크는 두 부분으로 나뉜다.</p>
+<ul>
+<li><strong>체계적 리스크</strong>: 공통 요인 <span class="math inline">\(F\)</span>에 의해 설명되는 부분 <span class="math inline">\(\bigl(\beta_i^2\cdot\mathrm{Var}(F)\bigr)\)</span></li>
+<li><strong>비체계적 리스크</strong>: 자산 고유의 변동성 <span class="math inline">\(\bigl(\mathrm{Var}(\varepsilon_i)\bigr)\)</span>, 분산투자를 통해 거의 제거 가능</li>
+</ul>
+</section>
+<section id="점근적-차익거래-부재와-apt-가격결정식" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="점근적-차익거래-부재와-apt-가격결정식">점근적 차익거래 부재와 APT 가격결정식</h4>
+<p>자산 수 <span class="math inline">\(n\)</span>이 충분히 클 때, 잘 분산된 포트폴리오에서는 비체계적 리스크 <span class="math inline">\(\varepsilon_i\)</span>들이 서로 상쇄되어 거의 사라진다. 따라서 포트폴리오의 리스크는 결국 요인 노출 <span class="math inline">\(\beta_i\)</span>만으로 결정되며, <strong>비체계적 리스크는 시장에서 보상받지 못한다</strong>. <span class="citation" data-cites="ROSS1976">Ross (<a href="#ref-ROSS1976" role="doc-biblioref">1976년</a>)</span> 에 따르면, <strong>점근적 차익거래 부재(asymptotic no-arbitrage)</strong> 조건으로부터, 자산 <span class="math inline">\(i\)</span>의 기대 수익률은 근사적으로 다음을 만족한다.</p>
+<p><span id="eq-apt1"><span class="math display">\[
+\mu_i
+\approx
+r_F+\beta_i\lambda_F
+\tag{2.13}\]</span></span></p>
+<p>여기서 <span class="math inline">\(\beta_i\)</span>는 자산 <span class="math inline">\(i\)</span>의 요인 민감도이고, <span class="math inline">\(\lambda_F\)</span>는 요인 <span class="math inline">\(F\)</span>에 대한 <strong>위험 프리미엄(risk premium)</strong>이다. 따라서 동일한 요인 민감도를 가진 자산들은 근사적으로 동일한 기대 수익률을 갖는다.</p>
+</section>
+<section id="capm과의-관계" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="capm과의-관계">CAPM과의 관계</h4>
+<p>앞에서 살펴본 CAPM에서는 시장 포트폴리오에 대한 베타가 자산의 기대 수익률을 결정하였다. APT의 요인 <span class="math inline">\(F\)</span>로 시장 포트폴리오 수익률 <span class="math inline">\(R_M\)</span>을 선택하고, 이 시장 요인만이 가격에 반영된다고 가정해 보자. 시장 포트폴리오 자체의 베타는 1이므로 요인의 위험 프리미엄은 <span class="math inline">\(\lambda_M=\mu_M-r_F\)</span>이다. 따라서 식 <a href="#eq-apt1" class="quarto-xref">방정식&nbsp;<span>2.13</span></a> 은 <span class="math inline">\(\mu_i\approx r_F+\beta_i(\mu_M-r_F)\)</span>가 되어, CAPM의 증권시장선(SML)과 같은 형태를 갖는다.</p>
+<p>CAPM의 가정 아래에서는 이 관계를 다음과 같이 쓴다.</p>
+<p><span id="eq-sml2"><span class="math display">\[
+\mu_i=r_F+\beta_i(\mu_M-r_F)
+\tag{2.14}\]</span></span></p>
+<p>즉, CAPM의 가격결정식을 시장 요인 하나를 사용하는 요인 모형의 관점에서도 이해할 수 있다. 다만 CAPM과 APT는 이 관계에 이르는 가정과 논리가 다르다.</p>
+<p>이 관계는 요인 모형 식 <a href="#eq-factor" class="quarto-xref">방정식&nbsp;<span>2.12</span></a> 를 통해서도 확인할 수 있다. <span class="math inline">\(F=R_M\)</span>으로 놓고 SML <a href="#eq-sml2" class="quarto-xref">방정식&nbsp;<span>2.14</span></a> 을 대입하면</p>
+<p><span class="math display">\[
+R_i
+=
+\mu_i+\beta_i(R_M-\mu_M)+\varepsilon_i
+=
+\bigl[r_F+\beta_i(\mu_M-r_F)\bigr]
++\beta_i(R_M-\mu_M)+\varepsilon_i
+=
+r_F+\beta_i(R_M-r_F)+\varepsilon_i
+\]</span></p>
+<p>이것은 CAPM 실증 연구에 사용되는 시계열 회귀식</p>
+<p><span class="math display">\[
+R_{i,t}-r_{F,t}
+=
+\alpha_i+\beta_i(R_{M,t}-r_{F,t})+\varepsilon_t
+\]</span></p>
+<p>에서 <span class="math inline">\(\alpha_i=0\)</span>으로 놓은 것과 동일하다. 한편, 실증 회귀에서 <span class="math inline">\(\alpha_i\neq0\)</span>이 통계적으로 유의하다면, 이는 CAPM이 해당 자산을 잘못 가격결정하고 있다는 증거이다. 이것이 바로 <strong>Jensen’s alpha</strong>이며, 단일 시장 요인만으로는 <span class="math inline">\(\alpha_i=0\)</span>을 설명하지 못하는 자산들이 존재한다는 관찰이 다요인 모형 등장의 배경이 되었다.</p>
+</section>
+<section id="다요인-모형으로의-확장" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="다요인-모형으로의-확장">다요인 모형으로의 확장</h4>
+<p>APT의 핵심 장점은 단일 요인에 국한되지 않는다는 점이다. 수익률의 확률적 구조를 <span class="math inline">\(k\)</span>개의 공통 요인으로 확장하면, 자산 <span class="math inline">\(i\)</span>에 대해</p>
+<p><span id="eq-factor-multi"><span class="math display">\[
+R_i
+=
+\mu_i
++\beta_{i1}(F_1-\mathbb{E}[F_1])
++\cdots
++\beta_{ik}(F_k-\mathbb{E}[F_k])
++\varepsilon_i
+\tag{2.15}\]</span></span></p>
+<p>이 구조 하에서 점근적 차익거래 부재 조건을 적용하면, 기대 수익률에 대한 다요인 가격결정식을 얻는다.</p>
+<p><span id="eq-apt-multi"><span class="math display">\[
+\mu_i
+\approx
+r_F
++\beta_{i1}\lambda_1
++\cdots
++\beta_{ik}\lambda_k
+\tag{2.16}\]</span></span></p>
+<p>각 <span class="math inline">\(\beta_{ij}\)</span>는 자산 <span class="math inline">\(i\)</span>의 요인 <span class="math inline">\(F_j\)</span>에 대한 민감도이며, <span class="math inline">\(\lambda_j\)</span>는 요인 <span class="math inline">\(j\)</span>의 위험 프리미엄이다.</p>
+<p>APT 이론의 핵심적인 의의는 식 <a href="#eq-factor-multi" class="quarto-xref">방정식&nbsp;<span>2.15</span></a> 과 식 <a href="#eq-apt-multi" class="quarto-xref">방정식&nbsp;<span>2.16</span></a> 에서 <span class="math inline">\(\beta_{ij}\)</span>가 동일하게 등장한다는 점이다. 즉, 수익률의 <em>실현값</em>이 요인 충격에 얼마나 민감하게 반응하는지를 나타내는 계수가, <em>기대수익률</em>의 크기도 결정한다. 요인 <span class="math inline">\(j\)</span>에 대한 노출은 <span class="math inline">\(\beta_{ij}\lambda_j\)</span>만큼 기대 수익률에 기여하며, 이것이 APT가 표현하는 리스크–수익률 관계의 핵심이다.</p>
+<p>APT의 단점은 모든 <em>개별</em> 자산에 가격결정식이 정확히 성립한다는 보장은 없다는 점이다. 잘 분산된 포트폴리오와 대다수 자산에는 근사적으로 성립하지만, 소수의 개별 자산에는 작은 가격 오류가 남을 수 있다.</p>
+</section>
+</section>
+<section id="실증적-다요인-모형" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="실증적-다요인-모형"><span class="header-section-number">2.6.2</span> 실증적 다요인 모형</h3>
+<p>한편 APT는 어떤 요인을 사용해야 하는지 스스로 지정하지 않는다. 이에 따라 후속 실증 연구에서는 자산 가격을 설명하는 요인이 무엇인지를 찾는 작업이 활발하게 이루어졌다.</p>
+<p><span class="citation" data-cites="chen1986economic">Chen 기타 (<a href="#ref-chen1986economic" role="doc-biblioref">1986년</a>)</span> 는 산업 생산 증가율, 예상치 못한 인플레이션, 이자율의 기간 구조, 신용 스프레드 등 <strong>거시경제 변수</strong>를 요인으로 활용하였다.</p>
+<p><span class="citation" data-cites="FAMA1993">Fama 와/과 French (<a href="#ref-FAMA1993" role="doc-biblioref">1993년</a>)</span> 는 CAPM의 단일 요인 모형의 한계를 보완하기 위해 <strong>Fama–French 3요인 모형(FF3)</strong>을 제안하였다. FF3는 시장 요인 외에 두 가지 포트폴리오 기반 요인을 추가한다.</p>
+<ul>
+<li><strong>SMB</strong> (Small Minus Big): 소형주와 대형주 포트폴리오의 수익률 차이. 소형주가 대형주보다 평균적으로 높은 수익률을 보이는 <em>규모 효과(size effect)</em>를 포착한다.</li>
+<li><strong>HML</strong> (High Minus Low): 장부가치/시장가(B/M) 비율이 높은 주식과 낮은 주식의 수익률 차이. B/M이 높은 <em>가치주(value stocks)</em>가 성장주보다 높은 수익률을 보이는 <em>가치 효과(value effect)</em>를 포착한다.</li>
+</ul>
+<p>이러한 다요인 선형 관계를 실증적으로 사용하는 예가 FF3이다. 시장 수익률 <span class="math inline">\(R_M\)</span>과 수익률 차이로 구성된 <span class="math inline">\(\mathrm{SMB}\)</span>, <span class="math inline">\(\mathrm{HML}\)</span>을 세 요인으로 사용하면 다음과 같이 나타낼 수 있다.</p>
+<p><span class="math display">\[
+\mu_i-r_F
+\approx
+\beta_{i,m}(\mu_M-r_F)
++\beta_{i,\mathrm{SMB}}\,\lambda_{\mathrm{SMB}}
++\beta_{i,\mathrm{HML}}\,\lambda_{\mathrm{HML}}
+\]</span></p>
+<p>여기서 시장 요인의 위험 프리미엄은 <span class="math inline">\(\mu_M-r_F\)</span>이며, <span class="math inline">\(\lambda_{\mathrm{SMB}}=\mathbb{E}[\mathrm{SMB}]\)</span>와 <span class="math inline">\(\lambda_{\mathrm{HML}}=\mathbb{E}[\mathrm{HML}]\)</span>은 각각 수익률 차이의 기대값이다. 따라서 <span class="math inline">\(\mathrm{SMB}\)</span>와 <span class="math inline">\(\mathrm{HML}\)</span>에서는 <span class="math inline">\(r_F\)</span>를 다시 빼지 않는다. Fama는 이 연구와 효율적 시장 가설에 대한 공로로 2013년 노벨 경제학상을 공동 수상하였다.</p>
+<p>이처럼 현대 자산 가격 결정 이론의 핵심은 투자자들이 중요하게 여기는 리스크 요인을 효과적으로 파악하는 데 있다. 이 모형들에 대한 엄밀한 수학적 전개는 이 과목의 범주를 벗어나므로 관련 자료를 참고하길 바란다.</p>
+</section>
+<section id="효율적-시장-가설" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="효율적-시장-가설"><span class="header-section-number">2.6.3</span> 효율적 시장 가설</h3>
+<p>효율적 시장 가설 (efficient markets hypothesis, EMH)의 개념은 매우 오래되었으나, 이를 학문적으로 정립한 공로로서 <span class="citation" data-cites="Fama1970">Fama (<a href="#ref-Fama1970" role="doc-biblioref">1970년</a>)</span> 가 언급된다. 여기서 시장이 효율적이라는 것은 시장에서 현재 가용한 모든 정보가 가격에 반영되어 있음을 뜻하며, 경우에 따라 여러가지 형태로 정의된다.</p>
+<ul>
+<li>Weak form : (1) 과거의 가격들에 대한 정보가 현재 가격에 모두 반영되어 있으며, (2) 과거 가격에 대한 정보를 통한 투자 전략으로 비정상적인 이익 (abnormal profit)을 얻지 못한다.</li>
+<li>Semi-strong form : (1) 모든 공적 정보 (과거 가격, 연간 보고서, 경영 상태, 수익 예측, 거시경제 뉴스 등)가 현재 가격에 모두 반영되어 있으며, (2) 공적 정보를 바탕으로 한 투자 전략으로 비정상적인 이익을 얻지 못한다.</li>
+<li>Strong form : (1) 모든 사적, 공적 정보가 현재 가격에 모두 반영되어 있으며, (2) 이 정보들을 바탕으로 한 투자 전략으로 비정상적인 이익을 얻지 못한다.</li>
+</ul>
+<p>어떤 새로운 정보가 도달한다면 시장 참가자들의 경쟁에 의해 그 정보는 아주 빠르게 가격에 적용될 것이다. 만약 시장 가격이 낮다고 판단되면 매수 경향이 높아져 가격은 금새 높아질 것이고, 시장 가격이 높다고 판단되면 매도 경향이 높아져 가격은 금새 하락할 것이다. 효율적 시장 가설에서는 모든 정보가 효율적으로 시장 가격에 즉시 반영이 되기 때문에, 가용한 정보를 이용해 체계적인 초과수익을 예측하는 것은 불가능하다고 주장한다. 물론 실증연구의 결과 정보의 반영이 매우 빠른 시간 안에 이루어진다고 여겨지지만 그것이 얼마나 빠른지에 대해서는 생각해 볼 여지가 있다. 미래 수익률 예측과 효율적 시장 가설에 대한 통계적 검정 연구에 대한 자세한 내용은 <span class="citation" data-cites="Linton2019financial">Linton (<a href="#ref-Linton2019financial" role="doc-biblioref">2019년</a>)</span> 를 참고하라.</p>
+<p>요약하면, 현대 자산 가격 결정 이론은 차익거래 부재와 정보 효율성을 기본 원리로 하여, 투자자들이 중요하게 인식하는 리스크 요인을 선형적으로 가격에 반영하는 구조로 발전해 왔다.</p>
+</section>
+</section>
+<section id="마무리" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="마무리"><span class="header-section-number">2.7</span> 마무리</h2>
+<p>CAPM은 본질적으로 금융 시장에 대한 매우 강한 가정으로 유도되었으며, 비록 금융 시장에 대한 놀라운 직관을 제공하기는 하지만, 실제 세상과는 맞지 않는 단점도 가지고 있다. 공통적으로 지적되는 사항들을 정리하면 다음과 같다.</p>
+<ul>
+<li><p>투자자가 금융 자산만을 가지고 있다고 가정한다.</p>
+<ul>
+<li>현실 세계의 투자자들은 금융 자산뿐만 아니라, 임금을 비롯한 각종 소득과 부동산 등과 같은 비금융 현금 흐름과 자산을 보유하며, 최적 포트폴리오를 구성할 때 이러한 점들을 고려해야 한다.</li>
+</ul></li>
+<li><p>투자자가 평균-분산 효용을 가지고 있다고 가정한다.</p>
+<ul>
+<li>여기서 평균-분산 효용이라는 것은 자산 분포들이 같은 평균과 분산을 가진다면 같은 효용을 지닌다는 뜻이다. 하지만 보다 현실적인 효용함수가 되려면 리스크에 대해 비대칭적으로 접근해야 한다. 사람들은 이득에 의한 기쁨보다 손실에 의한 타격을 더 심각하게 생각하는 경향이 있기 때문이다. 분산 뿐만 아니라, 왜도 (skewness)와 첨도 (kurtosis) 또한 리스크 프리미엄을 형성함이 알려져 있다.</li>
+</ul></li>
+<li><p>단일 기간 모형이다.</p>
+<ul>
+<li>CAPM에서 자산의 분포를 생각할 때, 단일 미래 시점 <span class="math inline">\(T\)</span>만을 고려한다. 실제에서는 연속된 시간의 흐름을 고려해야 한다.</li>
+</ul></li>
+<li><p>모든 투자자들이 자산의 분포에 대해 동일하게 인식한다고 간주한다.</p>
+<ul>
+<li>현실 세계에서는 동일한 자산에 대해 투자자들이 생각하는 미래 분포가 제각각이다.</li>
+</ul></li>
+<li><p>세금이나 거래 비용이 없다.</p>
+<ul>
+<li>현실에서는 투자 소득에 대한 세금이나, 거래 시의 거래 비용에 대해 고려해야 하며, 공매도가 가능하지 않은 상황도 고려해야 한다.</li>
+</ul></li>
+<li><p>모든 투자자들이 가격 수용자 (price taker)이다.</p>
+<ul>
+<li>CAPM에서는 투자자들의 거래 행위가 가격에는 영향을 미치지 않는다고 가정한다. 현실 세계에서도 대략적으로 투자자들은 가격 수용자에 가깝지만, 특정 정보를 가지고 있는 투자자들이 대량으로 거래에 임할 경우 이들의 행위는 가격에 영향 (price impact)을 미치게 된다.</li>
+</ul></li>
+<li><p>모든 투자자들이 특별한 비용없이 정보에 동일하게 접근할 수 있다고 가정한다.</p>
+<ul>
+<li>현실 세계에서는 모든 투자자들이 동일한 정보를 가지고 있지 않으며, 특정 정보들을 획득하기 위해서는 많은 노력과 비용이 필요할 수 있다.</li>
+</ul></li>
+</ul>
 
 
 <!-- -->
@@ -2590,6 +3016,9 @@ Bernoulli, Daniel. 1954년. <span>“Exposition of a new theory on the measureme
 <div id="ref-Capinski2011" class="csl-entry" role="listitem">
 Capiński, Marek, 와/과 Tomasz Zastawniak. 2011년. <em>Mathematics for Finance</em>. Springer-Verlag.
 </div>
+<div id="ref-chen1986economic" class="csl-entry" role="listitem">
+Chen, Nai-Fu, Richard Roll, 와/과 Stephen A Ross. 1986년. <span>“Economic forces and the stock market”</span>. <em>Journal of business</em> 59: 383–403.
+</div>
 <div id="ref-Choe2016" class="csl-entry" role="listitem">
 Choe, Geon Ho. 2016년. <em>Stochastic Analysis for Finance with Simulations</em>. Springer International Publishing.
 </div>
@@ -2598,6 +3027,12 @@ Cochrane, John. 2009년. <em>Asset pricing: Revised edition</em>. Princeton univ
 </div>
 <div id="ref-duffie2010" class="csl-entry" role="listitem">
 Duffie, Darrell. 2010년. <em>Dynamic asset pricing theory</em>. Princeton University Press.
+</div>
+<div id="ref-Fama1970" class="csl-entry" role="listitem">
+Fama, Eugene F. 1970년. <span>“Efficient capital markets: <span>A</span> review of theory and empirical work”</span>. <em>Journal of Finance</em> 25: 383–417.
+</div>
+<div id="ref-FAMA1993" class="csl-entry" role="listitem">
+Fama, Eugene F., 와/과 Kenneth R. French. 1993년. <span>“Common risk factors in the returns on stocks and bonds”</span>. <em>Journal of Financial Economics</em> 33: 3–56.
 </div>
 <div id="ref-Irving1906" class="csl-entry" role="listitem">
 Fisher, Irving. 1906년. <em>The Nature of Capital and Income</em>. Macmillan.
@@ -2611,6 +3046,9 @@ L. 번스타인, 피터. 2003년. <em>세계 금융시장을 뒤흔든 투자 �
 <div id="ref-lintner1965security" class="csl-entry" role="listitem">
 Lintner, John. 1965년. <span>“Security prices, risk, and maximal gains from diversification”</span>. <em>The Journal of Finance</em> 20: 587–615.
 </div>
+<div id="ref-Linton2019financial" class="csl-entry" role="listitem">
+Linton, Oliver. 2019년. <em>Financial econometrics</em>. Cambridge University Press.
+</div>
 <div id="ref-Markowitz1952" class="csl-entry" role="listitem">
 Markowitz, Harry M. 1952년. <span>“Portfolio Selection”</span>. <em>The Journal of Finance</em> 7: 77–91.
 </div>
@@ -2623,6 +3061,9 @@ Mossin, Jan. 1966년. <span>“Equilibrium in a capital asset market”</span>. 
 <div id="ref-Pennacchi" class="csl-entry" role="listitem">
 Pennacchi, George Gaetano. 2008년. <em>Theory of asset pricing</em>. Pearson/Addison-Wesley Boston.
 </div>
+<div id="ref-ROSS1976" class="csl-entry" role="listitem">
+Ross, Stephen A. 1976년. <span>“The arbitrage theory of capital asset pricing”</span>. <em>Journal of Economic Theory</em> 13: 341–60.
+</div>
 <div id="ref-roy1952safety" class="csl-entry" role="listitem">
 Roy, Andrew D. 1952년. <span>“Safety first and the holding of assets”</span>. <em>Econometrica: Journal of the Econometric Society</em> 20: 431–49.
 </div>
@@ -2632,6 +3073,9 @@ Rubinstein, Mark. 2002년. <span>“Markowitz’s <span>‘<span>P</span>ortfoli
 <div id="ref-sharpe1964capital" class="csl-entry" role="listitem">
 Sharpe, William F. 1964년. <span>“Capital asset prices: <span>A</span> theory of market equilibrium under conditions of risk”</span>. <em>The Journal of Finance</em> 19: 425–42.
 </div>
+<div id="ref-sharpe1994" class="csl-entry" role="listitem">
+Sharpe, William F. 1994년. <span>“The Sharpe Ratio”</span>. <em>The Journal of Portfolio Management</em> 21: 49–58.
+</div>
 <div id="ref-Tobin" class="csl-entry" role="listitem">
 Tobin, J. 1958년. <span>“Liquidity Preference as Behavior Towards Risk”</span>. <em>The Review of Economic Studies</em> 25: 65–86.
 </div>
@@ -2639,7 +3083,6 @@ Tobin, J. 1958년. <span>“Liquidity Preference as Behavior Towards Risk”</sp
 Treynor, Jack L. 1965년. <span>“How to Rate Management of Investment Funds”</span>. <em>Harvard Business Review</em> 43: 63–75.
 </div>
 </div>
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -2658,6 +3101,10 @@ Treynor, Jack L. 1965년. <span>“How to Rate Management of Investment Funds”
 <li id="fn12"><p>다음 단원에서 이는 곧 증권시장선이라고 부른다.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn13"><p>자세한 사항은 <span class="citation" data-cites="french2003treynor">French (<a href="#ref-french2003treynor" role="doc-biblioref">2003년</a>)</span> 를 참고해 보라.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn14"><p><span class="citation" data-cites="duffie2010"><span class="citation" data-cites="duffie2010">Duffie (<a href="#ref-duffie2010" role="doc-biblioref">2010년</a>)</span></span>는 아비트러지(arbitrage), 최적성(optimality), 균형(equilibrium)을 현대 자산 가격 결정 이론의 세 가지 기둥이라고 표현하였다.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>주의할 점은 확률변수 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>가 각각 정규분포를 따른다고 해서, 항상 <span class="math inline">\(X\)</span>와 <span class="math inline">\(Y\)</span>가 이변량 정규분포가 되는 것은 아니다.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>idiosyncratic 혹은 unsystematic risk 라고도 한다.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>Warren Buffett의 조언 “I recommend the S&amp;P 500 index fund and have for a long, long time to people”을 기억할 필요가 있다.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>식 <a href="#eq-linear" class="quarto-xref">방정식&nbsp;<span>2.9</span></a> 와 비슷하나 여기서는 초과 수익률로 식을 표현하였다.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -5278,6 +5725,576 @@ Treynor, Jack L. 1965년. <span>“How to Rate Management of Investment Funds”
 <span id="cb3-2104"><a href="#cb3-2104" aria-hidden="true" tabindex="-1"></a>균형 상태에서 모든 시장 참가자들은 시장 포트폴리오와 무위험자산의 조합으로 개개인의 투자를 구성하게 된다.</span>
 <span id="cb3-2105"><a href="#cb3-2105" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-2106"><a href="#cb3-2106" aria-hidden="true" tabindex="-1"></a>자세한 내용은 @Pennacchi 와 @Cochrane 을 참고하라.</span>
+<span id="cb3-2107"><a href="#cb3-2107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2108"><a href="#cb3-2108" aria-hidden="true" tabindex="-1"></a><span class="fu">### 체계적, 비체계적 위험</span></span>
+<span id="cb3-2109"><a href="#cb3-2109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2110"><a href="#cb3-2110" aria-hidden="true" tabindex="-1"></a>증권시장선은 자산들의 기대 수익률 간의 관계식이다.</span>
+<span id="cb3-2111"><a href="#cb3-2111" aria-hidden="true" tabindex="-1"></a>증권시장선의 관계를 확률 식의 관점에서 다시 살펴보자.</span>
+<span id="cb3-2112"><a href="#cb3-2112" aria-hidden="true" tabindex="-1"></a>시장 포트폴리오의 수익률 $R_M$과 개별 자산 (혹은, 어떤 또다른 포트폴리오) $i$의 수익률 $R_i$간에 다음 선형 확률 모형을 따른다고 가정하자.</span>
+<span id="cb3-2113"><a href="#cb3-2113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2114"><a href="#cb3-2114" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2115"><a href="#cb3-2115" aria-hidden="true" tabindex="-1"></a>R_i = a + \beta R_M + \varepsilon_i.</span>
+<span id="cb3-2116"><a href="#cb3-2116" aria-hidden="true" tabindex="-1"></a>$$ {#eq-linear}</span>
+<span id="cb3-2117"><a href="#cb3-2117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2118"><a href="#cb3-2118" aria-hidden="true" tabindex="-1"></a>여기서 $R_M$과 $\varepsilon_i$의 상관관계가 0이라고 가정한다.</span>
+<span id="cb3-2119"><a href="#cb3-2119" aria-hidden="true" tabindex="-1"></a>입력변수 $R_M$이 확률변수이기 때문에 이를 랜덤 설계 (random design) 선형회귀 모형이라고 한다.</span>
+<span id="cb3-2120"><a href="#cb3-2120" aria-hidden="true" tabindex="-1"></a>그리고 다음을 최소화하는 $a$와 $\beta$를 찾는 최소제곱법 문제를 생각해 보자.</span>
+<span id="cb3-2121"><a href="#cb3-2121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2122"><a href="#cb3-2122" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2123"><a href="#cb3-2123" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\varepsilon_i^2</span><span class="co">]</span></span>
+<span id="cb3-2124"><a href="#cb3-2124" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2125"><a href="#cb3-2125" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">R_i^2</span><span class="co">]</span></span>
+<span id="cb3-2126"><a href="#cb3-2126" aria-hidden="true" tabindex="-1"></a>-2\beta\mathbb{E}<span class="co">[</span><span class="ot">R_iR_M</span><span class="co">]</span></span>
+<span id="cb3-2127"><a href="#cb3-2127" aria-hidden="true" tabindex="-1"></a>+\beta^2\mathbb{E}<span class="co">[</span><span class="ot">R_M^2</span><span class="co">]</span></span>
+<span id="cb3-2128"><a href="#cb3-2128" aria-hidden="true" tabindex="-1"></a>+a^2</span>
+<span id="cb3-2129"><a href="#cb3-2129" aria-hidden="true" tabindex="-1"></a>-2a\mathbb{E}<span class="co">[</span><span class="ot">R_i</span><span class="co">]</span></span>
+<span id="cb3-2130"><a href="#cb3-2130" aria-hidden="true" tabindex="-1"></a>+2a\beta\mathbb{E}<span class="co">[</span><span class="ot">R_M</span><span class="co">]</span>.</span>
+<span id="cb3-2131"><a href="#cb3-2131" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2132"><a href="#cb3-2132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2133"><a href="#cb3-2133" aria-hidden="true" tabindex="-1"></a>위 식에서 $\mathbb{E}<span class="co">[</span><span class="ot">\varepsilon^2</span><span class="co">]</span>$는 $a$와 $\beta$에 대한 2차 함수이며, $a^2$과 $\beta^2$의 계수가 모두 양수이므로, 극소값을 가진다.</span>
+<span id="cb3-2134"><a href="#cb3-2134" aria-hidden="true" tabindex="-1"></a>$\mathbb{E}<span class="co">[</span><span class="ot">\varepsilon_i^2</span><span class="co">]</span>$가 극소값을 가지는 위치를 $a=a_i$와 $\beta=\beta_i$라고 하면 다음으로 표현할 수 있다.</span>
+<span id="cb3-2135"><a href="#cb3-2135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2136"><a href="#cb3-2136" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2137"><a href="#cb3-2137" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb3-2138"><a href="#cb3-2138" aria-hidden="true" tabindex="-1"></a>&amp;\frac{\textrm{d}\mathbb{E}<span class="co">[</span><span class="ot">\varepsilon_i^2</span><span class="co">]</span>}{\textrm{d}a}</span>
+<span id="cb3-2139"><a href="#cb3-2139" aria-hidden="true" tabindex="-1"></a>(a=a_i,\beta=\beta_i)</span>
+<span id="cb3-2140"><a href="#cb3-2140" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2141"><a href="#cb3-2141" aria-hidden="true" tabindex="-1"></a>2a_i-2\mathbb{E}<span class="co">[</span><span class="ot">R_i</span><span class="co">]</span>+2\beta_i\mathbb{E}<span class="co">[</span><span class="ot">R_M</span><span class="co">]</span></span>
+<span id="cb3-2142"><a href="#cb3-2142" aria-hidden="true" tabindex="-1"></a>=0, <span class="sc">\\</span></span>
+<span id="cb3-2143"><a href="#cb3-2143" aria-hidden="true" tabindex="-1"></a>&amp;\frac{\textrm{d}\mathbb{E}<span class="co">[</span><span class="ot">\varepsilon_i^2</span><span class="co">]</span>}{\textrm{d}\beta}</span>
+<span id="cb3-2144"><a href="#cb3-2144" aria-hidden="true" tabindex="-1"></a>(a=a_i,\beta=\beta_i)</span>
+<span id="cb3-2145"><a href="#cb3-2145" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2146"><a href="#cb3-2146" aria-hidden="true" tabindex="-1"></a>-2\mathbb{E}<span class="co">[</span><span class="ot">R_iR_M</span><span class="co">]</span></span>
+<span id="cb3-2147"><a href="#cb3-2147" aria-hidden="true" tabindex="-1"></a>+2\beta_i\mathbb{E}<span class="co">[</span><span class="ot">R_M^2</span><span class="co">]</span></span>
+<span id="cb3-2148"><a href="#cb3-2148" aria-hidden="true" tabindex="-1"></a>+2a_i\mathbb{E}<span class="co">[</span><span class="ot">R_M</span><span class="co">]</span></span>
+<span id="cb3-2149"><a href="#cb3-2149" aria-hidden="true" tabindex="-1"></a>=0.</span>
+<span id="cb3-2150"><a href="#cb3-2150" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb3-2151"><a href="#cb3-2151" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2152"><a href="#cb3-2152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2153"><a href="#cb3-2153" aria-hidden="true" tabindex="-1"></a>다음을 이용하여</span>
+<span id="cb3-2154"><a href="#cb3-2154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2155"><a href="#cb3-2155" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2156"><a href="#cb3-2156" aria-hidden="true" tabindex="-1"></a>\operatorname{Cov}(R_i,R_M)</span>
+<span id="cb3-2157"><a href="#cb3-2157" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2158"><a href="#cb3-2158" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">R_iR_M</span><span class="co">]</span>-\mu_i\mu_M,</span>
+<span id="cb3-2159"><a href="#cb3-2159" aria-hidden="true" tabindex="-1"></a>\quad</span>
+<span id="cb3-2160"><a href="#cb3-2160" aria-hidden="true" tabindex="-1"></a>\sigma_M^2</span>
+<span id="cb3-2161"><a href="#cb3-2161" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2162"><a href="#cb3-2162" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">R_M^2</span><span class="co">]</span>-\mu_M^2</span>
+<span id="cb3-2163"><a href="#cb3-2163" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2164"><a href="#cb3-2164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2165"><a href="#cb3-2165" aria-hidden="true" tabindex="-1"></a>위 식을 정리하면,</span>
+<span id="cb3-2166"><a href="#cb3-2166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2167"><a href="#cb3-2167" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2168"><a href="#cb3-2168" aria-hidden="true" tabindex="-1"></a>\beta_i</span>
+<span id="cb3-2169"><a href="#cb3-2169" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2170"><a href="#cb3-2170" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{Cov}(R_i,R_M)}{\sigma_M^2},</span>
+<span id="cb3-2171"><a href="#cb3-2171" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb3-2172"><a href="#cb3-2172" aria-hidden="true" tabindex="-1"></a>a_i=\mu_i-\beta_i\mu_M</span>
+<span id="cb3-2173"><a href="#cb3-2173" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2174"><a href="#cb3-2174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2175"><a href="#cb3-2175" aria-hidden="true" tabindex="-1"></a>으로 앞에서 살펴본 $\beta$의 정의를 얻는다.</span>
+<span id="cb3-2176"><a href="#cb3-2176" aria-hidden="true" tabindex="-1"></a>위의 모집단 최소제곱 문제의 해는 표본에서의 단순 선형 회귀, 즉 OLS 추정량과 동일한 형태를 가진다. 다시 말해, CAPM의 $\beta_i$는 $R_i$를 $R_M$에 회귀시켰을 때의 회귀계수와 같다.</span>
+<span id="cb3-2177"><a href="#cb3-2177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2178"><a href="#cb3-2178" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Remark"}</span>
+<span id="cb3-2179"><a href="#cb3-2179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2180"><a href="#cb3-2180" aria-hidden="true" tabindex="-1"></a>식 @eq-linear 의 타당성을 살펴보기 위해, 예를 들어, $R_M$과 $R_i$가 이변량 정규분포를 따른다고 가정해 보자.</span>
+<span id="cb3-2181"><a href="#cb3-2181" aria-hidden="true" tabindex="-1"></a>CAPM 모형에서는 자산 수익률들의 정규분포를 가정하기 때문에, $R_M$과 $R_i$가 이변량 정규분포를 따른다고 가정하는 것은 자연스럽다.^<span class="co">[</span><span class="ot">주의할 점은 확률변수 $X$와 $Y$가 각각 정규분포를 따른다고 해서, 항상 $X$와 $Y$가 이변량 정규분포가 되는 것은 아니다.</span><span class="co">]</span></span>
+<span id="cb3-2182"><a href="#cb3-2182" aria-hidden="true" tabindex="-1"></a>만약, 두 확률변수 $R_M$과 $R_i$가 이변량 정규분포를 따른다면, 서로 독립인 표준정규 확률변수 $Z_1$과 $Z_2$가 존재하여, 다음을 만족함이 알려져 있다.</span>
+<span id="cb3-2183"><a href="#cb3-2183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2184"><a href="#cb3-2184" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2185"><a href="#cb3-2185" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb3-2186"><a href="#cb3-2186" aria-hidden="true" tabindex="-1"></a>R_M &amp;= \sigma_M Z_1+\mu_M, <span class="sc">\\</span></span>
+<span id="cb3-2187"><a href="#cb3-2187" aria-hidden="true" tabindex="-1"></a>R_i &amp;= \sigma_i</span>
+<span id="cb3-2188"><a href="#cb3-2188" aria-hidden="true" tabindex="-1"></a>\left(\rho Z_1+\sqrt{1-\rho^2}Z_2\right)+\mu_i.</span>
+<span id="cb3-2189"><a href="#cb3-2189" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb3-2190"><a href="#cb3-2190" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2191"><a href="#cb3-2191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2192"><a href="#cb3-2192" aria-hidden="true" tabindex="-1"></a>여기서</span>
+<span id="cb3-2193"><a href="#cb3-2193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2194"><a href="#cb3-2194" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2195"><a href="#cb3-2195" aria-hidden="true" tabindex="-1"></a>Z_1=\frac{R_M-\mu_M}{\sigma_M}</span>
+<span id="cb3-2196"><a href="#cb3-2196" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2197"><a href="#cb3-2197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2198"><a href="#cb3-2198" aria-hidden="true" tabindex="-1"></a>을 이용하여 $R_i$에 대해 정리하면,</span>
+<span id="cb3-2199"><a href="#cb3-2199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2200"><a href="#cb3-2200" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2201"><a href="#cb3-2201" aria-hidden="true" tabindex="-1"></a>R_i</span>
+<span id="cb3-2202"><a href="#cb3-2202" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2203"><a href="#cb3-2203" aria-hidden="true" tabindex="-1"></a>\underbrace{</span>
+<span id="cb3-2204"><a href="#cb3-2204" aria-hidden="true" tabindex="-1"></a>\mu_i-\frac{\operatorname{Cov}(R_i,R_M)}{\sigma_M^2}\mu_M</span>
+<span id="cb3-2205"><a href="#cb3-2205" aria-hidden="true" tabindex="-1"></a>}_{a_i}</span>
+<span id="cb3-2206"><a href="#cb3-2206" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb3-2207"><a href="#cb3-2207" aria-hidden="true" tabindex="-1"></a>\underbrace{</span>
+<span id="cb3-2208"><a href="#cb3-2208" aria-hidden="true" tabindex="-1"></a>\frac{\operatorname{Cov}(R_i,R_M)}{\sigma_M^2}</span>
+<span id="cb3-2209"><a href="#cb3-2209" aria-hidden="true" tabindex="-1"></a>}_{\beta_i}R_M</span>
+<span id="cb3-2210"><a href="#cb3-2210" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb3-2211"><a href="#cb3-2211" aria-hidden="true" tabindex="-1"></a>\underbrace{</span>
+<span id="cb3-2212"><a href="#cb3-2212" aria-hidden="true" tabindex="-1"></a>\sigma_i\sqrt{1-\rho^2}Z_2</span>
+<span id="cb3-2213"><a href="#cb3-2213" aria-hidden="true" tabindex="-1"></a>}_{\varepsilon_i}</span>
+<span id="cb3-2214"><a href="#cb3-2214" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2215"><a href="#cb3-2215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2216"><a href="#cb3-2216" aria-hidden="true" tabindex="-1"></a>를 얻을 수 있고, 위 식에서 $\sigma_i\sqrt{1-\rho^2}Z_2$가 식 @eq-linear 의 $\varepsilon_i$에 해당한다.</span>
+<span id="cb3-2217"><a href="#cb3-2217" aria-hidden="true" tabindex="-1"></a>그리고, $R_M$과 $Z_2$가 독립이므로, $R_M$과 $\varepsilon_i$ 또한 독립이다.</span>
+<span id="cb3-2218"><a href="#cb3-2218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2219"><a href="#cb3-2219" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-2220"><a href="#cb3-2220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2221"><a href="#cb3-2221" aria-hidden="true" tabindex="-1"></a>식 @eq-linear 의 양변에 분산을 적용하면 다음의 결과를 얻을 수 있다.</span>
+<span id="cb3-2222"><a href="#cb3-2222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2223"><a href="#cb3-2223" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: Systematic and diversifiable risk"}</span>
+<span id="cb3-2224"><a href="#cb3-2224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2225"><a href="#cb3-2225" aria-hidden="true" tabindex="-1"></a>개별 자산 혹은 포트폴리오의 분산은 다음과 같이 나타낼 수 있다.</span>
+<span id="cb3-2226"><a href="#cb3-2226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2227"><a href="#cb3-2227" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2228"><a href="#cb3-2228" aria-hidden="true" tabindex="-1"></a>\sigma_i^2</span>
+<span id="cb3-2229"><a href="#cb3-2229" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2230"><a href="#cb3-2230" aria-hidden="true" tabindex="-1"></a>\operatorname{Var}(\varepsilon_i)+\beta_i^2\sigma_M^2</span>
+<span id="cb3-2231"><a href="#cb3-2231" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2232"><a href="#cb3-2232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2233"><a href="#cb3-2233" aria-hidden="true" tabindex="-1"></a>여기서</span>
+<span id="cb3-2234"><a href="#cb3-2234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2235"><a href="#cb3-2235" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\operatorname{Var}(\varepsilon_i)$는 분산 가능한 리스크 (diversifiable risk^<span class="co">[</span><span class="ot">idiosyncratic 혹은 unsystematic risk 라고도 한다.</span><span class="co">]</span>)이다.</span>
+<span id="cb3-2236"><a href="#cb3-2236" aria-hidden="true" tabindex="-1"></a>  시장 포트폴리오의 경우 $\operatorname{Var}(\varepsilon_M)=0$이다.</span>
+<span id="cb3-2237"><a href="#cb3-2237" aria-hidden="true" tabindex="-1"></a>  개별 증권의 경우 이 리스크는 시장 포트폴리오를 구성함으로써 분산 투자하여 제거할 수 있는 리스크이다.</span>
+<span id="cb3-2238"><a href="#cb3-2238" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\beta_i^2\sigma_M^2$는 체계적 리스크 (systematic risk) 혹은 분산 불가능한 리스크 (undiversifiable risk)라고 한다.</span>
+<span id="cb3-2239"><a href="#cb3-2239" aria-hidden="true" tabindex="-1"></a>  시장 포트폴리오에는 체계적 리스크만 존재하며 $\beta_M=1$이다.</span>
+<span id="cb3-2240"><a href="#cb3-2240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2241"><a href="#cb3-2241" aria-hidden="true" tabindex="-1"></a>베타는 개별 자산 혹은 포트폴리오의 체계적 리스크의 크기를 측정한다.</span>
+<span id="cb3-2242"><a href="#cb3-2242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2243"><a href="#cb3-2243" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-2244"><a href="#cb3-2244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2245"><a href="#cb3-2245" aria-hidden="true" tabindex="-1"></a>분산 가능한 리스크는 추가적인 리스크 프리미엄을 요구하지 않는다.</span>
+<span id="cb3-2246"><a href="#cb3-2246" aria-hidden="true" tabindex="-1"></a>분산 투자를 통해 상쇄할 수 있는 위험이라 판단하며,</span>
+<span id="cb3-2247"><a href="#cb3-2247" aria-hidden="true" tabindex="-1"></a>CAPM에서 분산 가능한 리스크인 $\operatorname{Var}(\varepsilon_i)$는 개별 자산의 가격에 영향을 미치지 않는다.</span>
+<span id="cb3-2248"><a href="#cb3-2248" aria-hidden="true" tabindex="-1"></a>따라서, $\beta_i$는 개별 자산 혹은 포트폴리오의 기대 수익률 $\mu_i$과 중요한 관계를 지닌다.</span>
+<span id="cb3-2249"><a href="#cb3-2249" aria-hidden="true" tabindex="-1"></a>결국 $\beta_i(\mu_M-r_F)$는 리스크 프리미엄으로 체계적 리스크로의 노출에 따른 보상을 의미한다.</span>
+<span id="cb3-2250"><a href="#cb3-2250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2251"><a href="#cb3-2251" aria-hidden="true" tabindex="-1"></a>만약 시장이 균형 상태에 있고, 이 균형 상태가 지속된다고 가정해 보자.</span>
+<span id="cb3-2252"><a href="#cb3-2252" aria-hidden="true" tabindex="-1"></a>이 가정 하에서는 CAPM 이론에 따라 모든 투자자들은 CAPM에서 규정한 리스크-수익 관계를 넘어서는 초과 수익을 거두지 못한다.</span>
+<span id="cb3-2253"><a href="#cb3-2253" aria-hidden="true" tabindex="-1"></a>다시 말해 모든 효율적 투자 대상들은 자본시장선 위에서만 존재할 것이다.</span>
+<span id="cb3-2254"><a href="#cb3-2254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2255"><a href="#cb3-2255" aria-hidden="true" tabindex="-1"></a>물론, 실제 세상에서는 항상 새로운 사건이 발생하고, 사건의 여파는 균형 상태를 벗어나게 한다.</span>
+<span id="cb3-2256"><a href="#cb3-2256" aria-hidden="true" tabindex="-1"></a>투자자들은 새로운 정보를 바탕으로 기존에 있던 자산의 기대 수익률과 분산, 공분산을 새롭게 책정할 것이다.</span>
+<span id="cb3-2257"><a href="#cb3-2257" aria-hidden="true" tabindex="-1"></a>만약 새롭게 계산된 값을 바탕으로 증권시장선에 대입했을 때,</span>
+<span id="cb3-2258"><a href="#cb3-2258" aria-hidden="true" tabindex="-1"></a>이 자산이 리스크에 따른 충분한 보상을 제공하지 못하고 있다고 생각되면, 즉,</span>
+<span id="cb3-2259"><a href="#cb3-2259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2260"><a href="#cb3-2260" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2261"><a href="#cb3-2261" aria-hidden="true" tabindex="-1"></a>\mu_i&lt;r_F+\beta_i(\mu_M-r_F)</span>
+<span id="cb3-2262"><a href="#cb3-2262" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2263"><a href="#cb3-2263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2264"><a href="#cb3-2264" aria-hidden="true" tabindex="-1"></a>라면, 이 자산을 매도하려고 할 것이며, 이 자산의 공급은 늘어나고, 결과적으로 가격이 떨어져 기대 수익률이 올라가게 된다.</span>
+<span id="cb3-2265"><a href="#cb3-2265" aria-hidden="true" tabindex="-1"></a>또한 어떤 자산이 리스크 프리미엄보다 과도한 수익을 제공한다고 판단되면, 이 자산에 대한 수요가 늘어나고 결과적으로 가격이 상승하여 기대 수익률은 조정된다.</span>
+<span id="cb3-2266"><a href="#cb3-2266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2267"><a href="#cb3-2267" aria-hidden="true" tabindex="-1"></a><span class="fu">### 실증적 방법</span></span>
+<span id="cb3-2268"><a href="#cb3-2268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2269"><a href="#cb3-2269" aria-hidden="true" tabindex="-1"></a>접점 포트폴리오에 대한 정리의 결과식 @eq-wm 은 단순해 보이지만, 공분산 행렬의 역행렬 계산이 필요하므로 계산 비용이 크다.</span>
+<span id="cb3-2270"><a href="#cb3-2270" aria-hidden="true" tabindex="-1"></a>또한 공분산 행렬을 추정하는 작업은 간단하지 않으며, 정확한 추정치를 보장하기 힘들다.</span>
+<span id="cb3-2271"><a href="#cb3-2271" aria-hidden="true" tabindex="-1"></a>실증 분석에서는 시장 포트폴리오를 이론적 가중치를 이용하여 구성하기 보다는 실제 존재하는 포트폴리오,</span>
+<span id="cb3-2272"><a href="#cb3-2272" aria-hidden="true" tabindex="-1"></a>즉, 현실에서 관측 가능한 대용 포트폴리오 (proxy portfolio)로 대체하여 활용한다.</span>
+<span id="cb3-2273"><a href="#cb3-2273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2274"><a href="#cb3-2274" aria-hidden="true" tabindex="-1"></a>대표적인 예시는 미국의 S&amp;P 500 지수, 영국의 FTSE 100, 유럽의 Euro Stoxx 50, 그리고 우리나라의 KOSPI 지수와 같은 주가지수를 추종하는 인덱스 펀드^<span class="co">[</span><span class="ot">Warren Buffett의 조언 “I recommend the S&amp;P 500 index fund and have for a long, long time to people”을 기억할 필요가 있다.</span><span class="co">]</span>이다.</span>
+<span id="cb3-2275"><a href="#cb3-2275" aria-hidden="true" tabindex="-1"></a>이러한 실증적 방법으로 개별 자산의 리스크를 계산할 때, 식 @eq-var-cov 처럼 자본 시장 내에 존재하는 모든 자산들 간의 공분산을 계산할 필요가 없다.</span>
+<span id="cb3-2276"><a href="#cb3-2276" aria-hidden="true" tabindex="-1"></a>관심있는 자산과 시장 포트폴리오의 프록시 (proxy) 포트폴리오, 예를 들어 주가지수와의 관계를 살펴보면 된다.</span>
+<span id="cb3-2277"><a href="#cb3-2277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2278"><a href="#cb3-2278" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Remark"}</span>
+<span id="cb3-2279"><a href="#cb3-2279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2280"><a href="#cb3-2280" aria-hidden="true" tabindex="-1"></a>주가지수는 보통 시가총액 가중 방식이나 가격 가중 방식을 사용하여 계산된다. 예를 들어, S&amp;P 500 지수는 500개 대형 상장 기업의 시가총액 ($=\text{주가}\times\text{유통 주식 수}$)을 계산하여 모두 합한 후, 지수 산출을 위한 조정 계수(divisor)로 나누어 계산된다.</span>
+<span id="cb3-2281"><a href="#cb3-2281" aria-hidden="true" tabindex="-1"></a>인덱스 펀드는 이러한 주가지수를 추종하는 투자 상품으로, 특정 지수의 구성 종목과 동일한 비율로 주식을 보유하여 지수의 수익률을 복제하려고 한다.</span>
+<span id="cb3-2282"><a href="#cb3-2282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2283"><a href="#cb3-2283" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-2284"><a href="#cb3-2284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2285"><a href="#cb3-2285" aria-hidden="true" tabindex="-1"></a>실증 분석에서는 개별 자산 $i$의 $\beta_i$는 자산들의 수익률 분포가 일정한 통계적 성질을 가진다는 가정하에,</span>
+<span id="cb3-2286"><a href="#cb3-2286" aria-hidden="true" tabindex="-1"></a>실현된 수익률 자료를 바탕으로 다음의 선형 모형을 통해 살펴볼 수 있다^<span class="co">[</span><span class="ot">식 @eq-linear 와 비슷하나 여기서는 초과 수익률로 식을 표현하였다.</span><span class="co">]</span>.</span>
+<span id="cb3-2287"><a href="#cb3-2287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2288"><a href="#cb3-2288" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2289"><a href="#cb3-2289" aria-hidden="true" tabindex="-1"></a>R_{i,t}-r_{F,t}</span>
+<span id="cb3-2290"><a href="#cb3-2290" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2291"><a href="#cb3-2291" aria-hidden="true" tabindex="-1"></a>\alpha_i+\beta_i(R_{M,t}-r_{F,t})+\varepsilon_t,</span>
+<span id="cb3-2292"><a href="#cb3-2292" aria-hidden="true" tabindex="-1"></a>\quad t=1,2,\cdots</span>
+<span id="cb3-2293"><a href="#cb3-2293" aria-hidden="true" tabindex="-1"></a>$$ {#eq-linear-capm}</span>
+<span id="cb3-2294"><a href="#cb3-2294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2295"><a href="#cb3-2295" aria-hidden="true" tabindex="-1"></a>위 식은 기댓값으로 이루어진 식이 아니라 확률변수들로 구성한 식임을 살펴보라.</span>
+<span id="cb3-2296"><a href="#cb3-2296" aria-hidden="true" tabindex="-1"></a>여기서 $t$는 시간 인덱스 (index)이며, 식 @eq-sml 의 $r_F$, $\mu_i$와 $\mu_M$ 대신, 시점 $t$에서 관찰된 $r_{F,t}$, $R_{i,t}$와 $R_{M,t}$를 각각 이용한 것을 볼 수 있다.</span>
+<span id="cb3-2297"><a href="#cb3-2297" aria-hidden="true" tabindex="-1"></a>CAPM이 정확하다면, 균형 상태에서 $\alpha_i=0$이어야 하며, 실증 분석에서는 이 값이 통계적으로 유의한지를 검정한다.</span>
+<span id="cb3-2298"><a href="#cb3-2298" aria-hidden="true" tabindex="-1"></a>@fig-beta 은 이러한 분석에 대한 가상의 예를 보여준다.</span>
+<span id="cb3-2299"><a href="#cb3-2299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2300"><a href="#cb3-2300" aria-hidden="true" tabindex="-1"></a><span class="al">![An example of empirical beta estimation using excess returns](../../assets/figures/Ch2_empirical_beta.svg)</span>{#fig-beta width=80% fig-align="center"}</span>
+<span id="cb3-2301"><a href="#cb3-2301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2302"><a href="#cb3-2302" aria-hidden="true" tabindex="-1"></a>CAPM은 시장 내의 모든 금융 자산의 리스크 프리미엄이 오직 자산의 $\beta$로만 결정되고,</span>
+<span id="cb3-2303"><a href="#cb3-2303" aria-hidden="true" tabindex="-1"></a>이 $\beta$는 오로지 시장 포트폴리오와의 관계에 의해서만 정해진다는 매우 단순한 결론을 가지고 있다.</span>
+<span id="cb3-2304"><a href="#cb3-2304" aria-hidden="true" tabindex="-1"></a>이러한 간단한 결론은 실증 연구 결과와 완전히 들어맞지는 않는다.</span>
+<span id="cb3-2305"><a href="#cb3-2305" aria-hidden="true" tabindex="-1"></a>그럼에도 불구하고 CAPM 모형은 자본 시장의 구조에 대한 중요한 직관을 제공한다는 점에서 여전히 가치가 있다. 첫째, 리스크는 특정 자산을 분리한 채로 고려하는 것이 아니라, 다른 자산들과의 상호 움직임으로 판단해야 한다는 것이다. 둘째, 비록 시장이 급격하게 변하는 특정 상황에서는 CAPM이 잘 들어맞지 않더라도, 평상시에는 근사적으로 시장의 움직임을 설명한다는 실용적 가치가 있다.</span>
+<span id="cb3-2306"><a href="#cb3-2306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2307"><a href="#cb3-2307" aria-hidden="true" tabindex="-1"></a><span class="fu">### 성과지표 (Performance indices)</span></span>
+<span id="cb3-2308"><a href="#cb3-2308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2309"><a href="#cb3-2309" aria-hidden="true" tabindex="-1"></a>앞서 설명한 바와 같이 시장의 균형 상태는 매순간 조정되고 있기 때문에,</span>
+<span id="cb3-2310"><a href="#cb3-2310" aria-hidden="true" tabindex="-1"></a>매 시점마다 특정 자산의 성능, 즉 리스크에 대한 충분한 프리미엄을 제공하고 있는지를 평가하는 수단이 있으면 좋을 것이다.</span>
+<span id="cb3-2311"><a href="#cb3-2311" aria-hidden="true" tabindex="-1"></a>이 절에서는 몇 가지 performance index들을 알아본다.</span>
+<span id="cb3-2312"><a href="#cb3-2312" aria-hidden="true" tabindex="-1"></a>이러한 index들은 다음과 같은 공통점을 시사한다.</span>
+<span id="cb3-2313"><a href="#cb3-2313" aria-hidden="true" tabindex="-1"></a>더 높은 평균 수익률을 얻기 위해서는 더 높은 리스크를 감당해야 한다.</span>
+<span id="cb3-2314"><a href="#cb3-2314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2315"><a href="#cb3-2315" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Sharpe performance index</span></span>
+<span id="cb3-2316"><a href="#cb3-2316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2317"><a href="#cb3-2317" aria-hidden="true" tabindex="-1"></a>앞에서 살펴봤듯이, 자본시장선은</span>
+<span id="cb3-2318"><a href="#cb3-2318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2319"><a href="#cb3-2319" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2320"><a href="#cb3-2320" aria-hidden="true" tabindex="-1"></a>\mu=r_F+\frac{\mu_M-r_F}{\sigma_M}\sigma</span>
+<span id="cb3-2321"><a href="#cb3-2321" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2322"><a href="#cb3-2322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2323"><a href="#cb3-2323" aria-hidden="true" tabindex="-1"></a>이며, 여기서 기울기 $\frac{\mu_M-r_F}{\sigma_M}$는 단위 변동성에 따른 초과 기대 수익을 의미한다.</span>
+<span id="cb3-2324"><a href="#cb3-2324" aria-hidden="true" tabindex="-1"></a>이와 같은 관점에서, 특정 포트폴리오 혹은 자산 $I$의 Sharpe performance index 혹은 Sharpe ratio는 다음과 같다.</span>
+<span id="cb3-2325"><a href="#cb3-2325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2326"><a href="#cb3-2326" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: Sharpe performance index"}</span>
+<span id="cb3-2327"><a href="#cb3-2327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2328"><a href="#cb3-2328" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2329"><a href="#cb3-2329" aria-hidden="true" tabindex="-1"></a>\mathrm{SPI}</span>
+<span id="cb3-2330"><a href="#cb3-2330" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2331"><a href="#cb3-2331" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">R_I</span><span class="co">]</span>-r_F}{\sigma_I}</span>
+<span id="cb3-2332"><a href="#cb3-2332" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2333"><a href="#cb3-2333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2334"><a href="#cb3-2334" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-2335"><a href="#cb3-2335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2336"><a href="#cb3-2336" aria-hidden="true" tabindex="-1"></a>여기서 $\sigma_I$는 자산 $I$의 수익률 분포의 표준편차이며,</span>
+<span id="cb3-2337"><a href="#cb3-2337" aria-hidden="true" tabindex="-1"></a>위 식은 주어진 리스크 수준에서 포트폴리오가 얼마나 효율적으로 수익을 창출하는지 나타낸다.</span>
+<span id="cb3-2338"><a href="#cb3-2338" aria-hidden="true" tabindex="-1"></a>CAPM 이론에서는 시장 포트폴리오가 가장 Sharpe ratio가 높은 포트폴리오이다.</span>
+<span id="cb3-2339"><a href="#cb3-2339" aria-hidden="true" tabindex="-1"></a>@sharpe1994 에서는 조금 다르게 초과 수익률에 대한 표준편차</span>
+<span id="cb3-2340"><a href="#cb3-2340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2341"><a href="#cb3-2341" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2342"><a href="#cb3-2342" aria-hidden="true" tabindex="-1"></a>\sqrt{\operatorname{Var}(R_I-R_f)}</span>
+<span id="cb3-2343"><a href="#cb3-2343" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2344"><a href="#cb3-2344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2345"><a href="#cb3-2345" aria-hidden="true" tabindex="-1"></a>를 분모로 하여 지수를 정의하기도 하였다.</span>
+<span id="cb3-2346"><a href="#cb3-2346" aria-hidden="true" tabindex="-1"></a>실증적 관점에서 만약 Sharpe ratio가 자본시장선의 기울기인 $\frac{\mu_M-r_F}{\sigma_M}$보다 크면 시장 균형 상태에서 기대했던 수익보다 우월한 성능을 나타냄을 의미하고, 기울기보다 작으면 떨어지는 성능을 의미한다.</span>
+<span id="cb3-2347"><a href="#cb3-2347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2348"><a href="#cb3-2348" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Treynor performance index</span></span>
+<span id="cb3-2349"><a href="#cb3-2349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2350"><a href="#cb3-2350" aria-hidden="true" tabindex="-1"></a>Treynor performance index (TPI)는 다음과 같이 정의된다.</span>
+<span id="cb3-2351"><a href="#cb3-2351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2352"><a href="#cb3-2352" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정의: Treynor performance index"}</span>
+<span id="cb3-2353"><a href="#cb3-2353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2354"><a href="#cb3-2354" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2355"><a href="#cb3-2355" aria-hidden="true" tabindex="-1"></a>\mathrm{TPI}</span>
+<span id="cb3-2356"><a href="#cb3-2356" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2357"><a href="#cb3-2357" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">R_I</span><span class="co">]</span>-r_F}{\beta_I}</span>
+<span id="cb3-2358"><a href="#cb3-2358" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2359"><a href="#cb3-2359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2360"><a href="#cb3-2360" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-2361"><a href="#cb3-2361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2362"><a href="#cb3-2362" aria-hidden="true" tabindex="-1"></a>SPI와는 다르게 분모에서 $\sigma_I$ 대신 $\beta_I$를 사용하며, 이는 베타 자체가 체계적 리스크를 나타내는 리스크 측도(risk measure)로서 널리 사용되기 때문이다.</span>
+<span id="cb3-2363"><a href="#cb3-2363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2364"><a href="#cb3-2364" aria-hidden="true" tabindex="-1"></a>CAPM에 따르면</span>
+<span id="cb3-2365"><a href="#cb3-2365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2366"><a href="#cb3-2366" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2367"><a href="#cb3-2367" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">R_I</span><span class="co">]</span></span>
+<span id="cb3-2368"><a href="#cb3-2368" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2369"><a href="#cb3-2369" aria-hidden="true" tabindex="-1"></a>r_F+\beta_I(\mathbb{E}<span class="co">[</span><span class="ot">R_M</span><span class="co">]</span>-r_F)</span>
+<span id="cb3-2370"><a href="#cb3-2370" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2371"><a href="#cb3-2371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2372"><a href="#cb3-2372" aria-hidden="true" tabindex="-1"></a>이며, 따라서,</span>
+<span id="cb3-2373"><a href="#cb3-2373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2374"><a href="#cb3-2374" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2375"><a href="#cb3-2375" aria-hidden="true" tabindex="-1"></a>\mathrm{TPI}</span>
+<span id="cb3-2376"><a href="#cb3-2376" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2377"><a href="#cb3-2377" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">R_I</span><span class="co">]</span>-r_F}{\beta_I}</span>
+<span id="cb3-2378"><a href="#cb3-2378" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2379"><a href="#cb3-2379" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">R_M</span><span class="co">]</span>-r_F</span>
+<span id="cb3-2380"><a href="#cb3-2380" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2381"><a href="#cb3-2381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2382"><a href="#cb3-2382" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb3-2383"><a href="#cb3-2383" aria-hidden="true" tabindex="-1"></a>즉, CAPM의 가정 하에서는 시장 균형상태에서 모든 위험자산의 TPI는 동일할 것이다.</span>
+<span id="cb3-2384"><a href="#cb3-2384" aria-hidden="true" tabindex="-1"></a>식 @eq-linear-capm 의 관점에서 보면,</span>
+<span id="cb3-2385"><a href="#cb3-2385" aria-hidden="true" tabindex="-1"></a>$\mathbb{E}<span class="co">[</span><span class="ot">R_M</span><span class="co">]</span>-r_F$보다 큰 TPI를 가지면 양의 알파 (alpha)를 가진다 (superior performance)고 표현하고, 작은 TPI를 가지면 음의 알파 (alpha)를 가진다 (inferior performance)고 표현한다.</span>
+<span id="cb3-2386"><a href="#cb3-2386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2387"><a href="#cb3-2387" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Jensen's performance index</span></span>
+<span id="cb3-2388"><a href="#cb3-2388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2389"><a href="#cb3-2389" aria-hidden="true" tabindex="-1"></a>Jensen's performance index (JPI) 또한 투자자가 분산 투자된 자산을 취하고 있다고 가정한다.</span>
+<span id="cb3-2390"><a href="#cb3-2390" aria-hidden="true" tabindex="-1"></a>다음의 선형 모형을 생각해 보자.</span>
+<span id="cb3-2391"><a href="#cb3-2391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2392"><a href="#cb3-2392" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2393"><a href="#cb3-2393" aria-hidden="true" tabindex="-1"></a>R_{I,t}-r_{F,t}</span>
+<span id="cb3-2394"><a href="#cb3-2394" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2395"><a href="#cb3-2395" aria-hidden="true" tabindex="-1"></a>\alpha_I+\beta_I(R_{M,t}-r_{F,t})+\varepsilon_{I,t}</span>
+<span id="cb3-2396"><a href="#cb3-2396" aria-hidden="true" tabindex="-1"></a>$$ {#eq-jensen}</span>
+<span id="cb3-2397"><a href="#cb3-2397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2398"><a href="#cb3-2398" aria-hidden="true" tabindex="-1"></a>위 식은 시계열 회귀식으로 과거에 관찰된 시장 포트폴리오와 포트폴리오 $I$의 수익률을 이용하여 모수들인 $\alpha_I$, $\beta_I$를 추정할 수 있다.</span>
+<span id="cb3-2399"><a href="#cb3-2399" aria-hidden="true" tabindex="-1"></a>CAPM에 따르면 균형 상태에서 $\alpha_I=0$이나, 실증적 연구에 있어 $\alpha_I$의 추정치가 항상 0이 되는 것은 아니다.</span>
+<span id="cb3-2400"><a href="#cb3-2400" aria-hidden="true" tabindex="-1"></a>JPI 혹은 Jensen's alpha는 추정된 $\hat\alpha$를 살펴본다.</span>
+<span id="cb3-2401"><a href="#cb3-2401" aria-hidden="true" tabindex="-1"></a>만약 $\hat\alpha$가 유의미하게 0보다 크다면, $I$의 성능이 우월하다는 것이고,</span>
+<span id="cb3-2402"><a href="#cb3-2402" aria-hidden="true" tabindex="-1"></a>유의미하게 음의 값이 나오면, $I$의 성능이 떨어진다는 것이다.</span>
+<span id="cb3-2403"><a href="#cb3-2403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2404"><a href="#cb3-2404" aria-hidden="true" tabindex="-1"></a>식 @eq-jensen 의 양변을 $\beta_I$로 나누고 기댓값을 취하면,</span>
+<span id="cb3-2405"><a href="#cb3-2405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2406"><a href="#cb3-2406" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2407"><a href="#cb3-2407" aria-hidden="true" tabindex="-1"></a>\frac{\mathbb{E}<span class="co">[</span><span class="ot">R_I</span><span class="co">]</span>-r_F}{\beta_I}</span>
+<span id="cb3-2408"><a href="#cb3-2408" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2409"><a href="#cb3-2409" aria-hidden="true" tabindex="-1"></a>\frac{\alpha_I}{\beta_I}+\mathbb{E}<span class="co">[</span><span class="ot">R_M</span><span class="co">]</span>-r_F</span>
+<span id="cb3-2410"><a href="#cb3-2410" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2411"><a href="#cb3-2411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2412"><a href="#cb3-2412" aria-hidden="true" tabindex="-1"></a>을 얻는다.</span>
+<span id="cb3-2413"><a href="#cb3-2413" aria-hidden="true" tabindex="-1"></a>여기서 $r_F=\mathbb{E}<span class="co">[</span><span class="ot">r_{F,t}</span><span class="co">]</span>$로 가정하였다.</span>
+<span id="cb3-2414"><a href="#cb3-2414" aria-hidden="true" tabindex="-1"></a>따라서, $\beta_I&gt;0$의 경우 (많은 자산의 경우 이에 해당할 것이다) TPI 방법에서 양의 alpha를 가졌다는 것은 양의 JPI와 동치이며, TPI 방법에서 음의 alpha는 음의 JPI를 의미한다.</span>
+<span id="cb3-2415"><a href="#cb3-2415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2416"><a href="#cb3-2416" aria-hidden="true" tabindex="-1"></a><span class="fu">## 다른 가격 결정 이론</span></span>
+<span id="cb3-2417"><a href="#cb3-2417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2418"><a href="#cb3-2418" aria-hidden="true" tabindex="-1"></a><span class="fu">### Arbitrage Pricing Theory (APT)</span></span>
+<span id="cb3-2419"><a href="#cb3-2419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2420"><a href="#cb3-2420" aria-hidden="true" tabindex="-1"></a>@ROSS1976 의 Arbitrage Pricing Theory (APT)는 CAPM의 이론적 대안으로 잘 알려져 있으며,</span>
+<span id="cb3-2421"><a href="#cb3-2421" aria-hidden="true" tabindex="-1"></a>CAPM과 흡사한 구조를 가진다.</span>
+<span id="cb3-2422"><a href="#cb3-2422" aria-hidden="true" tabindex="-1"></a>그러나 APT는 CAPM보다 리스크 요인을 더 유연하게, 더 일반적으로 설명할 수 있다.</span>
+<span id="cb3-2423"><a href="#cb3-2423" aria-hidden="true" tabindex="-1"></a>이름에서 알 수 있듯이, APT는 **차익거래 부재(no-arbitrage)**를 핵심 가정으로 삼는 이론으로,</span>
+<span id="cb3-2424"><a href="#cb3-2424" aria-hidden="true" tabindex="-1"></a>CAPM이 요구하는 시장 균형 상태나 수익률의 정규성 같은 강한 가정을 필요로 하지 않는다.</span>
+<span id="cb3-2425"><a href="#cb3-2425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2426"><a href="#cb3-2426" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="차익거래 부재"}</span>
+<span id="cb3-2427"><a href="#cb3-2427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2428"><a href="#cb3-2428" aria-hidden="true" tabindex="-1"></a>차익거래(arbitrage)란 아무런 초기 투자 없이, 손실 위험도 없이 양(+)의 수익을 얻는 거래를 말한다.</span>
+<span id="cb3-2429"><a href="#cb3-2429" aria-hidden="true" tabindex="-1"></a>예를 들어 동일한 자산이 두 시장에서 서로 다른 가격에 거래된다면,</span>
+<span id="cb3-2430"><a href="#cb3-2430" aria-hidden="true" tabindex="-1"></a>싼 곳에서 사서 비싼 곳에서 파는 것만으로 무위험 수익을 얻을 수 있다.</span>
+<span id="cb3-2431"><a href="#cb3-2431" aria-hidden="true" tabindex="-1"></a>현실에서 이런 기회가 발생하면 투자자들이 즉시 이를 활용하여 가격 차이가 사라지므로,</span>
+<span id="cb3-2432"><a href="#cb3-2432" aria-hidden="true" tabindex="-1"></a>균형 시장에서는 차익거래 기회가 존재하지 않는다고 보는 것이 합리적이다.</span>
+<span id="cb3-2433"><a href="#cb3-2433" aria-hidden="true" tabindex="-1"></a>APT는 이보다 약간 완화된 조건인 **점근적 차익거래 부재**를 사용한다.</span>
+<span id="cb3-2434"><a href="#cb3-2434" aria-hidden="true" tabindex="-1"></a>이는 자산의 수가 충분히 많아질 때, 잘 분산된 포트폴리오를 이용한 차익거래 기회가</span>
+<span id="cb3-2435"><a href="#cb3-2435" aria-hidden="true" tabindex="-1"></a>사라진다는 조건으로, 이로부터 자산의 기대 수익률 구조를 도출한다.</span>
+<span id="cb3-2436"><a href="#cb3-2436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2437"><a href="#cb3-2437" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-2438"><a href="#cb3-2438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2439"><a href="#cb3-2439" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 요인 모형: 수익률의 확률적 구조 {.unnumbered}</span></span>
+<span id="cb3-2440"><a href="#cb3-2440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2441"><a href="#cb3-2441" aria-hidden="true" tabindex="-1"></a>APT는 자산 수익률이 공통 리스크 요인들의 선형 결합으로 설명된다고 가정하는 것에서 출발한다.</span>
+<span id="cb3-2442"><a href="#cb3-2442" aria-hidden="true" tabindex="-1"></a>요인 $F$에 대해 자산 $i$의 수익률은 다음과 같이 분해된다.</span>
+<span id="cb3-2443"><a href="#cb3-2443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2444"><a href="#cb3-2444" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2445"><a href="#cb3-2445" aria-hidden="true" tabindex="-1"></a>R_i</span>
+<span id="cb3-2446"><a href="#cb3-2446" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2447"><a href="#cb3-2447" aria-hidden="true" tabindex="-1"></a>\mu_i+\beta_i\bigl(F-\mathbb{E}<span class="co">[</span><span class="ot">F</span><span class="co">]</span>\bigr)+\varepsilon_i</span>
+<span id="cb3-2448"><a href="#cb3-2448" aria-hidden="true" tabindex="-1"></a>$$ {#eq-factor}</span>
+<span id="cb3-2449"><a href="#cb3-2449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2450"><a href="#cb3-2450" aria-hidden="true" tabindex="-1"></a>여기서 $\mu_i=\mathbb{E}<span class="co">[</span><span class="ot">R_i</span><span class="co">]</span>$는 기대 수익률, $\beta_i$는 요인 $F$에 대한</span>
+<span id="cb3-2451"><a href="#cb3-2451" aria-hidden="true" tabindex="-1"></a>**민감도(factor loading)**, $\varepsilon_i$는 자산 고유의</span>
+<span id="cb3-2452"><a href="#cb3-2452" aria-hidden="true" tabindex="-1"></a>**비체계적 리스크(idiosyncratic risk)**이다.</span>
+<span id="cb3-2453"><a href="#cb3-2453" aria-hidden="true" tabindex="-1"></a>$\varepsilon_i$는 평균이 0이며, 요인 $F$와 독립이고, 자산 간에도 서로 독립이라고 가정한다.</span>
+<span id="cb3-2454"><a href="#cb3-2454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2455"><a href="#cb3-2455" aria-hidden="true" tabindex="-1"></a>이 식은 수익률의 *확률적 변동*에 관한 가정이며,</span>
+<span id="cb3-2456"><a href="#cb3-2456" aria-hidden="true" tabindex="-1"></a>기대 수익률 $\mu_i$가 어떤 값을 가져야 하는지에 대해서는 아직 아무것도 말하지 않는다.</span>
+<span id="cb3-2457"><a href="#cb3-2457" aria-hidden="true" tabindex="-1"></a>식 @eq-factor 에서 기대값을 취하면 양변이 $\mu_i=\mu_i$로 항등식이 되어,</span>
+<span id="cb3-2458"><a href="#cb3-2458" aria-hidden="true" tabindex="-1"></a>$\mu_i$는 요인 구조와 독립적으로 자유롭게 남아 있음을 확인할 수 있다.</span>
+<span id="cb3-2459"><a href="#cb3-2459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2460"><a href="#cb3-2460" aria-hidden="true" tabindex="-1"></a>CAPM과 비슷하게 APT에서도 식 @eq-factor 에 따라 자산의 리스크는 두 부분으로 나뉜다.</span>
+<span id="cb3-2461"><a href="#cb3-2461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2462"><a href="#cb3-2462" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**체계적 리스크**: 공통 요인 $F$에 의해 설명되는 부분</span>
+<span id="cb3-2463"><a href="#cb3-2463" aria-hidden="true" tabindex="-1"></a>  $\bigl(\beta_i^2\cdot\mathrm{Var}(F)\bigr)$</span>
+<span id="cb3-2464"><a href="#cb3-2464" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**비체계적 리스크**: 자산 고유의 변동성</span>
+<span id="cb3-2465"><a href="#cb3-2465" aria-hidden="true" tabindex="-1"></a>  $\bigl(\mathrm{Var}(\varepsilon_i)\bigr)$,</span>
+<span id="cb3-2466"><a href="#cb3-2466" aria-hidden="true" tabindex="-1"></a>  분산투자를 통해 거의 제거 가능</span>
+<span id="cb3-2467"><a href="#cb3-2467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2468"><a href="#cb3-2468" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 점근적 차익거래 부재와 APT 가격결정식 {.unnumbered}</span></span>
+<span id="cb3-2469"><a href="#cb3-2469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2470"><a href="#cb3-2470" aria-hidden="true" tabindex="-1"></a>자산 수 $n$이 충분히 클 때, 잘 분산된 포트폴리오에서는 비체계적 리스크</span>
+<span id="cb3-2471"><a href="#cb3-2471" aria-hidden="true" tabindex="-1"></a>$\varepsilon_i$들이 서로 상쇄되어 거의 사라진다.</span>
+<span id="cb3-2472"><a href="#cb3-2472" aria-hidden="true" tabindex="-1"></a>따라서 포트폴리오의 리스크는 결국 요인 노출 $\beta_i$만으로 결정되며,</span>
+<span id="cb3-2473"><a href="#cb3-2473" aria-hidden="true" tabindex="-1"></a>**비체계적 리스크는 시장에서 보상받지 못한다**.</span>
+<span id="cb3-2474"><a href="#cb3-2474" aria-hidden="true" tabindex="-1"></a>@ROSS1976 에 따르면, **점근적 차익거래 부재(asymptotic no-arbitrage)** 조건으로부터,</span>
+<span id="cb3-2475"><a href="#cb3-2475" aria-hidden="true" tabindex="-1"></a>자산 $i$의 기대 수익률은 근사적으로 다음을 만족한다.</span>
+<span id="cb3-2476"><a href="#cb3-2476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2477"><a href="#cb3-2477" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2478"><a href="#cb3-2478" aria-hidden="true" tabindex="-1"></a>\mu_i</span>
+<span id="cb3-2479"><a href="#cb3-2479" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb3-2480"><a href="#cb3-2480" aria-hidden="true" tabindex="-1"></a>r_F+\beta_i\lambda_F</span>
+<span id="cb3-2481"><a href="#cb3-2481" aria-hidden="true" tabindex="-1"></a>$$ {#eq-apt1}</span>
+<span id="cb3-2482"><a href="#cb3-2482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2483"><a href="#cb3-2483" aria-hidden="true" tabindex="-1"></a>여기서 $\beta_i$는 자산 $i$의 요인 민감도이고,</span>
+<span id="cb3-2484"><a href="#cb3-2484" aria-hidden="true" tabindex="-1"></a>$\lambda_F$는 요인 $F$에 대한 **위험 프리미엄(risk premium)**이다.</span>
+<span id="cb3-2485"><a href="#cb3-2485" aria-hidden="true" tabindex="-1"></a>따라서 동일한 요인 민감도를 가진 자산들은 근사적으로 동일한 기대 수익률을 갖는다.</span>
+<span id="cb3-2486"><a href="#cb3-2486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2487"><a href="#cb3-2487" aria-hidden="true" tabindex="-1"></a><span class="fu">#### CAPM과의 관계 {.unnumbered}</span></span>
+<span id="cb3-2488"><a href="#cb3-2488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2489"><a href="#cb3-2489" aria-hidden="true" tabindex="-1"></a>앞에서 살펴본 CAPM에서는 시장 포트폴리오에 대한 베타가 자산의 기대 수익률을 결정하였다.</span>
+<span id="cb3-2490"><a href="#cb3-2490" aria-hidden="true" tabindex="-1"></a>APT의 요인 $F$로 시장 포트폴리오 수익률 $R_M$을 선택하고,</span>
+<span id="cb3-2491"><a href="#cb3-2491" aria-hidden="true" tabindex="-1"></a>이 시장 요인만이 가격에 반영된다고 가정해 보자.</span>
+<span id="cb3-2492"><a href="#cb3-2492" aria-hidden="true" tabindex="-1"></a>시장 포트폴리오 자체의 베타는 1이므로 요인의 위험 프리미엄은</span>
+<span id="cb3-2493"><a href="#cb3-2493" aria-hidden="true" tabindex="-1"></a>$\lambda_M=\mu_M-r_F$이다.</span>
+<span id="cb3-2494"><a href="#cb3-2494" aria-hidden="true" tabindex="-1"></a>따라서 식 @eq-apt1 은</span>
+<span id="cb3-2495"><a href="#cb3-2495" aria-hidden="true" tabindex="-1"></a>$\mu_i\approx r_F+\beta_i(\mu_M-r_F)$가 되어,</span>
+<span id="cb3-2496"><a href="#cb3-2496" aria-hidden="true" tabindex="-1"></a>CAPM의 증권시장선(SML)과 같은 형태를 갖는다.</span>
+<span id="cb3-2497"><a href="#cb3-2497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2498"><a href="#cb3-2498" aria-hidden="true" tabindex="-1"></a>CAPM의 가정 아래에서는 이 관계를 다음과 같이 쓴다.</span>
+<span id="cb3-2499"><a href="#cb3-2499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2500"><a href="#cb3-2500" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2501"><a href="#cb3-2501" aria-hidden="true" tabindex="-1"></a>\mu_i=r_F+\beta_i(\mu_M-r_F)</span>
+<span id="cb3-2502"><a href="#cb3-2502" aria-hidden="true" tabindex="-1"></a>$$ {#eq-sml2}</span>
+<span id="cb3-2503"><a href="#cb3-2503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2504"><a href="#cb3-2504" aria-hidden="true" tabindex="-1"></a>즉, CAPM의 가격결정식을 시장 요인 하나를 사용하는 요인 모형의 관점에서도 이해할 수 있다.</span>
+<span id="cb3-2505"><a href="#cb3-2505" aria-hidden="true" tabindex="-1"></a>다만 CAPM과 APT는 이 관계에 이르는 가정과 논리가 다르다.</span>
+<span id="cb3-2506"><a href="#cb3-2506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2507"><a href="#cb3-2507" aria-hidden="true" tabindex="-1"></a>이 관계는 요인 모형 식 @eq-factor 를 통해서도 확인할 수 있다.</span>
+<span id="cb3-2508"><a href="#cb3-2508" aria-hidden="true" tabindex="-1"></a>$F=R_M$으로 놓고 SML @eq-sml2 을 대입하면</span>
+<span id="cb3-2509"><a href="#cb3-2509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2510"><a href="#cb3-2510" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2511"><a href="#cb3-2511" aria-hidden="true" tabindex="-1"></a>R_i</span>
+<span id="cb3-2512"><a href="#cb3-2512" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2513"><a href="#cb3-2513" aria-hidden="true" tabindex="-1"></a>\mu_i+\beta_i(R_M-\mu_M)+\varepsilon_i</span>
+<span id="cb3-2514"><a href="#cb3-2514" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2515"><a href="#cb3-2515" aria-hidden="true" tabindex="-1"></a>\bigl<span class="co">[</span><span class="ot">r_F+\beta_i(\mu_M-r_F)\bigr</span><span class="co">]</span></span>
+<span id="cb3-2516"><a href="#cb3-2516" aria-hidden="true" tabindex="-1"></a>+\beta_i(R_M-\mu_M)+\varepsilon_i</span>
+<span id="cb3-2517"><a href="#cb3-2517" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2518"><a href="#cb3-2518" aria-hidden="true" tabindex="-1"></a>r_F+\beta_i(R_M-r_F)+\varepsilon_i</span>
+<span id="cb3-2519"><a href="#cb3-2519" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2520"><a href="#cb3-2520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2521"><a href="#cb3-2521" aria-hidden="true" tabindex="-1"></a>이것은 CAPM 실증 연구에 사용되는 시계열 회귀식</span>
+<span id="cb3-2522"><a href="#cb3-2522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2523"><a href="#cb3-2523" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2524"><a href="#cb3-2524" aria-hidden="true" tabindex="-1"></a>R_{i,t}-r_{F,t}</span>
+<span id="cb3-2525"><a href="#cb3-2525" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2526"><a href="#cb3-2526" aria-hidden="true" tabindex="-1"></a>\alpha_i+\beta_i(R_{M,t}-r_{F,t})+\varepsilon_t</span>
+<span id="cb3-2527"><a href="#cb3-2527" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2528"><a href="#cb3-2528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2529"><a href="#cb3-2529" aria-hidden="true" tabindex="-1"></a>에서 $\alpha_i=0$으로 놓은 것과 동일하다.</span>
+<span id="cb3-2530"><a href="#cb3-2530" aria-hidden="true" tabindex="-1"></a>한편, 실증 회귀에서 $\alpha_i\neq0$이 통계적으로 유의하다면,</span>
+<span id="cb3-2531"><a href="#cb3-2531" aria-hidden="true" tabindex="-1"></a>이는 CAPM이 해당 자산을 잘못 가격결정하고 있다는 증거이다.</span>
+<span id="cb3-2532"><a href="#cb3-2532" aria-hidden="true" tabindex="-1"></a>이것이 바로 **Jensen's alpha**이며,</span>
+<span id="cb3-2533"><a href="#cb3-2533" aria-hidden="true" tabindex="-1"></a>단일 시장 요인만으로는 $\alpha_i=0$을 설명하지 못하는 자산들이</span>
+<span id="cb3-2534"><a href="#cb3-2534" aria-hidden="true" tabindex="-1"></a>존재한다는 관찰이 다요인 모형 등장의 배경이 되었다.</span>
+<span id="cb3-2535"><a href="#cb3-2535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2536"><a href="#cb3-2536" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 다요인 모형으로의 확장 {.unnumbered}</span></span>
+<span id="cb3-2537"><a href="#cb3-2537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2538"><a href="#cb3-2538" aria-hidden="true" tabindex="-1"></a>APT의 핵심 장점은 단일 요인에 국한되지 않는다는 점이다.</span>
+<span id="cb3-2539"><a href="#cb3-2539" aria-hidden="true" tabindex="-1"></a>수익률의 확률적 구조를 $k$개의 공통 요인으로 확장하면, 자산 $i$에 대해</span>
+<span id="cb3-2540"><a href="#cb3-2540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2541"><a href="#cb3-2541" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2542"><a href="#cb3-2542" aria-hidden="true" tabindex="-1"></a>R_i</span>
+<span id="cb3-2543"><a href="#cb3-2543" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb3-2544"><a href="#cb3-2544" aria-hidden="true" tabindex="-1"></a>\mu_i</span>
+<span id="cb3-2545"><a href="#cb3-2545" aria-hidden="true" tabindex="-1"></a>+\beta_{i1}(F_1-\mathbb{E}<span class="co">[</span><span class="ot">F_1</span><span class="co">]</span>)</span>
+<span id="cb3-2546"><a href="#cb3-2546" aria-hidden="true" tabindex="-1"></a>+\cdots</span>
+<span id="cb3-2547"><a href="#cb3-2547" aria-hidden="true" tabindex="-1"></a>+\beta_{ik}(F_k-\mathbb{E}<span class="co">[</span><span class="ot">F_k</span><span class="co">]</span>)</span>
+<span id="cb3-2548"><a href="#cb3-2548" aria-hidden="true" tabindex="-1"></a>+\varepsilon_i</span>
+<span id="cb3-2549"><a href="#cb3-2549" aria-hidden="true" tabindex="-1"></a>$$ {#eq-factor-multi}</span>
+<span id="cb3-2550"><a href="#cb3-2550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2551"><a href="#cb3-2551" aria-hidden="true" tabindex="-1"></a>이 구조 하에서 점근적 차익거래 부재 조건을 적용하면,</span>
+<span id="cb3-2552"><a href="#cb3-2552" aria-hidden="true" tabindex="-1"></a>기대 수익률에 대한 다요인 가격결정식을 얻는다.</span>
+<span id="cb3-2553"><a href="#cb3-2553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2554"><a href="#cb3-2554" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2555"><a href="#cb3-2555" aria-hidden="true" tabindex="-1"></a>\mu_i</span>
+<span id="cb3-2556"><a href="#cb3-2556" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb3-2557"><a href="#cb3-2557" aria-hidden="true" tabindex="-1"></a>r_F</span>
+<span id="cb3-2558"><a href="#cb3-2558" aria-hidden="true" tabindex="-1"></a>+\beta_{i1}\lambda_1</span>
+<span id="cb3-2559"><a href="#cb3-2559" aria-hidden="true" tabindex="-1"></a>+\cdots</span>
+<span id="cb3-2560"><a href="#cb3-2560" aria-hidden="true" tabindex="-1"></a>+\beta_{ik}\lambda_k</span>
+<span id="cb3-2561"><a href="#cb3-2561" aria-hidden="true" tabindex="-1"></a>$$ {#eq-apt-multi}</span>
+<span id="cb3-2562"><a href="#cb3-2562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2563"><a href="#cb3-2563" aria-hidden="true" tabindex="-1"></a>각 $\beta_{ij}$는 자산 $i$의 요인 $F_j$에 대한 민감도이며,</span>
+<span id="cb3-2564"><a href="#cb3-2564" aria-hidden="true" tabindex="-1"></a>$\lambda_j$는 요인 $j$의 위험 프리미엄이다.</span>
+<span id="cb3-2565"><a href="#cb3-2565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2566"><a href="#cb3-2566" aria-hidden="true" tabindex="-1"></a>APT 이론의 핵심적인 의의는 식 @eq-factor-multi 과 식 @eq-apt-multi 에서</span>
+<span id="cb3-2567"><a href="#cb3-2567" aria-hidden="true" tabindex="-1"></a>$\beta_{ij}$가 동일하게 등장한다는 점이다.</span>
+<span id="cb3-2568"><a href="#cb3-2568" aria-hidden="true" tabindex="-1"></a>즉, 수익률의 *실현값*이 요인 충격에 얼마나 민감하게 반응하는지를 나타내는 계수가,</span>
+<span id="cb3-2569"><a href="#cb3-2569" aria-hidden="true" tabindex="-1"></a>*기대수익률*의 크기도 결정한다.</span>
+<span id="cb3-2570"><a href="#cb3-2570" aria-hidden="true" tabindex="-1"></a>요인 $j$에 대한 노출은 $\beta_{ij}\lambda_j$만큼 기대 수익률에 기여하며,</span>
+<span id="cb3-2571"><a href="#cb3-2571" aria-hidden="true" tabindex="-1"></a>이것이 APT가 표현하는 리스크–수익률 관계의 핵심이다.</span>
+<span id="cb3-2572"><a href="#cb3-2572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2573"><a href="#cb3-2573" aria-hidden="true" tabindex="-1"></a>APT의 단점은 모든 *개별* 자산에 가격결정식이 정확히 성립한다는 보장은 없다는 점이다.</span>
+<span id="cb3-2574"><a href="#cb3-2574" aria-hidden="true" tabindex="-1"></a>잘 분산된 포트폴리오와 대다수 자산에는 근사적으로 성립하지만,</span>
+<span id="cb3-2575"><a href="#cb3-2575" aria-hidden="true" tabindex="-1"></a>소수의 개별 자산에는 작은 가격 오류가 남을 수 있다.</span>
+<span id="cb3-2576"><a href="#cb3-2576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2577"><a href="#cb3-2577" aria-hidden="true" tabindex="-1"></a><span class="fu">### 실증적 다요인 모형</span></span>
+<span id="cb3-2578"><a href="#cb3-2578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2579"><a href="#cb3-2579" aria-hidden="true" tabindex="-1"></a>한편 APT는 어떤 요인을 사용해야 하는지 스스로 지정하지 않는다.</span>
+<span id="cb3-2580"><a href="#cb3-2580" aria-hidden="true" tabindex="-1"></a>이에 따라 후속 실증 연구에서는 자산 가격을 설명하는 요인이 무엇인지를 찾는 작업이</span>
+<span id="cb3-2581"><a href="#cb3-2581" aria-hidden="true" tabindex="-1"></a>활발하게 이루어졌다.</span>
+<span id="cb3-2582"><a href="#cb3-2582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2583"><a href="#cb3-2583" aria-hidden="true" tabindex="-1"></a>@chen1986economic 는 산업 생산 증가율, 예상치 못한 인플레이션,</span>
+<span id="cb3-2584"><a href="#cb3-2584" aria-hidden="true" tabindex="-1"></a>이자율의 기간 구조, 신용 스프레드 등 **거시경제 변수**를 요인으로 활용하였다.</span>
+<span id="cb3-2585"><a href="#cb3-2585" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2586"><a href="#cb3-2586" aria-hidden="true" tabindex="-1"></a>@FAMA1993 는 CAPM의 단일 요인 모형의 한계를 보완하기 위해</span>
+<span id="cb3-2587"><a href="#cb3-2587" aria-hidden="true" tabindex="-1"></a>**Fama–French 3요인 모형(FF3)**을 제안하였다.</span>
+<span id="cb3-2588"><a href="#cb3-2588" aria-hidden="true" tabindex="-1"></a>FF3는 시장 요인 외에 두 가지 포트폴리오 기반 요인을 추가한다.</span>
+<span id="cb3-2589"><a href="#cb3-2589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2590"><a href="#cb3-2590" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**SMB** (Small Minus Big): 소형주와 대형주 포트폴리오의 수익률 차이.</span>
+<span id="cb3-2591"><a href="#cb3-2591" aria-hidden="true" tabindex="-1"></a>  소형주가 대형주보다 평균적으로 높은 수익률을 보이는</span>
+<span id="cb3-2592"><a href="#cb3-2592" aria-hidden="true" tabindex="-1"></a>  *규모 효과(size effect)*를 포착한다.</span>
+<span id="cb3-2593"><a href="#cb3-2593" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**HML** (High Minus Low): 장부가치/시장가(B/M) 비율이 높은 주식과</span>
+<span id="cb3-2594"><a href="#cb3-2594" aria-hidden="true" tabindex="-1"></a>  낮은 주식의 수익률 차이.</span>
+<span id="cb3-2595"><a href="#cb3-2595" aria-hidden="true" tabindex="-1"></a>  B/M이 높은 *가치주(value stocks)*가 성장주보다 높은 수익률을 보이는</span>
+<span id="cb3-2596"><a href="#cb3-2596" aria-hidden="true" tabindex="-1"></a>  *가치 효과(value effect)*를 포착한다.</span>
+<span id="cb3-2597"><a href="#cb3-2597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2598"><a href="#cb3-2598" aria-hidden="true" tabindex="-1"></a>이러한 다요인 선형 관계를 실증적으로 사용하는 예가 FF3이다.</span>
+<span id="cb3-2599"><a href="#cb3-2599" aria-hidden="true" tabindex="-1"></a>시장 수익률 $R_M$과 수익률 차이로 구성된 $\mathrm{SMB}$, $\mathrm{HML}$을</span>
+<span id="cb3-2600"><a href="#cb3-2600" aria-hidden="true" tabindex="-1"></a>세 요인으로 사용하면 다음과 같이 나타낼 수 있다.</span>
+<span id="cb3-2601"><a href="#cb3-2601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2602"><a href="#cb3-2602" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2603"><a href="#cb3-2603" aria-hidden="true" tabindex="-1"></a>\mu_i-r_F</span>
+<span id="cb3-2604"><a href="#cb3-2604" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb3-2605"><a href="#cb3-2605" aria-hidden="true" tabindex="-1"></a>\beta_{i,m}(\mu_M-r_F)</span>
+<span id="cb3-2606"><a href="#cb3-2606" aria-hidden="true" tabindex="-1"></a>+\beta_{i,\mathrm{SMB}}\,\lambda_{\mathrm{SMB}}</span>
+<span id="cb3-2607"><a href="#cb3-2607" aria-hidden="true" tabindex="-1"></a>+\beta_{i,\mathrm{HML}}\,\lambda_{\mathrm{HML}}</span>
+<span id="cb3-2608"><a href="#cb3-2608" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2609"><a href="#cb3-2609" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2610"><a href="#cb3-2610" aria-hidden="true" tabindex="-1"></a>여기서 시장 요인의 위험 프리미엄은 $\mu_M-r_F$이며,</span>
+<span id="cb3-2611"><a href="#cb3-2611" aria-hidden="true" tabindex="-1"></a>$\lambda_{\mathrm{SMB}}=\mathbb{E}<span class="co">[</span><span class="ot">\mathrm{SMB}</span><span class="co">]</span>$와</span>
+<span id="cb3-2612"><a href="#cb3-2612" aria-hidden="true" tabindex="-1"></a>$\lambda_{\mathrm{HML}}=\mathbb{E}<span class="co">[</span><span class="ot">\mathrm{HML}</span><span class="co">]</span>$은 각각 수익률 차이의 기대값이다.</span>
+<span id="cb3-2613"><a href="#cb3-2613" aria-hidden="true" tabindex="-1"></a>따라서 $\mathrm{SMB}$와 $\mathrm{HML}$에서는 $r_F$를 다시 빼지 않는다.</span>
+<span id="cb3-2614"><a href="#cb3-2614" aria-hidden="true" tabindex="-1"></a>Fama는 이 연구와 효율적 시장 가설에 대한 공로로 2013년 노벨 경제학상을 공동 수상하였다.</span>
+<span id="cb3-2615"><a href="#cb3-2615" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2616"><a href="#cb3-2616" aria-hidden="true" tabindex="-1"></a>이처럼 현대 자산 가격 결정 이론의 핵심은 투자자들이 중요하게 여기는 리스크 요인을</span>
+<span id="cb3-2617"><a href="#cb3-2617" aria-hidden="true" tabindex="-1"></a>효과적으로 파악하는 데 있다.</span>
+<span id="cb3-2618"><a href="#cb3-2618" aria-hidden="true" tabindex="-1"></a>이 모형들에 대한 엄밀한 수학적 전개는 이 과목의 범주를 벗어나므로 관련 자료를 참고하길 바란다.</span>
+<span id="cb3-2619"><a href="#cb3-2619" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2620"><a href="#cb3-2620" aria-hidden="true" tabindex="-1"></a><span class="fu">### 효율적 시장 가설</span></span>
+<span id="cb3-2621"><a href="#cb3-2621" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2622"><a href="#cb3-2622" aria-hidden="true" tabindex="-1"></a>효율적 시장 가설 (efficient markets hypothesis, EMH)의 개념은 매우 오래되었으나, 이를 학문적으로 정립한 공로로서 @Fama1970 가 언급된다.</span>
+<span id="cb3-2623"><a href="#cb3-2623" aria-hidden="true" tabindex="-1"></a>여기서 시장이 효율적이라는 것은 시장에서 현재 가용한 모든 정보가 가격에 반영되어 있음을 뜻하며, 경우에 따라 여러가지 형태로 정의된다.</span>
+<span id="cb3-2624"><a href="#cb3-2624" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2625"><a href="#cb3-2625" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Weak form : (1) 과거의 가격들에 대한 정보가 현재 가격에 모두 반영되어 있으며, (2) 과거 가격에 대한 정보를 통한 투자 전략으로 비정상적인 이익 (abnormal profit)을 얻지 못한다.</span>
+<span id="cb3-2626"><a href="#cb3-2626" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Semi-strong form : (1) 모든 공적 정보 (과거 가격, 연간 보고서, 경영 상태, 수익 예측, 거시경제 뉴스 등)가 현재 가격에 모두 반영되어 있으며, (2) 공적 정보를 바탕으로 한 투자 전략으로 비정상적인 이익을 얻지 못한다.</span>
+<span id="cb3-2627"><a href="#cb3-2627" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Strong form : (1) 모든 사적, 공적 정보가 현재 가격에 모두 반영되어 있으며, (2) 이 정보들을 바탕으로 한 투자 전략으로 비정상적인 이익을 얻지 못한다.</span>
+<span id="cb3-2628"><a href="#cb3-2628" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2629"><a href="#cb3-2629" aria-hidden="true" tabindex="-1"></a>어떤 새로운 정보가 도달한다면 시장 참가자들의 경쟁에 의해 그 정보는 아주 빠르게 가격에 적용될 것이다.</span>
+<span id="cb3-2630"><a href="#cb3-2630" aria-hidden="true" tabindex="-1"></a>만약 시장 가격이 낮다고 판단되면 매수 경향이 높아져 가격은 금새 높아질 것이고, 시장 가격이 높다고 판단되면 매도 경향이 높아져 가격은 금새 하락할 것이다.</span>
+<span id="cb3-2631"><a href="#cb3-2631" aria-hidden="true" tabindex="-1"></a>효율적 시장 가설에서는 모든 정보가 효율적으로 시장 가격에 즉시 반영이 되기 때문에, 가용한 정보를 이용해 체계적인 초과수익을 예측하는 것은 불가능하다고 주장한다.</span>
+<span id="cb3-2632"><a href="#cb3-2632" aria-hidden="true" tabindex="-1"></a>물론 실증연구의 결과 정보의 반영이 매우 빠른 시간 안에 이루어진다고 여겨지지만 그것이 얼마나 빠른지에 대해서는 생각해 볼 여지가 있다.</span>
+<span id="cb3-2633"><a href="#cb3-2633" aria-hidden="true" tabindex="-1"></a>미래 수익률 예측과 효율적 시장 가설에 대한 통계적 검정 연구에 대한 자세한 내용은 @Linton2019financial 를 참고하라.</span>
+<span id="cb3-2634"><a href="#cb3-2634" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2635"><a href="#cb3-2635" aria-hidden="true" tabindex="-1"></a>요약하면, 현대 자산 가격 결정 이론은 차익거래 부재와 정보 효율성을 기본 원리로 하여, 투자자들이 중요하게 인식하는 리스크 요인을 선형적으로 가격에 반영하는 구조로 발전해 왔다.</span>
+<span id="cb3-2636"><a href="#cb3-2636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2637"><a href="#cb3-2637" aria-hidden="true" tabindex="-1"></a><span class="fu">## 마무리</span></span>
+<span id="cb3-2638"><a href="#cb3-2638" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2639"><a href="#cb3-2639" aria-hidden="true" tabindex="-1"></a>CAPM은 본질적으로 금융 시장에 대한 매우 강한 가정으로 유도되었으며,</span>
+<span id="cb3-2640"><a href="#cb3-2640" aria-hidden="true" tabindex="-1"></a>비록 금융 시장에 대한 놀라운 직관을 제공하기는 하지만,</span>
+<span id="cb3-2641"><a href="#cb3-2641" aria-hidden="true" tabindex="-1"></a>실제 세상과는 맞지 않는 단점도 가지고 있다.</span>
+<span id="cb3-2642"><a href="#cb3-2642" aria-hidden="true" tabindex="-1"></a>공통적으로 지적되는 사항들을 정리하면 다음과 같다.</span>
+<span id="cb3-2643"><a href="#cb3-2643" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2644"><a href="#cb3-2644" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>투자자가 금융 자산만을 가지고 있다고 가정한다.</span>
+<span id="cb3-2645"><a href="#cb3-2645" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2646"><a href="#cb3-2646" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>현실 세계의 투자자들은 금융 자산뿐만 아니라, 임금을 비롯한 각종 소득과 부동산 등과 같은 비금융 현금 흐름과 자산을 보유하며, 최적 포트폴리오를 구성할 때 이러한 점들을 고려해야 한다.</span>
+<span id="cb3-2647"><a href="#cb3-2647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2648"><a href="#cb3-2648" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>투자자가 평균-분산 효용을 가지고 있다고 가정한다.</span>
+<span id="cb3-2649"><a href="#cb3-2649" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2650"><a href="#cb3-2650" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>여기서 평균-분산 효용이라는 것은 자산 분포들이 같은 평균과 분산을 가진다면 같은 효용을 지닌다는 뜻이다.</span>
+<span id="cb3-2651"><a href="#cb3-2651" aria-hidden="true" tabindex="-1"></a>    하지만 보다 현실적인 효용함수가 되려면 리스크에 대해 비대칭적으로 접근해야 한다.</span>
+<span id="cb3-2652"><a href="#cb3-2652" aria-hidden="true" tabindex="-1"></a>    사람들은 이득에 의한 기쁨보다 손실에 의한 타격을 더 심각하게 생각하는 경향이 있기 때문이다.</span>
+<span id="cb3-2653"><a href="#cb3-2653" aria-hidden="true" tabindex="-1"></a>    분산 뿐만 아니라, 왜도 (skewness)와 첨도 (kurtosis) 또한 리스크 프리미엄을 형성함이 알려져 있다.</span>
+<span id="cb3-2654"><a href="#cb3-2654" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2655"><a href="#cb3-2655" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>단일 기간 모형이다.</span>
+<span id="cb3-2656"><a href="#cb3-2656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2657"><a href="#cb3-2657" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>CAPM에서 자산의 분포를 생각할 때, 단일 미래 시점 $T$만을 고려한다.</span>
+<span id="cb3-2658"><a href="#cb3-2658" aria-hidden="true" tabindex="-1"></a>    실제에서는 연속된 시간의 흐름을 고려해야 한다.</span>
+<span id="cb3-2659"><a href="#cb3-2659" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2660"><a href="#cb3-2660" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>모든 투자자들이 자산의 분포에 대해 동일하게 인식한다고 간주한다.</span>
+<span id="cb3-2661"><a href="#cb3-2661" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2662"><a href="#cb3-2662" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>현실 세계에서는 동일한 자산에 대해 투자자들이 생각하는 미래 분포가 제각각이다.</span>
+<span id="cb3-2663"><a href="#cb3-2663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2664"><a href="#cb3-2664" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>세금이나 거래 비용이 없다.</span>
+<span id="cb3-2665"><a href="#cb3-2665" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2666"><a href="#cb3-2666" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>현실에서는 투자 소득에 대한 세금이나, 거래 시의 거래 비용에 대해 고려해야 하며, 공매도가 가능하지 않은 상황도 고려해야 한다.</span>
+<span id="cb3-2667"><a href="#cb3-2667" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2668"><a href="#cb3-2668" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>모든 투자자들이 가격 수용자 (price taker)이다.</span>
+<span id="cb3-2669"><a href="#cb3-2669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2670"><a href="#cb3-2670" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>CAPM에서는 투자자들의 거래 행위가 가격에는 영향을 미치지 않는다고 가정한다.</span>
+<span id="cb3-2671"><a href="#cb3-2671" aria-hidden="true" tabindex="-1"></a>    현실 세계에서도 대략적으로 투자자들은 가격 수용자에 가깝지만,</span>
+<span id="cb3-2672"><a href="#cb3-2672" aria-hidden="true" tabindex="-1"></a>    특정 정보를 가지고 있는 투자자들이 대량으로 거래에 임할 경우 이들의 행위는 가격에 영향 (price impact)을 미치게 된다.</span>
+<span id="cb3-2673"><a href="#cb3-2673" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2674"><a href="#cb3-2674" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>모든 투자자들이 특별한 비용없이 정보에 동일하게 접근할 수 있다고 가정한다.</span>
+<span id="cb3-2675"><a href="#cb3-2675" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2676"><a href="#cb3-2676" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>현실 세계에서는 모든 투자자들이 동일한 정보를 가지고 있지 않으며, 특정 정보들을 획득하기 위해서는 많은 노력과 비용이 필요할 수 있다.</span>
 </code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -390,6 +390,8 @@ window.Quarto = {
   <li><a href="#garch" id="toc-garch" class="nav-link" data-scroll-target="#garch"><span class="header-section-number">7.4</span> GARCH</a>
   <ul class="collapse">
   <li><a href="#garch-모형의-배경과-조건부-분포" id="toc-garch-모형의-배경과-조건부-분포" class="nav-link" data-scroll-target="#garch-모형의-배경과-조건부-분포"><span class="header-section-number">7.4.1</span> GARCH 모형의 배경과 조건부 분포</a></li>
+  <li><a href="#정의와-기본-성질" id="toc-정의와-기본-성질" class="nav-link" data-scroll-target="#정의와-기본-성질"><span class="header-section-number">7.4.2</span> 정의와 기본 성질</a></li>
+  <li><a href="#시뮬레이션" id="toc-시뮬레이션" class="nav-link" data-scroll-target="#시뮬레이션"><span class="header-section-number">7.4.3</span> 시뮬레이션</a></li>
   </ul></li>
   <li><a href="#관련-페이지" id="toc-관련-페이지" class="nav-link" data-scroll-target="#관련-페이지"><span class="header-section-number">7.5</span> 관련 페이지</a></li>
   </ul>
@@ -751,6 +753,487 @@ r_{10} \mid \sigma_{10}^2 \sim N(0, 0.6)
 </div>
 </div>
 </section>
+<section id="정의와-기본-성질" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="정의와-기본-성질"><span class="header-section-number">7.4.2</span> 정의와 기본 성질</h3>
+<p>모형의 복잡도에 따라 양의 정수 <span class="math inline">\(p\)</span>, <span class="math inline">\(q\)</span>에 대해 GARCH(<span class="math inline">\(p,q\)</span>) 모형이 있지만, 여기서는 가장 간단한 GARCH(1,1) 모형을 살펴본다. 그중에서도 수익률 과정은 모형화하지 않고 변동성 <span class="math inline">\(\sigma_n\)</span>만 모형화한 형태를 다룬다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>GARCH(1,1)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>수익률 과정 <span class="math inline">\(r_n\)</span>이 GARCH(1,1)를 따른다는 것은, <span class="math inline">\(r_n\)</span>과 그 조건부 분산 <span class="math inline">\(\sigma_n^2\)</span>이 다음을 만족한다는 뜻이다.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p><span id="eq-garch11"><span class="math display">\[
+\sigma_n^2 = \omega + \alpha r_{n-1}^2 + \beta \sigma_{n-1}^2
+\tag{7.3}\]</span></span></p>
+<ul>
+<li>주어진 분산 <span class="math inline">\(\sigma_n^2\)</span>에 대해 <span class="math inline">\(r_n\)</span>의 조건부 분포는 정규분포다. <span class="math display">\[
+r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)
+\]</span></li>
+<li>표준화된 오차항 과정은 다음으로 정의한다. <span id="eq-varepsilon"><span class="math display">\[
+\varepsilon_n = \frac{r_n}{\sigma_n}
+\tag{7.4}\]</span></span></li>
+<li><span class="math inline">\(\omega, \alpha, \beta\)</span>는 모형 모수이며 양의 값이다.</li>
+<li>다음 <strong>정상성</strong>(stationarity) 조건 중 하나를 만족한다.
+<ul>
+<li>강정상성 조건 <span id="eq-stationarity1"><span class="math display">\[
+-\infty &lt; \mathbb{E}\left[\log(\beta + \alpha \varepsilon_0^2)\right] &lt; 0
+\tag{7.5}\]</span></span></li>
+<li>약정상성 조건 <span id="eq-stationarity"><span class="math display">\[
+\alpha + \beta &lt; 1
+\tag{7.6}\]</span></span></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<p>위 정의에서는 편의상 기대수익률을 0으로 가정했으나, 조건부 평균 수익률 과정을 따로 정의하는 경우도 많다. GARCH 모형의 조건에는 어긋나지만, <span class="math inline">\(\omega = 0\)</span>, <span class="math inline">\(\alpha = 1 - \lambda\)</span>, <span class="math inline">\(\beta = \lambda\)</span>로 두면 EWMA 공식과 같아진다는 점에 주목하자.</p>
+<p>금융 자산 수익률에서 <span class="math inline">\(\beta\)</span>는 1에 가까운 값을 가진다. <span class="math inline">\(\beta\)</span>가 1에 가까울수록 <strong>지속성</strong>(persistence)이 크다고 하며, <span class="math inline">\(\beta\)</span>가 크면 먼 과거의 경향을, <span class="math inline">\(\alpha\)</span>가 크면 최근의 경향을 더 많이 반영한다.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>GARCH 과정의 확률적 성질
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>적절한 조건 아래에서 GARCH 확률과정은 여러 좋은 성질을 가진다. 예를 들어 시간이 충분히 흐르면, 즉 먼 과거의 분산 <span class="math inline">\(\sigma_{n-T}^2\)</span>과 현재의 분산 <span class="math inline">\(\sigma_n^2\)</span>은 근사적으로 <a href="../../concepts/probability/independence.html">독립</a>이 된다. 20년 전의 변동성이 내일의 변동성에 영향을 준다고 생각하기는 어렵다. 이를 <strong>강혼합 성질</strong>(strong mixing property)이라 한다. 혼합에는 여러 종류가 있는데, 관찰값 사이의 간격이 멀어질수록 공분산이 0에 가까워지면 <strong>공분산 혼합</strong>(covariance mixing)이라 한다.</p>
+<p>또한 적절한 조건 아래에서 GARCH 확률과정은 <strong>에르고딕</strong>(ergodic)이다. 에르고딕 확률과정이란, 관찰 기간이 충분하다면 하나의 실현된 경로(path) 안에서 그 확률과정의 모든 분포적 성질을 관찰할 수 있다는 뜻이다. 자세한 내용은 <span class="citation" data-cites="lindner2009stationarity">(<a href="#ref-lindner2009stationarity" role="doc-biblioref">Lindner 2009년</a>)</span>와 <span class="citation" data-cites="francq2019garch">(<a href="#ref-francq2019garch" role="doc-biblioref">Francq 와/과 Zakoian 2019년</a>)</span>를 참고한다.</p>
+</div>
+</div>
+<p><a href="#eq-stationarity1" class="quarto-xref">방정식&nbsp;<span>7.5</span></a> 의 정상성 조건이란, <a href="#eq-garch11" class="quarto-xref">방정식&nbsp;<span>7.3</span></a> 로 정의된 분산 확률과정이 시간이 한참 흘러도 본래의 분포적 성질을 유지할 조건을 뜻한다. 위 정의처럼 표현되는 확률과정은 <span class="math inline">\(\sigma_0\)</span>이나 <span class="math inline">\(r_0\)</span> 같은 초기값을 무엇으로 할지 명확하지 않다. 이때 편리한 방법은 이 확률과정이 <strong>무한히 먼 과거로부터 시작했다</strong>고 가정하는 것이다. 이 접근에는 시간이 오래 지나도 평균·분산·공분산 같은 분포 성질이 변하지 않는다는 성질이 필요하며, 이를 정상성이라 한다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>강정상성
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>확률과정 <span class="math inline">\(X_t\)</span>가 <strong>강정상</strong>(strictly stationary, strongly stationary)이라는 것은, 임의의 자연수 <span class="math inline">\(k\)</span>와 정수 <span class="math inline">\(h\)</span>에 대해 <span class="math inline">\((X_1, \cdots, X_k)\)</span>와 <span class="math inline">\((X_{1+h}, \cdots, X_{k+h})\)</span>가 같은 결합 분포를 가진다는 뜻이다. 즉 시간을 <span class="math inline">\(h\)</span>만큼 이동해도 분포의 성질이 변하지 않는다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>약정상성
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>확률과정 <span class="math inline">\(X_t\)</span>가 <strong>약정상</strong>(weakly stationary, wide-sense stationary, second-order stationary)이라는 것은, <span class="math inline">\(X_t\)</span>의 평균과 분산이 유한한 상수로 존재하고 <span class="math inline">\(\mathrm{Cov}(X_t, X_{t+h})\)</span>가 오직 두 시점 사이의 거리 <span class="math inline">\(h\)</span>에만 의존한다는 뜻이다.</p>
+</div>
+</div>
+<p>예를 들어 <a href="#fig-nonstationary1" class="quarto-xref">그림&nbsp;<span>7.1 (b)</span></a> 처럼 시간에 따라 평균이 계속 증가하거나 감소하는 확률과정, <a href="#fig-nonstationary3" class="quarto-xref">그림&nbsp;<span>7.1 (d)</span></a> 처럼 주기적으로 움직이는 확률과정, <a href="#fig-nonstationary2" class="quarto-xref">그림&nbsp;<span>7.1 (c)</span></a> 처럼 분산이 계속 증가하거나 감소하는 확률과정은 정상과정(stationary process)이 아닐 가능성이 높다.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>정상 시계열이지만 비정상 시계열처럼 보이도록 인위적으로 만들 수 있다. 따라서 <strong>관찰된 경로 하나만으로는</strong> 정상과정인지 비정상과정인지 완벽히 판단하지 못한다. 아래 예제가 이 점을 보여준다.</p>
+</div>
+</div>
+<div id="fig-stationarity" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-stationarity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-stationarity" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-stationary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-stationary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch7_stationary.svg" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-stationarity">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-stationary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) 정상 시계열
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-stationarity" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-nonstationary1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-nonstationary1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch7_nonstationary1.svg" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-stationarity">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-nonstationary1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) 비정상 시계열: 평균이 증가
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-stationarity" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-nonstationary2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-nonstationary2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch7_nonstationary2.svg" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-stationarity">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-nonstationary2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) 비정상 시계열: 분산이 증가
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-stationarity" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-nonstationary3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-nonstationary3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch7_nonstationary3.svg" class="img-fluid figure-img" style="width:100.0%" data-ref-parent="fig-stationarity">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-nonstationary3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) 비정상 시계열: 주기적 움직임
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-stationarity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;7.1: (아마도) 정상 시계열과 비정상 시계열의 예
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>그림을 약정상성의 조건으로 읽기
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>약정상성은 세 가지를 요구한다 — 평균이 일정할 것, 분산이 일정할 것, 공분산이 두 시점 사이의 거리 <span class="math inline">\(h\)</span>에만 의존할 것. <a href="#fig-stationarity" class="quarto-xref">그림&nbsp;<span>7.1</span></a> 의 비정상 시계열 세 개는 이 가운데 하나씩을 어긴다.</p>
+<ul>
+<li><strong>(b)</strong> 값이 시간에 따라 계속 올라간다 → <strong>평균이 상수가 아니다.</strong></li>
+<li><strong>(c)</strong> 흔들리는 폭이 시간에 따라 커진다 → <strong>분산이 상수가 아니다.</strong></li>
+<li><strong>(d)</strong> 주기적으로 오르내린다 → <strong>평균이 시점에 따라 주기적으로 달라진다.</strong> 어느 시점에서 보느냐에 따라 기대되는 값이 다르다.</li>
+</ul>
+<p><strong>(a)</strong>는 이런 추세가 없어 정상과정처럼 보인다. 다만 캡션에 “(아마도)”를 붙인 이유가 있다 — 그림 하나만으로 정상성을 단정할 수는 없다. 아래 예제가 그 이유를 보여준다.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제: 같은 관찰값, 다른 확률과정
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>다음 시계열 실현값을 관찰했다고 하자.</p>
+<p><span class="math display">\[
+1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; \cdots
+\]</span></p>
+<p>이 관찰값을 낳은 확률과정은 정상 시계열일 수도 있고 아닐 수도 있다.</p>
+<p><span class="math inline">\(X_t\)</span>가 확률 1로 <span class="math inline">\(X_t = (-1)^t\)</span>로 정의되었고 위 관찰값이 <span class="math inline">\(X_t\)</span>의 실현 결과라면, <span class="math inline">\(\mathbb{E}[X_1] \neq \mathbb{E}[X_2]\)</span>이므로 <span class="math inline">\(X_t\)</span>는 비정상 시계열이다.</p>
+<p>반면 <span class="math inline">\(Y_t\)</span>가 다음과 같이 정의되었고</p>
+<p><span class="math display">\[
+Y_t = \begin{cases}
+1,\; -1,\; 1,\; -1,\; 1,\; -1,\; \cdots &amp; \text{확률 } 0.5 \\
+-1,\; 1,\; -1,\; 1,\; -1,\; 1,\; \cdots &amp; \text{확률 } 0.5
+\end{cases}
+\]</span></p>
+<p>위 관찰값이 <span class="math inline">\(Y_t\)</span>의 실현 결과라면, <span class="math inline">\(Y_t\)</span>는 정상 시계열이다. 같은 관찰값이 두 경우 모두에서 나올 수 있다.</p>
+</div>
+</div>
+<p>GARCH 모형에서 <span class="math inline">\(\alpha + \beta &gt; 1\)</span>이면 유한한 비조건부 분산을 갖지 않으며, 분산 과정의 실현 경로가 크게 증가하거나 <strong>폭발</strong>(explosive)할 수 있다. EWMA처럼 GARCH 모형도 재귀적 형태를 가지므로 다음과 같이 전개할 수 있다.</p>
+<p><span id="eq-garch-ex"><span class="math display">\[
+\begin{aligned}
+\sigma_n^2 &amp;= \omega + \beta \sigma_{n-1}^2 + \alpha r_{n-1}^2 \\
+&amp;= \omega + \beta (\omega + \beta \sigma_{n-2}^2 + \alpha r_{n-2}^2) + \alpha r_{n-1}^2 \\
+&amp;= (1 + \beta)\omega + \beta^2 \sigma_{n-2}^2 + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 \\
+&amp;= (1 + \beta)\omega + \beta^2 (\omega + \beta \sigma_{n-3}^2 + \alpha r_{n-3}^2) + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 \\
+&amp;= (1 + \beta + \beta^2)\omega + \beta^3 \sigma_{n-3}^2 + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 + \alpha \beta^2 r_{n-3}^2 \\
+&amp;\;\;\vdots \\
+&amp;= \frac{\omega}{1 - \beta} + \sum_{j=1}^{\infty} \alpha \beta^{j-1} r_{n-j}^2
+\end{aligned}
+\tag{7.7}\]</span></span></p>
+<p>EWMA처럼, <span class="math inline">\(j\)</span>가 커질수록 감소하는 가중치 <span class="math inline">\(\alpha \beta^{j-1}\)</span>를 과거의 실현 수익률 <span class="math inline">\(r_{n-j}^2\)</span>에 곱해 모두 더하는 형태다. <span class="math inline">\(\alpha\)</span>와 <span class="math inline">\(\beta\)</span>가 커서 가중치 <span class="math inline">\(\alpha \beta^{j-1}\)</span>가 <span class="math inline">\(j\)</span>에 따라 충분히 빨리 줄지 않으면 <span class="math inline">\(\sigma_n^2\)</span>의 값이 크게 증가할 수 있다. <a href="#fig-non-stationary" class="quarto-xref">그림&nbsp;<span>7.2</span></a> 는 <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(\beta = 0.97\)</span>로 두어 분산이 크게 증가하는 GARCH 시뮬레이션 경로를 보여준다. 왼쪽에서는 <span class="math inline">\(\sigma\)</span>가, 오른쪽에서는 <span class="math inline">\(r\)</span>의 절댓값이 크게 증가하는 모습을 볼 수 있다.</p>
+<div id="fig-non-stationary" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-non-stationary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_non_stationary_sigma.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><span class="math inline">\(\sigma\)</span>의 경로</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_non_stationary_r.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption><span class="math inline">\(r\)</span>의 경로</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-stationary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;7.2: GARCH(1,1) 모형에서 <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(\beta = 0.97\)</span>로 시뮬레이션한 경로
+</figcaption>
+</figure>
+</div>
+<p>GARCH 변동성 과정이 <span class="math inline">\(\alpha + \beta &lt; 1\)</span>인 <a href="#eq-stationarity" class="quarto-xref">방정식&nbsp;<span>7.6</span></a> 의 조건을 만족하면, GARCH 시계열이 먼 과거(<span class="math inline">\(-\infty\)</span>)로부터 시작했다고 가정할 수 있고, <span class="math inline">\(\sigma_n^2\)</span>의 <strong>비조건부 기댓값</strong>(unconditional expectation)을 계산할 수 있다.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="정리: 비조건부 분산">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>정리: 비조건부 분산
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>위 정의의 GARCH(1,1) 모형이 <a href="#eq-stationarity" class="quarto-xref">방정식&nbsp;<span>7.6</span></a> 의 조건 <span class="math inline">\(\alpha + \beta &lt; 1\)</span>을 만족하면, <span class="math inline">\(\sigma_n^2\)</span>의 비조건부 기댓값은 다음과 같다.</p>
+<p><span id="eq-uncond-v"><span class="math display">\[
+\mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \alpha - \beta}
+\tag{7.8}\]</span></span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="증명">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>증명
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>간단히 기대수익률을 0이라 하면, 모든 <span class="math inline">\(j\)</span>에 대해 <span class="math inline">\(\mathbb{E}[r_{n-j}^2] = \mathbb{E}[\sigma_{n-j}^2]\)</span>이다. <a href="#eq-garch-ex" class="quarto-xref">방정식&nbsp;<span>7.7</span></a> 의 양변에 기댓값을 취하면</p>
+<p><span class="math display">\[
+\mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \beta} + \sum_{j=1}^{\infty} \alpha \beta^{j-1} \mathbb{E}[\sigma_{n-j}^2]
+\]</span></p>
+<p>이고, <span class="math inline">\(\alpha + \beta &lt; 1\)</span>의 조건 아래에서는 모든 <span class="math inline">\(j\)</span>에 대해 <span class="math inline">\(\mathbb{E}[\sigma_{n-j}^2] = \mathbb{E}[\sigma_n^2]\)</span>이다. 이를 대입해 정리하면 다음을 얻는다.</p>
+<p><span class="math display">\[
+\mathbb{E}[\sigma_n^2] = \frac{\omega}{1 - \alpha - \beta}
+\]</span></p>
+</div>
+</div>
+<p>정상성 조건을 만족하는 GARCH 변동성 모형으로 미래 변동성을 시뮬레이션할 수 있다. 앞의 가정처럼 자산 수익률의 조건부 분포(conditional distribution)가 정규분포를 따른다고 하자. 모형에 따라 정규분포 대신 <span class="math inline">\(t\)</span>-분포 등을 가정하기도 한다. 과거 자료로 <span class="math inline">\(\sigma_n^2\)</span>을 계산했으면, 컴퓨터로 <span class="math inline">\(N(0, \sigma_n^2)\)</span>을 따르는 가상의 <span class="math inline">\(r_n\)</span>을 생성할 수 있다. 이 <span class="math inline">\(r_n\)</span>으로 <span class="math inline">\(\sigma_{n+1}^2\)</span>을 계산하고, 다시 <span class="math inline">\(N(0, \sigma_{n+1}^2)\)</span>을 따르는 가상의 <span class="math inline">\(r_{n+1}\)</span>을 생성한다. 이 과정을 반복하면 임의의 미래 <span class="math inline">\(M\)</span> 기간에 대한 가상의 수익률을 만들 수 있다. <a href="#tbl-garch-sim-steps" class="quarto-xref">표&nbsp;<span>7.2</span></a> 가 이 과정을 요약한다.</p>
+<div id="tbl-garch-sim-steps" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-garch-sim-steps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;7.2: GARCH 모형으로 미래 수익률을 시뮬레이션하는 절차
+</figcaption>
+<div aria-describedby="tbl-garch-sim-steps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 28%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">순서</th>
+<th style="text-align: left;">작업</th>
+<th style="text-align: center;">예</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><a href="#eq-garch-ex" class="quarto-xref">방정식&nbsp;<span>7.7</span></a> 와 과거 수익률 자료로 <span class="math inline">\(\sigma_n^2\)</span> 계산</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma_n^2 = 0.002\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">컴퓨터로 <span class="math inline">\(N(0, \sigma_n^2)\)</span>을 따르는 확률변수 <span class="math inline">\(r_n\)</span> 생성</td>
+<td style="text-align: center;"><span class="math inline">\(r_n = 0.001\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><a href="#eq-garch11" class="quarto-xref">방정식&nbsp;<span>7.3</span></a> 과 1, 2의 결과로 <span class="math inline">\(\sigma_{n+1}^2\)</span> 계산</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma_{n+1}^2 = 0.0022\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">컴퓨터로 <span class="math inline">\(N(0, \sigma_{n+1}^2)\)</span>을 따르는 확률변수 <span class="math inline">\(r_{n+1}\)</span> 생성</td>
+<td style="text-align: center;"><span class="math inline">\(r_{n+1} = -0.0005\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="../../chapters/08-var-multiperiod/index.html">다기간 VaR</a> 장의 GARCH 변동성 모형 절이 이 절차를 그대로 써서 5일 VaR를 구한다.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">경고</span>EWMA는 시뮬레이션에 적합하지 않다
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>EWMA는 변동성 과정의 모형이 아니므로 시뮬레이션에는 적합하지 않다. <a href="#eq-uncond-v" class="quarto-xref">방정식&nbsp;<span>7.8</span></a> 에 <span class="math inline">\(\omega = 0\)</span>, <span class="math inline">\(\alpha = 1 - \lambda\)</span>, <span class="math inline">\(\beta = \lambda\)</span>를 대입하면 <span class="math inline">\(0/0\)</span> 형태가 된다. EWMA로 변동성 과정을 시뮬레이션하면 생성되는 변동성이 시간이 지날수록 0으로 수렴한다.</p>
+<p>반면 GARCH 모형은 <strong>평균 복귀</strong>(mean reversion) 성질이 있어, 변동성이 지나치게 작아지거나 커지면 평균 수준인 <a href="#eq-uncond-v" class="quarto-xref">방정식&nbsp;<span>7.8</span></a> 로 되돌아가려 한다.</p>
+<p>그럼에도 EWMA는 짧은 기간의 시뮬레이션에서는 어느 정도 만족할 만한 결과를 주기 때문에, EWMA 시뮬레이션을 바탕으로 한 역사적 시뮬레이션이 파생상품 거래의 증거금 제도 등 여러 금융 분야에서 활용되기도 한다.</p>
+</div>
+</div>
+<p>실제로 금융 시장의 변동성은 평균 복귀 현상을 보인다. 평균 복귀 성질이란, 확률과정의 값이 평균보다 높으면 평균을 향해 낮아지려 하고 평균보다 낮으면 평균을 향해 높아지려 하는 성질이다. 변동성 자체는 거래되는 대상이 아니라서 변동성이 특정 방향으로 움직이더라도 여기에 영향력을 행사하기는 어렵다. 그러나 변동성이 높거나 낮은 수준에 있다고 해서 그것이 영원히 지속되리라고는 생각하기 어렵다. 시간이 지나면 정상적인 수준으로 수렴하는 현상을 보인다.</p>
+</section>
+<section id="시뮬레이션" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="시뮬레이션"><span class="header-section-number">7.4.3</span> 시뮬레이션</h3>
+<p>다음은 GARCH(1,1) 모형에 대한 <a href="../../concepts/glossary.html#monte-carlo-simulation">몬테카를로 시뮬레이션</a> R 코드 예제이다. 이 코드로 분산 <span class="math inline">\(\sigma_n^2\)</span>, <span class="math inline">\(n = 1, \cdots, 250\)</span>을 시뮬레이션한 결과가 <a href="#fig-garch-ewma" class="quarto-xref">그림&nbsp;<span>7.3</span></a> 의 왼쪽에 있다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>omega <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">7</span>); alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span>; beta <span class="ot">&lt;-</span> <span class="fl">0.9</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> omega <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span> alpha <span class="sc">-</span> beta); r <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">250</span>){</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  v[n] <span class="ot">&lt;-</span> omega <span class="sc">+</span> alpha <span class="sc">*</span> r[n<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> beta <span class="sc">*</span> v[n<span class="dv">-1</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  r[n] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(v[n]) <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<p>첫 시점의 분산은 <a href="#eq-uncond-v" class="quarto-xref">방정식&nbsp;<span>7.8</span></a> 의 비조건부 분산 <span class="math inline">\(\omega / (1 - \alpha - \beta)\)</span>로 두고, 매 시점 <a href="#eq-garch11" class="quarto-xref">방정식&nbsp;<span>7.3</span></a> 로 다음 분산을 계산한 뒤 그 분산을 갖는 정규분포에서 수익률을 뽑는다. <a href="#tbl-garch-sim-steps" class="quarto-xref">표&nbsp;<span>7.2</span></a> 의 절차를 그대로 옮긴 것이다.</p>
+<p>비슷하게 EWMA 모형에 대한 코드이다. 이 코드로 분산 <span class="math inline">\(\sigma^2\)</span>을 시뮬레이션한 결과가 <a href="#fig-garch-ewma" class="quarto-xref">그림&nbsp;<span>7.3</span></a> 의 오른쪽에 있다. GARCH(1,1) 모형과 달리 시간에 따라 0에 수렴해 가는 모양을 띠고 있다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">0.94</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">6</span>); r <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">250</span>){</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  v[n] <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> lambda) <span class="sc">*</span> r[n<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> lambda <span class="sc">*</span> v[n<span class="dv">-1</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  r[n] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(v[n]) <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-garch-ewma" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-garch-ewma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_GARCH.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>GARCH(1,1)</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_EWMA.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>EWMA</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-garch-ewma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;7.3: GARCH(1,1) 모형을 이용한 분산 시뮬레이션과 EWMA를 이용한 분산 시뮬레이션
+</figcaption>
+</figure>
+</div>
+<p>그림은 한 번의 시뮬레이션 결과이므로 난수에 따라 모양이 달라진다. EWMA 분산이 0으로 가는 것은 장기적인 경향이어서, 250기간 정도의 짧은 경로에서는 처음보다 커진 채 끝나기도 한다.</p>
+<p>GARCH 모형은 자기상관함수의 관점에서 실제 금융 수익률 시계열의 특징을 잘 설명한다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">노트</span>자기상관함수(ACF)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>정상 시계열 <span class="math inline">\(X_t\)</span>의 <strong>자기공분산</strong>(autocovariance)과 <strong>자기상관함수</strong>(autocorrelation function, ACF)는 다음과 같이 정의된다.</p>
+<p><span class="math display">\[
+\gamma(h) = \mathrm{cov}(X_t, X_{t-h}), \quad \rho(h) = \frac{\gamma(h)}{\gamma(0)}
+\]</span></p>
+</div>
+</div>
+<p>자기상관함수는 시계열의 각 값이 이전 값과 평균적으로 얼마나 상관되어 있는지를 잰다. 정의에 정상성이 들어간 이유는 자기상관함수가 두 시점 사이의 거리 <span class="math inline">\(h\)</span>에만 의존하고 <span class="math inline">\(t\)</span>에는 의존하지 않게 하기 위해서다.</p>
+<p>금융 수익률 시계열에서는 일반적으로 자기상관함수의 값이 <span class="math inline">\(h = 0\)</span>을 제외한 시차에서 0에 가깝다. 그러나 수익률의 절댓값이나 제곱으로 이루어진 시계열은 양의 자기상관을 가진다. <a href="#fig-acf-r" class="quarto-xref">그림&nbsp;<span>7.4</span></a> 의 왼쪽은 S&amp;P 500 지수 수익률 시계열로 계산한 표본 ACF이고, 오른쪽은 수익률의 절댓값으로 계산한 ACF이다. 수익률 시계열 자체는 <span class="math inline">\(h = 0\)</span>을 제외하면 자기상관계수가 거의 0이지만, 절댓값 시계열은 유의미하게 0보다 큰 양의 자기상관계수를 가지며 <span class="math inline">\(h\)</span>가 커질수록 서서히 감소한다.</p>
+<div id="fig-acf-r" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acf-r-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_ACF_r.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>수익률</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_ACF_abs_r.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>수익률의 절댓값</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acf-r-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;7.4: S&amp;P 500 수익률 시계열의 ACF와 절댓값 시계열의 ACF
+</figcaption>
+</figure>
+</div>
+<p>GARCH 모형으로 생성한 수익률 시계열도 비슷한 성질을 가진다. <a href="#fig-acf-garch" class="quarto-xref">그림&nbsp;<span>7.5</span></a> 의 왼쪽은 GARCH 모형 시뮬레이션으로 생성한 수익률 시계열의 ACF이고, 오른쪽은 그 절댓값으로 계산한 ACF이다. <a href="#fig-acf-r" class="quarto-xref">그림&nbsp;<span>7.4</span></a> 과 비슷한 형태의 ACF를 관찰할 수 있다. 모수는 <span class="math inline">\(\omega = 10^{-7}\)</span>, <span class="math inline">\(\alpha = 0.07\)</span>, <span class="math inline">\(\beta = 0.92\)</span>로 두었다.</p>
+<div id="fig-acf-garch" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acf-garch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_ACF_GARCH.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>수익률</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch7_ACF_abs_GARCH.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>수익률의 절댓값</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acf-garch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;7.5: GARCH 수익률 시계열의 ACF와 절댓값 시계열의 ACF
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-acf-garch" class="quarto-xref">그림&nbsp;<span>7.5</span></a> 는 다음 코드로 만들 수 있다. 코드에서 <code>beta &lt;- 0.99 - alpha</code>로 두었으므로 <span class="math inline">\(\beta = 0.92\)</span>이다.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>omega <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">7</span>); alpha <span class="ot">&lt;-</span> <span class="fl">0.07</span>; beta <span class="ot">&lt;-</span> <span class="fl">0.99</span> <span class="sc">-</span> alpha</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> omega <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">-</span> beta); r <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5000</span>){</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  v[i] <span class="ot">&lt;-</span> omega <span class="sc">+</span> alpha <span class="sc">*</span> r[i<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> beta <span class="sc">*</span> v[i<span class="dv">-1</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  r[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(v[i]) <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>ac_return <span class="ot">&lt;-</span> <span class="fu">acf</span>(r, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ac_return, <span class="at">main =</span> <span class="st">"ACF of GARCH return series"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>ac_abs <span class="ot">&lt;-</span> <span class="fu">acf</span>(<span class="fu">abs</span>(r), <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ac_abs, <span class="at">main =</span> <span class="st">"ACF of absolute GARCH return series"</span>)</span></code></pre></div><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></div>
+<p>난수를 쓰므로 실행할 때마다 ACF 값이 조금씩 달라진다.</p>
+</section>
 </section>
 <section id="관련-페이지" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="관련-페이지"><span class="header-section-number">7.5</span> 관련 페이지</h2>
@@ -775,6 +1258,12 @@ Bollerslev, Tim. 2023년. <span>“The story of GARCH: A personal odyssey”</sp
 <div id="ref-engle1982autoregressive" class="csl-entry" role="listitem">
 Engle, Robert F. 1982년. <span>“Autoregressive conditional heteroscedasticity with estimates of the variance of <span>U</span>nited <span>K</span>ingdom inflation”</span>. <em>Econometrica: Journal of the Econometric Society</em> 50: 987–1007.
 </div>
+<div id="ref-francq2019garch" class="csl-entry" role="listitem">
+Francq, Christian, 와/과 Jean-Michel Zakoian. 2019년. <em>GARCH models: structure, statistical inference and financial applications</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-lindner2009stationarity" class="csl-entry" role="listitem">
+Lindner, Alexander M. 2009년. <span>“Stationarity, mixing, distributional properties and moments of <span>GARCH</span> (p, q)–processes”</span>. In <em>Handbook of financial time series</em>. Springer.
+</div>
 <div id="ref-mandelbort1963variation" class="csl-entry" role="listitem">
 Mandelbrot, Benoit. 1963년. <span>“The variation of certain speculative prices”</span>. <em>Journal of Business</em> 36: 394–419.
 </div>
@@ -787,6 +1276,8 @@ Mandelbrot, Benoit. 1963년. <span>“The variation of certain speculative price
 <li id="fn2"><p><a href="../../chapters/06-discrete-time-model/index.html">이산 시간 모형</a> 장에서 공부할 이항 나무 옵션 가격 결정 이론의 정립에 공헌했다.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>시계열에서 AR(autoregressive) 모형과 MA(moving average) 모형을 일반화한 것.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>수학적으로는 시그마 대수 <span class="math inline">\(\mathcal{F}_{n-1}\)</span>에 대해 가측(measurable)이라고 표현한다.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><span class="math inline">\((r_n, \sigma_n^2)\)</span>이 GARCH(1,1)를 따른다고도 한다.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="../../chapters/02-modern-portfolio-theory/index.html">현대 포트폴리오 이론</a> 장에서 공부한 <span class="math inline">\(\beta\)</span>와는 다른 것이므로 혼동하지 않는다. <a href="../../concepts/notation.html">기호 정리</a>에도 정리해 두었다.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1305,297 +1796,587 @@ Mandelbrot, Benoit. 1963년. <span>“The variation of certain speculative price
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 변동성</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>수익률의 변동성을 측정하고 모형화하는 방법을 다룬다.</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성을 수익률 변동의 척도로 이해한다.</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>역사적 변동성, 실현변동성, 모형 기반 변동성을 비교한다.</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성 군집과 시간가변 변동성을 해석한다.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 간단한 변동성 추정</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>금융에서 <span class="co">[</span><span class="ot">변동성</span><span class="co">](../../concepts/glossary.qmd#volatility)</span>(volatility)은 수익률 분포의 표준편차(혹은 분산)를 뜻한다. 하지만 변동성의 구체적 의미는 맥락에 따라 다르다. 일간, 월간, 연간 변동성을 뜻하기도 하고 순간 변동성을 가리키기도 한다. 과거 금융 시계열 자료로부터 추정하는 역사적 변동성(historical volatility)과, 옵션 등 파생상품의 가격에 내포된 <span class="co">[</span><span class="ot">내재변동성</span><span class="co">](../../concepts/glossary.qmd#implied-volatility)</span>(implied volatility)으로 나누기도 한다.</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>변동성 추정에는 몇 가지 어려움이 있다.</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성은 **숨겨진 변수**(latent variable)다. 자산 가격이나 수익률과 달리 직접 관찰할 수 없으므로 별도의 방법으로 추정해야 한다.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>수익률의 변동성은 **시간에 따라 변하며**(time-varying), **변동성 군집**(volatility clustering) 현상을 보인다. 오늘과 내일의 변동성은 양의 상관관계가 있어서, 오늘 변동성이 높으면 내일도 높을 가능성이 크고 오늘 낮으면 내일도 낮을 가능성이 크다.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성은 **지속성**(persistency)이 높아서, 높거나 낮은 경향이 비교적 오래 이어진다.</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>미래 값을 예측하기 어려운 자산 수익률과 달리, **변동성은 오늘 측정한 값으로 내일을 어느 정도 예측할 수 있다.** 이 장에서 다루는 방법들은 모두 이 성질을 이용한다.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>많은 경우 변동성은 시간에 따라 천천히 변한다. 폴란드 태생의 수학자 브누아 망델브로는 이 현상을 다음과 같이 표현했다 <span class="co">[</span><span class="ot">@mandelbort1963variation</span><span class="co">]</span>.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; … 큰 변화 뒤에는 부호와 관계없이 큰 변화가 따르는 경향이 있고, 작은 변화 뒤에는 작은 변화가 따르는 경향이 있다 …</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>하지만 가끔 변동성은 급격히 변한다. 예를 들어 10%였던 변동성이 30%로 급등하는 경우(혹은 그 반대)가 있다. 이런 현상을 **제도 전환**(regime switching)이라 하며, 예측이 어렵고 리스크 관리를 어렵게 만든다.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>시간에 따라 변하는 변동성은 자산 수익률 분포가 정규분포가 아님을 뜻한다. <span class="co">[</span><span class="ot">포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span>을 다룰 때는 수익률 분포의 정규성을 가정했지만, 시장에서 관측되는 수익률 분포는 정규분포가 아니다. 일반적으로 정규분포보다 두꺼운 꼬리를 가지고, 비대칭이며, 분포를 결정하는 모수(parameter)가 시간에 따라 변한다. 비정규성의 원인은 여러 가지지만 변하는 변동성도 그중 하나다. 시간에 따라 변하는 모수, 특히 변동성은 두꺼운 꼬리 분포나 비대칭 분포를 만들 수 있다.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>이 장에서는 수익률 시계열을 바탕으로 변동성을 추정하는 여러 통계적 방법을 배운다. **시계열**(time series)은 시간 순서로 인덱스를 매겨 나열한 수치 자료를 말한다. 일간 수익률 시계열은 보통 장이 마감될 때 관찰된 종가(closing price)를 기준으로 만든다. 매일 관찰한 어떤 주식의 종가가</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>S_0,\; S_1,\; \cdots,\; S_n</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>이라면, 일간 산술수익률 시계열은</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>R_1 = \frac{S_1 - S_0}{S_0},\; R_2 = \frac{S_2 - S_1}{S_1},\; \cdots,\; R_n = \frac{S_n - S_{n-1}}{S_{n-1}}</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>이고, 일간 로그수익률은 다음과 같다.</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>r_1 = \log \frac{S_1}{S_0},\; r_2 = \log \frac{S_2}{S_1},\; \cdots,\; r_n = \log \frac{S_n}{S_{n-1}}</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>이 장에서는 산술수익률을 $R_i$, 로그수익률을 $r_i$로 구분해 쓴다(<span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../../concepts/notation.qmd)</span> 참고). 일반적으로 두 수익률의 값은 크게 다르지 않지만, 시계열이나 확률과정으로 다룰 때는 로그수익률이 시간에 대해 **가산적**(additive)이어서 편리하다. 1일부터 $n$일까지의 로그수익률은 다음과 같다.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>r_{1,n} = \log \frac{S_n}{S_0} = r_1 + \cdots + r_n</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>중요하지 않은 경우에는 이 둘을 엄밀히 구분하지 않는다.</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 일간 변동성을 연간으로 바꾸기</span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>어떤 자산의 일간 로그수익률이 서로 <span class="co">[</span><span class="ot">독립</span><span class="co">](../../concepts/probability/independence.qmd)</span>이고 같은 분포를 따른다고 하자. $\mathbb{E}<span class="co">[</span><span class="ot">r_i</span><span class="co">]</span> = \mu_d$라 할 때, 1년을 250 영업일(business day)로 보면 연간 기대수익률은</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">\sum_{i=1}^{250} r_i\right</span><span class="co">]</span> = 250\,\mu_d</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>이다. 비슷하게 $\mathrm{sd}(r_i) = \sigma_d$이면 연간 로그수익률의 표준편차는 다음과 같다.</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>\mathrm{sd}\left(\sum_{i=1}^{250} r_i\right) = \sqrt{250}\,\sigma_d</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>산술수익률에서는 등식이 성립하지 않지만, 일간 산술수익률 $R_i$가 독립이고 같은 분포를 따른다면 연간 산술수익률의 기댓값과 표준편차를 각각 $250\,\mathbb{E}<span class="co">[</span><span class="ot">R_i</span><span class="co">]</span>$, $\sqrt{250}\,\mathrm{sd}(R_i)$로 근사할 수 있다.</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../08-var-multiperiod/index.qmd)</span> 장에서 시간제곱근 법칙이라 부른 것이 바로 이 관계다.</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### 표본 표준편차 방법</span></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>변동성을 추정하는 가장 간단한 방법은 과거 수익률 자료의 표본 표준편차를 계산하는 것이다. 현재 시점을 $n$이라 하고 과거 $m$개의 수익률이 주어졌을 때, 현재 시점의 변동성 $\sigma_n$은 다음과 같이 추정한다.</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>\sigma_n = \sqrt{\frac{1}{m-1} \sum_{i=1}^{m} (r_{n-i} - \bar r)^2}</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>$$ {#eq-real-vol}</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>여기서 $r_{n-i}$는 과거 $n-i$ 시점에 실현된 수익률이고, $\bar r$은 그 평균이다.</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>\bar r = \frac{1}{m} \sum_{i=1}^{m} r_{n-i}</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>@eq-real-vol 에서 $m-1$을 $m$으로 바꾸거나 $\bar r = 0$으로 가정해 다음과 같이 간단히 근사하기도 한다.</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>\sigma_n = \sqrt{\frac{1}{m} \sum_{i=1}^{m} r_{n-i}^2}</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>표본분산을 계산할 때 $m-1$로 나누면 불편추정량(unbiased estimator)이 되고, $m$으로 나누면 최대우도추정량(maximum likelihood estimator)이 된다.</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>표본 표준편차를 변동성으로 쓰는 방법은 **시간에 따른 변동성의 변화 추세**(trend)를 반영하기 어렵다. 과거 $m$개의 수익률에 모두 같은 가중치를 주기 때문이다. 아래 EWMA 예제에서 이 한계가 어떻게 드러나는지 볼 수 있다.</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exponential smoothing</span></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>**지수 평활**(exponentially weighted moving average, EWMA) 방법은 시간에 따라 변하는 변동성의 특성을 감안한 방식이다. 먼 과거일수록 더 작은 가중치를 주어 평균을 낸다. 시점 $n$에서 수익률의 분산 $\sigma_n^2$을 다음 식으로 계산한다.</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = w_0 r_{n-1}^2 + \lambda \sigma_{n-1}^2</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>여기서 $\lambda$는 상수이고, $w_0$의 값은 뒤에서 정한다. EWMA의 성질을 이해하기 위해 이 식의 **재귀적**(recursive) 성질을 이용해 전개해 보자.</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 &amp;= w_0 r_{n-1}^2 + \lambda \sigma_{n-1}^2 <span class="sc">\\</span></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>&amp;= w_0 r_{n-1}^2 + \lambda (w_0 r_{n-2}^2 + \lambda \sigma_{n-2}^2) <span class="sc">\\</span></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>&amp;= w_0 r_{n-1}^2 + w_0 \lambda r_{n-2}^2 + \lambda^2 (w_0 r_{n-3}^2 + \lambda \sigma_{n-3}^2) <span class="sc">\\</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>&amp;\;\;\vdots <span class="sc">\\</span></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>&amp;= w_0 r_{n-1}^2 + w_0 \lambda r_{n-2}^2 + w_0 \lambda^2 r_{n-3}^2 + w_0 \lambda^3 r_{n-4}^2 + \cdots</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>$0 &lt; \lambda &lt; 1$이면, 먼 과거의 수익률일수록 $r_{n-\ell}^2$의 가중치 $w_0 \lambda^{\ell-1}$이 작아진다. @tbl-ewma-weights 로 정리하면 다음과 같다.</span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 날짜 <span class="pp">|</span> 제곱 수익률 <span class="pp">|</span> 가중치 <span class="pp">|</span></span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|</span></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-1$ <span class="pp">|</span> $r_{n-1}^2$ <span class="pp">|</span> $w_0$ <span class="pp">|</span></span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-2$ <span class="pp">|</span> $r_{n-2}^2$ <span class="pp">|</span> $w_0 \lambda$ <span class="pp">|</span></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-3$ <span class="pp">|</span> $r_{n-3}^2$ <span class="pp">|</span> $w_0 \lambda^2$ <span class="pp">|</span></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-4$ <span class="pp">|</span> $r_{n-4}^2$ <span class="pp">|</span> $w_0 \lambda^3$ <span class="pp">|</span></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $\vdots$ <span class="pp">|</span> $\vdots$ <span class="pp">|</span> $\vdots$ <span class="pp">|</span></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>: EWMA에서 과거 수익률에 주는 가중치 {#tbl-ewma-weights}</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>$\lambda$는 통상 0.94처럼 1에 가깝지만 1보다 작은 값을 쓴다. 그러면 알맞은 $w_0$는 무엇일까? 과거 $K$일의 자료를 쓴다면 가중치의 합은</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>w_0 (1 + \lambda + \lambda^2 + \cdots + \lambda^K)</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>이다. 이론적으로 무한히 먼 과거까지 쓴다고 가정하면 가중치의 합은 다음과 같다.</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>w_0 \sum_{k=0}^{\infty} \lambda^k = \frac{w_0}{1 - \lambda}</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>가중치의 합이 1이 되도록 $w_0 = 1 - \lambda$로 둔다.</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## EWMA 변동성</span></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>EWMA를 이용한 현재 분산 $\sigma_n^2$은 $0 &lt; \lambda &lt; 1$에 대해 다음과 같이 계산한다.</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = (1 - \lambda)\, r_{n-1}^2 + \lambda\, \sigma_{n-1}^2</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>실제로는 숨겨진 변수인 $\sigma_{n-1}^2$의 값을 알 수 없으므로, 충분히 많은^<span class="co">[</span><span class="ot">정확한 기준은 없지만 50개 이상을 고려한다.</span><span class="co">]</span> $K$개의 과거 수익률로 다음과 같이 근사한다.</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = (1-\lambda) r_{n-1}^2 + (1-\lambda)\lambda r_{n-2}^2 + (1-\lambda)\lambda^2 r_{n-3}^2 + \cdots + (1-\lambda)\lambda^{K-1} r_{n-K}^2</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>$$ {#eq-ewma-past}</span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>한 번 계산이 끝나면, 즉 $n$ 시점의 분산이 구해지면 다음 날의 분산은</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>\sigma_{n+1}^2 = (1 - \lambda)\, r_n^2 + \lambda\, \sigma_n^2</span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>으로 계산하고, 그 이후는 같은 과정을 반복한다.</span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>글로벌 금융기업 J.P. Morgan이 처음 EWMA를 변동성 측정에 도입했을 때 $\lambda = 0.94$를 썼다. 과학적으로 결정된 값은 아니지만 실증 자료에 어느 정도 잘 들어맞아 채택된 값이다. 어떤 학자들은 $\lambda = 0.97$ 정도를 주장하기도 한다.</span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>$\lambda$를 결정하는 엄밀한 방법은 없다. EWMA는 변동성을 측정하는 편리한 도구일 뿐, 변동성의 움직임을 설명하는 확률 모형이 아니기 때문이다. 최대우도추정법이나 최소제곱법으로 $\lambda$를 정하기도 하지만 이론적 근거가 충분하지는 않다. 그럼에도 편리함과 간단함 때문에 널리 쓰이는 방법이다.</span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 추세가 있는 수익률에서 EWMA 계산</span></span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>시간 순서대로 관측된 가상의 일간 수익률 50개를 생각하자.</span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>0.05,\; 0.049,\; -0.048,\; \cdots,\; -0.002,\; 0.001</span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>절댓값이 0.05에서 0.001까지 줄어들도록 의도적으로 만든 자료이고, 부호는 무작위로 정했다. 마지막 값이 오늘의 수익률일 때, $\lambda = 0.94$로 EWMA를 써서 내일의 일간 변동성을 계산한다. @eq-ewma-past 에 따르면</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>\sigma^2 = 0.06 \times 0.001^2 + 0.06 \times 0.94 \times 0.002^2 + \cdots + 0.06 \times 0.94^{49} \times 0.05^2</span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>이고, 계산하면 $\sigma \approx 0.0180$이다.</span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>반대로 절댓값이 커지도록 만든 가상의 수익률</span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>-0.001,\; 0.002,\; -0.003,\; \cdots,\; 0.049,\; -0.05</span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>에서는</span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>\sigma^2 = 0.06 \times 0.05^2 + 0.06 \times 0.94 \times 0.049^2 + \cdots + 0.06 \times 0.94^{49} \times 0.001^2</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>이고, $\sigma \approx 0.0376$이다.</span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>두 자료는 절댓값의 순서만 다르다. **표본 표준편차로 계산했다면 두 경우 모두 같은 값이 나온다.** EWMA는 최근 수익률에 큰 가중치를 주므로, 변동이 잦아드는 첫 번째 자료에서는 작게, 변동이 커지는 두 번째 자료에서는 크게 추정한다.</span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## GARCH</span></span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### GARCH 모형의 배경과 조건부 분포</span></span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">GARCH</span><span class="co">](../../concepts/glossary.qmd#garch)</span>(generalized autoregressive conditional heteroscedasticity) 모형은 시간에 따라 변하는 변동성을 모형화하며, 수학적으로 완전한 모형이다. 관점에 따라 EWMA의 수학적 완성형으로 볼 수 있다. 이 변동성 모형은 ARCH(autoregressive conditional heteroscedasticity) 모형으로 처음 등장했고 <span class="co">[</span><span class="ot">@engle1982autoregressive</span><span class="co">]</span>, 그 뒤 <span class="co">[</span><span class="ot">@bollerslev1986generalized</span><span class="co">]</span>가 일반화된 형태로 완성했다. Robert F. Engle은 이 공로로 노벨 경제학상을 받았다.</span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>한편 Engle 교수는 2009~2010년 한국에서 키코(KIKO) 사태로 손해를 입은 파생상품 가입 기업 측과 판매자인 은행 측이 법정 공방을 벌였을 때, 가입 기업의 자문으로 한국 재판에 참여한 이력이 있다. 그러자 은행 측은 또 다른 유명 금융경제학자 Stephen Ross^[<span class="co">[</span><span class="ot">이산 시간 모형</span><span class="co">](../06-discrete-time-model/index.qmd)</span> 장에서 공부할 이항 나무 옵션 가격 결정 이론의 정립에 공헌했다.]를 증인으로 세워 반대 변론을 펼쳤다.</span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>한편 GARCH 모형을 만든 Bollerslev는 당시 Engle 교수의 연구 보조로 일하던 박사과정 학생이었다. Engle 교수의 동료 연구자 David Lilien이 "ARCH 모형을 ARMA(autoregressive moving average)^<span class="co">[</span><span class="ot">시계열에서 AR(autoregressive) 모형과 MA(moving average) 모형을 일반화한 것.</span><span class="co">]</span> 시계열처럼 일반적인 모형으로 확장할 수 없을까"라고 묻는 것을 듣고 GARCH 모형을 세우게 되었다고 한다 <span class="co">[</span><span class="ot">@BOLLERSLEV202396</span><span class="co">]</span>.</span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>GARCH 모형에서는 수익률 $r_n$과 분산 $\sigma_n^2$을 **확률과정**으로 간주한다. 즉 수익률뿐 아니라 수익률의 분산이나 표준편차도 시간에 따라 변하는 값이다.</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="fu">## 확률과정</span></span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>확률과정(stochastic process) $X$는 시간으로 인덱스된 일련의 확률변수들이며, 다음과 같이 쓴다.</span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span> X_n : n \in T <span class="sc">\}</span></span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>여기서 $X_n$은 $(\Omega, \mathbb{P})$에서 정의된 확률변수이고, $T$는 시간 또는 이산적으로 정의된 시간 인덱스 집합이다.</span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>확률과정은 연속 시간과 이산 시간 모두에서 정의할 수 있으나, 이 장에서는 이산 시간에서 정의된 이산 확률과정만 다룬다.</span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>GARCH 모형을 이해하려면 <span class="co">[</span><span class="ot">조건부 분포</span><span class="co">](../../concepts/probability/conditional-probability.qmd)</span>, 특히 조건부 정규분포를 먼저 알아야 한다. 수익률 $r_n$은 시점 $n$에 관찰 가능한 확률변수다. 한편 $r_n$의 분산을 나타내는 $\sigma_n^2$도 확률변수인데, GARCH 모형에서는 $\sigma_n^2$이 **시점 $n-1$까지의 정보 집합**(information set)으로 표현된다고 가정한다.^<span class="co">[</span><span class="ot">수학적으로는 시그마 대수 $\mathcal{F}_{n-1}$에 대해 가측(measurable)이라고 표현한다.</span><span class="co">]</span> 즉 $n$ 시점 직전인 $n-1$ 시점에 이르면, 그때까지 관찰한 정보로 $\sigma_n^2$의 값을 계산할 수 있다고 가정한다.</span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>수익률 $r_n$의 조건부 분포가, 주어진 $\sigma_n^2$에 대해 다음 조건부 정규분포를 따른다고 하자.</span>
-<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)</span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>이는 $n-1$ 시점이 되어 $\sigma_n^2$의 값을 알게 되면, $r_n$의 분포를 그 값을 이용한 정규분포로 나타낼 수 있다는 뜻이다.</span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 변동성이 주어졌을 때의 조건부 분포</span></span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>실증 연구 결과 $\sigma_1 = 0.1$, $\sigma_2 = 0.2$임이 밝혀졌다고 하자. $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은 다음을 뜻한다.</span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>r_1 \mid \sigma_1^2 \sim N(0, 0.01), \qquad r_2 \mid \sigma_2^2 \sim N(0, 0.04)</span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 변동성이 식으로 주어졌을 때</span></span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>어떤 이론적 연구 결과 분산이 다음과 같이 나타난다고 하자.</span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = 0.5 + \frac{1}{n}</span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>그러면 $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은, 예를 들어 $n = 10$에서 다음을 뜻한다.</span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>r_{10} \mid \sigma_{10}^2 \sim N(0, 0.6)</span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>$\sigma_n^2$ 같은 추가 정보가 없을 때의 $r_n$의 분포는 **비조건부 분포**라 부르며, 이는 정규분포가 아니다.</span>
-<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>매 시점의 조건부 분포는 정규분포인데 비조건부 분포는 정규분포가 아니라는 점이 GARCH 모형의 핵심이다. 앞 절에서 "시간에 따라 변하는 변동성은 수익률 분포가 정규분포가 아님을 뜻한다"고 한 것이 바로 이 구조다. 분산이 시점마다 다른 정규분포들이 섞이면 전체로는 꼬리가 두꺼운 분포가 된다. 이 성질은 다음 절에서 확인한다.</span>
-<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
-<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../08-var-multiperiod/index.qmd)</span></span>
-<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span></span>
-<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
-<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../../concepts/notation.qmd)</span></span>
-<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 변동성</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 개요</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>수익률의 변동성을 측정하고 모형화하는 방법을 다룬다.</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## 학습 목표</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성을 수익률 변동의 척도로 이해한다.</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>역사적 변동성, 실현변동성, 모형 기반 변동성을 비교한다.</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성 군집과 시간가변 변동성을 해석한다.</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## 간단한 변동성 추정</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>금융에서 <span class="co">[</span><span class="ot">변동성</span><span class="co">](../../concepts/glossary.qmd#volatility)</span>(volatility)은 수익률 분포의 표준편차(혹은 분산)를 뜻한다. 하지만 변동성의 구체적 의미는 맥락에 따라 다르다. 일간, 월간, 연간 변동성을 뜻하기도 하고 순간 변동성을 가리키기도 한다. 과거 금융 시계열 자료로부터 추정하는 역사적 변동성(historical volatility)과, 옵션 등 파생상품의 가격에 내포된 <span class="co">[</span><span class="ot">내재변동성</span><span class="co">](../../concepts/glossary.qmd#implied-volatility)</span>(implied volatility)으로 나누기도 한다.</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>변동성 추정에는 몇 가지 어려움이 있다.</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성은 **숨겨진 변수**(latent variable)다. 자산 가격이나 수익률과 달리 직접 관찰할 수 없으므로 별도의 방법으로 추정해야 한다.</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>수익률의 변동성은 **시간에 따라 변하며**(time-varying), **변동성 군집**(volatility clustering) 현상을 보인다. 오늘과 내일의 변동성은 양의 상관관계가 있어서, 오늘 변동성이 높으면 내일도 높을 가능성이 크고 오늘 낮으면 내일도 낮을 가능성이 크다.</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성은 **지속성**(persistency)이 높아서, 높거나 낮은 경향이 비교적 오래 이어진다.</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>미래 값을 예측하기 어려운 자산 수익률과 달리, **변동성은 오늘 측정한 값으로 내일을 어느 정도 예측할 수 있다.** 이 장에서 다루는 방법들은 모두 이 성질을 이용한다.</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>많은 경우 변동성은 시간에 따라 천천히 변한다. 폴란드 태생의 수학자 브누아 망델브로는 이 현상을 다음과 같이 표현했다 <span class="co">[</span><span class="ot">@mandelbort1963variation</span><span class="co">]</span>.</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; … 큰 변화 뒤에는 부호와 관계없이 큰 변화가 따르는 경향이 있고, 작은 변화 뒤에는 작은 변화가 따르는 경향이 있다 …</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>하지만 가끔 변동성은 급격히 변한다. 예를 들어 10%였던 변동성이 30%로 급등하는 경우(혹은 그 반대)가 있다. 이런 현상을 **제도 전환**(regime switching)이라 하며, 예측이 어렵고 리스크 관리를 어렵게 만든다.</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>시간에 따라 변하는 변동성은 자산 수익률 분포가 정규분포가 아님을 뜻한다. <span class="co">[</span><span class="ot">포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span>을 다룰 때는 수익률 분포의 정규성을 가정했지만, 시장에서 관측되는 수익률 분포는 정규분포가 아니다. 일반적으로 정규분포보다 두꺼운 꼬리를 가지고, 비대칭이며, 분포를 결정하는 모수(parameter)가 시간에 따라 변한다. 비정규성의 원인은 여러 가지지만 변하는 변동성도 그중 하나다. 시간에 따라 변하는 모수, 특히 변동성은 두꺼운 꼬리 분포나 비대칭 분포를 만들 수 있다.</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>이 장에서는 수익률 시계열을 바탕으로 변동성을 추정하는 여러 통계적 방법을 배운다. **시계열**(time series)은 시간 순서로 인덱스를 매겨 나열한 수치 자료를 말한다. 일간 수익률 시계열은 보통 장이 마감될 때 관찰된 종가(closing price)를 기준으로 만든다. 매일 관찰한 어떤 주식의 종가가</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>S_0,\; S_1,\; \cdots,\; S_n</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>이라면, 일간 산술수익률 시계열은</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>R_1 = \frac{S_1 - S_0}{S_0},\; R_2 = \frac{S_2 - S_1}{S_1},\; \cdots,\; R_n = \frac{S_n - S_{n-1}}{S_{n-1}}</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>이고, 일간 로그수익률은 다음과 같다.</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>r_1 = \log \frac{S_1}{S_0},\; r_2 = \log \frac{S_2}{S_1},\; \cdots,\; r_n = \log \frac{S_n}{S_{n-1}}</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>이 장에서는 산술수익률을 $R_i$, 로그수익률을 $r_i$로 구분해 쓴다(<span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../../concepts/notation.qmd)</span> 참고). 일반적으로 두 수익률의 값은 크게 다르지 않지만, 시계열이나 확률과정으로 다룰 때는 로그수익률이 시간에 대해 **가산적**(additive)이어서 편리하다. 1일부터 $n$일까지의 로그수익률은 다음과 같다.</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>r_{1,n} = \log \frac{S_n}{S_0} = r_1 + \cdots + r_n</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>중요하지 않은 경우에는 이 둘을 엄밀히 구분하지 않는다.</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 일간 변동성을 연간으로 바꾸기</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>어떤 자산의 일간 로그수익률이 서로 <span class="co">[</span><span class="ot">독립</span><span class="co">](../../concepts/probability/independence.qmd)</span>이고 같은 분포를 따른다고 하자. $\mathbb{E}<span class="co">[</span><span class="ot">r_i</span><span class="co">]</span> = \mu_d$라 할 때, 1년을 250 영업일(business day)로 보면 연간 기대수익률은</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">\sum_{i=1}^{250} r_i\right</span><span class="co">]</span> = 250\,\mu_d</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>이다. 비슷하게 $\mathrm{sd}(r_i) = \sigma_d$이면 연간 로그수익률의 표준편차는 다음과 같다.</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>\mathrm{sd}\left(\sum_{i=1}^{250} r_i\right) = \sqrt{250}\,\sigma_d</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>산술수익률에서는 등식이 성립하지 않지만, 일간 산술수익률 $R_i$가 독립이고 같은 분포를 따른다면 연간 산술수익률의 기댓값과 표준편차를 각각 $250\,\mathbb{E}<span class="co">[</span><span class="ot">R_i</span><span class="co">]</span>$, $\sqrt{250}\,\mathrm{sd}(R_i)$로 근사할 수 있다.</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../08-var-multiperiod/index.qmd)</span> 장에서 시간제곱근 법칙이라 부른 것이 바로 이 관계다.</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### 표본 표준편차 방법</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>변동성을 추정하는 가장 간단한 방법은 과거 수익률 자료의 표본 표준편차를 계산하는 것이다. 현재 시점을 $n$이라 하고 과거 $m$개의 수익률이 주어졌을 때, 현재 시점의 변동성 $\sigma_n$은 다음과 같이 추정한다.</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>\sigma_n = \sqrt{\frac{1}{m-1} \sum_{i=1}^{m} (r_{n-i} - \bar r)^2}</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>$$ {#eq-real-vol}</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>여기서 $r_{n-i}$는 과거 $n-i$ 시점에 실현된 수익률이고, $\bar r$은 그 평균이다.</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>\bar r = \frac{1}{m} \sum_{i=1}^{m} r_{n-i}</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>@eq-real-vol 에서 $m-1$을 $m$으로 바꾸거나 $\bar r = 0$으로 가정해 다음과 같이 간단히 근사하기도 한다.</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>\sigma_n = \sqrt{\frac{1}{m} \sum_{i=1}^{m} r_{n-i}^2}</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>표본분산을 계산할 때 $m-1$로 나누면 불편추정량(unbiased estimator)이 되고, $m$으로 나누면 최대우도추정량(maximum likelihood estimator)이 된다.</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>표본 표준편차를 변동성으로 쓰는 방법은 **시간에 따른 변동성의 변화 추세**(trend)를 반영하기 어렵다. 과거 $m$개의 수익률에 모두 같은 가중치를 주기 때문이다. 아래 EWMA 예제에서 이 한계가 어떻게 드러나는지 볼 수 있다.</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Exponential smoothing</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>**지수 평활**(exponentially weighted moving average, EWMA) 방법은 시간에 따라 변하는 변동성의 특성을 감안한 방식이다. 먼 과거일수록 더 작은 가중치를 주어 평균을 낸다. 시점 $n$에서 수익률의 분산 $\sigma_n^2$을 다음 식으로 계산한다.</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = w_0 r_{n-1}^2 + \lambda \sigma_{n-1}^2</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>여기서 $\lambda$는 상수이고, $w_0$의 값은 뒤에서 정한다. EWMA의 성질을 이해하기 위해 이 식의 **재귀적**(recursive) 성질을 이용해 전개해 보자.</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 &amp;= w_0 r_{n-1}^2 + \lambda \sigma_{n-1}^2 <span class="sc">\\</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>&amp;= w_0 r_{n-1}^2 + \lambda (w_0 r_{n-2}^2 + \lambda \sigma_{n-2}^2) <span class="sc">\\</span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>&amp;= w_0 r_{n-1}^2 + w_0 \lambda r_{n-2}^2 + \lambda^2 (w_0 r_{n-3}^2 + \lambda \sigma_{n-3}^2) <span class="sc">\\</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>&amp;\;\;\vdots <span class="sc">\\</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>&amp;= w_0 r_{n-1}^2 + w_0 \lambda r_{n-2}^2 + w_0 \lambda^2 r_{n-3}^2 + w_0 \lambda^3 r_{n-4}^2 + \cdots</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>$0 &lt; \lambda &lt; 1$이면, 먼 과거의 수익률일수록 $r_{n-\ell}^2$의 가중치 $w_0 \lambda^{\ell-1}$이 작아진다. @tbl-ewma-weights 로 정리하면 다음과 같다.</span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 날짜 <span class="pp">|</span> 제곱 수익률 <span class="pp">|</span> 가중치 <span class="pp">|</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---:|:---:|</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-1$ <span class="pp">|</span> $r_{n-1}^2$ <span class="pp">|</span> $w_0$ <span class="pp">|</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-2$ <span class="pp">|</span> $r_{n-2}^2$ <span class="pp">|</span> $w_0 \lambda$ <span class="pp">|</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-3$ <span class="pp">|</span> $r_{n-3}^2$ <span class="pp">|</span> $w_0 \lambda^2$ <span class="pp">|</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $n-4$ <span class="pp">|</span> $r_{n-4}^2$ <span class="pp">|</span> $w_0 \lambda^3$ <span class="pp">|</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $\vdots$ <span class="pp">|</span> $\vdots$ <span class="pp">|</span> $\vdots$ <span class="pp">|</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>: EWMA에서 과거 수익률에 주는 가중치 {#tbl-ewma-weights}</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>$\lambda$는 통상 0.94처럼 1에 가깝지만 1보다 작은 값을 쓴다. 그러면 알맞은 $w_0$는 무엇일까? 과거 $K$일의 자료를 쓴다면 가중치의 합은</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>w_0 (1 + \lambda + \lambda^2 + \cdots + \lambda^K)</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>이다. 이론적으로 무한히 먼 과거까지 쓴다고 가정하면 가중치의 합은 다음과 같다.</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>w_0 \sum_{k=0}^{\infty} \lambda^k = \frac{w_0}{1 - \lambda}</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>가중치의 합이 1이 되도록 $w_0 = 1 - \lambda$로 둔다.</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## EWMA 변동성</span></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>EWMA를 이용한 현재 분산 $\sigma_n^2$은 $0 &lt; \lambda &lt; 1$에 대해 다음과 같이 계산한다.</span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = (1 - \lambda)\, r_{n-1}^2 + \lambda\, \sigma_{n-1}^2</span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>실제로는 숨겨진 변수인 $\sigma_{n-1}^2$의 값을 알 수 없으므로, 충분히 많은^<span class="co">[</span><span class="ot">정확한 기준은 없지만 50개 이상을 고려한다.</span><span class="co">]</span> $K$개의 과거 수익률로 다음과 같이 근사한다.</span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = (1-\lambda) r_{n-1}^2 + (1-\lambda)\lambda r_{n-2}^2 + (1-\lambda)\lambda^2 r_{n-3}^2 + \cdots + (1-\lambda)\lambda^{K-1} r_{n-K}^2</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>$$ {#eq-ewma-past}</span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>한 번 계산이 끝나면, 즉 $n$ 시점의 분산이 구해지면 다음 날의 분산은</span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>\sigma_{n+1}^2 = (1 - \lambda)\, r_n^2 + \lambda\, \sigma_n^2</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>으로 계산하고, 그 이후는 같은 과정을 반복한다.</span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>글로벌 금융기업 J.P. Morgan이 처음 EWMA를 변동성 측정에 도입했을 때 $\lambda = 0.94$를 썼다. 과학적으로 결정된 값은 아니지만 실증 자료에 어느 정도 잘 들어맞아 채택된 값이다. 어떤 학자들은 $\lambda = 0.97$ 정도를 주장하기도 한다.</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>$\lambda$를 결정하는 엄밀한 방법은 없다. EWMA는 변동성을 측정하는 편리한 도구일 뿐, 변동성의 움직임을 설명하는 확률 모형이 아니기 때문이다. 최대우도추정법이나 최소제곱법으로 $\lambda$를 정하기도 하지만 이론적 근거가 충분하지는 않다. 그럼에도 편리함과 간단함 때문에 널리 쓰이는 방법이다.</span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 추세가 있는 수익률에서 EWMA 계산</span></span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>시간 순서대로 관측된 가상의 일간 수익률 50개를 생각하자.</span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>0.05,\; 0.049,\; -0.048,\; \cdots,\; -0.002,\; 0.001</span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a>절댓값이 0.05에서 0.001까지 줄어들도록 의도적으로 만든 자료이고, 부호는 무작위로 정했다. 마지막 값이 오늘의 수익률일 때, $\lambda = 0.94$로 EWMA를 써서 내일의 일간 변동성을 계산한다. @eq-ewma-past 에 따르면</span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a>\sigma^2 = 0.06 \times 0.001^2 + 0.06 \times 0.94 \times 0.002^2 + \cdots + 0.06 \times 0.94^{49} \times 0.05^2</span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a>이고, 계산하면 $\sigma \approx 0.0180$이다.</span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a>반대로 절댓값이 커지도록 만든 가상의 수익률</span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a>-0.001,\; 0.002,\; -0.003,\; \cdots,\; 0.049,\; -0.05</span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a>에서는</span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a>\sigma^2 = 0.06 \times 0.05^2 + 0.06 \times 0.94 \times 0.049^2 + \cdots + 0.06 \times 0.94^{49} \times 0.001^2</span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a>이고, $\sigma \approx 0.0376$이다.</span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a>두 자료는 절댓값의 순서만 다르다. **표본 표준편차로 계산했다면 두 경우 모두 같은 값이 나온다.** EWMA는 최근 수익률에 큰 가중치를 주므로, 변동이 잦아드는 첫 번째 자료에서는 작게, 변동이 커지는 두 번째 자료에서는 크게 추정한다.</span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## GARCH</span></span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### GARCH 모형의 배경과 조건부 분포</span></span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">GARCH</span><span class="co">](../../concepts/glossary.qmd#garch)</span>(generalized autoregressive conditional heteroscedasticity) 모형은 시간에 따라 변하는 변동성을 모형화하며, 수학적으로 완전한 모형이다. 관점에 따라 EWMA의 수학적 완성형으로 볼 수 있다. 이 변동성 모형은 ARCH(autoregressive conditional heteroscedasticity) 모형으로 처음 등장했고 <span class="co">[</span><span class="ot">@engle1982autoregressive</span><span class="co">]</span>, 그 뒤 <span class="co">[</span><span class="ot">@bollerslev1986generalized</span><span class="co">]</span>가 일반화된 형태로 완성했다. Robert F. Engle은 이 공로로 노벨 경제학상을 받았다.</span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>한편 Engle 교수는 2009~2010년 한국에서 키코(KIKO) 사태로 손해를 입은 파생상품 가입 기업 측과 판매자인 은행 측이 법정 공방을 벌였을 때, 가입 기업의 자문으로 한국 재판에 참여한 이력이 있다. 그러자 은행 측은 또 다른 유명 금융경제학자 Stephen Ross^[<span class="co">[</span><span class="ot">이산 시간 모형</span><span class="co">](../06-discrete-time-model/index.qmd)</span> 장에서 공부할 이항 나무 옵션 가격 결정 이론의 정립에 공헌했다.]를 증인으로 세워 반대 변론을 펼쳤다.</span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a>한편 GARCH 모형을 만든 Bollerslev는 당시 Engle 교수의 연구 보조로 일하던 박사과정 학생이었다. Engle 교수의 동료 연구자 David Lilien이 "ARCH 모형을 ARMA(autoregressive moving average)^<span class="co">[</span><span class="ot">시계열에서 AR(autoregressive) 모형과 MA(moving average) 모형을 일반화한 것.</span><span class="co">]</span> 시계열처럼 일반적인 모형으로 확장할 수 없을까"라고 묻는 것을 듣고 GARCH 모형을 세우게 되었다고 한다 <span class="co">[</span><span class="ot">@BOLLERSLEV202396</span><span class="co">]</span>.</span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a>GARCH 모형에서는 수익률 $r_n$과 분산 $\sigma_n^2$을 **확률과정**으로 간주한다. 즉 수익률뿐 아니라 수익률의 분산이나 표준편차도 시간에 따라 변하는 값이다.</span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a><span class="fu">## 확률과정</span></span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a>확률과정(stochastic process) $X$는 시간으로 인덱스된 일련의 확률변수들이며, 다음과 같이 쓴다.</span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a><span class="sc">\{</span> X_n : n \in T <span class="sc">\}</span></span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a>여기서 $X_n$은 $(\Omega, \mathbb{P})$에서 정의된 확률변수이고, $T$는 시간 또는 이산적으로 정의된 시간 인덱스 집합이다.</span>
+<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a>확률과정은 연속 시간과 이산 시간 모두에서 정의할 수 있으나, 이 장에서는 이산 시간에서 정의된 이산 확률과정만 다룬다.</span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a>GARCH 모형을 이해하려면 <span class="co">[</span><span class="ot">조건부 분포</span><span class="co">](../../concepts/probability/conditional-probability.qmd)</span>, 특히 조건부 정규분포를 먼저 알아야 한다. 수익률 $r_n$은 시점 $n$에 관찰 가능한 확률변수다. 한편 $r_n$의 분산을 나타내는 $\sigma_n^2$도 확률변수인데, GARCH 모형에서는 $\sigma_n^2$이 **시점 $n-1$까지의 정보 집합**(information set)으로 표현된다고 가정한다.^<span class="co">[</span><span class="ot">수학적으로는 시그마 대수 $\mathcal{F}_{n-1}$에 대해 가측(measurable)이라고 표현한다.</span><span class="co">]</span> 즉 $n$ 시점 직전인 $n-1$ 시점에 이르면, 그때까지 관찰한 정보로 $\sigma_n^2$의 값을 계산할 수 있다고 가정한다.</span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a>수익률 $r_n$의 조건부 분포가, 주어진 $\sigma_n^2$에 대해 다음 조건부 정규분포를 따른다고 하자.</span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a>r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)</span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a>이는 $n-1$ 시점이 되어 $\sigma_n^2$의 값을 알게 되면, $r_n$의 분포를 그 값을 이용한 정규분포로 나타낼 수 있다는 뜻이다.</span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 변동성이 주어졌을 때의 조건부 분포</span></span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a>실증 연구 결과 $\sigma_1 = 0.1$, $\sigma_2 = 0.2$임이 밝혀졌다고 하자. $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은 다음을 뜻한다.</span>
+<span id="cb4-257"><a href="#cb4-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-258"><a href="#cb4-258" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a>r_1 \mid \sigma_1^2 \sim N(0, 0.01), \qquad r_2 \mid \sigma_2^2 \sim N(0, 0.04)</span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-262"><a href="#cb4-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-263"><a href="#cb4-263" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb4-264"><a href="#cb4-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 변동성이 식으로 주어졌을 때</span></span>
+<span id="cb4-265"><a href="#cb4-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-266"><a href="#cb4-266" aria-hidden="true" tabindex="-1"></a>어떤 이론적 연구 결과 분산이 다음과 같이 나타난다고 하자.</span>
+<span id="cb4-267"><a href="#cb4-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-268"><a href="#cb4-268" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-269"><a href="#cb4-269" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = 0.5 + \frac{1}{n}</span>
+<span id="cb4-270"><a href="#cb4-270" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-271"><a href="#cb4-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-272"><a href="#cb4-272" aria-hidden="true" tabindex="-1"></a>그러면 $r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)$을 따른다는 것은, 예를 들어 $n = 10$에서 다음을 뜻한다.</span>
+<span id="cb4-273"><a href="#cb4-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-274"><a href="#cb4-274" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-275"><a href="#cb4-275" aria-hidden="true" tabindex="-1"></a>r_{10} \mid \sigma_{10}^2 \sim N(0, 0.6)</span>
+<span id="cb4-276"><a href="#cb4-276" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-277"><a href="#cb4-277" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-278"><a href="#cb4-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-279"><a href="#cb4-279" aria-hidden="true" tabindex="-1"></a>$\sigma_n^2$ 같은 추가 정보가 없을 때의 $r_n$의 분포는 **비조건부 분포**라 부르며, 이는 정규분포가 아니다.</span>
+<span id="cb4-280"><a href="#cb4-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-281"><a href="#cb4-281" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-282"><a href="#cb4-282" aria-hidden="true" tabindex="-1"></a>매 시점의 조건부 분포는 정규분포인데 비조건부 분포는 정규분포가 아니라는 점이 GARCH 모형의 핵심이다. 앞 절에서 "시간에 따라 변하는 변동성은 수익률 분포가 정규분포가 아님을 뜻한다"고 한 것이 바로 이 구조다. 분산이 시점마다 다른 정규분포들이 섞이면 전체로는 꼬리가 두꺼운 분포가 된다. 이 성질은 다음 절에서 확인한다.</span>
+<span id="cb4-283"><a href="#cb4-283" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-284"><a href="#cb4-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-285"><a href="#cb4-285" aria-hidden="true" tabindex="-1"></a><span class="fu">### 정의와 기본 성질</span></span>
+<span id="cb4-286"><a href="#cb4-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a>모형의 복잡도에 따라 양의 정수 $p$, $q$에 대해 GARCH($p,q$) 모형이 있지만, 여기서는 가장 간단한 GARCH(1,1) 모형을 살펴본다. 그중에서도 수익률 과정은 모형화하지 않고 변동성 $\sigma_n$만 모형화한 형태를 다룬다.</span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a><span class="fu">## GARCH(1,1)</span></span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a>수익률 과정 $r_n$이 GARCH(1,1)를 따른다는 것은, $r_n$과 그 조건부 분산 $\sigma_n^2$이 다음을 만족한다는 뜻이다.^<span class="co">[</span><span class="ot">$(r_n, \sigma_n^2)$이 GARCH(1,1)를 따른다고도 한다.</span><span class="co">]</span></span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 = \omega + \alpha r_{n-1}^2 + \beta \sigma_{n-1}^2</span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a>$$ {#eq-garch11}</span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>주어진 분산 $\sigma_n^2$에 대해 $r_n$의 조건부 분포는 정규분포다.</span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-300"><a href="#cb4-300" aria-hidden="true" tabindex="-1"></a>  r_n \mid \sigma_n^2 \sim N(0, \sigma_n^2)</span>
+<span id="cb4-301"><a href="#cb4-301" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-302"><a href="#cb4-302" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>표준화된 오차항 과정은 다음으로 정의한다.</span>
+<span id="cb4-303"><a href="#cb4-303" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-304"><a href="#cb4-304" aria-hidden="true" tabindex="-1"></a>  \varepsilon_n = \frac{r_n}{\sigma_n}</span>
+<span id="cb4-305"><a href="#cb4-305" aria-hidden="true" tabindex="-1"></a>  $$ {#eq-varepsilon}</span>
+<span id="cb4-306"><a href="#cb4-306" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\omega, \alpha, \beta$는 모형 모수이며 양의 값이다.</span>
+<span id="cb4-307"><a href="#cb4-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>다음 **정상성**(stationarity) 조건 중 하나를 만족한다.</span>
+<span id="cb4-308"><a href="#cb4-308" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>강정상성 조건</span>
+<span id="cb4-309"><a href="#cb4-309" aria-hidden="true" tabindex="-1"></a>    $$</span>
+<span id="cb4-310"><a href="#cb4-310" aria-hidden="true" tabindex="-1"></a>    -\infty &lt; \mathbb{E}\left<span class="co">[</span><span class="ot">\log(\beta + \alpha \varepsilon_0^2)\right</span><span class="co">]</span> &lt; 0</span>
+<span id="cb4-311"><a href="#cb4-311" aria-hidden="true" tabindex="-1"></a>    $$ {#eq-stationarity1}</span>
+<span id="cb4-312"><a href="#cb4-312" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>약정상성 조건</span>
+<span id="cb4-313"><a href="#cb4-313" aria-hidden="true" tabindex="-1"></a>    $$</span>
+<span id="cb4-314"><a href="#cb4-314" aria-hidden="true" tabindex="-1"></a>    \alpha + \beta &lt; 1</span>
+<span id="cb4-315"><a href="#cb4-315" aria-hidden="true" tabindex="-1"></a>    $$ {#eq-stationarity}</span>
+<span id="cb4-316"><a href="#cb4-316" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-317"><a href="#cb4-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-318"><a href="#cb4-318" aria-hidden="true" tabindex="-1"></a>위 정의에서는 편의상 기대수익률을 0으로 가정했으나, 조건부 평균 수익률 과정을 따로 정의하는 경우도 많다. GARCH 모형의 조건에는 어긋나지만, $\omega = 0$, $\alpha = 1 - \lambda$, $\beta = \lambda$로 두면 EWMA 공식과 같아진다는 점에 주목하자.</span>
+<span id="cb4-319"><a href="#cb4-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-320"><a href="#cb4-320" aria-hidden="true" tabindex="-1"></a>금융 자산 수익률에서 $\beta$는 1에 가까운 값을 가진다. $\beta$가 1에 가까울수록 **지속성**(persistence)이 크다고 하며, $\beta$가 크면 먼 과거의 경향을, $\alpha$가 크면 최근의 경향을 더 많이 반영한다.^[<span class="co">[</span><span class="ot">현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span> 장에서 공부한 $\beta$와는 다른 것이므로 혼동하지 않는다. <span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../../concepts/notation.qmd)</span>에도 정리해 두었다.]</span>
+<span id="cb4-321"><a href="#cb4-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-322"><a href="#cb4-322" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-323"><a href="#cb4-323" aria-hidden="true" tabindex="-1"></a><span class="fu">## GARCH 과정의 확률적 성질</span></span>
+<span id="cb4-324"><a href="#cb4-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-325"><a href="#cb4-325" aria-hidden="true" tabindex="-1"></a>적절한 조건 아래에서 GARCH 확률과정은 여러 좋은 성질을 가진다. 예를 들어 시간이 충분히 흐르면, 즉 먼 과거의 분산 $\sigma_{n-T}^2$과 현재의 분산 $\sigma_n^2$은 근사적으로 <span class="co">[</span><span class="ot">독립</span><span class="co">](../../concepts/probability/independence.qmd)</span>이 된다. 20년 전의 변동성이 내일의 변동성에 영향을 준다고 생각하기는 어렵다. 이를 **강혼합 성질**(strong mixing property)이라 한다. 혼합에는 여러 종류가 있는데, 관찰값 사이의 간격이 멀어질수록 공분산이 0에 가까워지면 **공분산 혼합**(covariance mixing)이라 한다.</span>
+<span id="cb4-326"><a href="#cb4-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-327"><a href="#cb4-327" aria-hidden="true" tabindex="-1"></a>또한 적절한 조건 아래에서 GARCH 확률과정은 **에르고딕**(ergodic)이다. 에르고딕 확률과정이란, 관찰 기간이 충분하다면 하나의 실현된 경로(path) 안에서 그 확률과정의 모든 분포적 성질을 관찰할 수 있다는 뜻이다. 자세한 내용은 <span class="co">[</span><span class="ot">@lindner2009stationarity</span><span class="co">]</span>와 <span class="co">[</span><span class="ot">@francq2019garch</span><span class="co">]</span>를 참고한다.</span>
+<span id="cb4-328"><a href="#cb4-328" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-329"><a href="#cb4-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-330"><a href="#cb4-330" aria-hidden="true" tabindex="-1"></a>@eq-stationarity1 의 정상성 조건이란, @eq-garch11 로 정의된 분산 확률과정이 시간이 한참 흘러도 본래의 분포적 성질을 유지할 조건을 뜻한다. 위 정의처럼 표현되는 확률과정은 $\sigma_0$이나 $r_0$ 같은 초기값을 무엇으로 할지 명확하지 않다. 이때 편리한 방법은 이 확률과정이 **무한히 먼 과거로부터 시작했다**고 가정하는 것이다. 이 접근에는 시간이 오래 지나도 평균·분산·공분산 같은 분포 성질이 변하지 않는다는 성질이 필요하며, 이를 정상성이라 한다.</span>
+<span id="cb4-331"><a href="#cb4-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-332"><a href="#cb4-332" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-333"><a href="#cb4-333" aria-hidden="true" tabindex="-1"></a><span class="fu">## 강정상성</span></span>
+<span id="cb4-334"><a href="#cb4-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-335"><a href="#cb4-335" aria-hidden="true" tabindex="-1"></a>확률과정 $X_t$가 **강정상**(strictly stationary, strongly stationary)이라는 것은, 임의의 자연수 $k$와 정수 $h$에 대해 $(X_1, \cdots, X_k)$와 $(X_{1+h}, \cdots, X_{k+h})$가 같은 결합 분포를 가진다는 뜻이다. 즉 시간을 $h$만큼 이동해도 분포의 성질이 변하지 않는다.</span>
+<span id="cb4-336"><a href="#cb4-336" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-337"><a href="#cb4-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-338"><a href="#cb4-338" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-339"><a href="#cb4-339" aria-hidden="true" tabindex="-1"></a><span class="fu">## 약정상성</span></span>
+<span id="cb4-340"><a href="#cb4-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-341"><a href="#cb4-341" aria-hidden="true" tabindex="-1"></a>확률과정 $X_t$가 **약정상**(weakly stationary, wide-sense stationary, second-order stationary)이라는 것은, $X_t$의 평균과 분산이 유한한 상수로 존재하고 $\mathrm{Cov}(X_t, X_{t+h})$가 오직 두 시점 사이의 거리 $h$에만 의존한다는 뜻이다.</span>
+<span id="cb4-342"><a href="#cb4-342" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-343"><a href="#cb4-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-344"><a href="#cb4-344" aria-hidden="true" tabindex="-1"></a>예를 들어 @fig-nonstationary1 처럼 시간에 따라 평균이 계속 증가하거나 감소하는 확률과정, @fig-nonstationary3 처럼 주기적으로 움직이는 확률과정, @fig-nonstationary2 처럼 분산이 계속 증가하거나 감소하는 확률과정은 정상과정(stationary process)이 아닐 가능성이 높다.</span>
+<span id="cb4-345"><a href="#cb4-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-346"><a href="#cb4-346" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb4-347"><a href="#cb4-347" aria-hidden="true" tabindex="-1"></a>정상 시계열이지만 비정상 시계열처럼 보이도록 인위적으로 만들 수 있다. 따라서 **관찰된 경로 하나만으로는** 정상과정인지 비정상과정인지 완벽히 판단하지 못한다. 아래 예제가 이 점을 보여준다.</span>
+<span id="cb4-348"><a href="#cb4-348" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-349"><a href="#cb4-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-350"><a href="#cb4-350" aria-hidden="true" tabindex="-1"></a>::: {#fig-stationarity layout-ncol=2}</span>
+<span id="cb4-351"><a href="#cb4-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-352"><a href="#cb4-352" aria-hidden="true" tabindex="-1"></a><span class="al">![정상 시계열](../../assets/figures/Ch7_stationary.svg)</span>{#fig-stationary width=100%}</span>
+<span id="cb4-353"><a href="#cb4-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-354"><a href="#cb4-354" aria-hidden="true" tabindex="-1"></a><span class="al">![비정상 시계열: 평균이 증가](../../assets/figures/Ch7_nonstationary1.svg)</span>{#fig-nonstationary1 width=100%}</span>
+<span id="cb4-355"><a href="#cb4-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-356"><a href="#cb4-356" aria-hidden="true" tabindex="-1"></a><span class="al">![비정상 시계열: 분산이 증가](../../assets/figures/Ch7_nonstationary2.svg)</span>{#fig-nonstationary2 width=100%}</span>
+<span id="cb4-357"><a href="#cb4-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-358"><a href="#cb4-358" aria-hidden="true" tabindex="-1"></a><span class="al">![비정상 시계열: 주기적 움직임](../../assets/figures/Ch7_nonstationary3.svg)</span>{#fig-nonstationary3 width=100%}</span>
+<span id="cb4-359"><a href="#cb4-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-360"><a href="#cb4-360" aria-hidden="true" tabindex="-1"></a>(아마도) 정상 시계열과 비정상 시계열의 예</span>
+<span id="cb4-361"><a href="#cb4-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-362"><a href="#cb4-362" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-363"><a href="#cb4-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-365"><a href="#cb4-365" aria-hidden="true" tabindex="-1"></a><span class="fu">## 그림을 약정상성의 조건으로 읽기</span></span>
+<span id="cb4-366"><a href="#cb4-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a>약정상성은 세 가지를 요구한다 — 평균이 일정할 것, 분산이 일정할 것, 공분산이 두 시점 사이의 거리 $h$에만 의존할 것. @fig-stationarity 의 비정상 시계열 세 개는 이 가운데 하나씩을 어긴다.</span>
+<span id="cb4-368"><a href="#cb4-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-369"><a href="#cb4-369" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(b)** 값이 시간에 따라 계속 올라간다 → **평균이 상수가 아니다.**</span>
+<span id="cb4-370"><a href="#cb4-370" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(c)** 흔들리는 폭이 시간에 따라 커진다 → **분산이 상수가 아니다.**</span>
+<span id="cb4-371"><a href="#cb4-371" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**(d)** 주기적으로 오르내린다 → **평균이 시점에 따라 주기적으로 달라진다.** 어느 시점에서 보느냐에 따라 기대되는 값이 다르다.</span>
+<span id="cb4-372"><a href="#cb4-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-373"><a href="#cb4-373" aria-hidden="true" tabindex="-1"></a>**(a)**는 이런 추세가 없어 정상과정처럼 보인다. 다만 캡션에 "(아마도)"를 붙인 이유가 있다 — 그림 하나만으로 정상성을 단정할 수는 없다. 아래 예제가 그 이유를 보여준다.</span>
+<span id="cb4-374"><a href="#cb4-374" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-375"><a href="#cb4-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-376"><a href="#cb4-376" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb4-377"><a href="#cb4-377" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예제: 같은 관찰값, 다른 확률과정</span></span>
+<span id="cb4-378"><a href="#cb4-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-379"><a href="#cb4-379" aria-hidden="true" tabindex="-1"></a>다음 시계열 실현값을 관찰했다고 하자.</span>
+<span id="cb4-380"><a href="#cb4-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-381"><a href="#cb4-381" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-382"><a href="#cb4-382" aria-hidden="true" tabindex="-1"></a>1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; -1,\; 1,\; \cdots</span>
+<span id="cb4-383"><a href="#cb4-383" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-384"><a href="#cb4-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-385"><a href="#cb4-385" aria-hidden="true" tabindex="-1"></a>이 관찰값을 낳은 확률과정은 정상 시계열일 수도 있고 아닐 수도 있다.</span>
+<span id="cb4-386"><a href="#cb4-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-387"><a href="#cb4-387" aria-hidden="true" tabindex="-1"></a>$X_t$가 확률 1로 $X_t = (-1)^t$로 정의되었고 위 관찰값이 $X_t$의 실현 결과라면, $\mathbb{E}<span class="co">[</span><span class="ot">X_1</span><span class="co">]</span> \neq \mathbb{E}<span class="co">[</span><span class="ot">X_2</span><span class="co">]</span>$이므로 $X_t$는 비정상 시계열이다.</span>
+<span id="cb4-388"><a href="#cb4-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-389"><a href="#cb4-389" aria-hidden="true" tabindex="-1"></a>반면 $Y_t$가 다음과 같이 정의되었고</span>
+<span id="cb4-390"><a href="#cb4-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-391"><a href="#cb4-391" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-392"><a href="#cb4-392" aria-hidden="true" tabindex="-1"></a>Y_t = \begin{cases}</span>
+<span id="cb4-393"><a href="#cb4-393" aria-hidden="true" tabindex="-1"></a>1,\; -1,\; 1,\; -1,\; 1,\; -1,\; \cdots &amp; \text{확률 } 0.5 <span class="sc">\\</span></span>
+<span id="cb4-394"><a href="#cb4-394" aria-hidden="true" tabindex="-1"></a>-1,\; 1,\; -1,\; 1,\; -1,\; 1,\; \cdots &amp; \text{확률 } 0.5</span>
+<span id="cb4-395"><a href="#cb4-395" aria-hidden="true" tabindex="-1"></a>\end{cases}</span>
+<span id="cb4-396"><a href="#cb4-396" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-397"><a href="#cb4-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-398"><a href="#cb4-398" aria-hidden="true" tabindex="-1"></a>위 관찰값이 $Y_t$의 실현 결과라면, $Y_t$는 정상 시계열이다. 같은 관찰값이 두 경우 모두에서 나올 수 있다.</span>
+<span id="cb4-399"><a href="#cb4-399" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-400"><a href="#cb4-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-401"><a href="#cb4-401" aria-hidden="true" tabindex="-1"></a>GARCH 모형에서 $\alpha + \beta &gt; 1$이면 유한한 비조건부 분산을 갖지 않으며, 분산 과정의 실현 경로가 크게 증가하거나 **폭발**(explosive)할 수 있다. EWMA처럼 GARCH 모형도 재귀적 형태를 가지므로 다음과 같이 전개할 수 있다.</span>
+<span id="cb4-402"><a href="#cb4-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-403"><a href="#cb4-403" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a>\sigma_n^2 &amp;= \omega + \beta \sigma_{n-1}^2 + \alpha r_{n-1}^2 <span class="sc">\\</span></span>
+<span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a>&amp;= \omega + \beta (\omega + \beta \sigma_{n-2}^2 + \alpha r_{n-2}^2) + \alpha r_{n-1}^2 <span class="sc">\\</span></span>
+<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a>&amp;= (1 + \beta)\omega + \beta^2 \sigma_{n-2}^2 + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 <span class="sc">\\</span></span>
+<span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a>&amp;= (1 + \beta)\omega + \beta^2 (\omega + \beta \sigma_{n-3}^2 + \alpha r_{n-3}^2) + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 <span class="sc">\\</span></span>
+<span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a>&amp;= (1 + \beta + \beta^2)\omega + \beta^3 \sigma_{n-3}^2 + \alpha r_{n-1}^2 + \alpha \beta r_{n-2}^2 + \alpha \beta^2 r_{n-3}^2 <span class="sc">\\</span></span>
+<span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a>&amp;\;\;\vdots <span class="sc">\\</span></span>
+<span id="cb4-411"><a href="#cb4-411" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{\omega}{1 - \beta} + \sum_{j=1}^{\infty} \alpha \beta^{j-1} r_{n-j}^2</span>
+<span id="cb4-412"><a href="#cb4-412" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb4-413"><a href="#cb4-413" aria-hidden="true" tabindex="-1"></a>$$ {#eq-garch-ex}</span>
+<span id="cb4-414"><a href="#cb4-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-415"><a href="#cb4-415" aria-hidden="true" tabindex="-1"></a>EWMA처럼, $j$가 커질수록 감소하는 가중치 $\alpha \beta^{j-1}$를 과거의 실현 수익률 $r_{n-j}^2$에 곱해 모두 더하는 형태다. $\alpha$와 $\beta$가 커서 가중치 $\alpha \beta^{j-1}$가 $j$에 따라 충분히 빨리 줄지 않으면 $\sigma_n^2$의 값이 크게 증가할 수 있다. @fig-non-stationary 는 $\alpha = 0.05$, $\beta = 0.97$로 두어 분산이 크게 증가하는 GARCH 시뮬레이션 경로를 보여준다. 왼쪽에서는 $\sigma$가, 오른쪽에서는 $r$의 절댓값이 크게 증가하는 모습을 볼 수 있다.</span>
+<span id="cb4-416"><a href="#cb4-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-417"><a href="#cb4-417" aria-hidden="true" tabindex="-1"></a>::: {#fig-non-stationary layout-ncol=2}</span>
+<span id="cb4-418"><a href="#cb4-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-419"><a href="#cb4-419" aria-hidden="true" tabindex="-1"></a><span class="al">![$\sigma$의 경로](../../assets/figures/Ch7_non_stationary_sigma.svg)</span>{width=100%}</span>
+<span id="cb4-420"><a href="#cb4-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-421"><a href="#cb4-421" aria-hidden="true" tabindex="-1"></a><span class="al">![$r$의 경로](../../assets/figures/Ch7_non_stationary_r.svg)</span>{width=100%}</span>
+<span id="cb4-422"><a href="#cb4-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-423"><a href="#cb4-423" aria-hidden="true" tabindex="-1"></a>GARCH(1,1) 모형에서 $\alpha = 0.05$, $\beta = 0.97$로 시뮬레이션한 경로</span>
+<span id="cb4-424"><a href="#cb4-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-425"><a href="#cb4-425" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-426"><a href="#cb4-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-427"><a href="#cb4-427" aria-hidden="true" tabindex="-1"></a>GARCH 변동성 과정이 $\alpha + \beta &lt; 1$인 @eq-stationarity 의 조건을 만족하면, GARCH 시계열이 먼 과거($-\infty$)로부터 시작했다고 가정할 수 있고, $\sigma_n^2$의 **비조건부 기댓값**(unconditional expectation)을 계산할 수 있다.</span>
+<span id="cb4-428"><a href="#cb4-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-429"><a href="#cb4-429" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="정리: 비조건부 분산"}</span>
+<span id="cb4-430"><a href="#cb4-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-431"><a href="#cb4-431" aria-hidden="true" tabindex="-1"></a>위 정의의 GARCH(1,1) 모형이 @eq-stationarity 의 조건 $\alpha + \beta &lt; 1$을 만족하면, $\sigma_n^2$의 비조건부 기댓값은 다음과 같다.</span>
+<span id="cb4-432"><a href="#cb4-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-433"><a href="#cb4-433" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-434"><a href="#cb4-434" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\sigma_n^2</span><span class="co">]</span> = \frac{\omega}{1 - \alpha - \beta}</span>
+<span id="cb4-435"><a href="#cb4-435" aria-hidden="true" tabindex="-1"></a>$$ {#eq-uncond-v}</span>
+<span id="cb4-436"><a href="#cb4-436" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-437"><a href="#cb4-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-438"><a href="#cb4-438" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="증명"}</span>
+<span id="cb4-439"><a href="#cb4-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-440"><a href="#cb4-440" aria-hidden="true" tabindex="-1"></a>간단히 기대수익률을 0이라 하면, 모든 $j$에 대해 $\mathbb{E}<span class="co">[</span><span class="ot">r_{n-j}^2</span><span class="co">]</span> = \mathbb{E}<span class="co">[</span><span class="ot">\sigma_{n-j}^2</span><span class="co">]</span>$이다. @eq-garch-ex 의 양변에 기댓값을 취하면</span>
+<span id="cb4-441"><a href="#cb4-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-442"><a href="#cb4-442" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-443"><a href="#cb4-443" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\sigma_n^2</span><span class="co">]</span> = \frac{\omega}{1 - \beta} + \sum_{j=1}^{\infty} \alpha \beta^{j-1} \mathbb{E}<span class="co">[</span><span class="ot">\sigma_{n-j}^2</span><span class="co">]</span></span>
+<span id="cb4-444"><a href="#cb4-444" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-445"><a href="#cb4-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-446"><a href="#cb4-446" aria-hidden="true" tabindex="-1"></a>이고, $\alpha + \beta &lt; 1$의 조건 아래에서는 모든 $j$에 대해 $\mathbb{E}<span class="co">[</span><span class="ot">\sigma_{n-j}^2</span><span class="co">]</span> = \mathbb{E}<span class="co">[</span><span class="ot">\sigma_n^2</span><span class="co">]</span>$이다. 이를 대입해 정리하면 다음을 얻는다.</span>
+<span id="cb4-447"><a href="#cb4-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-448"><a href="#cb4-448" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-449"><a href="#cb4-449" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\sigma_n^2</span><span class="co">]</span> = \frac{\omega}{1 - \alpha - \beta}</span>
+<span id="cb4-450"><a href="#cb4-450" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-451"><a href="#cb4-451" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-452"><a href="#cb4-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-453"><a href="#cb4-453" aria-hidden="true" tabindex="-1"></a>정상성 조건을 만족하는 GARCH 변동성 모형으로 미래 변동성을 시뮬레이션할 수 있다. 앞의 가정처럼 자산 수익률의 조건부 분포(conditional distribution)가 정규분포를 따른다고 하자. 모형에 따라 정규분포 대신 $t$-분포 등을 가정하기도 한다. 과거 자료로 $\sigma_n^2$을 계산했으면, 컴퓨터로 $N(0, \sigma_n^2)$을 따르는 가상의 $r_n$을 생성할 수 있다. 이 $r_n$으로 $\sigma_{n+1}^2$을 계산하고, 다시 $N(0, \sigma_{n+1}^2)$을 따르는 가상의 $r_{n+1}$을 생성한다. 이 과정을 반복하면 임의의 미래 $M$ 기간에 대한 가상의 수익률을 만들 수 있다. @tbl-garch-sim-steps 가 이 과정을 요약한다.</span>
+<span id="cb4-454"><a href="#cb4-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-455"><a href="#cb4-455" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 순서 <span class="pp">|</span> 작업 <span class="pp">|</span> 예 <span class="pp">|</span></span>
+<span id="cb4-456"><a href="#cb4-456" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---:|:---|:---:|</span></span>
+<span id="cb4-457"><a href="#cb4-457" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> @eq-garch-ex 와 과거 수익률 자료로 $\sigma_n^2$ 계산 <span class="pp">|</span> $\sigma_n^2 = 0.002$ <span class="pp">|</span></span>
+<span id="cb4-458"><a href="#cb4-458" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 컴퓨터로 $N(0, \sigma_n^2)$을 따르는 확률변수 $r_n$ 생성 <span class="pp">|</span> $r_n = 0.001$ <span class="pp">|</span></span>
+<span id="cb4-459"><a href="#cb4-459" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> @eq-garch11 과 1, 2의 결과로 $\sigma_{n+1}^2$ 계산 <span class="pp">|</span> $\sigma_{n+1}^2 = 0.0022$ <span class="pp">|</span></span>
+<span id="cb4-460"><a href="#cb4-460" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> 컴퓨터로 $N(0, \sigma_{n+1}^2)$을 따르는 확률변수 $r_{n+1}$ 생성 <span class="pp">|</span> $r_{n+1} = -0.0005$ <span class="pp">|</span></span>
+<span id="cb4-461"><a href="#cb4-461" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> $\vdots$ <span class="pp">|</span> $\vdots$ <span class="pp">|</span> $\vdots$ <span class="pp">|</span></span>
+<span id="cb4-462"><a href="#cb4-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-463"><a href="#cb4-463" aria-hidden="true" tabindex="-1"></a>: GARCH 모형으로 미래 수익률을 시뮬레이션하는 절차 {#tbl-garch-sim-steps}</span>
+<span id="cb4-464"><a href="#cb4-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-465"><a href="#cb4-465" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../08-var-multiperiod/index.qmd)</span> 장의 GARCH 변동성 모형 절이 이 절차를 그대로 써서 5일 VaR를 구한다.</span>
+<span id="cb4-466"><a href="#cb4-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-467"><a href="#cb4-467" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb4-468"><a href="#cb4-468" aria-hidden="true" tabindex="-1"></a><span class="fu">## EWMA는 시뮬레이션에 적합하지 않다</span></span>
+<span id="cb4-469"><a href="#cb4-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-470"><a href="#cb4-470" aria-hidden="true" tabindex="-1"></a>EWMA는 변동성 과정의 모형이 아니므로 시뮬레이션에는 적합하지 않다. @eq-uncond-v 에 $\omega = 0$, $\alpha = 1 - \lambda$, $\beta = \lambda$를 대입하면 $0/0$ 형태가 된다. EWMA로 변동성 과정을 시뮬레이션하면 생성되는 변동성이 시간이 지날수록 0으로 수렴한다.</span>
+<span id="cb4-471"><a href="#cb4-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-472"><a href="#cb4-472" aria-hidden="true" tabindex="-1"></a>반면 GARCH 모형은 **평균 복귀**(mean reversion) 성질이 있어, 변동성이 지나치게 작아지거나 커지면 평균 수준인 @eq-uncond-v 로 되돌아가려 한다.</span>
+<span id="cb4-473"><a href="#cb4-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-474"><a href="#cb4-474" aria-hidden="true" tabindex="-1"></a>그럼에도 EWMA는 짧은 기간의 시뮬레이션에서는 어느 정도 만족할 만한 결과를 주기 때문에, EWMA 시뮬레이션을 바탕으로 한 역사적 시뮬레이션이 파생상품 거래의 증거금 제도 등 여러 금융 분야에서 활용되기도 한다.</span>
+<span id="cb4-475"><a href="#cb4-475" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-476"><a href="#cb4-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-477"><a href="#cb4-477" aria-hidden="true" tabindex="-1"></a>실제로 금융 시장의 변동성은 평균 복귀 현상을 보인다. 평균 복귀 성질이란, 확률과정의 값이 평균보다 높으면 평균을 향해 낮아지려 하고 평균보다 낮으면 평균을 향해 높아지려 하는 성질이다. 변동성 자체는 거래되는 대상이 아니라서 변동성이 특정 방향으로 움직이더라도 여기에 영향력을 행사하기는 어렵다. 그러나 변동성이 높거나 낮은 수준에 있다고 해서 그것이 영원히 지속되리라고는 생각하기 어렵다. 시간이 지나면 정상적인 수준으로 수렴하는 현상을 보인다.</span>
+<span id="cb4-478"><a href="#cb4-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-479"><a href="#cb4-479" aria-hidden="true" tabindex="-1"></a><span class="fu">### 시뮬레이션</span></span>
+<span id="cb4-480"><a href="#cb4-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-481"><a href="#cb4-481" aria-hidden="true" tabindex="-1"></a>다음은 GARCH(1,1) 모형에 대한 <span class="co">[</span><span class="ot">몬테카를로 시뮬레이션</span><span class="co">](../../concepts/glossary.qmd#monte-carlo-simulation)</span> R 코드 예제이다. 이 코드로 분산 $\sigma_n^2$, $n = 1, \cdots, 250$을 시뮬레이션한 결과가 @fig-garch-ewma 의 왼쪽에 있다.</span>
+<span id="cb4-482"><a href="#cb4-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-483"><a href="#cb4-483" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb4-484"><a href="#cb4-484" aria-hidden="true" tabindex="-1"></a>omega <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">7</span>); alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span>; beta <span class="ot">&lt;-</span> <span class="fl">0.9</span></span>
+<span id="cb4-485"><a href="#cb4-485" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> omega <span class="sc">/</span> (<span class="dv">1</span><span class="sc">-</span> alpha <span class="sc">-</span> beta); r <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-486"><a href="#cb4-486" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">250</span>){</span>
+<span id="cb4-487"><a href="#cb4-487" aria-hidden="true" tabindex="-1"></a>  v[n] <span class="ot">&lt;-</span> omega <span class="sc">+</span> alpha <span class="sc">*</span> r[n<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> beta <span class="sc">*</span> v[n<span class="dv">-1</span>]</span>
+<span id="cb4-488"><a href="#cb4-488" aria-hidden="true" tabindex="-1"></a>  r[n] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(v[n]) <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb4-489"><a href="#cb4-489" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-490"><a href="#cb4-490" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-491"><a href="#cb4-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-492"><a href="#cb4-492" aria-hidden="true" tabindex="-1"></a>첫 시점의 분산은 @eq-uncond-v 의 비조건부 분산 $\omega / (1 - \alpha - \beta)$로 두고, 매 시점 @eq-garch11 로 다음 분산을 계산한 뒤 그 분산을 갖는 정규분포에서 수익률을 뽑는다. @tbl-garch-sim-steps 의 절차를 그대로 옮긴 것이다.</span>
+<span id="cb4-493"><a href="#cb4-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-494"><a href="#cb4-494" aria-hidden="true" tabindex="-1"></a>비슷하게 EWMA 모형에 대한 코드이다. 이 코드로 분산 $\sigma^2$을 시뮬레이션한 결과가 @fig-garch-ewma 의 오른쪽에 있다. GARCH(1,1) 모형과 달리 시간에 따라 0에 수렴해 가는 모양을 띠고 있다.</span>
+<span id="cb4-495"><a href="#cb4-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-496"><a href="#cb4-496" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb4-497"><a href="#cb4-497" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">0.94</span></span>
+<span id="cb4-498"><a href="#cb4-498" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">6</span>); r <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-499"><a href="#cb4-499" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">250</span>){</span>
+<span id="cb4-500"><a href="#cb4-500" aria-hidden="true" tabindex="-1"></a>  v[n] <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">-</span> lambda) <span class="sc">*</span> r[n<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> lambda <span class="sc">*</span> v[n<span class="dv">-1</span>]</span>
+<span id="cb4-501"><a href="#cb4-501" aria-hidden="true" tabindex="-1"></a>  r[n] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(v[n]) <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb4-502"><a href="#cb4-502" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-503"><a href="#cb4-503" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-504"><a href="#cb4-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-505"><a href="#cb4-505" aria-hidden="true" tabindex="-1"></a>::: {#fig-garch-ewma layout-ncol=2}</span>
+<span id="cb4-506"><a href="#cb4-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-507"><a href="#cb4-507" aria-hidden="true" tabindex="-1"></a><span class="al">![GARCH(1,1)](../../assets/figures/Ch7_GARCH.svg)</span>{width=100%}</span>
+<span id="cb4-508"><a href="#cb4-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-509"><a href="#cb4-509" aria-hidden="true" tabindex="-1"></a><span class="al">![EWMA](../../assets/figures/Ch7_EWMA.svg)</span>{width=100%}</span>
+<span id="cb4-510"><a href="#cb4-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-511"><a href="#cb4-511" aria-hidden="true" tabindex="-1"></a>GARCH(1,1) 모형을 이용한 분산 시뮬레이션과 EWMA를 이용한 분산 시뮬레이션</span>
+<span id="cb4-512"><a href="#cb4-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-513"><a href="#cb4-513" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-514"><a href="#cb4-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-515"><a href="#cb4-515" aria-hidden="true" tabindex="-1"></a>그림은 한 번의 시뮬레이션 결과이므로 난수에 따라 모양이 달라진다. EWMA 분산이 0으로 가는 것은 장기적인 경향이어서, 250기간 정도의 짧은 경로에서는 처음보다 커진 채 끝나기도 한다.</span>
+<span id="cb4-516"><a href="#cb4-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-517"><a href="#cb4-517" aria-hidden="true" tabindex="-1"></a>GARCH 모형은 자기상관함수의 관점에서 실제 금융 수익률 시계열의 특징을 잘 설명한다.</span>
+<span id="cb4-518"><a href="#cb4-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-519"><a href="#cb4-519" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb4-520"><a href="#cb4-520" aria-hidden="true" tabindex="-1"></a><span class="fu">## 자기상관함수(ACF)</span></span>
+<span id="cb4-521"><a href="#cb4-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-522"><a href="#cb4-522" aria-hidden="true" tabindex="-1"></a>정상 시계열 $X_t$의 **자기공분산**(autocovariance)과 **자기상관함수**(autocorrelation function, ACF)는 다음과 같이 정의된다.</span>
+<span id="cb4-523"><a href="#cb4-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-524"><a href="#cb4-524" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-525"><a href="#cb4-525" aria-hidden="true" tabindex="-1"></a>\gamma(h) = \mathrm{cov}(X_t, X_{t-h}), \quad \rho(h) = \frac{\gamma(h)}{\gamma(0)}</span>
+<span id="cb4-526"><a href="#cb4-526" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-527"><a href="#cb4-527" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-528"><a href="#cb4-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-529"><a href="#cb4-529" aria-hidden="true" tabindex="-1"></a>자기상관함수는 시계열의 각 값이 이전 값과 평균적으로 얼마나 상관되어 있는지를 잰다. 정의에 정상성이 들어간 이유는 자기상관함수가 두 시점 사이의 거리 $h$에만 의존하고 $t$에는 의존하지 않게 하기 위해서다.</span>
+<span id="cb4-530"><a href="#cb4-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-531"><a href="#cb4-531" aria-hidden="true" tabindex="-1"></a>금융 수익률 시계열에서는 일반적으로 자기상관함수의 값이 $h = 0$을 제외한 시차에서 0에 가깝다. 그러나 수익률의 절댓값이나 제곱으로 이루어진 시계열은 양의 자기상관을 가진다. @fig-acf-r 의 왼쪽은 S&amp;P 500 지수 수익률 시계열로 계산한 표본 ACF이고, 오른쪽은 수익률의 절댓값으로 계산한 ACF이다. 수익률 시계열 자체는 $h = 0$을 제외하면 자기상관계수가 거의 0이지만, 절댓값 시계열은 유의미하게 0보다 큰 양의 자기상관계수를 가지며 $h$가 커질수록 서서히 감소한다.</span>
+<span id="cb4-532"><a href="#cb4-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-533"><a href="#cb4-533" aria-hidden="true" tabindex="-1"></a>::: {#fig-acf-r layout-ncol=2}</span>
+<span id="cb4-534"><a href="#cb4-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-535"><a href="#cb4-535" aria-hidden="true" tabindex="-1"></a><span class="al">![수익률](../../assets/figures/Ch7_ACF_r.svg)</span>{width=100%}</span>
+<span id="cb4-536"><a href="#cb4-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-537"><a href="#cb4-537" aria-hidden="true" tabindex="-1"></a><span class="al">![수익률의 절댓값](../../assets/figures/Ch7_ACF_abs_r.svg)</span>{width=100%}</span>
+<span id="cb4-538"><a href="#cb4-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-539"><a href="#cb4-539" aria-hidden="true" tabindex="-1"></a>S&amp;P 500 수익률 시계열의 ACF와 절댓값 시계열의 ACF</span>
+<span id="cb4-540"><a href="#cb4-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-541"><a href="#cb4-541" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-542"><a href="#cb4-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-543"><a href="#cb4-543" aria-hidden="true" tabindex="-1"></a>GARCH 모형으로 생성한 수익률 시계열도 비슷한 성질을 가진다. @fig-acf-garch 의 왼쪽은 GARCH 모형 시뮬레이션으로 생성한 수익률 시계열의 ACF이고, 오른쪽은 그 절댓값으로 계산한 ACF이다. @fig-acf-r 과 비슷한 형태의 ACF를 관찰할 수 있다. 모수는 $\omega = 10^{-7}$, $\alpha = 0.07$, $\beta = 0.92$로 두었다.</span>
+<span id="cb4-544"><a href="#cb4-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-545"><a href="#cb4-545" aria-hidden="true" tabindex="-1"></a>::: {#fig-acf-garch layout-ncol=2}</span>
+<span id="cb4-546"><a href="#cb4-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-547"><a href="#cb4-547" aria-hidden="true" tabindex="-1"></a><span class="al">![수익률](../../assets/figures/Ch7_ACF_GARCH.svg)</span>{width=100%}</span>
+<span id="cb4-548"><a href="#cb4-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-549"><a href="#cb4-549" aria-hidden="true" tabindex="-1"></a><span class="al">![수익률의 절댓값](../../assets/figures/Ch7_ACF_abs_GARCH.svg)</span>{width=100%}</span>
+<span id="cb4-550"><a href="#cb4-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-551"><a href="#cb4-551" aria-hidden="true" tabindex="-1"></a>GARCH 수익률 시계열의 ACF와 절댓값 시계열의 ACF</span>
+<span id="cb4-552"><a href="#cb4-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-553"><a href="#cb4-553" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-554"><a href="#cb4-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-555"><a href="#cb4-555" aria-hidden="true" tabindex="-1"></a>@fig-acf-garch 는 다음 코드로 만들 수 있다. 코드에서 <span class="in">`beta &lt;- 0.99 - alpha`</span>로 두었으므로 $\beta = 0.92$이다.</span>
+<span id="cb4-556"><a href="#cb4-556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-557"><a href="#cb4-557" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb4-558"><a href="#cb4-558" aria-hidden="true" tabindex="-1"></a>omega <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">7</span>); alpha <span class="ot">&lt;-</span> <span class="fl">0.07</span>; beta <span class="ot">&lt;-</span> <span class="fl">0.99</span> <span class="sc">-</span> alpha</span>
+<span id="cb4-559"><a href="#cb4-559" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> omega <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">-</span> beta); r <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-560"><a href="#cb4-560" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-561"><a href="#cb4-561" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5000</span>){</span>
+<span id="cb4-562"><a href="#cb4-562" aria-hidden="true" tabindex="-1"></a>  v[i] <span class="ot">&lt;-</span> omega <span class="sc">+</span> alpha <span class="sc">*</span> r[i<span class="dv">-1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> beta <span class="sc">*</span> v[i<span class="dv">-1</span>]</span>
+<span id="cb4-563"><a href="#cb4-563" aria-hidden="true" tabindex="-1"></a>  r[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(v[i]) <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb4-564"><a href="#cb4-564" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-565"><a href="#cb4-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-566"><a href="#cb4-566" aria-hidden="true" tabindex="-1"></a>ac_return <span class="ot">&lt;-</span> <span class="fu">acf</span>(r, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-567"><a href="#cb4-567" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ac_return, <span class="at">main =</span> <span class="st">"ACF of GARCH return series"</span>)</span>
+<span id="cb4-568"><a href="#cb4-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-569"><a href="#cb4-569" aria-hidden="true" tabindex="-1"></a>ac_abs <span class="ot">&lt;-</span> <span class="fu">acf</span>(<span class="fu">abs</span>(r), <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-570"><a href="#cb4-570" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ac_abs, <span class="at">main =</span> <span class="st">"ACF of absolute GARCH return series"</span>)</span>
+<span id="cb4-571"><a href="#cb4-571" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-572"><a href="#cb4-572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-573"><a href="#cb4-573" aria-hidden="true" tabindex="-1"></a>난수를 쓰므로 실행할 때마다 ACF 값이 조금씩 달라진다.</span>
+<span id="cb4-574"><a href="#cb4-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-575"><a href="#cb4-575" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 페이지</span></span>
+<span id="cb4-576"><a href="#cb4-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-577"><a href="#cb4-577" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">다기간 VaR</span><span class="co">](../08-var-multiperiod/index.qmd)</span></span>
+<span id="cb4-578"><a href="#cb4-578" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span></span>
+<span id="cb4-579"><a href="#cb4-579" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">독립성</span><span class="co">](../../concepts/probability/independence.qmd)</span></span>
+<span id="cb4-580"><a href="#cb4-580" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">기호 정리</span><span class="co">](../../concepts/notation.qmd)</span></span>
+<span id="cb4-581"><a href="#cb4-581" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">용어 정리</span><span class="co">](../../concepts/glossary.qmd)</span></span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

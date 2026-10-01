@@ -410,6 +410,21 @@ window.Quarto = {
   <li><a href="#예제-분산-대출의-es" id="toc-예제-분산-대출의-es" class="nav-link" data-scroll-target="#예제-분산-대출의-es"><span class="header-section-number">4.5.6</span> 예제: 분산 대출의 ES</a></li>
   <li><a href="#규제에서의-es" id="toc-규제에서의-es" class="nav-link" data-scroll-target="#규제에서의-es"><span class="header-section-number">4.5.7</span> 규제에서의 ES</a></li>
   </ul></li>
+  <li><a href="#portfolio-var" id="toc-portfolio-var" class="nav-link" data-scroll-target="#portfolio-var"><span class="header-section-number">4.6</span> Portfolio VaR</a>
+  <ul class="collapse">
+  <li><a href="#포트폴리오-var와-분산효과" id="toc-포트폴리오-var와-분산효과" class="nav-link" data-scroll-target="#포트폴리오-var와-분산효과"><span class="header-section-number">4.6.1</span> 포트폴리오 VaR와 분산효과</a></li>
+  <li><a href="#individual-var와-undiversified-var" id="toc-individual-var와-undiversified-var" class="nav-link" data-scroll-target="#individual-var와-undiversified-var"><span class="header-section-number">4.6.2</span> Individual VaR와 undiversified VaR</a></li>
+  <li><a href="#sec-example-portfolio-var" id="toc-sec-example-portfolio-var" class="nav-link" data-scroll-target="#sec-example-portfolio-var"><span class="header-section-number">4.6.3</span> 예제: 두 자산의 포트폴리오 VaR</a></li>
+  <li><a href="#marginal-var" id="toc-marginal-var" class="nav-link" data-scroll-target="#marginal-var"><span class="header-section-number">4.6.4</span> Marginal VaR</a></li>
+  <li><a href="#예제-두-자산의-marginal-var" id="toc-예제-두-자산의-marginal-var" class="nav-link" data-scroll-target="#예제-두-자산의-marginal-var"><span class="header-section-number">4.6.5</span> 예제: 두 자산의 marginal VaR</a></li>
+  <li><a href="#incremental-var" id="toc-incremental-var" class="nav-link" data-scroll-target="#incremental-var"><span class="header-section-number">4.6.6</span> Incremental VaR</a></li>
+  <li><a href="#예제-두-자산의-투자-금액-조정" id="toc-예제-두-자산의-투자-금액-조정" class="nav-link" data-scroll-target="#예제-두-자산의-투자-금액-조정"><span class="header-section-number">4.6.7</span> 예제: 두 자산의 투자 금액 조정</a></li>
+  <li><a href="#헤지와-근사의-범위" id="toc-헤지와-근사의-범위" class="nav-link" data-scroll-target="#헤지와-근사의-범위"><span class="header-section-number">4.6.8</span> 헤지와 근사의 범위</a></li>
+  <li><a href="#component-var" id="toc-component-var" class="nav-link" data-scroll-target="#component-var"><span class="header-section-number">4.6.9</span> Component VaR</a></li>
+  <li><a href="#예제-두-자산의-component-var" id="toc-예제-두-자산의-component-var" class="nav-link" data-scroll-target="#예제-두-자산의-component-var"><span class="header-section-number">4.6.10</span> 예제: 두 자산의 component VaR</a></li>
+  <li><a href="#예제-공매도를-포함한-포트폴리오" id="toc-예제-공매도를-포함한-포트폴리오" class="nav-link" data-scroll-target="#예제-공매도를-포함한-포트폴리오"><span class="header-section-number">4.6.11</span> 예제: 공매도를 포함한 포트폴리오</a></li>
+  <li><a href="#예제-세-자산의-var와-위험-기여도" id="toc-예제-세-자산의-var와-위험-기여도" class="nav-link" data-scroll-target="#예제-세-자산의-var와-위험-기여도"><span class="header-section-number">4.6.12</span> 예제: 세 자산의 VaR와 위험 기여도</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/04-var-es/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -962,6 +977,905 @@ z_{0.01}
 <h3 data-number="4.5.7" class="anchored" data-anchor-id="규제에서의-es"><span class="header-section-number">4.5.7</span> 규제에서의 ES</h3>
 <p>VaR는 1996년 바젤위원회의 시장위험 규제에서 내부모형 기반 자본요건 산정에 사용되었다. 그러나 2007-2008년 금융위기에서는 VaR가 극단적 손실, 즉 꼬리위험을 충분히 반영하지 못한다는 한계가 드러났다.</p>
 <p>이에 따라 바젤위원회는 거래계정의 근본적 검토(Fundamental Review of the Trading Book, FRTB)를 통해 VaR 대신 97.5% 신뢰수준의 ES를 도입하였다. FRTB에서는 자산의 유동성에 따라 보유 기간을 달리 적용하고, 내부모형의 사용 기준도 강화하였다.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+</section>
+</section>
+<section id="portfolio-var" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="portfolio-var"><span class="header-section-number">4.6</span> Portfolio VaR</h2>
+<p>앞에서는 하나의 자산이나 대출의 손익 분포를 이용해 VaR와 ES를 계산하였다. 이제 여러 자산으로 이루어진 포트폴리오의 위험을 계산하고, 각 자산이 전체 위험에 얼마나 기여하는지 살펴본다.</p>
+<p>이 절에서는 <a href="../../chapters/02-modern-portfolio-theory/index.html">현대 포트폴리오 이론</a>에서 사용한 수익률 벡터와 공분산 행렬을 다시 이용한다. 동일한 투자 기간에 대한 자산 수익률 벡터를</p>
+<p><span class="math display">\[
+\mathbf{R}
+=
+\begin{bmatrix}
+R_1 \\
+\vdots \\
+R_N
+\end{bmatrix}
+\]</span></p>
+<p>라고 하고, <span class="math inline">\(\mathbf{R}\)</span>가 기대수익률 벡터 <span class="math inline">\(\boldsymbol{\mu}\)</span>와 공분산 행렬 <span class="math inline">\(\mathbf{C}\)</span>를 갖는 다변량 정규분포를 따른다고 가정한다.</p>
+<p>초기 자본을 <span class="math inline">\(W_0&gt;0\)</span>, 투자 비중 벡터를 <span class="math inline">\(\mathbf{w}\)</span>라고 하면, 각 자산의 투자 금액 벡터는 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbf{x}
+=
+W_0\mathbf{w},
+\qquad
+x_i=W_0w_i.
+\]</span></p>
+<p>여기서 <span class="math inline">\(\sum_{i=1}^N w_i=1\)</span>이며, 공매도를 허용하면 일부 <span class="math inline">\(w_i\)</span>는 음수일 수 있다. 포트폴리오 수익률과 손익은 각각 다음과 같다.</p>
+<p><span class="math display">\[
+R_p=\mathbf{w}^{\top}\mathbf{R},
+\qquad
+X_p=W_0R_p=\mathbf{x}^{\top}\mathbf{R}.
+\]</span></p>
+<p>정규성 가정은 실제 금융 수익률의 두꺼운 꼬리를 충분히 설명하지 못할 수 있다. 그러나 포트폴리오 위험과 자산별 위험 기여도를 간결한 식으로 나타낼 수 있어, 분산투자의 효과를 이해하는 출발점이 된다.</p>
+<section id="포트폴리오-var와-분산효과" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="포트폴리오-var와-분산효과"><span class="header-section-number">4.6.1</span> 포트폴리오 VaR와 분산효과</h3>
+<p>포트폴리오 수익률의 기대수익률과 분산은 다음과 같다.</p>
+<p><span class="math display">\[
+\mu_p=\mathbf{w}^{\top}\boldsymbol{\mu},
+\]</span></p>
+<p><span id="eq-portfolio-variance"><span class="math display">\[
+\begin{aligned}
+\sigma_p^2
+&amp;=
+\mathbf{w}^{\top}\mathbf{C}\mathbf{w} \\
+&amp;=
+\sum_{i=1}^{N}w_i^2\sigma_i^2
++
+2\sum_{i=1}^{N}\sum_{j&lt;i}
+w_iw_j\operatorname{Cov}(R_i,R_j).
+\end{aligned}
+\tag{4.10}\]</span></span></p>
+<p>다변량 정규분포의 선형결합도 정규분포를 따르므로, 식 <a href="#eq-normal-var" class="quarto-xref">방정식&nbsp;<span>4.6</span></a> 에 따라 포트폴리오 VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\mathrm{VaR}_{p,\alpha}
+=
+\left(
+-\mathbf{w}^{\top}\boldsymbol{\mu}
++
+z_\alpha\sigma_p
+\right)W_0.
+\]</span></p>
+<p>이하에서는 분산효과와 위험 기여도에 집중하기 위해 각 자산의 기대수익률을 0으로 가정한다. 또한 <span class="math inline">\(0&lt;\alpha&lt;0.5\)</span>로 두고, 유의수준이 고정되어 있으면 아래첨자 <span class="math inline">\(\alpha\)</span>를 생략한다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>기대수익률을 0으로 두면 변동성에 따른 위험만 남는다. 이는 미래 금액을 현재가치로 환산하는 할인과는 다른 단순화이다. 기대수익률을 포함하려면 위 식의 <span class="math inline">\(-\mathbf{w}^{\top}\boldsymbol{\mu}W_0\)</span> 항을 함께 사용해야 한다.</p>
+</div>
+</div>
+<p>이 가정 아래에서 포트폴리오 VaR는 다음과 같다.</p>
+<p><span id="eq-portfolio-var"><span class="math display">\[
+\begin{aligned}
+\mathrm{VaR}_p
+&amp;=
+z_\alpha\sigma_pW_0 \\
+&amp;=
+z_\alpha
+\sqrt{\mathbf{w}^{\top}\mathbf{C}\mathbf{w}}\,W_0 \\
+&amp;=
+z_\alpha
+\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}.
+\end{aligned}
+\tag{4.11}\]</span></span></p>
+<p>이 값은 자산 사이의 공분산을 반영하므로 분산효과를 고려한 VaR, 즉 diversified VaR라고도 한다.</p>
+</section>
+<section id="individual-var와-undiversified-var" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="individual-var와-undiversified-var"><span class="header-section-number">4.6.2</span> Individual VaR와 undiversified VaR</h3>
+<p>Individual VaR는 포트폴리오의 구성 자산 하나를 따로 보유한다고 생각하고 계산한 VaR이다. 기대수익률을 0으로 둔 정규분포 모형에서 자산 <span class="math inline">\(i\)</span>의 individual VaR는 다음과 같다.</p>
+<p><span id="eq-individual-var"><span class="math display">\[
+\mathrm{VaR}_i
+=
+z_\alpha\sigma_i|x_i|
+=
+z_\alpha\sigma_i|w_i|W_0.
+\tag{4.12}\]</span></span></p>
+<p>절댓값은 공매도 포지션도 고려하기 위해 사용한다. 기대수익률이 0인 정규분포에서는 같은 크기의 매수 포지션과 공매도 포지션이 같은 individual VaR를 가진다.</p>
+<p>Undiversified VaR는 individual VaR를 모두 더한 값이다.</p>
+<p><span class="math display">\[
+\mathrm{VaR}_{\mathrm{undiv}}
+=
+\sum_{i=1}^{N}\mathrm{VaR}_i.
+\]</span></p>
+<p>현재의 정규분포 가정 아래에서는 다음 관계가 성립한다.</p>
+<p><span class="math display">\[
+\mathrm{VaR}_p
+\leq
+\sum_{i=1}^{N}\mathrm{VaR}_i.
+\]</span></p>
+<p>따라서 분산투자로 얻는 위험 감소 효과를 다음 차이로 나타낼 수 있다.</p>
+<p><span class="math display">\[
+\text{분산효과}
+=
+\mathrm{VaR}_{\mathrm{undiv}}
+-
+\mathrm{VaR}_p.
+\]</span></p>
+<p>모든 포지션이 매수이고 자산 수익률 사이의 상관계수가 모두 1이면 두 VaR가 같아진다. 공매도를 포함할 때는 수익률의 상관관계뿐 아니라 포지션의 부호도 함께 고려해야 한다.</p>
+</section>
+<section id="sec-example-portfolio-var" class="level3" data-number="4.6.3">
+<h3 data-number="4.6.3" class="anchored" data-anchor-id="sec-example-portfolio-var"><span class="header-section-number">4.6.3</span> 예제: 두 자산의 포트폴리오 VaR</h3>
+<p>두 자산의 수익률 표준편차와 상관계수가 다음과 같다고 하자.</p>
+<p><span class="math display">\[
+\sigma_1=0.05,
+\qquad
+\sigma_2=0.12,
+\qquad
+\rho_{12}=0.2.
+\]</span></p>
+<p>공분산 행렬은 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbf{C}
+=
+\begin{bmatrix}
+0.05^2 &amp; 0.2\times0.05\times0.12 \\
+0.2\times0.05\times0.12 &amp; 0.12^2
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.0025 &amp; 0.0012 \\
+0.0012 &amp; 0.0144
+\end{bmatrix}.
+\]</span></p>
+<p>자산 1과 자산 2에 각각 2,500달러와 7,500달러를 투자하면,</p>
+<p><span class="math display">\[
+W_0=10{,}000,
+\qquad
+\mathbf{w}
+=
+\begin{bmatrix}
+0.25 \\
+0.75
+\end{bmatrix}
+\]</span></p>
+<p>이다. 포트폴리오 수익률의 분산과 표준편차는 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma_p^2
+&amp;=
+0.25^2\times0.05^2
++
+0.75^2\times0.12^2
++
+2\times0.25\times0.75\times0.0012 \\
+&amp;=
+0.00870625,
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\sigma_p
+=
+\sqrt{0.00870625}
+\approx
+0.0933073.
+\]</span></p>
+<p>95% 신뢰수준에서는 <span class="math inline">\(\alpha=0.05\)</span>이고 <span class="math inline">\(z_{0.05}\approx1.6449\)</span>이므로,</p>
+<p><span class="math display">\[
+\mathrm{VaR}_p
+=
+z_{0.05}\sqrt{0.00870625}\times10{,}000
+\approx
+1{,}534.77
+\]</span></p>
+<p>이다. 각 자산의 individual VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{VaR}_1
+&amp;=
+z_{0.05}\times0.05\times2{,}500
+\approx205.61, \\
+\mathrm{VaR}_2
+&amp;=
+z_{0.05}\times0.12\times7{,}500
+\approx1{,}480.37.
+\end{aligned}
+\]</span></p>
+<p>따라서 undiversified VaR와 분산효과는 각각 다음과 같다.</p>
+<p><span class="math display">\[
+\mathrm{VaR}_{\mathrm{undiv}}
+\approx
+1{,}685.97,
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{VaR}_{\mathrm{undiv}}
+-
+\mathrm{VaR}_p
+\approx
+151.21.
+\]</span></p>
+<p>두 자산을 함께 보유하면 개별 위험의 합보다 포트폴리오 위험이 작아진다. 이는 두 자산이 항상 같은 방향과 비율로 움직이지 않기 때문이다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이하 예제에서는 계산 중간에 충분한 자릿수를 유지하고 최종 결과를 반올림한다. 따라서 표시된 반올림값만 더하거나 곱하면 마지막 자릿수에 차이가 생길 수 있다. 금액의 단위는 달러이다.</p>
+</div>
+</div>
+</section>
+<section id="marginal-var" class="level3" data-number="4.6.4">
+<h3 data-number="4.6.4" class="anchored" data-anchor-id="marginal-var"><span class="header-section-number">4.6.4</span> Marginal VaR</h3>
+<p>포트폴리오 전체의 VaR를 아는 것만으로는 어떤 자산의 투자 금액을 조정해야 할지 판단하기 어렵다. 이를 위해 각 자산의 투자 금액 변화에 대한 VaR의 민감도를 살펴본다.</p>
+<p>자산 <span class="math inline">\(i\)</span>의 marginal VaR는 다른 자산의 투자 금액을 고정한 상태에서 <span class="math inline">\(x_i\)</span>를 미소하게 변화시킬 때의 포트폴리오 VaR 변화율이다.</p>
+<p><span class="math display">\[
+\Delta\mathrm{VaR}_i
+=
+\frac{\partial\mathrm{VaR}_p}{\partial x_i}.
+\]</span></p>
+<p>식 <a href="#eq-portfolio-var" class="quarto-xref">방정식&nbsp;<span>4.11</span></a> 를 투자 금액 <span class="math inline">\(x_i\)</span>에 대해 미분하면, <span class="math inline">\(\sigma_p&gt;0\)</span>일 때 다음을 얻는다.</p>
+<p><span class="math display">\[
+\Delta\mathrm{VaR}_i
+=
+z_\alpha
+\frac{(\mathbf{C}\mathbf{x})_i}
+{\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}}.
+\]</span></p>
+<p>여기서 <span class="math inline">\((\mathbf{C}\mathbf{x})_i\)</span>는 벡터 <span class="math inline">\(\mathbf{C}\mathbf{x}\)</span>의 <span class="math inline">\(i\)</span>번째 원소이다.</p>
+<p><span class="math inline">\(\mathbf{x}=W_0\mathbf{w}\)</span>이고</p>
+<p><span class="math display">\[
+(\mathbf{C}\mathbf{w})_i
+=
+\sum_{j=1}^{N}
+w_j\operatorname{Cov}(R_i,R_j)
+=
+\operatorname{Cov}(R_i,R_p)
+\]</span></p>
+<p>이므로, marginal VaR는 다음과 같이 나타낼 수 있다.</p>
+<p><span id="eq-marginal-var"><span class="math display">\[
+\Delta\mathrm{VaR}_i
+=
+z_\alpha
+\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p}.
+\tag{4.13}\]</span></span></p>
+<p>투자 금액의 작은 변화 <span class="math inline">\(\delta x_i\)</span>에 대해서는</p>
+<p><span class="math display">\[
+\text{포트폴리오 VaR의 변화}
+\approx
+\Delta\mathrm{VaR}_i\,\delta x_i
+\]</span></p>
+<p>이다. 따라서 marginal VaR가 양수이면 해당 자산의 투자 금액 증가가 VaR를 높이는 방향으로 작용하고, 음수이면 VaR를 낮추는 방향으로 작용한다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Marginal VaR는 위험 금액 자체가 아니라 투자 금액 한 단위당 위험의 변화율이다. 예를 들어 marginal VaR가 0.03이면, 해당 자산에 1달러를 추가할 때 포트폴리오 VaR가 약 0.03달러 증가한다는 뜻이다.</p>
+<p>총투자금을 유지하면서 자산 비중을 바꾸면 여러 투자 금액이 동시에 변하므로, 조정되는 모든 자산의 marginal VaR를 함께 사용해야 한다.</p>
+</div>
+</div>
+<p>포트폴리오 <span class="math inline">\(p\)</span>에 대한 자산 <span class="math inline">\(i\)</span>의 베타를 다음과 같이 정의하자.</p>
+<p><span class="math display">\[
+\beta_i
+=
+\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p^2}.
+\]</span></p>
+<p>그러면 식 <a href="#eq-marginal-var" class="quarto-xref">방정식&nbsp;<span>4.13</span></a> 는 다음과 같이 쓸 수 있다.</p>
+<p><span id="eq-marginal-var-beta"><span class="math display">\[
+\Delta\mathrm{VaR}_i
+=
+\frac{\mathrm{VaR}_p}{W_0}\beta_i.
+\tag{4.14}\]</span></span></p>
+<p>여기서 <span class="math inline">\(\beta_i\)</span>는 현재 분석하는 포트폴리오에 대한 민감도이다. CAPM에서 사용하는 시장 포트폴리오에 대한 베타와는 기준 포트폴리오가 다를 수 있다.</p>
+</section>
+<section id="예제-두-자산의-marginal-var" class="level3" data-number="4.6.5">
+<h3 data-number="4.6.5" class="anchored" data-anchor-id="예제-두-자산의-marginal-var"><span class="header-section-number">4.6.5</span> 예제: 두 자산의 marginal VaR</h3>
+<p>앞의 두 자산 예제에서 각 자산 수익률과 포트폴리오 수익률의 공분산은 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Cov}(R_1,R_p)
+&amp;=
+0.25\times0.0025
++
+0.75\times0.0012 \\
+&amp;=
+0.001525, \\
+\operatorname{Cov}(R_2,R_p)
+&amp;=
+0.25\times0.0012
++
+0.75\times0.0144 \\
+&amp;=
+0.0111.
+\end{aligned}
+\]</span></p>
+<p>Marginal VaR를 원소로 갖는 벡터를 <span class="math inline">\(\Delta\boldsymbol{\mathrm{VaR}}\)</span>라고 하면,</p>
+<p><span class="math display">\[
+\Delta\boldsymbol{\mathrm{VaR}}
+=
+\frac{z_{0.05}}{\sqrt{0.00870625}}
+\begin{bmatrix}
+0.001525 \\
+0.0111
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+0.026883 \\
+0.195675
+\end{bmatrix}
+\]</span></p>
+<p>이다.</p>
+<p>현재 포트폴리오에서는 자산 2의 투자 금액을 늘릴 때 VaR가 더 크게 증가한다. 이러한 차이는 각 자산의 변동성과 현재 포트폴리오와의 공분산을 함께 반영한 결과이다.</p>
+</section>
+<section id="incremental-var" class="level3" data-number="4.6.6">
+<h3 data-number="4.6.6" class="anchored" data-anchor-id="incremental-var"><span class="header-section-number">4.6.6</span> Incremental VaR</h3>
+<p>Marginal VaR가 미소한 투자 금액 변화에 대한 민감도라면, incremental VaR는 실제 포지션 변경 전후의 VaR 차이이다.</p>
+<p>추가 투자 금액 벡터를 <span class="math inline">\(\mathbf{a}\)</span>라고 하자. <span class="math inline">\(a_i&gt;0\)</span>이면 자산 <span class="math inline">\(i\)</span>의 투자 금액을 늘리고, <span class="math inline">\(a_i&lt;0\)</span>이면 줄인다는 뜻이다. 변경 후 투자 금액 벡터는 <span class="math inline">\(\mathbf{x}+\mathbf{a}\)</span>이다.</p>
+<p>Incremental VaR는 다음과 같이 정의한다.</p>
+<p><span id="eq-incremental-var"><span class="math display">\[
+\mathrm{IVaR}(\mathbf{a})
+=
+\mathrm{VaR}(\mathbf{x}+\mathbf{a})
+-
+\mathrm{VaR}(\mathbf{x}).
+\tag{4.15}\]</span></span></p>
+<p>정규분포 모형에서 그 값은 다음과 같다.</p>
+<p><span class="math display">\[
+\mathrm{IVaR}(\mathbf{a})
+=
+z_\alpha
+\left[
+\sqrt{
+(\mathbf{x}+\mathbf{a})^{\top}
+\mathbf{C}
+(\mathbf{x}+\mathbf{a})
+}
+-
+\sqrt{
+\mathbf{x}^{\top}\mathbf{C}\mathbf{x}
+}
+\right].
+\]</span></p>
+<p>포지션 변경 후의 위험을 매번 다시 계산하는 대신, 변경 규모가 작으면 테일러 전개의 일차항으로 근사할 수 있다.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p><span id="eq-incremental-var-approx"><span class="math display">\[
+\mathrm{IVaR}(\mathbf{a})
+\approx
+\mathbf{a}^{\top}
+\Delta\boldsymbol{\mathrm{VaR}}
+=
+\sum_{i=1}^{N}
+a_i\Delta\mathrm{VaR}_i.
+\tag{4.16}\]</span></span></p>
+<p>이때 marginal VaR는 변경 전 포트폴리오에서 계산한 값이다.</p>
+</section>
+<section id="예제-두-자산의-투자-금액-조정" class="level3" data-number="4.6.7">
+<h3 data-number="4.6.7" class="anchored" data-anchor-id="예제-두-자산의-투자-금액-조정"><span class="header-section-number">4.6.7</span> 예제: 두 자산의 투자 금액 조정</h3>
+<p>앞의 두 자산 예제에서 자산 1의 투자 금액을 500달러 늘리고, 자산 2의 투자 금액을 500달러 줄인다고 하자.</p>
+<p><span class="math display">\[
+\mathbf{a}
+=
+\begin{bmatrix}
+500 \\
+-500
+\end{bmatrix}.
+\]</span></p>
+<p>총투자금은 10,000달러로 유지되며, 변경 후 투자 비중은 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbf{w}_{\mathrm{new}}
+=
+\begin{bmatrix}
+0.3 \\
+0.7
+\end{bmatrix}.
+\]</span></p>
+<p>변경 후 포트폴리오 분산은</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma_{\mathrm{new}}^2
+&amp;=
+0.3^2\times0.0025
++
+0.7^2\times0.0144
++
+2\times0.3\times0.7\times0.0012 \\
+&amp;=
+0.007785
+\end{aligned}
+\]</span></p>
+<p>이므로, VaR를 다시 계산하면 다음과 같다.</p>
+<p><span class="math display">\[
+\mathrm{VaR}_{\mathrm{new}}
+=
+z_{0.05}\sqrt{0.007785}\times10{,}000
+\approx
+1{,}451.30.
+\]</span></p>
+<p>따라서 incremental VaR는</p>
+<p><span class="math display">\[
+\mathrm{IVaR}(\mathbf{a})
+\approx
+1{,}451.30-1{,}534.77
+=
+-83.47
+\]</span></p>
+<p>이다. 투자 비중 조정으로 포트폴리오 VaR가 약 83.47달러 감소하였다.</p>
+<p>한편 marginal VaR를 이용한 일차 근사는 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{IVaR}(\mathbf{a})
+&amp;\approx
+500\Delta\mathrm{VaR}_1
+-
+500\Delta\mathrm{VaR}_2 \\
+&amp;\approx
+-84.40.
+\end{aligned}
+\]</span></p>
+<p>이에 따른 변경 후 VaR의 근사값은 약 1,450.37달러로, 직접 다시 계산한 1,451.30달러와 가깝다.</p>
+</section>
+<section id="헤지와-근사의-범위" class="level3" data-number="4.6.8">
+<h3 data-number="4.6.8" class="anchored" data-anchor-id="헤지와-근사의-범위"><span class="header-section-number">4.6.8</span> 헤지와 근사의 범위</h3>
+<p>Incremental VaR가 음수이면 해당 포지션 변경으로 전체 VaR가 감소했다는 뜻이다. 이 경우 추가된 포지션은 기존 포트폴리오에 대해 헤지 역할을 한다.</p>
+<p>그러나 처음에 위험을 줄여 주는 방향이라도 포지션을 계속 확대하면 위험이 다시 증가할 수 있다. 특정 방향의 포지션 조정에서 VaR가 가장 작아지는 지점을 최적 헤지(best hedge)라고 한다.</p>
+<div id="fig-incremental-var" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-incremental-var-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch4_IVaR.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-incremental-var-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;4.4: 추가 포지션의 규모에 따른 Incremental VaR와 헤지 효과
+</figcaption>
+</figure>
+</div>
+<p>그림 <a href="#fig-incremental-var" class="quarto-xref">그림&nbsp;<span>4.4</span></a> 는 포지션 추가에 따른 위험 변화가 추가 규모에 따라 달라질 수 있음을 보여 준다.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Marginal VaR를 이용한 근사는 현재 포트폴리오 부근의 작은 변화에 대한 근사이다. 투자 금액을 크게 조정하거나 자산을 전부 제거하는 경우에는 변경 후 VaR를 다시 계산하여 확인해야 한다.</p>
+</div>
+</div>
+</section>
+<section id="component-var" class="level3" data-number="4.6.9">
+<h3 data-number="4.6.9" class="anchored" data-anchor-id="component-var"><span class="header-section-number">4.6.9</span> Component VaR</h3>
+<p>Individual VaR는 자산을 단독으로 보유할 때의 위험이다. 따라서 individual VaR의 합은 분산효과를 반영한 포트폴리오 VaR와 일반적으로 다르다.</p>
+<p>전체 VaR를 각 자산의 기여분으로 나누기 위해 component VaR를 사용한다. 자산 <span class="math inline">\(i\)</span>의 component VaR는 투자 금액과 marginal VaR의 곱으로 정의한다.</p>
+<p><span id="eq-component-var"><span class="math display">\[
+\mathrm{CVaR}_i
+=
+x_i\Delta\mathrm{VaR}_i
+=
+w_iW_0\Delta\mathrm{VaR}_i.
+\tag{4.17}\]</span></span></p>
+<p>여기서 <span class="math inline">\(\mathrm{CVaR}_i\)</span>는 component VaR를 뜻한다. 다른 문헌에서 ES의 이름으로 사용하는 conditional VaR와는 구분해야 한다.</p>
+<p>식 <a href="#eq-marginal-var-beta" class="quarto-xref">방정식&nbsp;<span>4.14</span></a> 를 이용하면 다음과 같이 나타낼 수 있다.</p>
+<p><span id="eq-component-var-beta"><span class="math display">\[
+\mathrm{CVaR}_i
+=
+w_i\beta_i\mathrm{VaR}_p.
+\tag{4.18}\]</span></span></p>
+<p>Component VaR는 현재 포지션의 크기와 위험 민감도를 함께 반영한다. 해당 포지션을 현재 방향으로 조금 확대하면, component VaR가 양수일 때는 VaR가 증가하고 음수일 때는 감소한다.</p>
+<section id="합산-성질" class="level4" data-number="4.6.9.1">
+<h4 data-number="4.6.9.1" class="anchored" data-anchor-id="합산-성질"><span class="header-section-number">4.6.9.1</span> 합산 성질</h4>
+<p>Component VaR를 모두 더하면 포트폴리오 VaR가 된다.</p>
+<p><span id="eq-component-var-sum"><span class="math display">\[
+\begin{aligned}
+\sum_{i=1}^{N}\mathrm{CVaR}_i
+&amp;=
+\frac{z_\alpha W_0}{\sigma_p}
+\sum_{i=1}^{N}
+w_i\operatorname{Cov}(R_i,R_p) \\
+&amp;=
+\frac{z_\alpha W_0}{\sigma_p}
+\operatorname{Cov}
+\left(
+\sum_{i=1}^{N}w_iR_i,
+R_p
+\right) \\
+&amp;=
+\frac{z_\alpha W_0}{\sigma_p}\sigma_p^2 \\
+&amp;=
+\mathrm{VaR}_p.
+\end{aligned}
+\tag{4.19}\]</span></span></p>
+<p>이 성질 덕분에 component VaR를 이용해 전체 위험을 자산별로 배분할 수 있다. 각 자산의 위험 기여 비율은 다음과 같다.</p>
+<p><span class="math display">\[
+\frac{\mathrm{CVaR}_i}{\mathrm{VaR}_p}
+=
+w_i\beta_i.
+\]</span></p>
+<p>기여 비율의 합은 1이다. 다만 헤지 포지션이 있으면 일부 기여 비율이 음수가 되고, 다른 자산의 기여 비율은 100%를 넘을 수도 있다.</p>
+</section>
+<section id="individual-var와의-관계" class="level4" data-number="4.6.9.2">
+<h4 data-number="4.6.9.2" class="anchored" data-anchor-id="individual-var와의-관계"><span class="header-section-number">4.6.9.2</span> Individual VaR와의 관계</h4>
+<p>자산 <span class="math inline">\(i\)</span>와 포트폴리오의 상관계수를</p>
+<p><span class="math display">\[
+\rho_i
+=
+\frac{\operatorname{Cov}(R_i,R_p)}
+{\sigma_i\sigma_p}
+\]</span></p>
+<p>라고 하면,</p>
+<p><span id="eq-component-individual-var"><span class="math display">\[
+\begin{aligned}
+\mathrm{CVaR}_i
+&amp;=
+z_\alpha\sigma_iw_iW_0\rho_i \\
+&amp;=
+\operatorname{sign}(w_i)\rho_i\mathrm{VaR}_i.
+\end{aligned}
+\tag{4.20}\]</span></span></p>
+<p>즉, component VaR는 individual VaR에 포트폴리오와의 상관관계 및 포지션의 방향을 반영한 값이다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>자산 <span class="math inline">\(i\)</span>를 전부 제거하는 변화는 <span class="math inline">\(a_i=-x_i\)</span>이다. 일차 근사를 적용하면</p>
+<p><span class="math display">\[
+\mathrm{VaR}_{\mathrm{제거\ 후}}
+-
+\mathrm{VaR}_p
+\approx
+-\mathrm{CVaR}_i
+\]</span></p>
+<p>이다. 따라서 component VaR는 자산 제거에 따른 VaR 감소액의 근사값으로 볼 수 있다. 다만 전체 포지션 제거는 큰 변화일 수 있으므로, 이 근사가 항상 정확한 것은 아니다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="예제-두-자산의-component-var" class="level3" data-number="4.6.10">
+<h3 data-number="4.6.10" class="anchored" data-anchor-id="예제-두-자산의-component-var"><span class="header-section-number">4.6.10</span> 예제: 두 자산의 component VaR</h3>
+<p>앞의 두 자산 예제에서 component VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{CVaR}_1
+&amp;=
+2{,}500\Delta\mathrm{VaR}_1
+\approx67.21, \\
+\mathrm{CVaR}_2
+&amp;=
+7{,}500\Delta\mathrm{VaR}_2
+\approx1{,}467.56.
+\end{aligned}
+\]</span></p>
+<p>두 기여분의 합은 포트폴리오 VaR와 같다.</p>
+<p><span class="math display">\[
+\mathrm{CVaR}_1+\mathrm{CVaR}_2
+=
+\mathrm{VaR}_p
+\approx
+1{,}534.77.
+\]</span></p>
+<table class="caption-top table">
+<caption>두 자산의 개별 위험과 포트폴리오 위험 기여도</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">자산</th>
+<th style="text-align: right;">투자 금액</th>
+<th style="text-align: right;">Individual VaR</th>
+<th style="text-align: right;">Component VaR</th>
+<th style="text-align: right;">위험 기여 비율</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">자산 1</td>
+<td style="text-align: right;">2,500</td>
+<td style="text-align: right;">205.61</td>
+<td style="text-align: right;">67.21</td>
+<td style="text-align: right;">4.38%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">자산 2</td>
+<td style="text-align: right;">7,500</td>
+<td style="text-align: right;">1,480.37</td>
+<td style="text-align: right;">1,467.56</td>
+<td style="text-align: right;">95.62%</td>
+</tr>
+</tbody>
+</table>
+<p>자산 1은 전체 투자금의 25%를 차지하지만 VaR 기여 비율은 약 4.38%이다. 투자 비중과 위험 기여 비율은 서로 다르며, 위험 기여 비율은 변동성과 자산 사이의 관계도 반영한다.</p>
+</section>
+<section id="예제-공매도를-포함한-포트폴리오" class="level3" data-number="4.6.11">
+<h3 data-number="4.6.11" class="anchored" data-anchor-id="예제-공매도를-포함한-포트폴리오"><span class="header-section-number">4.6.11</span> 예제: 공매도를 포함한 포트폴리오</h3>
+<p>같은 공분산 행렬을 사용하되, 초기 자본 10,000달러를 다음 비중으로 투자한다고 하자.</p>
+<p><span class="math display">\[
+\mathbf{w}
+=
+\begin{bmatrix}
+1.5 \\
+-0.5
+\end{bmatrix},
+\qquad
+\mathbf{x}
+=
+\begin{bmatrix}
+15{,}000 \\
+-5{,}000
+\end{bmatrix}.
+\]</span></p>
+<p>자산 2를 5,000달러만큼 공매도하고, 그 대금을 초기 자본과 함께 자산 1에 투자한 경우이다.</p>
+<p>포트폴리오의 분산과 VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\sigma_p^2
+=
+\mathbf{w}^{\top}\mathbf{C}\mathbf{w}
+=
+0.007425,
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{VaR}_p
+=
+z_{0.05}\sqrt{0.007425}\times10{,}000
+\approx
+1{,}417.34.
+\]</span></p>
+<p>각 자산과 포트폴리오의 공분산은</p>
+<p><span class="math display">\[
+\mathbf{C}\mathbf{w}
+=
+\begin{bmatrix}
+0.00315 \\
+-0.0054
+\end{bmatrix}
+\]</span></p>
+<p>이므로, marginal VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\Delta\boldsymbol{\mathrm{VaR}}
+=
+\frac{z_{0.05}}{\sqrt{0.007425}}
+\begin{bmatrix}
+0.00315 \\
+-0.0054
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+0.060130 \\
+-0.103080
+\end{bmatrix}.
+\]</span></p>
+<p>Component VaR는 각 투자 금액을 곱하여 계산한다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{CVaR}_1
+&amp;=
+15{,}000\Delta\mathrm{VaR}_1
+\approx901.95, \\
+\mathrm{CVaR}_2
+&amp;=
+(-5{,}000)\Delta\mathrm{VaR}_2
+\approx515.40.
+\end{aligned}
+\]</span></p>
+<p>반올림 전 값으로 계산하면 두 component VaR의 합은 포트폴리오 VaR와 정확히 같다.</p>
+<p>상관계수와 individual VaR를 이용해도 같은 결과를 얻는다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\rho_1
+&amp;=
+\frac{0.00315}{0.05\sqrt{0.007425}}
+\approx0.7311, \\
+\rho_2
+&amp;=
+\frac{-0.0054}{0.12\sqrt{0.007425}}
+\approx-0.5222.
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{VaR}_1\approx1{,}233.64,
+\qquad
+\mathrm{VaR}_2\approx986.91.
+\]</span></p>
+<p>따라서 식 <a href="#eq-component-individual-var" class="quarto-xref">방정식&nbsp;<span>4.20</span></a> 에 의해</p>
+<p><span class="math display">\[
+\mathrm{CVaR}_1
+=
+\rho_1\mathrm{VaR}_1,
+\qquad
+\mathrm{CVaR}_2
+=
+-\rho_2\mathrm{VaR}_2
+\]</span></p>
+<p>이다.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>자산 2의 marginal VaR는 음수이지만 component VaR는 양수이다.</p>
+<p>Marginal VaR가 음수라는 것은 <span class="math inline">\(x_2\)</span>를 증가시키면, 즉 현재의 공매도 규모를 줄이면 VaR가 감소한다는 뜻이다. 반대로 공매도 규모를 더 늘리면 <span class="math inline">\(x_2\)</span>는 더 작아지므로 VaR가 증가한다. 위험 기여도를 해석할 때는 marginal VaR의 부호와 포지션의 부호를 함께 보아야 한다.</p>
+</div>
+</div>
+</section>
+<section id="예제-세-자산의-var와-위험-기여도" class="level3" data-number="4.6.12">
+<h3 data-number="4.6.12" class="anchored" data-anchor-id="예제-세-자산의-var와-위험-기여도"><span class="header-section-number">4.6.12</span> 예제: 세 자산의 VaR와 위험 기여도</h3>
+<p>세 자산의 연간 수익률이 다변량 정규분포를 따르고, 기대수익률은 모두 0이라고 하자. 표준편차와 상관계수는 다음과 같다.</p>
+<p><span class="math display">\[
+\sigma_1=0.1,
+\qquad
+\sigma_2=0.3,
+\qquad
+\sigma_3=0.4,
+\]</span></p>
+<p><span class="math display">\[
+\rho_{12}=0.7,
+\qquad
+\rho_{13}=-0.2,
+\qquad
+\rho_{23}=-0.3.
+\]</span></p>
+<p>이에 따른 공분산 행렬은 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbf{C}
+=
+\begin{bmatrix}
+0.01 &amp; 0.021 &amp; -0.008 \\
+0.021 &amp; 0.09 &amp; -0.036 \\
+-0.008 &amp; -0.036 &amp; 0.16
+\end{bmatrix}.
+\]</span></p>
+<p>초기 자본 1,000달러를 <span class="math inline">\(4:4:2\)</span>의 비율로 투자하면,</p>
+<p><span class="math display">\[
+\mathbf{w}
+=
+\begin{bmatrix}
+0.4 \\
+0.4 \\
+0.2
+\end{bmatrix}
+\]</span></p>
+<p>이다.</p>
+<section id="포트폴리오-var" class="level4" data-number="4.6.12.1">
+<h4 data-number="4.6.12.1" class="anchored" data-anchor-id="포트폴리오-var"><span class="header-section-number">4.6.12.1</span> 포트폴리오 VaR</h4>
+<p>포트폴리오 분산은</p>
+<p><span class="math display">\[
+\sigma_p^2
+=
+\mathbf{w}^{\top}\mathbf{C}\mathbf{w}
+=
+0.02208
+\]</span></p>
+<p>이므로, 1년 95% VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\mathrm{VaR}_p
+=
+z_{0.05}\sqrt{0.02208}\times1{,}000
+\approx
+244.41.
+\]</span></p>
+</section>
+<section id="marginal-var-1" class="level4" data-number="4.6.12.2">
+<h4 data-number="4.6.12.2" class="anchored" data-anchor-id="marginal-var-1"><span class="header-section-number">4.6.12.2</span> Marginal VaR</h4>
+<p>각 자산과 포트폴리오 사이의 공분산은 다음과 같다.</p>
+<p><span class="math display">\[
+\mathbf{C}\mathbf{w}
+=
+\begin{bmatrix}
+0.01\times0.4+0.021\times0.4-0.008\times0.2 \\
+0.021\times0.4+0.09\times0.4-0.036\times0.2 \\
+-0.008\times0.4-0.036\times0.4+0.16\times0.2
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.0108 \\
+0.0372 \\
+0.0144
+\end{bmatrix}.
+\]</span></p>
+<p>따라서 marginal VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\Delta\boldsymbol{\mathrm{VaR}}
+=
+\frac{z_{0.05}}{\sqrt{0.02208}}
+\begin{bmatrix}
+0.0108 \\
+0.0372 \\
+0.0144
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+0.119551 \\
+0.411785 \\
+0.159401
+\end{bmatrix}.
+\]</span></p>
+</section>
+<section id="투자-비중-변경과-incremental-var" class="level4" data-number="4.6.12.3">
+<h4 data-number="4.6.12.3" class="anchored" data-anchor-id="투자-비중-변경과-incremental-var"><span class="header-section-number">4.6.12.3</span> 투자 비중 변경과 incremental VaR</h4>
+<p>자산 1의 투자 금액을 50달러 늘리고, 자산 2와 자산 3의 투자 금액을 각각 25달러 줄인다고 하자.</p>
+<p><span class="math display">\[
+\mathbf{a}
+=
+\begin{bmatrix}
+50 \\
+-25 \\
+-25
+\end{bmatrix},
+\qquad
+\mathbf{w}_{\mathrm{new}}
+=
+\begin{bmatrix}
+0.45 \\
+0.375 \\
+0.175
+\end{bmatrix}.
+\]</span></p>
+<p>변경 후 분산과 VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\sigma_{\mathrm{new}}^2
+=
+\mathbf{w}_{\mathrm{new}}^{\top}
+\mathbf{C}
+\mathbf{w}_{\mathrm{new}}
+=
+0.02068375,
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{VaR}_{\mathrm{new}}
+=
+z_{0.05}\sqrt{0.02068375}\times1{,}000
+\approx
+236.56.
+\]</span></p>
+<p>따라서 실제 incremental VaR는 약 <span class="math inline">\(-7.85\)</span>달러이다.</p>
+<p>한편 marginal VaR를 이용하면,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{IVaR}(\mathbf{a})
+&amp;\approx
+50\Delta\mathrm{VaR}_1
+-
+25\Delta\mathrm{VaR}_2
+-
+25\Delta\mathrm{VaR}_3 \\
+&amp;\approx
+-8.30
+\end{aligned}
+\]</span></p>
+<p>이다. 변경 후 VaR의 일차 근사값은 약 236.11달러로, 직접 계산한 236.56달러와 약 0.45달러 차이가 난다.</p>
+</section>
+<section id="component-var-1" class="level4" data-number="4.6.12.4">
+<h4 data-number="4.6.12.4" class="anchored" data-anchor-id="component-var-1"><span class="header-section-number">4.6.12.4</span> Component VaR</h4>
+<p>변경 전 <span class="math inline">\(4:4:2\)</span> 포트폴리오의 component VaR는 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{CVaR}_1
+&amp;=
+400\Delta\mathrm{VaR}_1
+\approx47.82, \\
+\mathrm{CVaR}_2
+&amp;=
+400\Delta\mathrm{VaR}_2
+\approx164.71, \\
+\mathrm{CVaR}_3
+&amp;=
+200\Delta\mathrm{VaR}_3
+\approx31.88.
+\end{aligned}
+\]</span></p>
+<p>이들의 합은 포트폴리오 VaR인 약 244.41달러이다. 자산 1과 자산 2의 투자 금액은 같지만, 전체 VaR에 대한 기여도는 자산 2가 훨씬 크다.</p>
 
 
 <!-- -->
@@ -979,10 +1893,14 @@ Dowd, Kevin. 2007년. <em>Measuring Market Risk</em>. John Wiley &amp; Sons.
 <div id="ref-Elliott2005" class="csl-entry" role="listitem">
 Elliott, Robert J, 와/과 P. Ekkehard Kopp. 2005년. <em>Mathematics of Financial Markets</em>. Springer-Verlag.
 </div>
+<div id="ref-garman1996improving" class="csl-entry" role="listitem">
+Garman, Mark. 1996년. <span>“Improving on VaR: A new methodology for assessing the impact of individual trades on firms’ value at risk”</span>. <em>RISK</em> 9: 61–64.
+</div>
 <div id="ref-jorion2007value" class="csl-entry" role="listitem">
 Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing financial risk</em>. The McGraw-Hill Companies, Inc.
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
@@ -993,6 +1911,7 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <li id="fn3"><p>VaR와 포트폴리오 이론의 관계 및 VaR 방법의 특징은 <span class="citation" data-cites="Dowd2007">Dowd (<a href="#ref-Dowd2007" role="doc-biblioref">2007년</a>)</span> 참고.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>이산형 또는 비연속 분포에서 Expected Shortfall의 일반적 정의는 <span class="citation" data-cites="Elliott2005">Elliott 와/과 Kopp (<a href="#ref-Elliott2005" role="doc-biblioref">2005년</a>)</span> 참고.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>FRTB의 ES 도입 배경은 <span class="citation" data-cites="Basel2019">(<a href="#ref-Basel2019" role="doc-biblioref">Basel Committee on Banking Supervision 2019년</a>)</span> 참고.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Marginal VaR를 이용한 incremental VaR의 일차 근사는 <span class="citation" data-cites="garman1996improving">(<a href="#ref-garman1996improving" role="doc-biblioref">Garman 1996년</a>)</span> 참고.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -2015,7 +2934,975 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a>이에 따라 바젤위원회는 거래계정의 근본적 검토(Fundamental Review of the Trading Book, FRTB)를 통해 VaR 대신 97.5% 신뢰수준의 ES를 도입하였다. FRTB에서는 자산의 유동성에 따라 보유 기간을 달리 적용하고, 내부모형의 사용 기준도 강화하였다.<span class="ot">[^index-5]</span></span>
 <span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-5]: </span>FRTB의 ES 도입 배경은 <span class="co">[</span><span class="ot">@Basel2019</span><span class="co">]</span> 참고.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-5]: </span>FRTB의 ES 도입 배경은 <span class="co">[</span><span class="ot">@Basel2019</span><span class="co">]</span> 참고.</span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a><span class="fu">## Portfolio VaR</span></span>
+<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a>앞에서는 하나의 자산이나 대출의 손익 분포를 이용해 VaR와 ES를 계산하였다. 이제 여러 자산으로 이루어진 포트폴리오의 위험을 계산하고, 각 자산이 전체 위험에 얼마나 기여하는지 살펴본다.</span>
+<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a>이 절에서는 <span class="co">[</span><span class="ot">현대 포트폴리오 이론</span><span class="co">](../02-modern-portfolio-theory/index.qmd)</span>에서 사용한 수익률 벡터와 공분산 행렬을 다시 이용한다. 동일한 투자 기간에 대한 자산 수익률 벡터를</span>
+<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a>\mathbf{R}</span>
+<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a>R_1 <span class="sc">\\</span></span>
+<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a>\vdots <span class="sc">\\</span></span>
+<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a>R_N</span>
+<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a>라고 하고, $\mathbf{R}$가 기대수익률 벡터 $\boldsymbol{\mu}$와 공분산 행렬 $\mathbf{C}$를 갖는 다변량 정규분포를 따른다고 가정한다.</span>
+<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a>초기 자본을 $W_0&gt;0$, 투자 비중 벡터를 $\mathbf{w}$라고 하면, 각 자산의 투자 금액 벡터는 다음과 같다.</span>
+<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a>\mathbf{x}</span>
+<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a>W_0\mathbf{w},</span>
+<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a>x_i=W_0w_i.</span>
+<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a>여기서 $\sum_{i=1}^N w_i=1$이며, 공매도를 허용하면 일부 $w_i$는 음수일 수 있다. 포트폴리오 수익률과 손익은 각각 다음과 같다.</span>
+<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a>R_p=\mathbf{w}^{\top}\mathbf{R},</span>
+<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a>X_p=W_0R_p=\mathbf{x}^{\top}\mathbf{R}.</span>
+<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a>정규성 가정은 실제 금융 수익률의 두꺼운 꼬리를 충분히 설명하지 못할 수 있다. 그러나 포트폴리오 위험과 자산별 위험 기여도를 간결한 식으로 나타낼 수 있어, 분산투자의 효과를 이해하는 출발점이 된다.</span>
+<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a><span class="fu">### 포트폴리오 VaR와 분산효과</span></span>
+<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a>포트폴리오 수익률의 기대수익률과 분산은 다음과 같다.</span>
+<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a>\mu_p=\mathbf{w}^{\top}\boldsymbol{\mu},</span>
+<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a>\sigma_p^2</span>
+<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a>\mathbf{w}^{\top}\mathbf{C}\mathbf{w} <span class="sc">\\</span></span>
+<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}w_i^2\sigma_i^2</span>
+<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a>2\sum_{i=1}^{N}\sum_{j&lt;i}</span>
+<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a>w_iw_j\operatorname{Cov}(R_i,R_j).</span>
+<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a>$$ {#eq-portfolio-variance}</span>
+<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a>다변량 정규분포의 선형결합도 정규분포를 따르므로, 식 @eq-normal-var 에 따라 포트폴리오 VaR는 다음과 같다.</span>
+<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{p,\alpha}</span>
+<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a>\left(</span>
+<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a>-\mathbf{w}^{\top}\boldsymbol{\mu}</span>
+<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a>z_\alpha\sigma_p</span>
+<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a>\right)W_0.</span>
+<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a>이하에서는 분산효과와 위험 기여도에 집중하기 위해 각 자산의 기대수익률을 0으로 가정한다. 또한 $0&lt;\alpha&lt;0.5$로 두고, 유의수준이 고정되어 있으면 아래첨자 $\alpha$를 생략한다.</span>
+<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a>기대수익률을 0으로 두면 변동성에 따른 위험만 남는다. 이는 미래 금액을 현재가치로 환산하는 할인과는 다른 단순화이다. 기대수익률을 포함하려면 위 식의 $-\mathbf{w}^{\top}\boldsymbol{\mu}W_0$ 항을 함께 사용해야 한다.</span>
+<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a>이 가정 아래에서 포트폴리오 VaR는 다음과 같다.</span>
+<span id="cb1-585"><a href="#cb1-585" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a>z_\alpha\sigma_pW_0 <span class="sc">\\</span></span>
+<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a>z_\alpha</span>
+<span id="cb1-593"><a href="#cb1-593" aria-hidden="true" tabindex="-1"></a>\sqrt{\mathbf{w}^{\top}\mathbf{C}\mathbf{w}}\,W_0 <span class="sc">\\</span></span>
+<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a>z_\alpha</span>
+<span id="cb1-596"><a href="#cb1-596" aria-hidden="true" tabindex="-1"></a>\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}.</span>
+<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-598"><a href="#cb1-598" aria-hidden="true" tabindex="-1"></a>$$ {#eq-portfolio-var}</span>
+<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a>이 값은 자산 사이의 공분산을 반영하므로 분산효과를 고려한 VaR, 즉 diversified VaR라고도 한다.</span>
+<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a><span class="fu">### Individual VaR와 undiversified VaR</span></span>
+<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a>Individual VaR는 포트폴리오의 구성 자산 하나를 따로 보유한다고 생각하고 계산한 VaR이다. 기대수익률을 0으로 둔 정규분포 모형에서 자산 $i$의 individual VaR는 다음과 같다.</span>
+<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_i</span>
+<span id="cb1-608"><a href="#cb1-608" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-609"><a href="#cb1-609" aria-hidden="true" tabindex="-1"></a>z_\alpha\sigma_i|x_i|</span>
+<span id="cb1-610"><a href="#cb1-610" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-611"><a href="#cb1-611" aria-hidden="true" tabindex="-1"></a>z_\alpha\sigma_i|w_i|W_0.</span>
+<span id="cb1-612"><a href="#cb1-612" aria-hidden="true" tabindex="-1"></a>$$ {#eq-individual-var}</span>
+<span id="cb1-613"><a href="#cb1-613" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-614"><a href="#cb1-614" aria-hidden="true" tabindex="-1"></a>절댓값은 공매도 포지션도 고려하기 위해 사용한다. 기대수익률이 0인 정규분포에서는 같은 크기의 매수 포지션과 공매도 포지션이 같은 individual VaR를 가진다.</span>
+<span id="cb1-615"><a href="#cb1-615" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a>Undiversified VaR는 individual VaR를 모두 더한 값이다.</span>
+<span id="cb1-617"><a href="#cb1-617" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-618"><a href="#cb1-618" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-619"><a href="#cb1-619" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\mathrm{undiv}}</span>
+<span id="cb1-620"><a href="#cb1-620" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-621"><a href="#cb1-621" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}\mathrm{VaR}_i.</span>
+<span id="cb1-622"><a href="#cb1-622" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-623"><a href="#cb1-623" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-624"><a href="#cb1-624" aria-hidden="true" tabindex="-1"></a>현재의 정규분포 가정 아래에서는 다음 관계가 성립한다.</span>
+<span id="cb1-625"><a href="#cb1-625" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-626"><a href="#cb1-626" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-628"><a href="#cb1-628" aria-hidden="true" tabindex="-1"></a>\leq</span>
+<span id="cb1-629"><a href="#cb1-629" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}\mathrm{VaR}_i.</span>
+<span id="cb1-630"><a href="#cb1-630" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-631"><a href="#cb1-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-632"><a href="#cb1-632" aria-hidden="true" tabindex="-1"></a>따라서 분산투자로 얻는 위험 감소 효과를 다음 차이로 나타낼 수 있다.</span>
+<span id="cb1-633"><a href="#cb1-633" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-634"><a href="#cb1-634" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-635"><a href="#cb1-635" aria-hidden="true" tabindex="-1"></a>\text{분산효과}</span>
+<span id="cb1-636"><a href="#cb1-636" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-637"><a href="#cb1-637" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\mathrm{undiv}}</span>
+<span id="cb1-638"><a href="#cb1-638" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-639"><a href="#cb1-639" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p.</span>
+<span id="cb1-640"><a href="#cb1-640" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-641"><a href="#cb1-641" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-642"><a href="#cb1-642" aria-hidden="true" tabindex="-1"></a>모든 포지션이 매수이고 자산 수익률 사이의 상관계수가 모두 1이면 두 VaR가 같아진다. 공매도를 포함할 때는 수익률의 상관관계뿐 아니라 포지션의 부호도 함께 고려해야 한다.</span>
+<span id="cb1-643"><a href="#cb1-643" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-644"><a href="#cb1-644" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 두 자산의 포트폴리오 VaR {#sec-example-portfolio-var}</span></span>
+<span id="cb1-645"><a href="#cb1-645" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-646"><a href="#cb1-646" aria-hidden="true" tabindex="-1"></a>두 자산의 수익률 표준편차와 상관계수가 다음과 같다고 하자.</span>
+<span id="cb1-647"><a href="#cb1-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-648"><a href="#cb1-648" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-649"><a href="#cb1-649" aria-hidden="true" tabindex="-1"></a>\sigma_1=0.05,</span>
+<span id="cb1-650"><a href="#cb1-650" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-651"><a href="#cb1-651" aria-hidden="true" tabindex="-1"></a>\sigma_2=0.12,</span>
+<span id="cb1-652"><a href="#cb1-652" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-653"><a href="#cb1-653" aria-hidden="true" tabindex="-1"></a>\rho_{12}=0.2.</span>
+<span id="cb1-654"><a href="#cb1-654" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-655"><a href="#cb1-655" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-656"><a href="#cb1-656" aria-hidden="true" tabindex="-1"></a>공분산 행렬은 다음과 같다.</span>
+<span id="cb1-657"><a href="#cb1-657" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-658"><a href="#cb1-658" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-659"><a href="#cb1-659" aria-hidden="true" tabindex="-1"></a>\mathbf{C}</span>
+<span id="cb1-660"><a href="#cb1-660" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-661"><a href="#cb1-661" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-662"><a href="#cb1-662" aria-hidden="true" tabindex="-1"></a>0.05^2 &amp; 0.2\times0.05\times0.12 <span class="sc">\\</span></span>
+<span id="cb1-663"><a href="#cb1-663" aria-hidden="true" tabindex="-1"></a>0.2\times0.05\times0.12 &amp; 0.12^2</span>
+<span id="cb1-664"><a href="#cb1-664" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-665"><a href="#cb1-665" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-666"><a href="#cb1-666" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-667"><a href="#cb1-667" aria-hidden="true" tabindex="-1"></a>0.0025 &amp; 0.0012 <span class="sc">\\</span></span>
+<span id="cb1-668"><a href="#cb1-668" aria-hidden="true" tabindex="-1"></a>0.0012 &amp; 0.0144</span>
+<span id="cb1-669"><a href="#cb1-669" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-670"><a href="#cb1-670" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-671"><a href="#cb1-671" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-672"><a href="#cb1-672" aria-hidden="true" tabindex="-1"></a>자산 1과 자산 2에 각각 2,500달러와 7,500달러를 투자하면,</span>
+<span id="cb1-673"><a href="#cb1-673" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-674"><a href="#cb1-674" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-675"><a href="#cb1-675" aria-hidden="true" tabindex="-1"></a>W_0=10{,}000,</span>
+<span id="cb1-676"><a href="#cb1-676" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-677"><a href="#cb1-677" aria-hidden="true" tabindex="-1"></a>\mathbf{w}</span>
+<span id="cb1-678"><a href="#cb1-678" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-679"><a href="#cb1-679" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-680"><a href="#cb1-680" aria-hidden="true" tabindex="-1"></a>0.25 <span class="sc">\\</span></span>
+<span id="cb1-681"><a href="#cb1-681" aria-hidden="true" tabindex="-1"></a>0.75</span>
+<span id="cb1-682"><a href="#cb1-682" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-683"><a href="#cb1-683" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-684"><a href="#cb1-684" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-685"><a href="#cb1-685" aria-hidden="true" tabindex="-1"></a>이다. 포트폴리오 수익률의 분산과 표준편차는 다음과 같다.</span>
+<span id="cb1-686"><a href="#cb1-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-687"><a href="#cb1-687" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-688"><a href="#cb1-688" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-689"><a href="#cb1-689" aria-hidden="true" tabindex="-1"></a>\sigma_p^2</span>
+<span id="cb1-690"><a href="#cb1-690" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-691"><a href="#cb1-691" aria-hidden="true" tabindex="-1"></a>0.25^2\times0.05^2</span>
+<span id="cb1-692"><a href="#cb1-692" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-693"><a href="#cb1-693" aria-hidden="true" tabindex="-1"></a>0.75^2\times0.12^2</span>
+<span id="cb1-694"><a href="#cb1-694" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-695"><a href="#cb1-695" aria-hidden="true" tabindex="-1"></a>2\times0.25\times0.75\times0.0012 <span class="sc">\\</span></span>
+<span id="cb1-696"><a href="#cb1-696" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-697"><a href="#cb1-697" aria-hidden="true" tabindex="-1"></a>0.00870625,</span>
+<span id="cb1-698"><a href="#cb1-698" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-699"><a href="#cb1-699" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-700"><a href="#cb1-700" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-701"><a href="#cb1-701" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-702"><a href="#cb1-702" aria-hidden="true" tabindex="-1"></a>\sigma_p</span>
+<span id="cb1-703"><a href="#cb1-703" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-704"><a href="#cb1-704" aria-hidden="true" tabindex="-1"></a>\sqrt{0.00870625}</span>
+<span id="cb1-705"><a href="#cb1-705" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-706"><a href="#cb1-706" aria-hidden="true" tabindex="-1"></a>0.0933073.</span>
+<span id="cb1-707"><a href="#cb1-707" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-708"><a href="#cb1-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-709"><a href="#cb1-709" aria-hidden="true" tabindex="-1"></a>95% 신뢰수준에서는 $\alpha=0.05$이고 $z_{0.05}\approx1.6449$이므로,</span>
+<span id="cb1-710"><a href="#cb1-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-711"><a href="#cb1-711" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-712"><a href="#cb1-712" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-713"><a href="#cb1-713" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-714"><a href="#cb1-714" aria-hidden="true" tabindex="-1"></a>z_{0.05}\sqrt{0.00870625}\times10{,}000</span>
+<span id="cb1-715"><a href="#cb1-715" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-716"><a href="#cb1-716" aria-hidden="true" tabindex="-1"></a>1{,}534.77</span>
+<span id="cb1-717"><a href="#cb1-717" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-718"><a href="#cb1-718" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-719"><a href="#cb1-719" aria-hidden="true" tabindex="-1"></a>이다. 각 자산의 individual VaR는 다음과 같다.</span>
+<span id="cb1-720"><a href="#cb1-720" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-721"><a href="#cb1-721" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-722"><a href="#cb1-722" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-723"><a href="#cb1-723" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_1</span>
+<span id="cb1-724"><a href="#cb1-724" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-725"><a href="#cb1-725" aria-hidden="true" tabindex="-1"></a>z_{0.05}\times0.05\times2{,}500</span>
+<span id="cb1-726"><a href="#cb1-726" aria-hidden="true" tabindex="-1"></a>\approx205.61, <span class="sc">\\</span></span>
+<span id="cb1-727"><a href="#cb1-727" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_2</span>
+<span id="cb1-728"><a href="#cb1-728" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-729"><a href="#cb1-729" aria-hidden="true" tabindex="-1"></a>z_{0.05}\times0.12\times7{,}500</span>
+<span id="cb1-730"><a href="#cb1-730" aria-hidden="true" tabindex="-1"></a>\approx1{,}480.37.</span>
+<span id="cb1-731"><a href="#cb1-731" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-732"><a href="#cb1-732" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-733"><a href="#cb1-733" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-734"><a href="#cb1-734" aria-hidden="true" tabindex="-1"></a>따라서 undiversified VaR와 분산효과는 각각 다음과 같다.</span>
+<span id="cb1-735"><a href="#cb1-735" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-736"><a href="#cb1-736" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-737"><a href="#cb1-737" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\mathrm{undiv}}</span>
+<span id="cb1-738"><a href="#cb1-738" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-739"><a href="#cb1-739" aria-hidden="true" tabindex="-1"></a>1{,}685.97,</span>
+<span id="cb1-740"><a href="#cb1-740" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-741"><a href="#cb1-741" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-742"><a href="#cb1-742" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-743"><a href="#cb1-743" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\mathrm{undiv}}</span>
+<span id="cb1-744"><a href="#cb1-744" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-745"><a href="#cb1-745" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-746"><a href="#cb1-746" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-747"><a href="#cb1-747" aria-hidden="true" tabindex="-1"></a>151.21.</span>
+<span id="cb1-748"><a href="#cb1-748" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-749"><a href="#cb1-749" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-750"><a href="#cb1-750" aria-hidden="true" tabindex="-1"></a>두 자산을 함께 보유하면 개별 위험의 합보다 포트폴리오 위험이 작아진다. 이는 두 자산이 항상 같은 방향과 비율로 움직이지 않기 때문이다.</span>
+<span id="cb1-751"><a href="#cb1-751" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-752"><a href="#cb1-752" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-753"><a href="#cb1-753" aria-hidden="true" tabindex="-1"></a>이하 예제에서는 계산 중간에 충분한 자릿수를 유지하고 최종 결과를 반올림한다. 따라서 표시된 반올림값만 더하거나 곱하면 마지막 자릿수에 차이가 생길 수 있다. 금액의 단위는 달러이다.</span>
+<span id="cb1-754"><a href="#cb1-754" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-755"><a href="#cb1-755" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-756"><a href="#cb1-756" aria-hidden="true" tabindex="-1"></a><span class="fu">### Marginal VaR</span></span>
+<span id="cb1-757"><a href="#cb1-757" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-758"><a href="#cb1-758" aria-hidden="true" tabindex="-1"></a>포트폴리오 전체의 VaR를 아는 것만으로는 어떤 자산의 투자 금액을 조정해야 할지 판단하기 어렵다. 이를 위해 각 자산의 투자 금액 변화에 대한 VaR의 민감도를 살펴본다.</span>
+<span id="cb1-759"><a href="#cb1-759" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-760"><a href="#cb1-760" aria-hidden="true" tabindex="-1"></a>자산 $i$의 marginal VaR는 다른 자산의 투자 금액을 고정한 상태에서 $x_i$를 미소하게 변화시킬 때의 포트폴리오 VaR 변화율이다.</span>
+<span id="cb1-761"><a href="#cb1-761" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-762"><a href="#cb1-762" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-763"><a href="#cb1-763" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{VaR}_i</span>
+<span id="cb1-764"><a href="#cb1-764" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-765"><a href="#cb1-765" aria-hidden="true" tabindex="-1"></a>\frac{\partial\mathrm{VaR}_p}{\partial x_i}.</span>
+<span id="cb1-766"><a href="#cb1-766" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-767"><a href="#cb1-767" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-768"><a href="#cb1-768" aria-hidden="true" tabindex="-1"></a>식 @eq-portfolio-var 를 투자 금액 $x_i$에 대해 미분하면, $\sigma_p&gt;0$일 때 다음을 얻는다.</span>
+<span id="cb1-769"><a href="#cb1-769" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-770"><a href="#cb1-770" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-771"><a href="#cb1-771" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{VaR}_i</span>
+<span id="cb1-772"><a href="#cb1-772" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-773"><a href="#cb1-773" aria-hidden="true" tabindex="-1"></a>z_\alpha</span>
+<span id="cb1-774"><a href="#cb1-774" aria-hidden="true" tabindex="-1"></a>\frac{(\mathbf{C}\mathbf{x})_i}</span>
+<span id="cb1-775"><a href="#cb1-775" aria-hidden="true" tabindex="-1"></a>{\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}}.</span>
+<span id="cb1-776"><a href="#cb1-776" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-777"><a href="#cb1-777" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-778"><a href="#cb1-778" aria-hidden="true" tabindex="-1"></a>여기서 $(\mathbf{C}\mathbf{x})_i$는 벡터 $\mathbf{C}\mathbf{x}$의 $i$번째 원소이다.</span>
+<span id="cb1-779"><a href="#cb1-779" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-780"><a href="#cb1-780" aria-hidden="true" tabindex="-1"></a>$\mathbf{x}=W_0\mathbf{w}$이고</span>
+<span id="cb1-781"><a href="#cb1-781" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-782"><a href="#cb1-782" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-783"><a href="#cb1-783" aria-hidden="true" tabindex="-1"></a>(\mathbf{C}\mathbf{w})_i</span>
+<span id="cb1-784"><a href="#cb1-784" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-785"><a href="#cb1-785" aria-hidden="true" tabindex="-1"></a>\sum_{j=1}^{N}</span>
+<span id="cb1-786"><a href="#cb1-786" aria-hidden="true" tabindex="-1"></a>w_j\operatorname{Cov}(R_i,R_j)</span>
+<span id="cb1-787"><a href="#cb1-787" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-788"><a href="#cb1-788" aria-hidden="true" tabindex="-1"></a>\operatorname{Cov}(R_i,R_p)</span>
+<span id="cb1-789"><a href="#cb1-789" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-790"><a href="#cb1-790" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-791"><a href="#cb1-791" aria-hidden="true" tabindex="-1"></a>이므로, marginal VaR는 다음과 같이 나타낼 수 있다.</span>
+<span id="cb1-792"><a href="#cb1-792" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-793"><a href="#cb1-793" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-794"><a href="#cb1-794" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{VaR}_i</span>
+<span id="cb1-795"><a href="#cb1-795" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-796"><a href="#cb1-796" aria-hidden="true" tabindex="-1"></a>z_\alpha</span>
+<span id="cb1-797"><a href="#cb1-797" aria-hidden="true" tabindex="-1"></a>\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p}.</span>
+<span id="cb1-798"><a href="#cb1-798" aria-hidden="true" tabindex="-1"></a>$$ {#eq-marginal-var}</span>
+<span id="cb1-799"><a href="#cb1-799" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-800"><a href="#cb1-800" aria-hidden="true" tabindex="-1"></a>투자 금액의 작은 변화 $\delta x_i$에 대해서는</span>
+<span id="cb1-801"><a href="#cb1-801" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-802"><a href="#cb1-802" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-803"><a href="#cb1-803" aria-hidden="true" tabindex="-1"></a>\text{포트폴리오 VaR의 변화}</span>
+<span id="cb1-804"><a href="#cb1-804" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-805"><a href="#cb1-805" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{VaR}_i\,\delta x_i</span>
+<span id="cb1-806"><a href="#cb1-806" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-807"><a href="#cb1-807" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-808"><a href="#cb1-808" aria-hidden="true" tabindex="-1"></a>이다. 따라서 marginal VaR가 양수이면 해당 자산의 투자 금액 증가가 VaR를 높이는 방향으로 작용하고, 음수이면 VaR를 낮추는 방향으로 작용한다.</span>
+<span id="cb1-809"><a href="#cb1-809" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-810"><a href="#cb1-810" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-811"><a href="#cb1-811" aria-hidden="true" tabindex="-1"></a>Marginal VaR는 위험 금액 자체가 아니라 투자 금액 한 단위당 위험의 변화율이다. 예를 들어 marginal VaR가 0.03이면, 해당 자산에 1달러를 추가할 때 포트폴리오 VaR가 약 0.03달러 증가한다는 뜻이다.</span>
+<span id="cb1-812"><a href="#cb1-812" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-813"><a href="#cb1-813" aria-hidden="true" tabindex="-1"></a>총투자금을 유지하면서 자산 비중을 바꾸면 여러 투자 금액이 동시에 변하므로, 조정되는 모든 자산의 marginal VaR를 함께 사용해야 한다.</span>
+<span id="cb1-814"><a href="#cb1-814" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-815"><a href="#cb1-815" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-816"><a href="#cb1-816" aria-hidden="true" tabindex="-1"></a>포트폴리오 $p$에 대한 자산 $i$의 베타를 다음과 같이 정의하자.</span>
+<span id="cb1-817"><a href="#cb1-817" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-818"><a href="#cb1-818" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-819"><a href="#cb1-819" aria-hidden="true" tabindex="-1"></a>\beta_i</span>
+<span id="cb1-820"><a href="#cb1-820" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-821"><a href="#cb1-821" aria-hidden="true" tabindex="-1"></a>\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p^2}.</span>
+<span id="cb1-822"><a href="#cb1-822" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-823"><a href="#cb1-823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-824"><a href="#cb1-824" aria-hidden="true" tabindex="-1"></a>그러면 식 @eq-marginal-var 는 다음과 같이 쓸 수 있다.</span>
+<span id="cb1-825"><a href="#cb1-825" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-826"><a href="#cb1-826" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-827"><a href="#cb1-827" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{VaR}_i</span>
+<span id="cb1-828"><a href="#cb1-828" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-829"><a href="#cb1-829" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{VaR}_p}{W_0}\beta_i.</span>
+<span id="cb1-830"><a href="#cb1-830" aria-hidden="true" tabindex="-1"></a>$$ {#eq-marginal-var-beta}</span>
+<span id="cb1-831"><a href="#cb1-831" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-832"><a href="#cb1-832" aria-hidden="true" tabindex="-1"></a>여기서 $\beta_i$는 현재 분석하는 포트폴리오에 대한 민감도이다. CAPM에서 사용하는 시장 포트폴리오에 대한 베타와는 기준 포트폴리오가 다를 수 있다.</span>
+<span id="cb1-833"><a href="#cb1-833" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-834"><a href="#cb1-834" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 두 자산의 marginal VaR</span></span>
+<span id="cb1-835"><a href="#cb1-835" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-836"><a href="#cb1-836" aria-hidden="true" tabindex="-1"></a>앞의 두 자산 예제에서 각 자산 수익률과 포트폴리오 수익률의 공분산은 다음과 같다.</span>
+<span id="cb1-837"><a href="#cb1-837" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-838"><a href="#cb1-838" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-839"><a href="#cb1-839" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-840"><a href="#cb1-840" aria-hidden="true" tabindex="-1"></a>\operatorname{Cov}(R_1,R_p)</span>
+<span id="cb1-841"><a href="#cb1-841" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-842"><a href="#cb1-842" aria-hidden="true" tabindex="-1"></a>0.25\times0.0025</span>
+<span id="cb1-843"><a href="#cb1-843" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-844"><a href="#cb1-844" aria-hidden="true" tabindex="-1"></a>0.75\times0.0012 <span class="sc">\\</span></span>
+<span id="cb1-845"><a href="#cb1-845" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-846"><a href="#cb1-846" aria-hidden="true" tabindex="-1"></a>0.001525, <span class="sc">\\</span></span>
+<span id="cb1-847"><a href="#cb1-847" aria-hidden="true" tabindex="-1"></a>\operatorname{Cov}(R_2,R_p)</span>
+<span id="cb1-848"><a href="#cb1-848" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-849"><a href="#cb1-849" aria-hidden="true" tabindex="-1"></a>0.25\times0.0012</span>
+<span id="cb1-850"><a href="#cb1-850" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-851"><a href="#cb1-851" aria-hidden="true" tabindex="-1"></a>0.75\times0.0144 <span class="sc">\\</span></span>
+<span id="cb1-852"><a href="#cb1-852" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-853"><a href="#cb1-853" aria-hidden="true" tabindex="-1"></a>0.0111.</span>
+<span id="cb1-854"><a href="#cb1-854" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-855"><a href="#cb1-855" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-856"><a href="#cb1-856" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-857"><a href="#cb1-857" aria-hidden="true" tabindex="-1"></a>Marginal VaR를 원소로 갖는 벡터를 $\Delta\boldsymbol{\mathrm{VaR}}$라고 하면,</span>
+<span id="cb1-858"><a href="#cb1-858" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-859"><a href="#cb1-859" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-860"><a href="#cb1-860" aria-hidden="true" tabindex="-1"></a>\Delta\boldsymbol{\mathrm{VaR}}</span>
+<span id="cb1-861"><a href="#cb1-861" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-862"><a href="#cb1-862" aria-hidden="true" tabindex="-1"></a>\frac{z_{0.05}}{\sqrt{0.00870625}}</span>
+<span id="cb1-863"><a href="#cb1-863" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-864"><a href="#cb1-864" aria-hidden="true" tabindex="-1"></a>0.001525 <span class="sc">\\</span></span>
+<span id="cb1-865"><a href="#cb1-865" aria-hidden="true" tabindex="-1"></a>0.0111</span>
+<span id="cb1-866"><a href="#cb1-866" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-867"><a href="#cb1-867" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-868"><a href="#cb1-868" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-869"><a href="#cb1-869" aria-hidden="true" tabindex="-1"></a>0.026883 <span class="sc">\\</span></span>
+<span id="cb1-870"><a href="#cb1-870" aria-hidden="true" tabindex="-1"></a>0.195675</span>
+<span id="cb1-871"><a href="#cb1-871" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-872"><a href="#cb1-872" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-873"><a href="#cb1-873" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-874"><a href="#cb1-874" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-875"><a href="#cb1-875" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-876"><a href="#cb1-876" aria-hidden="true" tabindex="-1"></a>현재 포트폴리오에서는 자산 2의 투자 금액을 늘릴 때 VaR가 더 크게 증가한다. 이러한 차이는 각 자산의 변동성과 현재 포트폴리오와의 공분산을 함께 반영한 결과이다.</span>
+<span id="cb1-877"><a href="#cb1-877" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-878"><a href="#cb1-878" aria-hidden="true" tabindex="-1"></a><span class="fu">### Incremental VaR</span></span>
+<span id="cb1-879"><a href="#cb1-879" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-880"><a href="#cb1-880" aria-hidden="true" tabindex="-1"></a>Marginal VaR가 미소한 투자 금액 변화에 대한 민감도라면, incremental VaR는 실제 포지션 변경 전후의 VaR 차이이다.</span>
+<span id="cb1-881"><a href="#cb1-881" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-882"><a href="#cb1-882" aria-hidden="true" tabindex="-1"></a>추가 투자 금액 벡터를 $\mathbf{a}$라고 하자. $a_i&gt;0$이면 자산 $i$의 투자 금액을 늘리고, $a_i&lt;0$이면 줄인다는 뜻이다. 변경 후 투자 금액 벡터는 $\mathbf{x}+\mathbf{a}$이다.</span>
+<span id="cb1-883"><a href="#cb1-883" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-884"><a href="#cb1-884" aria-hidden="true" tabindex="-1"></a>Incremental VaR는 다음과 같이 정의한다.</span>
+<span id="cb1-885"><a href="#cb1-885" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-886"><a href="#cb1-886" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-887"><a href="#cb1-887" aria-hidden="true" tabindex="-1"></a>\mathrm{IVaR}(\mathbf{a})</span>
+<span id="cb1-888"><a href="#cb1-888" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-889"><a href="#cb1-889" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}(\mathbf{x}+\mathbf{a})</span>
+<span id="cb1-890"><a href="#cb1-890" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-891"><a href="#cb1-891" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}(\mathbf{x}).</span>
+<span id="cb1-892"><a href="#cb1-892" aria-hidden="true" tabindex="-1"></a>$$ {#eq-incremental-var}</span>
+<span id="cb1-893"><a href="#cb1-893" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-894"><a href="#cb1-894" aria-hidden="true" tabindex="-1"></a>정규분포 모형에서 그 값은 다음과 같다.</span>
+<span id="cb1-895"><a href="#cb1-895" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-896"><a href="#cb1-896" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-897"><a href="#cb1-897" aria-hidden="true" tabindex="-1"></a>\mathrm{IVaR}(\mathbf{a})</span>
+<span id="cb1-898"><a href="#cb1-898" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-899"><a href="#cb1-899" aria-hidden="true" tabindex="-1"></a>z_\alpha</span>
+<span id="cb1-900"><a href="#cb1-900" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb1-901"><a href="#cb1-901" aria-hidden="true" tabindex="-1"></a>\sqrt{</span>
+<span id="cb1-902"><a href="#cb1-902" aria-hidden="true" tabindex="-1"></a>(\mathbf{x}+\mathbf{a})^{\top}</span>
+<span id="cb1-903"><a href="#cb1-903" aria-hidden="true" tabindex="-1"></a>\mathbf{C}</span>
+<span id="cb1-904"><a href="#cb1-904" aria-hidden="true" tabindex="-1"></a>(\mathbf{x}+\mathbf{a})</span>
+<span id="cb1-905"><a href="#cb1-905" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-906"><a href="#cb1-906" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-907"><a href="#cb1-907" aria-hidden="true" tabindex="-1"></a>\sqrt{</span>
+<span id="cb1-908"><a href="#cb1-908" aria-hidden="true" tabindex="-1"></a>\mathbf{x}^{\top}\mathbf{C}\mathbf{x}</span>
+<span id="cb1-909"><a href="#cb1-909" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-910"><a href="#cb1-910" aria-hidden="true" tabindex="-1"></a>\right].</span>
+<span id="cb1-911"><a href="#cb1-911" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-912"><a href="#cb1-912" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-913"><a href="#cb1-913" aria-hidden="true" tabindex="-1"></a>포지션 변경 후의 위험을 매번 다시 계산하는 대신, 변경 규모가 작으면 테일러 전개의 일차항으로 근사할 수 있다.<span class="ot">[^index-6]</span></span>
+<span id="cb1-914"><a href="#cb1-914" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-915"><a href="#cb1-915" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-6]: </span>Marginal VaR를 이용한 incremental VaR의 일차 근사는 <span class="co">[</span><span class="ot">@garman1996improving</span><span class="co">]</span> 참고.</span>
+<span id="cb1-916"><a href="#cb1-916" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-917"><a href="#cb1-917" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-918"><a href="#cb1-918" aria-hidden="true" tabindex="-1"></a>\mathrm{IVaR}(\mathbf{a})</span>
+<span id="cb1-919"><a href="#cb1-919" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-920"><a href="#cb1-920" aria-hidden="true" tabindex="-1"></a>\mathbf{a}^{\top}</span>
+<span id="cb1-921"><a href="#cb1-921" aria-hidden="true" tabindex="-1"></a>\Delta\boldsymbol{\mathrm{VaR}}</span>
+<span id="cb1-922"><a href="#cb1-922" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-923"><a href="#cb1-923" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}</span>
+<span id="cb1-924"><a href="#cb1-924" aria-hidden="true" tabindex="-1"></a>a_i\Delta\mathrm{VaR}_i.</span>
+<span id="cb1-925"><a href="#cb1-925" aria-hidden="true" tabindex="-1"></a>$$ {#eq-incremental-var-approx}</span>
+<span id="cb1-926"><a href="#cb1-926" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-927"><a href="#cb1-927" aria-hidden="true" tabindex="-1"></a>이때 marginal VaR는 변경 전 포트폴리오에서 계산한 값이다.</span>
+<span id="cb1-928"><a href="#cb1-928" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-929"><a href="#cb1-929" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 두 자산의 투자 금액 조정</span></span>
+<span id="cb1-930"><a href="#cb1-930" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-931"><a href="#cb1-931" aria-hidden="true" tabindex="-1"></a>앞의 두 자산 예제에서 자산 1의 투자 금액을 500달러 늘리고, 자산 2의 투자 금액을 500달러 줄인다고 하자.</span>
+<span id="cb1-932"><a href="#cb1-932" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-933"><a href="#cb1-933" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-934"><a href="#cb1-934" aria-hidden="true" tabindex="-1"></a>\mathbf{a}</span>
+<span id="cb1-935"><a href="#cb1-935" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-936"><a href="#cb1-936" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-937"><a href="#cb1-937" aria-hidden="true" tabindex="-1"></a>500 <span class="sc">\\</span></span>
+<span id="cb1-938"><a href="#cb1-938" aria-hidden="true" tabindex="-1"></a>-500</span>
+<span id="cb1-939"><a href="#cb1-939" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-940"><a href="#cb1-940" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-941"><a href="#cb1-941" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-942"><a href="#cb1-942" aria-hidden="true" tabindex="-1"></a>총투자금은 10,000달러로 유지되며, 변경 후 투자 비중은 다음과 같다.</span>
+<span id="cb1-943"><a href="#cb1-943" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-944"><a href="#cb1-944" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-945"><a href="#cb1-945" aria-hidden="true" tabindex="-1"></a>\mathbf{w}_{\mathrm{new}}</span>
+<span id="cb1-946"><a href="#cb1-946" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-947"><a href="#cb1-947" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-948"><a href="#cb1-948" aria-hidden="true" tabindex="-1"></a>0.3 <span class="sc">\\</span></span>
+<span id="cb1-949"><a href="#cb1-949" aria-hidden="true" tabindex="-1"></a>0.7</span>
+<span id="cb1-950"><a href="#cb1-950" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-951"><a href="#cb1-951" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-952"><a href="#cb1-952" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-953"><a href="#cb1-953" aria-hidden="true" tabindex="-1"></a>변경 후 포트폴리오 분산은</span>
+<span id="cb1-954"><a href="#cb1-954" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-955"><a href="#cb1-955" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-956"><a href="#cb1-956" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-957"><a href="#cb1-957" aria-hidden="true" tabindex="-1"></a>\sigma_{\mathrm{new}}^2</span>
+<span id="cb1-958"><a href="#cb1-958" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-959"><a href="#cb1-959" aria-hidden="true" tabindex="-1"></a>0.3^2\times0.0025</span>
+<span id="cb1-960"><a href="#cb1-960" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-961"><a href="#cb1-961" aria-hidden="true" tabindex="-1"></a>0.7^2\times0.0144</span>
+<span id="cb1-962"><a href="#cb1-962" aria-hidden="true" tabindex="-1"></a>+</span>
+<span id="cb1-963"><a href="#cb1-963" aria-hidden="true" tabindex="-1"></a>2\times0.3\times0.7\times0.0012 <span class="sc">\\</span></span>
+<span id="cb1-964"><a href="#cb1-964" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-965"><a href="#cb1-965" aria-hidden="true" tabindex="-1"></a>0.007785</span>
+<span id="cb1-966"><a href="#cb1-966" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-967"><a href="#cb1-967" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-968"><a href="#cb1-968" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-969"><a href="#cb1-969" aria-hidden="true" tabindex="-1"></a>이므로, VaR를 다시 계산하면 다음과 같다.</span>
+<span id="cb1-970"><a href="#cb1-970" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-971"><a href="#cb1-971" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-972"><a href="#cb1-972" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\mathrm{new}}</span>
+<span id="cb1-973"><a href="#cb1-973" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-974"><a href="#cb1-974" aria-hidden="true" tabindex="-1"></a>z_{0.05}\sqrt{0.007785}\times10{,}000</span>
+<span id="cb1-975"><a href="#cb1-975" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-976"><a href="#cb1-976" aria-hidden="true" tabindex="-1"></a>1{,}451.30.</span>
+<span id="cb1-977"><a href="#cb1-977" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-978"><a href="#cb1-978" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-979"><a href="#cb1-979" aria-hidden="true" tabindex="-1"></a>따라서 incremental VaR는</span>
+<span id="cb1-980"><a href="#cb1-980" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-981"><a href="#cb1-981" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-982"><a href="#cb1-982" aria-hidden="true" tabindex="-1"></a>\mathrm{IVaR}(\mathbf{a})</span>
+<span id="cb1-983"><a href="#cb1-983" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-984"><a href="#cb1-984" aria-hidden="true" tabindex="-1"></a>1{,}451.30-1{,}534.77</span>
+<span id="cb1-985"><a href="#cb1-985" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-986"><a href="#cb1-986" aria-hidden="true" tabindex="-1"></a>-83.47</span>
+<span id="cb1-987"><a href="#cb1-987" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-988"><a href="#cb1-988" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-989"><a href="#cb1-989" aria-hidden="true" tabindex="-1"></a>이다. 투자 비중 조정으로 포트폴리오 VaR가 약 83.47달러 감소하였다.</span>
+<span id="cb1-990"><a href="#cb1-990" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-991"><a href="#cb1-991" aria-hidden="true" tabindex="-1"></a>한편 marginal VaR를 이용한 일차 근사는 다음과 같다.</span>
+<span id="cb1-992"><a href="#cb1-992" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-993"><a href="#cb1-993" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-994"><a href="#cb1-994" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-995"><a href="#cb1-995" aria-hidden="true" tabindex="-1"></a>\mathrm{IVaR}(\mathbf{a})</span>
+<span id="cb1-996"><a href="#cb1-996" aria-hidden="true" tabindex="-1"></a>&amp;\approx</span>
+<span id="cb1-997"><a href="#cb1-997" aria-hidden="true" tabindex="-1"></a>500\Delta\mathrm{VaR}_1</span>
+<span id="cb1-998"><a href="#cb1-998" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-999"><a href="#cb1-999" aria-hidden="true" tabindex="-1"></a>500\Delta\mathrm{VaR}_2 <span class="sc">\\</span></span>
+<span id="cb1-1000"><a href="#cb1-1000" aria-hidden="true" tabindex="-1"></a>&amp;\approx</span>
+<span id="cb1-1001"><a href="#cb1-1001" aria-hidden="true" tabindex="-1"></a>-84.40.</span>
+<span id="cb1-1002"><a href="#cb1-1002" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1003"><a href="#cb1-1003" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1004"><a href="#cb1-1004" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1005"><a href="#cb1-1005" aria-hidden="true" tabindex="-1"></a>이에 따른 변경 후 VaR의 근사값은 약 1,450.37달러로, 직접 다시 계산한 1,451.30달러와 가깝다.</span>
+<span id="cb1-1006"><a href="#cb1-1006" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1007"><a href="#cb1-1007" aria-hidden="true" tabindex="-1"></a><span class="fu">### 헤지와 근사의 범위</span></span>
+<span id="cb1-1008"><a href="#cb1-1008" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1009"><a href="#cb1-1009" aria-hidden="true" tabindex="-1"></a>Incremental VaR가 음수이면 해당 포지션 변경으로 전체 VaR가 감소했다는 뜻이다. 이 경우 추가된 포지션은 기존 포트폴리오에 대해 헤지 역할을 한다.</span>
+<span id="cb1-1010"><a href="#cb1-1010" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1011"><a href="#cb1-1011" aria-hidden="true" tabindex="-1"></a>그러나 처음에 위험을 줄여 주는 방향이라도 포지션을 계속 확대하면 위험이 다시 증가할 수 있다. 특정 방향의 포지션 조정에서 VaR가 가장 작아지는 지점을 최적 헤지(best hedge)라고 한다.</span>
+<span id="cb1-1012"><a href="#cb1-1012" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1013"><a href="#cb1-1013" aria-hidden="true" tabindex="-1"></a><span class="al">![추가 포지션의 규모에 따른 Incremental VaR와 헤지 효과](../../assets/figures/Ch4_IVaR.svg)</span>{#fig-incremental-var width="80%"}</span>
+<span id="cb1-1014"><a href="#cb1-1014" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1015"><a href="#cb1-1015" aria-hidden="true" tabindex="-1"></a>그림 @fig-incremental-var 는 포지션 추가에 따른 위험 변화가 추가 규모에 따라 달라질 수 있음을 보여 준다.</span>
+<span id="cb1-1016"><a href="#cb1-1016" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1017"><a href="#cb1-1017" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb1-1018"><a href="#cb1-1018" aria-hidden="true" tabindex="-1"></a>Marginal VaR를 이용한 근사는 현재 포트폴리오 부근의 작은 변화에 대한 근사이다. 투자 금액을 크게 조정하거나 자산을 전부 제거하는 경우에는 변경 후 VaR를 다시 계산하여 확인해야 한다.</span>
+<span id="cb1-1019"><a href="#cb1-1019" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1020"><a href="#cb1-1020" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1021"><a href="#cb1-1021" aria-hidden="true" tabindex="-1"></a><span class="fu">### Component VaR</span></span>
+<span id="cb1-1022"><a href="#cb1-1022" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1023"><a href="#cb1-1023" aria-hidden="true" tabindex="-1"></a>Individual VaR는 자산을 단독으로 보유할 때의 위험이다. 따라서 individual VaR의 합은 분산효과를 반영한 포트폴리오 VaR와 일반적으로 다르다.</span>
+<span id="cb1-1024"><a href="#cb1-1024" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1025"><a href="#cb1-1025" aria-hidden="true" tabindex="-1"></a>전체 VaR를 각 자산의 기여분으로 나누기 위해 component VaR를 사용한다. 자산 $i$의 component VaR는 투자 금액과 marginal VaR의 곱으로 정의한다.</span>
+<span id="cb1-1026"><a href="#cb1-1026" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1027"><a href="#cb1-1027" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1028"><a href="#cb1-1028" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_i</span>
+<span id="cb1-1029"><a href="#cb1-1029" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1030"><a href="#cb1-1030" aria-hidden="true" tabindex="-1"></a>x_i\Delta\mathrm{VaR}_i</span>
+<span id="cb1-1031"><a href="#cb1-1031" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1032"><a href="#cb1-1032" aria-hidden="true" tabindex="-1"></a>w_iW_0\Delta\mathrm{VaR}_i.</span>
+<span id="cb1-1033"><a href="#cb1-1033" aria-hidden="true" tabindex="-1"></a>$$ {#eq-component-var}</span>
+<span id="cb1-1034"><a href="#cb1-1034" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1035"><a href="#cb1-1035" aria-hidden="true" tabindex="-1"></a>여기서 $\mathrm{CVaR}_i$는 component VaR를 뜻한다. 다른 문헌에서 ES의 이름으로 사용하는 conditional VaR와는 구분해야 한다.</span>
+<span id="cb1-1036"><a href="#cb1-1036" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1037"><a href="#cb1-1037" aria-hidden="true" tabindex="-1"></a>식 @eq-marginal-var-beta 를 이용하면 다음과 같이 나타낼 수 있다.</span>
+<span id="cb1-1038"><a href="#cb1-1038" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1039"><a href="#cb1-1039" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1040"><a href="#cb1-1040" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_i</span>
+<span id="cb1-1041"><a href="#cb1-1041" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1042"><a href="#cb1-1042" aria-hidden="true" tabindex="-1"></a>w_i\beta_i\mathrm{VaR}_p.</span>
+<span id="cb1-1043"><a href="#cb1-1043" aria-hidden="true" tabindex="-1"></a>$$ {#eq-component-var-beta}</span>
+<span id="cb1-1044"><a href="#cb1-1044" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1045"><a href="#cb1-1045" aria-hidden="true" tabindex="-1"></a>Component VaR는 현재 포지션의 크기와 위험 민감도를 함께 반영한다. 해당 포지션을 현재 방향으로 조금 확대하면, component VaR가 양수일 때는 VaR가 증가하고 음수일 때는 감소한다.</span>
+<span id="cb1-1046"><a href="#cb1-1046" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1047"><a href="#cb1-1047" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 합산 성질</span></span>
+<span id="cb1-1048"><a href="#cb1-1048" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1049"><a href="#cb1-1049" aria-hidden="true" tabindex="-1"></a>Component VaR를 모두 더하면 포트폴리오 VaR가 된다.</span>
+<span id="cb1-1050"><a href="#cb1-1050" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1051"><a href="#cb1-1051" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1052"><a href="#cb1-1052" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1053"><a href="#cb1-1053" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}\mathrm{CVaR}_i</span>
+<span id="cb1-1054"><a href="#cb1-1054" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1055"><a href="#cb1-1055" aria-hidden="true" tabindex="-1"></a>\frac{z_\alpha W_0}{\sigma_p}</span>
+<span id="cb1-1056"><a href="#cb1-1056" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}</span>
+<span id="cb1-1057"><a href="#cb1-1057" aria-hidden="true" tabindex="-1"></a>w_i\operatorname{Cov}(R_i,R_p) <span class="sc">\\</span></span>
+<span id="cb1-1058"><a href="#cb1-1058" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1059"><a href="#cb1-1059" aria-hidden="true" tabindex="-1"></a>\frac{z_\alpha W_0}{\sigma_p}</span>
+<span id="cb1-1060"><a href="#cb1-1060" aria-hidden="true" tabindex="-1"></a>\operatorname{Cov}</span>
+<span id="cb1-1061"><a href="#cb1-1061" aria-hidden="true" tabindex="-1"></a>\left(</span>
+<span id="cb1-1062"><a href="#cb1-1062" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}w_iR_i,</span>
+<span id="cb1-1063"><a href="#cb1-1063" aria-hidden="true" tabindex="-1"></a>R_p</span>
+<span id="cb1-1064"><a href="#cb1-1064" aria-hidden="true" tabindex="-1"></a>\right) <span class="sc">\\</span></span>
+<span id="cb1-1065"><a href="#cb1-1065" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1066"><a href="#cb1-1066" aria-hidden="true" tabindex="-1"></a>\frac{z_\alpha W_0}{\sigma_p}\sigma_p^2 <span class="sc">\\</span></span>
+<span id="cb1-1067"><a href="#cb1-1067" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1068"><a href="#cb1-1068" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p.</span>
+<span id="cb1-1069"><a href="#cb1-1069" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1070"><a href="#cb1-1070" aria-hidden="true" tabindex="-1"></a>$$ {#eq-component-var-sum}</span>
+<span id="cb1-1071"><a href="#cb1-1071" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1072"><a href="#cb1-1072" aria-hidden="true" tabindex="-1"></a>이 성질 덕분에 component VaR를 이용해 전체 위험을 자산별로 배분할 수 있다. 각 자산의 위험 기여 비율은 다음과 같다.</span>
+<span id="cb1-1073"><a href="#cb1-1073" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1074"><a href="#cb1-1074" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1075"><a href="#cb1-1075" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{CVaR}_i}{\mathrm{VaR}_p}</span>
+<span id="cb1-1076"><a href="#cb1-1076" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1077"><a href="#cb1-1077" aria-hidden="true" tabindex="-1"></a>w_i\beta_i.</span>
+<span id="cb1-1078"><a href="#cb1-1078" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1079"><a href="#cb1-1079" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1080"><a href="#cb1-1080" aria-hidden="true" tabindex="-1"></a>기여 비율의 합은 1이다. 다만 헤지 포지션이 있으면 일부 기여 비율이 음수가 되고, 다른 자산의 기여 비율은 100%를 넘을 수도 있다.</span>
+<span id="cb1-1081"><a href="#cb1-1081" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1082"><a href="#cb1-1082" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Individual VaR와의 관계</span></span>
+<span id="cb1-1083"><a href="#cb1-1083" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1084"><a href="#cb1-1084" aria-hidden="true" tabindex="-1"></a>자산 $i$와 포트폴리오의 상관계수를</span>
+<span id="cb1-1085"><a href="#cb1-1085" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1086"><a href="#cb1-1086" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1087"><a href="#cb1-1087" aria-hidden="true" tabindex="-1"></a>\rho_i</span>
+<span id="cb1-1088"><a href="#cb1-1088" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1089"><a href="#cb1-1089" aria-hidden="true" tabindex="-1"></a>\frac{\operatorname{Cov}(R_i,R_p)}</span>
+<span id="cb1-1090"><a href="#cb1-1090" aria-hidden="true" tabindex="-1"></a>{\sigma_i\sigma_p}</span>
+<span id="cb1-1091"><a href="#cb1-1091" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1092"><a href="#cb1-1092" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1093"><a href="#cb1-1093" aria-hidden="true" tabindex="-1"></a>라고 하면,</span>
+<span id="cb1-1094"><a href="#cb1-1094" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1095"><a href="#cb1-1095" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1096"><a href="#cb1-1096" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1097"><a href="#cb1-1097" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_i</span>
+<span id="cb1-1098"><a href="#cb1-1098" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1099"><a href="#cb1-1099" aria-hidden="true" tabindex="-1"></a>z_\alpha\sigma_iw_iW_0\rho_i <span class="sc">\\</span></span>
+<span id="cb1-1100"><a href="#cb1-1100" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1101"><a href="#cb1-1101" aria-hidden="true" tabindex="-1"></a>\operatorname{sign}(w_i)\rho_i\mathrm{VaR}_i.</span>
+<span id="cb1-1102"><a href="#cb1-1102" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1103"><a href="#cb1-1103" aria-hidden="true" tabindex="-1"></a>$$ {#eq-component-individual-var}</span>
+<span id="cb1-1104"><a href="#cb1-1104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1105"><a href="#cb1-1105" aria-hidden="true" tabindex="-1"></a>즉, component VaR는 individual VaR에 포트폴리오와의 상관관계 및 포지션의 방향을 반영한 값이다.</span>
+<span id="cb1-1106"><a href="#cb1-1106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1107"><a href="#cb1-1107" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-1108"><a href="#cb1-1108" aria-hidden="true" tabindex="-1"></a>자산 $i$를 전부 제거하는 변화는 $a_i=-x_i$이다. 일차 근사를 적용하면</span>
+<span id="cb1-1109"><a href="#cb1-1109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1110"><a href="#cb1-1110" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1111"><a href="#cb1-1111" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\mathrm{제거\ 후}}</span>
+<span id="cb1-1112"><a href="#cb1-1112" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-1113"><a href="#cb1-1113" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-1114"><a href="#cb1-1114" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1115"><a href="#cb1-1115" aria-hidden="true" tabindex="-1"></a>-\mathrm{CVaR}_i</span>
+<span id="cb1-1116"><a href="#cb1-1116" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1117"><a href="#cb1-1117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1118"><a href="#cb1-1118" aria-hidden="true" tabindex="-1"></a>이다. 따라서 component VaR는 자산 제거에 따른 VaR 감소액의 근사값으로 볼 수 있다. 다만 전체 포지션 제거는 큰 변화일 수 있으므로, 이 근사가 항상 정확한 것은 아니다.</span>
+<span id="cb1-1119"><a href="#cb1-1119" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1120"><a href="#cb1-1120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1121"><a href="#cb1-1121" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 두 자산의 component VaR</span></span>
+<span id="cb1-1122"><a href="#cb1-1122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1123"><a href="#cb1-1123" aria-hidden="true" tabindex="-1"></a>앞의 두 자산 예제에서 component VaR는 다음과 같다.</span>
+<span id="cb1-1124"><a href="#cb1-1124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1125"><a href="#cb1-1125" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1126"><a href="#cb1-1126" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1127"><a href="#cb1-1127" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_1</span>
+<span id="cb1-1128"><a href="#cb1-1128" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1129"><a href="#cb1-1129" aria-hidden="true" tabindex="-1"></a>2{,}500\Delta\mathrm{VaR}_1</span>
+<span id="cb1-1130"><a href="#cb1-1130" aria-hidden="true" tabindex="-1"></a>\approx67.21, <span class="sc">\\</span></span>
+<span id="cb1-1131"><a href="#cb1-1131" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_2</span>
+<span id="cb1-1132"><a href="#cb1-1132" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1133"><a href="#cb1-1133" aria-hidden="true" tabindex="-1"></a>7{,}500\Delta\mathrm{VaR}_2</span>
+<span id="cb1-1134"><a href="#cb1-1134" aria-hidden="true" tabindex="-1"></a>\approx1{,}467.56.</span>
+<span id="cb1-1135"><a href="#cb1-1135" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1136"><a href="#cb1-1136" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1137"><a href="#cb1-1137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1138"><a href="#cb1-1138" aria-hidden="true" tabindex="-1"></a>두 기여분의 합은 포트폴리오 VaR와 같다.</span>
+<span id="cb1-1139"><a href="#cb1-1139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1140"><a href="#cb1-1140" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1141"><a href="#cb1-1141" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_1+\mathrm{CVaR}_2</span>
+<span id="cb1-1142"><a href="#cb1-1142" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1143"><a href="#cb1-1143" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-1144"><a href="#cb1-1144" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1145"><a href="#cb1-1145" aria-hidden="true" tabindex="-1"></a>1{,}534.77.</span>
+<span id="cb1-1146"><a href="#cb1-1146" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1147"><a href="#cb1-1147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1148"><a href="#cb1-1148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 자산   <span class="pp">|</span> 투자 금액 <span class="pp">|</span> Individual VaR <span class="pp">|</span> Component VaR <span class="pp">|</span> 위험 기여 비율 <span class="pp">|</span></span>
+<span id="cb1-1149"><a href="#cb1-1149" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-------|----------:|---------------:|--------------:|---------------:|</span></span>
+<span id="cb1-1150"><a href="#cb1-1150" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 자산 1 <span class="pp">|</span>     2,500 <span class="pp">|</span>         205.61 <span class="pp">|</span>         67.21 <span class="pp">|</span>          4.38% <span class="pp">|</span></span>
+<span id="cb1-1151"><a href="#cb1-1151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 자산 2 <span class="pp">|</span>     7,500 <span class="pp">|</span>       1,480.37 <span class="pp">|</span>      1,467.56 <span class="pp">|</span>         95.62% <span class="pp">|</span></span>
+<span id="cb1-1152"><a href="#cb1-1152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1153"><a href="#cb1-1153" aria-hidden="true" tabindex="-1"></a>: 두 자산의 개별 위험과 포트폴리오 위험 기여도</span>
+<span id="cb1-1154"><a href="#cb1-1154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1155"><a href="#cb1-1155" aria-hidden="true" tabindex="-1"></a>자산 1은 전체 투자금의 25%를 차지하지만 VaR 기여 비율은 약 4.38%이다. 투자 비중과 위험 기여 비율은 서로 다르며, 위험 기여 비율은 변동성과 자산 사이의 관계도 반영한다.</span>
+<span id="cb1-1156"><a href="#cb1-1156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1157"><a href="#cb1-1157" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 공매도를 포함한 포트폴리오</span></span>
+<span id="cb1-1158"><a href="#cb1-1158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1159"><a href="#cb1-1159" aria-hidden="true" tabindex="-1"></a>같은 공분산 행렬을 사용하되, 초기 자본 10,000달러를 다음 비중으로 투자한다고 하자.</span>
+<span id="cb1-1160"><a href="#cb1-1160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1161"><a href="#cb1-1161" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1162"><a href="#cb1-1162" aria-hidden="true" tabindex="-1"></a>\mathbf{w}</span>
+<span id="cb1-1163"><a href="#cb1-1163" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1164"><a href="#cb1-1164" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1165"><a href="#cb1-1165" aria-hidden="true" tabindex="-1"></a>1.5 <span class="sc">\\</span></span>
+<span id="cb1-1166"><a href="#cb1-1166" aria-hidden="true" tabindex="-1"></a>-0.5</span>
+<span id="cb1-1167"><a href="#cb1-1167" aria-hidden="true" tabindex="-1"></a>\end{bmatrix},</span>
+<span id="cb1-1168"><a href="#cb1-1168" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1169"><a href="#cb1-1169" aria-hidden="true" tabindex="-1"></a>\mathbf{x}</span>
+<span id="cb1-1170"><a href="#cb1-1170" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1171"><a href="#cb1-1171" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1172"><a href="#cb1-1172" aria-hidden="true" tabindex="-1"></a>15{,}000 <span class="sc">\\</span></span>
+<span id="cb1-1173"><a href="#cb1-1173" aria-hidden="true" tabindex="-1"></a>-5{,}000</span>
+<span id="cb1-1174"><a href="#cb1-1174" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-1175"><a href="#cb1-1175" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1176"><a href="#cb1-1176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1177"><a href="#cb1-1177" aria-hidden="true" tabindex="-1"></a>자산 2를 5,000달러만큼 공매도하고, 그 대금을 초기 자본과 함께 자산 1에 투자한 경우이다.</span>
+<span id="cb1-1178"><a href="#cb1-1178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1179"><a href="#cb1-1179" aria-hidden="true" tabindex="-1"></a>포트폴리오의 분산과 VaR는 다음과 같다.</span>
+<span id="cb1-1180"><a href="#cb1-1180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1181"><a href="#cb1-1181" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1182"><a href="#cb1-1182" aria-hidden="true" tabindex="-1"></a>\sigma_p^2</span>
+<span id="cb1-1183"><a href="#cb1-1183" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1184"><a href="#cb1-1184" aria-hidden="true" tabindex="-1"></a>\mathbf{w}^{\top}\mathbf{C}\mathbf{w}</span>
+<span id="cb1-1185"><a href="#cb1-1185" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1186"><a href="#cb1-1186" aria-hidden="true" tabindex="-1"></a>0.007425,</span>
+<span id="cb1-1187"><a href="#cb1-1187" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1188"><a href="#cb1-1188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1189"><a href="#cb1-1189" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1190"><a href="#cb1-1190" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-1191"><a href="#cb1-1191" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1192"><a href="#cb1-1192" aria-hidden="true" tabindex="-1"></a>z_{0.05}\sqrt{0.007425}\times10{,}000</span>
+<span id="cb1-1193"><a href="#cb1-1193" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1194"><a href="#cb1-1194" aria-hidden="true" tabindex="-1"></a>1{,}417.34.</span>
+<span id="cb1-1195"><a href="#cb1-1195" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1196"><a href="#cb1-1196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1197"><a href="#cb1-1197" aria-hidden="true" tabindex="-1"></a>각 자산과 포트폴리오의 공분산은</span>
+<span id="cb1-1198"><a href="#cb1-1198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1199"><a href="#cb1-1199" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1200"><a href="#cb1-1200" aria-hidden="true" tabindex="-1"></a>\mathbf{C}\mathbf{w}</span>
+<span id="cb1-1201"><a href="#cb1-1201" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1202"><a href="#cb1-1202" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1203"><a href="#cb1-1203" aria-hidden="true" tabindex="-1"></a>0.00315 <span class="sc">\\</span></span>
+<span id="cb1-1204"><a href="#cb1-1204" aria-hidden="true" tabindex="-1"></a>-0.0054</span>
+<span id="cb1-1205"><a href="#cb1-1205" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-1206"><a href="#cb1-1206" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1207"><a href="#cb1-1207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1208"><a href="#cb1-1208" aria-hidden="true" tabindex="-1"></a>이므로, marginal VaR는 다음과 같다.</span>
+<span id="cb1-1209"><a href="#cb1-1209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1210"><a href="#cb1-1210" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1211"><a href="#cb1-1211" aria-hidden="true" tabindex="-1"></a>\Delta\boldsymbol{\mathrm{VaR}}</span>
+<span id="cb1-1212"><a href="#cb1-1212" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1213"><a href="#cb1-1213" aria-hidden="true" tabindex="-1"></a>\frac{z_{0.05}}{\sqrt{0.007425}}</span>
+<span id="cb1-1214"><a href="#cb1-1214" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1215"><a href="#cb1-1215" aria-hidden="true" tabindex="-1"></a>0.00315 <span class="sc">\\</span></span>
+<span id="cb1-1216"><a href="#cb1-1216" aria-hidden="true" tabindex="-1"></a>-0.0054</span>
+<span id="cb1-1217"><a href="#cb1-1217" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-1218"><a href="#cb1-1218" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1219"><a href="#cb1-1219" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1220"><a href="#cb1-1220" aria-hidden="true" tabindex="-1"></a>0.060130 <span class="sc">\\</span></span>
+<span id="cb1-1221"><a href="#cb1-1221" aria-hidden="true" tabindex="-1"></a>-0.103080</span>
+<span id="cb1-1222"><a href="#cb1-1222" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-1223"><a href="#cb1-1223" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1224"><a href="#cb1-1224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1225"><a href="#cb1-1225" aria-hidden="true" tabindex="-1"></a>Component VaR는 각 투자 금액을 곱하여 계산한다.</span>
+<span id="cb1-1226"><a href="#cb1-1226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1227"><a href="#cb1-1227" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1228"><a href="#cb1-1228" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1229"><a href="#cb1-1229" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_1</span>
+<span id="cb1-1230"><a href="#cb1-1230" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1231"><a href="#cb1-1231" aria-hidden="true" tabindex="-1"></a>15{,}000\Delta\mathrm{VaR}_1</span>
+<span id="cb1-1232"><a href="#cb1-1232" aria-hidden="true" tabindex="-1"></a>\approx901.95, <span class="sc">\\</span></span>
+<span id="cb1-1233"><a href="#cb1-1233" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_2</span>
+<span id="cb1-1234"><a href="#cb1-1234" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1235"><a href="#cb1-1235" aria-hidden="true" tabindex="-1"></a>(-5{,}000)\Delta\mathrm{VaR}_2</span>
+<span id="cb1-1236"><a href="#cb1-1236" aria-hidden="true" tabindex="-1"></a>\approx515.40.</span>
+<span id="cb1-1237"><a href="#cb1-1237" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1238"><a href="#cb1-1238" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1239"><a href="#cb1-1239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1240"><a href="#cb1-1240" aria-hidden="true" tabindex="-1"></a>반올림 전 값으로 계산하면 두 component VaR의 합은 포트폴리오 VaR와 정확히 같다.</span>
+<span id="cb1-1241"><a href="#cb1-1241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1242"><a href="#cb1-1242" aria-hidden="true" tabindex="-1"></a>상관계수와 individual VaR를 이용해도 같은 결과를 얻는다.</span>
+<span id="cb1-1243"><a href="#cb1-1243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1244"><a href="#cb1-1244" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1245"><a href="#cb1-1245" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1246"><a href="#cb1-1246" aria-hidden="true" tabindex="-1"></a>\rho_1</span>
+<span id="cb1-1247"><a href="#cb1-1247" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1248"><a href="#cb1-1248" aria-hidden="true" tabindex="-1"></a>\frac{0.00315}{0.05\sqrt{0.007425}}</span>
+<span id="cb1-1249"><a href="#cb1-1249" aria-hidden="true" tabindex="-1"></a>\approx0.7311, <span class="sc">\\</span></span>
+<span id="cb1-1250"><a href="#cb1-1250" aria-hidden="true" tabindex="-1"></a>\rho_2</span>
+<span id="cb1-1251"><a href="#cb1-1251" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1252"><a href="#cb1-1252" aria-hidden="true" tabindex="-1"></a>\frac{-0.0054}{0.12\sqrt{0.007425}}</span>
+<span id="cb1-1253"><a href="#cb1-1253" aria-hidden="true" tabindex="-1"></a>\approx-0.5222.</span>
+<span id="cb1-1254"><a href="#cb1-1254" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1255"><a href="#cb1-1255" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1256"><a href="#cb1-1256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1257"><a href="#cb1-1257" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1258"><a href="#cb1-1258" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_1\approx1{,}233.64,</span>
+<span id="cb1-1259"><a href="#cb1-1259" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1260"><a href="#cb1-1260" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_2\approx986.91.</span>
+<span id="cb1-1261"><a href="#cb1-1261" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1262"><a href="#cb1-1262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1263"><a href="#cb1-1263" aria-hidden="true" tabindex="-1"></a>따라서 식 @eq-component-individual-var 에 의해</span>
+<span id="cb1-1264"><a href="#cb1-1264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1265"><a href="#cb1-1265" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1266"><a href="#cb1-1266" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_1</span>
+<span id="cb1-1267"><a href="#cb1-1267" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1268"><a href="#cb1-1268" aria-hidden="true" tabindex="-1"></a>\rho_1\mathrm{VaR}_1,</span>
+<span id="cb1-1269"><a href="#cb1-1269" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1270"><a href="#cb1-1270" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_2</span>
+<span id="cb1-1271"><a href="#cb1-1271" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1272"><a href="#cb1-1272" aria-hidden="true" tabindex="-1"></a>-\rho_2\mathrm{VaR}_2</span>
+<span id="cb1-1273"><a href="#cb1-1273" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1274"><a href="#cb1-1274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1275"><a href="#cb1-1275" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-1276"><a href="#cb1-1276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1277"><a href="#cb1-1277" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb1-1278"><a href="#cb1-1278" aria-hidden="true" tabindex="-1"></a>자산 2의 marginal VaR는 음수이지만 component VaR는 양수이다.</span>
+<span id="cb1-1279"><a href="#cb1-1279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1280"><a href="#cb1-1280" aria-hidden="true" tabindex="-1"></a>Marginal VaR가 음수라는 것은 $x_2$를 증가시키면, 즉 현재의 공매도 규모를 줄이면 VaR가 감소한다는 뜻이다. 반대로 공매도 규모를 더 늘리면 $x_2$는 더 작아지므로 VaR가 증가한다. 위험 기여도를 해석할 때는 marginal VaR의 부호와 포지션의 부호를 함께 보아야 한다.</span>
+<span id="cb1-1281"><a href="#cb1-1281" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1282"><a href="#cb1-1282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1283"><a href="#cb1-1283" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 세 자산의 VaR와 위험 기여도</span></span>
+<span id="cb1-1284"><a href="#cb1-1284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1285"><a href="#cb1-1285" aria-hidden="true" tabindex="-1"></a>세 자산의 연간 수익률이 다변량 정규분포를 따르고, 기대수익률은 모두 0이라고 하자. 표준편차와 상관계수는 다음과 같다.</span>
+<span id="cb1-1286"><a href="#cb1-1286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1287"><a href="#cb1-1287" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1288"><a href="#cb1-1288" aria-hidden="true" tabindex="-1"></a>\sigma_1=0.1,</span>
+<span id="cb1-1289"><a href="#cb1-1289" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1290"><a href="#cb1-1290" aria-hidden="true" tabindex="-1"></a>\sigma_2=0.3,</span>
+<span id="cb1-1291"><a href="#cb1-1291" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1292"><a href="#cb1-1292" aria-hidden="true" tabindex="-1"></a>\sigma_3=0.4,</span>
+<span id="cb1-1293"><a href="#cb1-1293" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1294"><a href="#cb1-1294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1295"><a href="#cb1-1295" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1296"><a href="#cb1-1296" aria-hidden="true" tabindex="-1"></a>\rho_{12}=0.7,</span>
+<span id="cb1-1297"><a href="#cb1-1297" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1298"><a href="#cb1-1298" aria-hidden="true" tabindex="-1"></a>\rho_{13}=-0.2,</span>
+<span id="cb1-1299"><a href="#cb1-1299" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1300"><a href="#cb1-1300" aria-hidden="true" tabindex="-1"></a>\rho_{23}=-0.3.</span>
+<span id="cb1-1301"><a href="#cb1-1301" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1302"><a href="#cb1-1302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1303"><a href="#cb1-1303" aria-hidden="true" tabindex="-1"></a>이에 따른 공분산 행렬은 다음과 같다.</span>
+<span id="cb1-1304"><a href="#cb1-1304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1305"><a href="#cb1-1305" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1306"><a href="#cb1-1306" aria-hidden="true" tabindex="-1"></a>\mathbf{C}</span>
+<span id="cb1-1307"><a href="#cb1-1307" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1308"><a href="#cb1-1308" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1309"><a href="#cb1-1309" aria-hidden="true" tabindex="-1"></a>0.01 &amp; 0.021 &amp; -0.008 <span class="sc">\\</span></span>
+<span id="cb1-1310"><a href="#cb1-1310" aria-hidden="true" tabindex="-1"></a>0.021 &amp; 0.09 &amp; -0.036 <span class="sc">\\</span></span>
+<span id="cb1-1311"><a href="#cb1-1311" aria-hidden="true" tabindex="-1"></a>-0.008 &amp; -0.036 &amp; 0.16</span>
+<span id="cb1-1312"><a href="#cb1-1312" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-1313"><a href="#cb1-1313" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1314"><a href="#cb1-1314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1315"><a href="#cb1-1315" aria-hidden="true" tabindex="-1"></a>초기 자본 1,000달러를 $4<span class="sc">:4:</span>2$의 비율로 투자하면,</span>
+<span id="cb1-1316"><a href="#cb1-1316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1317"><a href="#cb1-1317" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1318"><a href="#cb1-1318" aria-hidden="true" tabindex="-1"></a>\mathbf{w}</span>
+<span id="cb1-1319"><a href="#cb1-1319" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1320"><a href="#cb1-1320" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1321"><a href="#cb1-1321" aria-hidden="true" tabindex="-1"></a>0.4 <span class="sc">\\</span></span>
+<span id="cb1-1322"><a href="#cb1-1322" aria-hidden="true" tabindex="-1"></a>0.4 <span class="sc">\\</span></span>
+<span id="cb1-1323"><a href="#cb1-1323" aria-hidden="true" tabindex="-1"></a>0.2</span>
+<span id="cb1-1324"><a href="#cb1-1324" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-1325"><a href="#cb1-1325" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1326"><a href="#cb1-1326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1327"><a href="#cb1-1327" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-1328"><a href="#cb1-1328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1329"><a href="#cb1-1329" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 포트폴리오 VaR</span></span>
+<span id="cb1-1330"><a href="#cb1-1330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1331"><a href="#cb1-1331" aria-hidden="true" tabindex="-1"></a>포트폴리오 분산은</span>
+<span id="cb1-1332"><a href="#cb1-1332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1333"><a href="#cb1-1333" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1334"><a href="#cb1-1334" aria-hidden="true" tabindex="-1"></a>\sigma_p^2</span>
+<span id="cb1-1335"><a href="#cb1-1335" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1336"><a href="#cb1-1336" aria-hidden="true" tabindex="-1"></a>\mathbf{w}^{\top}\mathbf{C}\mathbf{w}</span>
+<span id="cb1-1337"><a href="#cb1-1337" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1338"><a href="#cb1-1338" aria-hidden="true" tabindex="-1"></a>0.02208</span>
+<span id="cb1-1339"><a href="#cb1-1339" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1340"><a href="#cb1-1340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1341"><a href="#cb1-1341" aria-hidden="true" tabindex="-1"></a>이므로, 1년 95% VaR는 다음과 같다.</span>
+<span id="cb1-1342"><a href="#cb1-1342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1343"><a href="#cb1-1343" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1344"><a href="#cb1-1344" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p</span>
+<span id="cb1-1345"><a href="#cb1-1345" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1346"><a href="#cb1-1346" aria-hidden="true" tabindex="-1"></a>z_{0.05}\sqrt{0.02208}\times1{,}000</span>
+<span id="cb1-1347"><a href="#cb1-1347" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1348"><a href="#cb1-1348" aria-hidden="true" tabindex="-1"></a>244.41.</span>
+<span id="cb1-1349"><a href="#cb1-1349" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1350"><a href="#cb1-1350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1351"><a href="#cb1-1351" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Marginal VaR</span></span>
+<span id="cb1-1352"><a href="#cb1-1352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1353"><a href="#cb1-1353" aria-hidden="true" tabindex="-1"></a>각 자산과 포트폴리오 사이의 공분산은 다음과 같다.</span>
+<span id="cb1-1354"><a href="#cb1-1354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1355"><a href="#cb1-1355" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1356"><a href="#cb1-1356" aria-hidden="true" tabindex="-1"></a>\mathbf{C}\mathbf{w}</span>
+<span id="cb1-1357"><a href="#cb1-1357" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1358"><a href="#cb1-1358" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1359"><a href="#cb1-1359" aria-hidden="true" tabindex="-1"></a>0.01\times0.4+0.021\times0.4-0.008\times0.2 <span class="sc">\\</span></span>
+<span id="cb1-1360"><a href="#cb1-1360" aria-hidden="true" tabindex="-1"></a>0.021\times0.4+0.09\times0.4-0.036\times0.2 <span class="sc">\\</span></span>
+<span id="cb1-1361"><a href="#cb1-1361" aria-hidden="true" tabindex="-1"></a>-0.008\times0.4-0.036\times0.4+0.16\times0.2</span>
+<span id="cb1-1362"><a href="#cb1-1362" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-1363"><a href="#cb1-1363" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1364"><a href="#cb1-1364" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1365"><a href="#cb1-1365" aria-hidden="true" tabindex="-1"></a>0.0108 <span class="sc">\\</span></span>
+<span id="cb1-1366"><a href="#cb1-1366" aria-hidden="true" tabindex="-1"></a>0.0372 <span class="sc">\\</span></span>
+<span id="cb1-1367"><a href="#cb1-1367" aria-hidden="true" tabindex="-1"></a>0.0144</span>
+<span id="cb1-1368"><a href="#cb1-1368" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-1369"><a href="#cb1-1369" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1370"><a href="#cb1-1370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1371"><a href="#cb1-1371" aria-hidden="true" tabindex="-1"></a>따라서 marginal VaR는 다음과 같다.</span>
+<span id="cb1-1372"><a href="#cb1-1372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1373"><a href="#cb1-1373" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1374"><a href="#cb1-1374" aria-hidden="true" tabindex="-1"></a>\Delta\boldsymbol{\mathrm{VaR}}</span>
+<span id="cb1-1375"><a href="#cb1-1375" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1376"><a href="#cb1-1376" aria-hidden="true" tabindex="-1"></a>\frac{z_{0.05}}{\sqrt{0.02208}}</span>
+<span id="cb1-1377"><a href="#cb1-1377" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1378"><a href="#cb1-1378" aria-hidden="true" tabindex="-1"></a>0.0108 <span class="sc">\\</span></span>
+<span id="cb1-1379"><a href="#cb1-1379" aria-hidden="true" tabindex="-1"></a>0.0372 <span class="sc">\\</span></span>
+<span id="cb1-1380"><a href="#cb1-1380" aria-hidden="true" tabindex="-1"></a>0.0144</span>
+<span id="cb1-1381"><a href="#cb1-1381" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-1382"><a href="#cb1-1382" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1383"><a href="#cb1-1383" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1384"><a href="#cb1-1384" aria-hidden="true" tabindex="-1"></a>0.119551 <span class="sc">\\</span></span>
+<span id="cb1-1385"><a href="#cb1-1385" aria-hidden="true" tabindex="-1"></a>0.411785 <span class="sc">\\</span></span>
+<span id="cb1-1386"><a href="#cb1-1386" aria-hidden="true" tabindex="-1"></a>0.159401</span>
+<span id="cb1-1387"><a href="#cb1-1387" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-1388"><a href="#cb1-1388" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1389"><a href="#cb1-1389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1390"><a href="#cb1-1390" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 투자 비중 변경과 incremental VaR</span></span>
+<span id="cb1-1391"><a href="#cb1-1391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1392"><a href="#cb1-1392" aria-hidden="true" tabindex="-1"></a>자산 1의 투자 금액을 50달러 늘리고, 자산 2와 자산 3의 투자 금액을 각각 25달러 줄인다고 하자.</span>
+<span id="cb1-1393"><a href="#cb1-1393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1394"><a href="#cb1-1394" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1395"><a href="#cb1-1395" aria-hidden="true" tabindex="-1"></a>\mathbf{a}</span>
+<span id="cb1-1396"><a href="#cb1-1396" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1397"><a href="#cb1-1397" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1398"><a href="#cb1-1398" aria-hidden="true" tabindex="-1"></a>50 <span class="sc">\\</span></span>
+<span id="cb1-1399"><a href="#cb1-1399" aria-hidden="true" tabindex="-1"></a>-25 <span class="sc">\\</span></span>
+<span id="cb1-1400"><a href="#cb1-1400" aria-hidden="true" tabindex="-1"></a>-25</span>
+<span id="cb1-1401"><a href="#cb1-1401" aria-hidden="true" tabindex="-1"></a>\end{bmatrix},</span>
+<span id="cb1-1402"><a href="#cb1-1402" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1403"><a href="#cb1-1403" aria-hidden="true" tabindex="-1"></a>\mathbf{w}_{\mathrm{new}}</span>
+<span id="cb1-1404"><a href="#cb1-1404" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1405"><a href="#cb1-1405" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1406"><a href="#cb1-1406" aria-hidden="true" tabindex="-1"></a>0.45 <span class="sc">\\</span></span>
+<span id="cb1-1407"><a href="#cb1-1407" aria-hidden="true" tabindex="-1"></a>0.375 <span class="sc">\\</span></span>
+<span id="cb1-1408"><a href="#cb1-1408" aria-hidden="true" tabindex="-1"></a>0.175</span>
+<span id="cb1-1409"><a href="#cb1-1409" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-1410"><a href="#cb1-1410" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1411"><a href="#cb1-1411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1412"><a href="#cb1-1412" aria-hidden="true" tabindex="-1"></a>변경 후 분산과 VaR는 다음과 같다.</span>
+<span id="cb1-1413"><a href="#cb1-1413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1414"><a href="#cb1-1414" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1415"><a href="#cb1-1415" aria-hidden="true" tabindex="-1"></a>\sigma_{\mathrm{new}}^2</span>
+<span id="cb1-1416"><a href="#cb1-1416" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1417"><a href="#cb1-1417" aria-hidden="true" tabindex="-1"></a>\mathbf{w}_{\mathrm{new}}^{\top}</span>
+<span id="cb1-1418"><a href="#cb1-1418" aria-hidden="true" tabindex="-1"></a>\mathbf{C}</span>
+<span id="cb1-1419"><a href="#cb1-1419" aria-hidden="true" tabindex="-1"></a>\mathbf{w}_{\mathrm{new}}</span>
+<span id="cb1-1420"><a href="#cb1-1420" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1421"><a href="#cb1-1421" aria-hidden="true" tabindex="-1"></a>0.02068375,</span>
+<span id="cb1-1422"><a href="#cb1-1422" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1423"><a href="#cb1-1423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1424"><a href="#cb1-1424" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1425"><a href="#cb1-1425" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_{\mathrm{new}}</span>
+<span id="cb1-1426"><a href="#cb1-1426" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1427"><a href="#cb1-1427" aria-hidden="true" tabindex="-1"></a>z_{0.05}\sqrt{0.02068375}\times1{,}000</span>
+<span id="cb1-1428"><a href="#cb1-1428" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1429"><a href="#cb1-1429" aria-hidden="true" tabindex="-1"></a>236.56.</span>
+<span id="cb1-1430"><a href="#cb1-1430" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1431"><a href="#cb1-1431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1432"><a href="#cb1-1432" aria-hidden="true" tabindex="-1"></a>따라서 실제 incremental VaR는 약 $-7.85$달러이다.</span>
+<span id="cb1-1433"><a href="#cb1-1433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1434"><a href="#cb1-1434" aria-hidden="true" tabindex="-1"></a>한편 marginal VaR를 이용하면,</span>
+<span id="cb1-1435"><a href="#cb1-1435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1436"><a href="#cb1-1436" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1437"><a href="#cb1-1437" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1438"><a href="#cb1-1438" aria-hidden="true" tabindex="-1"></a>\mathrm{IVaR}(\mathbf{a})</span>
+<span id="cb1-1439"><a href="#cb1-1439" aria-hidden="true" tabindex="-1"></a>&amp;\approx</span>
+<span id="cb1-1440"><a href="#cb1-1440" aria-hidden="true" tabindex="-1"></a>50\Delta\mathrm{VaR}_1</span>
+<span id="cb1-1441"><a href="#cb1-1441" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-1442"><a href="#cb1-1442" aria-hidden="true" tabindex="-1"></a>25\Delta\mathrm{VaR}_2</span>
+<span id="cb1-1443"><a href="#cb1-1443" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-1444"><a href="#cb1-1444" aria-hidden="true" tabindex="-1"></a>25\Delta\mathrm{VaR}_3 <span class="sc">\\</span></span>
+<span id="cb1-1445"><a href="#cb1-1445" aria-hidden="true" tabindex="-1"></a>&amp;\approx</span>
+<span id="cb1-1446"><a href="#cb1-1446" aria-hidden="true" tabindex="-1"></a>-8.30</span>
+<span id="cb1-1447"><a href="#cb1-1447" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1448"><a href="#cb1-1448" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1449"><a href="#cb1-1449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1450"><a href="#cb1-1450" aria-hidden="true" tabindex="-1"></a>이다. 변경 후 VaR의 일차 근사값은 약 236.11달러로, 직접 계산한 236.56달러와 약 0.45달러 차이가 난다.</span>
+<span id="cb1-1451"><a href="#cb1-1451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1452"><a href="#cb1-1452" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Component VaR</span></span>
+<span id="cb1-1453"><a href="#cb1-1453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1454"><a href="#cb1-1454" aria-hidden="true" tabindex="-1"></a>변경 전 $4<span class="sc">:4:</span>2$ 포트폴리오의 component VaR는 다음과 같다.</span>
+<span id="cb1-1455"><a href="#cb1-1455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1456"><a href="#cb1-1456" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1457"><a href="#cb1-1457" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1458"><a href="#cb1-1458" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_1</span>
+<span id="cb1-1459"><a href="#cb1-1459" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1460"><a href="#cb1-1460" aria-hidden="true" tabindex="-1"></a>400\Delta\mathrm{VaR}_1</span>
+<span id="cb1-1461"><a href="#cb1-1461" aria-hidden="true" tabindex="-1"></a>\approx47.82, <span class="sc">\\</span></span>
+<span id="cb1-1462"><a href="#cb1-1462" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_2</span>
+<span id="cb1-1463"><a href="#cb1-1463" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1464"><a href="#cb1-1464" aria-hidden="true" tabindex="-1"></a>400\Delta\mathrm{VaR}_2</span>
+<span id="cb1-1465"><a href="#cb1-1465" aria-hidden="true" tabindex="-1"></a>\approx164.71, <span class="sc">\\</span></span>
+<span id="cb1-1466"><a href="#cb1-1466" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_3</span>
+<span id="cb1-1467"><a href="#cb1-1467" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1468"><a href="#cb1-1468" aria-hidden="true" tabindex="-1"></a>200\Delta\mathrm{VaR}_3</span>
+<span id="cb1-1469"><a href="#cb1-1469" aria-hidden="true" tabindex="-1"></a>\approx31.88.</span>
+<span id="cb1-1470"><a href="#cb1-1470" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1471"><a href="#cb1-1471" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1472"><a href="#cb1-1472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1473"><a href="#cb1-1473" aria-hidden="true" tabindex="-1"></a>이들의 합은 포트폴리오 VaR인 약 244.41달러이다. 자산 1과 자산 2의 투자 금액은 같지만, 전체 VaR에 대한 기여도는 자산 2가 훨씬 크다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
