@@ -1471,3 +1471,391 @@ $$
 $$
 
 이들의 합은 포트폴리오 VaR인 약 244.41달러이다. 자산 1과 자산 2의 투자 금액은 같지만, 전체 VaR에 대한 기여도는 자산 2가 훨씬 크다.
+
+## Portfolio ES
+
+포트폴리오 VaR를 자산별 민감도와 위험 기여도로 나누었듯이, ES도 marginal ES와 component ES로 나눌 수 있다.
+
+이 절에서도 자산 수익률은 다변량 정규분포를 따르고 기대수익률은 모두 0이라고 가정한다. 또한 앞 절과 같이 $W_0>0$, $\sigma_p>0$, $0<\alpha<0.5$로 둔다.
+
+### 포트폴리오 ES의 계산
+
+포트폴리오 손익은
+
+$$
+X_p
+=
+W_0R_p
+\sim
+N(0,W_0^2\sigma_p^2)
+$$
+
+을 따른다. 따라서 정규분포의 ES 공식인 식 @eq-normal-es 에 의해 포트폴리오 ES는 다음과 같다.
+
+$$
+\begin{aligned}
+\mathrm{ES}_p
+&=
+\frac{\phi(z_\alpha)}{\alpha}
+\sigma_pW_0 \\
+&=
+\frac{\phi(z_\alpha)}{\alpha}
+\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}.
+\end{aligned}
+$$ {#eq-portfolio-es}
+
+여기서 $\phi$는 표준정규분포의 확률밀도함수이다.
+
+포트폴리오 VaR와 비교하면, $z_\alpha$ 대신 $\phi(z_\alpha)/\alpha$를 곱한다는 차이가 있다.
+
+$$
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+=
+\frac{\phi(z_\alpha)}{\alpha z_\alpha}.
+$$ {#eq-portfolio-es-var-ratio}
+
+현재의 가정 아래에서 이 비율은 포트폴리오의 투자 비중이나 공분산 행렬과 무관하며, 유의수준 $\alpha$에만 의존한다.
+
+예를 들어 $\alpha=0.01$이면
+
+$$
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+\approx
+\frac{2.6652}{2.3263}
+\approx
+1.1457
+$$
+
+이다. 같은 포트폴리오의 99% ES는 99% VaR보다 약 14.6% 크다.
+
+::: {.callout-note}
+VaR와 ES 사이의 일정한 비율은 기대수익률을 0으로 둔 정규분포 모형의 결과이다. 기대수익률을 포함하거나 분포의 형태가 달라지면 이 비율이 유의수준만으로 결정되지는 않는다.
+:::
+
+### Marginal ES
+
+자산 $i$의 marginal ES는 다른 자산의 투자 금액을 고정한 상태에서 $x_i$를 미소하게 변화시킬 때의 포트폴리오 ES 변화율이다.
+
+$$
+\Delta\mathrm{ES}_i
+=
+\frac{\partial\mathrm{ES}_p}{\partial x_i}.
+$$
+
+식 @eq-portfolio-es 를 미분하면 다음과 같다.
+
+$$
+\begin{aligned}
+\Delta\mathrm{ES}_i
+&=
+\frac{\phi(z_\alpha)}{\alpha}
+\frac{(\mathbf{C}\mathbf{x})_i}
+{\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}} \\
+&=
+\frac{\phi(z_\alpha)}{\alpha}
+\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p}.
+\end{aligned}
+$$ {#eq-marginal-es}
+
+Marginal VaR와 비교하면 다음 비례 관계가 성립한다.
+
+$$
+\Delta\mathrm{ES}_i
+=
+\frac{\phi(z_\alpha)}{\alpha z_\alpha}
+\Delta\mathrm{VaR}_i
+=
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+\Delta\mathrm{VaR}_i.
+$$ {#eq-marginal-es-var}
+
+비례상수가 양수이므로, 현재의 정규분포 모형에서는 자산별 marginal ES의 순위와 marginal VaR의 순위가 같다.
+
+작은 포지션 변경 $\mathbf{a}$에 대해서는 ES의 변화도 다음과 같이 근사할 수 있다.
+
+$$
+\mathrm{ES}(\mathbf{x}+\mathbf{a})
+-
+\mathrm{ES}(\mathbf{x})
+\approx
+\sum_{i=1}^{N}
+a_i\Delta\mathrm{ES}_i.
+$$
+
+### Marginal ES의 꼬리위험 해석
+
+Marginal ES는 포트폴리오가 큰 손실을 보는 상황에서 해당 자산이 어떤 성과를 내는지와 연결된다.
+
+정규분포에 한정하지 않고, 포트폴리오 손익을
+
+$$
+X_p=\sum_{j=1}^{N}x_jR_j
+$$
+
+라고 하자. 꼬리 사건의 확률이 정확히 $\alpha$이고, 기댓값의 존재 및 미분에 필요한 정칙조건이 성립하면 다음과 같이 나타낼 수 있다.
+
+$$
+\Delta\mathrm{ES}_i
+=
+-\mathbb{E}
+\left[
+R_i
+\mid
+X_p\leq-\mathrm{VaR}_\alpha(X_p)
+\right].
+$$ {#eq-marginal-es-tail}
+
+즉, marginal ES는 포트폴리오의 손익이 하위 $\alpha$ 영역에 있을 때 자산 $i$의 평균 수익률에 음수를 붙인 값이다.
+
+같은 식을 지시함수로 표현하면 다음과 같다.
+
+$$
+\Delta\mathrm{ES}_i
+=
+-\frac{1}{\alpha}
+\mathbb{E}
+\left[
+R_i
+\mathbf{1}_{\{
+X_p\leq-\mathrm{VaR}_\alpha(X_p)
+\}}
+\right].
+$$
+
+여기서 $\mathbf{1}_{A}$는 사건 $A$가 발생하면 1, 그렇지 않으면 0인 지시함수이다. 조건부기댓값은 이미 꼬리 사건의 확률로 나눈 평균이므로, 식 @eq-marginal-es-tail 에는 $1/\alpha$를 다시 곱하지 않는다.
+
+포트폴리오가 큰 손실을 볼 때 함께 손실을 보는 자산은 양의 marginal ES를 갖는다. 반대로 그 상황에서 평균적으로 이익을 내는 자산은 음의 marginal ES를 가질 수 있다.
+
+::: {.callout-warning}
+이산형 분포에서는 VaR 경계점에 확률질량이 있어 꼬리 사건의 확률이 정확히 $\alpha$가 되지 않을 수 있다. 이때는 위 조건부기댓값을 그대로 적용하지 않고, ES의 일반적 정의에 맞춰 경계점의 확률질량을 배분해야 한다. 미분이 존재하지 않는 경우에는 marginal ES의 취급에도 추가적인 주의가 필요하다.
+:::
+
+### Component ES
+
+자산 $i$의 component ES는 투자 금액과 marginal ES의 곱으로 정의한다.
+
+$$
+\mathrm{CES}_i
+=
+x_i\Delta\mathrm{ES}_i
+=
+w_iW_0\Delta\mathrm{ES}_i.
+$$ {#eq-component-es}
+
+정규분포 모형에서는
+
+$$
+\begin{aligned}
+\mathrm{CES}_i
+&=
+w_iW_0
+\frac{\phi(z_\alpha)}{\alpha}
+\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p} \\
+&=
+w_i\beta_i\mathrm{ES}_p.
+\end{aligned}
+$$ {#eq-component-es-beta}
+
+Component VaR와 마찬가지로 투자 비중과 포트폴리오에 대한 베타를 함께 반영한다.
+
+#### 합산 성질
+
+각 자산의 component ES를 더하면 포트폴리오 ES가 된다.
+
+$$
+\begin{aligned}
+\sum_{i=1}^{N}\mathrm{CES}_i
+&=
+\frac{\phi(z_\alpha)W_0}{\alpha\sigma_p}
+\sum_{i=1}^{N}
+w_i\operatorname{Cov}(R_i,R_p) \\
+&=
+\frac{\phi(z_\alpha)W_0}{\alpha\sigma_p}
+\sigma_p^2 \\
+&=
+\mathrm{ES}_p.
+\end{aligned}
+$$ {#eq-component-es-sum}
+
+따라서 component ES는 포트폴리오 전체의 평균 꼬리손실을 각 자산의 기여분으로 나누어 보여 준다.
+
+식 @eq-marginal-es-tail 을 적용할 수 있는 경우에는 다음 해석도 가능하다.
+
+$$
+\mathrm{CES}_i
+=
+-\mathbb{E}
+\left[
+x_iR_i
+\mid
+X_p\leq-\mathrm{VaR}_\alpha(X_p)
+\right].
+$$
+
+즉, 포트폴리오가 큰 손실을 보는 상황에서 해당 포지션이 평균적으로 부담하는 손실이다. 그 상황에서 평균적으로 이익을 내는 포지션은 음의 component ES를 갖는다.
+
+#### VaR 기여도와의 비교
+
+식 @eq-marginal-es-var 에 투자 금액 $x_i$를 곱하면 다음을 얻는다.
+
+$$
+\mathrm{CES}_i
+=
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+\mathrm{CVaR}_i.
+$$
+
+따라서 현재의 정규분포 모형에서는 각 자산의 VaR 기여 비율과 ES 기여 비율이 같다.
+
+$$
+\frac{\mathrm{CES}_i}{\mathrm{ES}_p}
+=
+\frac{\mathrm{CVaR}_i}{\mathrm{VaR}_p}
+=
+w_i\beta_i.
+$$ {#eq-var-es-contribution-share}
+
+ES의 전체 위험 금액은 VaR보다 크지만, 자산별로 나누는 비율은 동일한 것이다. 일반적인 비정규분포에서는 이 관계가 성립하지 않을 수 있다.
+
+::: {.callout-note}
+위험 기여분의 합이 전체 위험과 같아지는 성질은 위험 측도의 양의 동차성과 미분 가능성에 연결된다. 이를 Euler 분해라고 한다.
+
+ES의 부가산성은 분산투자 효과를 일관되게 반영하는 별도의 성질이다. ES가 일관된 위험 측도라는 사실만으로, 현재의 marginal ES가 큰 포지션 변경까지 정확히 설명하는 것은 아니다.
+:::
+
+### 예제: 두 자산의 ES와 위험 기여도
+
+앞의 두 자산 VaR 예제와 같은 포트폴리오를 이용한다.
+
+$$
+\mathbf{C}
+=
+\begin{bmatrix}
+0.0025 & 0.0012 \\
+0.0012 & 0.0144
+\end{bmatrix},
+\qquad
+\mathbf{w}
+=
+\begin{bmatrix}
+0.25 \\
+0.75
+\end{bmatrix},
+\qquad
+W_0=10{,}000.
+$$
+
+이 포트폴리오에서 앞서 구한 값은 다음과 같다.
+
+$$
+\sigma_p^2=0.00870625,
+\qquad
+\mathrm{VaR}_p\approx1{,}534.77,
+$$
+
+$$
+\operatorname{Cov}(R_1,R_p)=0.001525,
+\qquad
+\operatorname{Cov}(R_2,R_p)=0.0111.
+$$
+
+#### 포트폴리오 ES
+
+95% 신뢰수준에서는 $\alpha=0.05$이고,
+
+$$
+z_{0.05}\approx1.6448536,
+\qquad
+\frac{\phi(z_{0.05})}{0.05}
+\approx2.0627128
+$$
+
+이다. 따라서 포트폴리오 ES는 다음과 같다.
+
+$$
+\begin{aligned}
+\mathrm{ES}_p
+&=
+\frac{\phi(z_{0.05})}{0.05}
+\sqrt{0.00870625}\times10{,}000 \\
+&\approx
+1{,}924.66.
+\end{aligned}
+$$
+
+VaR와의 비율은
+
+$$
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+=
+\frac{\phi(z_{0.05})}{0.05z_{0.05}}
+\approx
+1.2540
+$$
+
+이다. 이 포트폴리오의 95% ES는 95% VaR보다 약 25.4% 크다.
+
+#### Marginal ES
+
+식 @eq-marginal-es 를 이용하면 다음과 같다.
+
+$$
+\Delta\boldsymbol{\mathrm{ES}}
+=
+\frac{\phi(z_{0.05})}
+{0.05\sqrt{0.00870625}}
+\begin{bmatrix}
+0.001525 \\
+0.0111
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+0.033713 \\
+0.245384
+\end{bmatrix}.
+$$
+
+현재 포트폴리오에서 자산 2에 1달러를 추가하면 ES는 약 0.2454달러 증가한다. 자산 1에 1달러를 추가할 때의 증가분은 약 0.0337달러이다.
+
+이 값들은 각각의 marginal VaR에 약 1.2540을 곱한 값과 같다.
+
+#### Component ES
+
+각 투자 금액을 marginal ES에 곱하면 다음과 같다.
+
+$$
+\begin{aligned}
+\mathrm{CES}_1
+&=
+2{,}500\Delta\mathrm{ES}_1
+\approx84.28, \\
+\mathrm{CES}_2
+&=
+7{,}500\Delta\mathrm{ES}_2
+\approx1{,}840.38.
+\end{aligned}
+$$
+
+두 기여분의 합은 포트폴리오 ES와 같다.
+
+$$
+\mathrm{CES}_1+\mathrm{CES}_2
+=
+\mathrm{ES}_p
+\approx
+1{,}924.66.
+$$
+
+#### 위험 기여 비율 비교
+
+| 자산 | Component VaR | VaR 기여 비율 | Component ES | ES 기여 비율 |
+|:---|---:|---:|---:|---:|
+| 자산 1 | 67.21 | 4.38% | 84.28 | 4.38% |
+| 자산 2 | 1,467.56 | 95.62% | 1,840.38 | 95.62% |
+| 합계 | 1,534.77 | 100.00% | 1,924.66 | 100.00% |
+
+: 두 자산 포트폴리오의 VaR와 ES 기여도 비교
+
+ES는 VaR를 넘어서는 손실의 크기를 반영하므로 전체 위험 금액과 각 자산의 기여액이 더 크다. 그러나 기대수익률을 0으로 둔 정규분포 모형에서는 위험 기여 비율이 동일하다.
+
+실제 수익률 분포가 정규분포와 다르면 자산별 꼬리손실의 형태도 달라질 수 있다. 이때 ES 기여도를 분석하면 포트폴리오가 극단적인 손실을 보는 상황에서 어떤 포지션이 손실을 키우고, 어떤 포지션이 이를 완화하는지 살펴볼 수 있다.
