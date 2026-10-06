@@ -373,6 +373,22 @@ window.Quarto = {
   <li><a href="#선도-계약" id="toc-선도-계약" class="nav-link" data-scroll-target="#선도-계약"><span class="header-section-number">5.5.1</span> 선도 계약</a></li>
   <li><a href="#선물" id="toc-선물" class="nav-link" data-scroll-target="#선물"><span class="header-section-number">5.5.2</span> 선물</a></li>
   </ul></li>
+  <li><a href="#sec-options" id="toc-sec-options" class="nav-link" data-scroll-target="#sec-options"><span class="header-section-number">5.6</span> 옵션</a>
+  <ul class="collapse">
+  <li><a href="#sec-option-payoff" id="toc-sec-option-payoff" class="nav-link" data-scroll-target="#sec-option-payoff"><span class="header-section-number">5.6.1</span> 페이오프 (Payoff)</a></li>
+  <li><a href="#sec-option-pnl" id="toc-sec-option-pnl" class="nav-link" data-scroll-target="#sec-option-pnl"><span class="header-section-number">5.6.2</span> 손익</a></li>
+  <li><a href="#sec-moneyness" id="toc-sec-moneyness" class="nav-link" data-scroll-target="#sec-moneyness"><span class="header-section-number">5.6.3</span> 가격도 (moneyness)</a></li>
+  <li><a href="#sec-option-time-value" id="toc-sec-option-time-value" class="nav-link" data-scroll-target="#sec-option-time-value"><span class="header-section-number">5.6.4</span> 내재 가치와 시간 가치</a></li>
+  </ul></li>
+  <li><a href="#sec-put-call-parity" id="toc-sec-put-call-parity" class="nav-link" data-scroll-target="#sec-put-call-parity"><span class="header-section-number">5.7</span> 풋-콜 대칭성 (Put-call parity)</a></li>
+  <li><a href="#sec-option-types" id="toc-sec-option-types" class="nav-link" data-scroll-target="#sec-option-types"><span class="header-section-number">5.8</span> 옵션의 종류</a>
+  <ul class="collapse">
+  <li><a href="#아메리칸-옵션" id="toc-아메리칸-옵션" class="nav-link" data-scroll-target="#아메리칸-옵션"><span class="header-section-number">5.8.1</span> 아메리칸 옵션</a></li>
+  <li><a href="#아시안-옵션" id="toc-아시안-옵션" class="nav-link" data-scroll-target="#아시안-옵션"><span class="header-section-number">5.8.2</span> 아시안 옵션</a></li>
+  <li><a href="#디지털-옵션" id="toc-디지털-옵션" class="nav-link" data-scroll-target="#디지털-옵션"><span class="header-section-number">5.8.3</span> 디지털 옵션</a></li>
+  <li><a href="#배리어-옵션" id="toc-배리어-옵션" class="nav-link" data-scroll-target="#배리어-옵션"><span class="header-section-number">5.8.4</span> 배리어 옵션</a></li>
+  <li><a href="#유러피안-옵션의-조합" id="toc-유러피안-옵션의-조합" class="nav-link" data-scroll-target="#유러피안-옵션의-조합"><span class="header-section-number">5.8.5</span> 유러피안 옵션의 조합</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/05-derivatives/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
     </div>
@@ -761,6 +777,400 @@ F_S(0, T) = f_S(0, T).
 <p>기초 자산 가격이 상승하면, 선물 거래에서 매입자가 이득을 본다. 이때, 기초 자산과 이자율의 양의 상관관계에 의해 이자율도 높아졌을 가능성이 높은데, 선물 거래에서 이득을 본 금액을 중간 정산으로 받아, 예금하여 높은 이자를 받을 수 있으며 매입자의 이득을 증대시킨다. 반대로 자산 가격이 하락하면, 선물 매입자는 선물 거래에서 손해를 보지만, 손해를 충당하기 위해 대출로 자금을 조달 받을 때 적용된 이자율이 낮아졌을 가능성이 높아 이런 점이 매입자에게 유리하게 적용된다. 한편, 선도 거래는 중간 정산이 없기 때문에 이러한 중간 과정이 이루어지지 않아 위 논의와는 관계가 없다.</p>
 <p>반대로 기초 자산과 이자율이 음의 상관관계를 지니면 선물 가격이 선도 가격보다 낮다. 자산 가격이 상승하면, 선물 매입자는 선물 거래에서 이득을 보지만, 이를 이자 시장에 재투자할 때, 낮은 금리를 받을 가능성이 높다. 자산 가격이 하락하면, 선물 거래에서 손해를 보며, 손해를 조달하기 위해 대출 시장을 이용한다면 높은 금리가 적용될 가능성이 크다. 이러한 점들은 선물 매입자에게 불리하게 적용되고 이에 따라 선물 가격이 낮아진다.</p>
 <p>하지만 실제 세상에서는 더 많은 요인들이 선물 가격과 선도 가격의 차이에 영향을 미치며, 이자율과 기초 자산 가격 사이의 상관관계는 그다지 중요한 문제가 아닐 가능성이 높다. 선물 거래는 거래소에서 증거금 계좌를 바탕으로 이루어지기 때문에, 증거금의 조달 비용과 그외 거래 비용, 선도 거래에서의 신용 위험 등이 보다 더 가격에 영향을 미치는 요인에 해당된다. 선도 거래와 선물 거래는 비슷한 점이 많지만 여러 요인에 의해 다르게 구분될 요소들 또한 존재한다. 그럼에도 이론의 간결성을 위해 선물 가격과 선도 가격은 종종 같다고 놓고 논의가 전개되며, 많은 경우에 큰 문제가 되지 않는다.</p>
+</section>
+</section>
+<section id="sec-options" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="sec-options"><span class="header-section-number">5.6</span> 옵션</h2>
+<p>옵션은 미리 정해진 가격에 주식, 지수, 환율 등의 자산을 향후 일정 기간 동안 혹은 만기일에 사거나 팔 수 있는 권리를 거래하는 파생상품이다. 선도나 선물이 거래 양측에 모두 만기에 거래 의무를 부여하는데 반해, 옵션은 매수자에게는 거래 권리가 주어지고 매도자는 거래 의무가 부여된다. 즉, 옵션 매수자는 손익 구조를 보고 판단하여, 기초 자산의 매수 혹은 매도를 진행할 수도 있고 포기할 수도 있다. 매도자는 옵션 매수자가 권리를 행사하면 응해야 한다. 이러한 특성 때문에 옵션은 비선형적인 페이오프 구조의 특징을 지니며, 시장에서 형성된 옵션 가격으로 시장 참여자들의 위험에 대한 태도를 유추할 수 있다. 옵션은 거래소와 장외 시장에서 모두 거래될 수 있으나, 주요 옵션들은 거래소에서 거래된다.</p>
+<p>유러피안 콜 옵션 (European call option)은 만기 시점 <span class="math inline">\(T\)</span>에 옵션의 구매자가 기초자산을 미리 지정한 가격 <span class="math inline">\(K\)</span>에 매수할 수 있는 권리를 구입하는 거래를 말한다. 선도 거래와는 달리 매수할 권리만을 구입하기 때문에, 만기 시점에 <span class="math inline">\(K\)</span>의 가격에 기초자산을 구입하는 것이 손해라고 생각되면, 즉, 만기 시점의 기초자산의 가격이 <span class="math inline">\(K\)</span>보다 작다면, 자연스럽게 <span class="math inline">\(K\)</span>의 가격으로 기초자산 구매하는 것을 포기하게 된다. 행사 가격인 <span class="math inline">\(K\)</span>보다 시장에서의 가격으로 기초자산을 구입하는 것이 낫기 때문이다. 반대로 만기 시점의 기초자산의 가격이 <span class="math inline">\(K\)</span>보다 크다면, 차액만큼 저렴하게 기초자산을 구매할 수 있으므로, 매수자는 매수 권리를 행사하며, 매도자는 지정된 행사가 <span class="math inline">\(K\)</span>에 기초자산을 판매한다.</p>
+<p>비슷하게 유러피안 풋 옵션 (European put option)은 만기 시점 <span class="math inline">\(T\)</span>에 구매자가 기초자산을 미리 지정한 가격 <span class="math inline">\(K\)</span>에 매도할 수 있는 권리를 구입하는 거래이다. 마찬가지로, 만기 시점의 기초자산의 가격이 <span class="math inline">\(K\)</span>보다 크다면, 옵션 매입자는 자연스럽게 기초자산 매도를 포기하게 된다. 반대로 만기 시점의 기초자산의 가격이 <span class="math inline">\(K\)</span>보다 작다면, 차액만큼 비싸게 기초자산을 매도한다.</p>
+<p>유러피안 옵션 거래에 있어서 다음의 사항들을 미리 정해야 한다.</p>
+<ul>
+<li><span class="math inline">\(S\)</span> : 기초 자산 (underlying asset)</li>
+<li><span class="math inline">\(T\)</span> : 만기일 (maturity date, expiry date)</li>
+<li><span class="math inline">\(K\)</span> : 행사 가격 (strike price, exercise price)</li>
+<li>매수자와 매도자</li>
+</ul>
+<section id="sec-option-payoff" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="sec-option-payoff"><span class="header-section-number">5.6.1</span> 페이오프 (Payoff)</h3>
+<p>옵션 거래로 인한 이득을 따지기 위해서는 <span class="math inline">\(T\)</span> 시점에서 기초자산의 가격 <span class="math inline">\(S_T\)</span>와 행사 가격 <span class="math inline">\(K\)</span>를 이용하여 페이오프 (payoff) 함수를 정의하는 것이 편리하다. 유러피안 콜 옵션 매수자의 만기 시점에 받게 되는 payoff는 다음과 같으며, <span class="math display">\[ \max(S_T - K, 0) = (S_T - K)^{+}\]</span> <a href="#fig-call-long" class="quarto-xref">그림&nbsp;<span>5.2 (a)</span></a> 로 표현하였다. 위 수식은 옵션의 페이오프를 표현하는 식이며 좌변이 활용되기도 하고 우변으로 표현되기도 한다. 만약 <span class="math inline">\(S_T &lt; K\)</span>이면 옵션 매수자는 옵션 행사 권리를 포기할 것이므로, payoff는 0이며, <span class="math inline">\(S_T &gt; K\)</span>이면 <span class="math inline">\(S_T - K\)</span>만큼 이득을 얻는다. 옵션 매도자의 payoff는 옵션 매입자의 페이오프의 음의 값으로, <span class="math display">\[  - \max(S_T - K, 0) =  - (S_T - K)^{+}\]</span> 이며, <a href="#fig-call-short" class="quarto-xref">그림&nbsp;<span>5.2 (b)</span></a> 으로 표현된다. 간단히 말해 콜 옵션 매수자는 기초 자산의 가격이 상승하면 양의 payoff를 받고, 매도자는 음의 payoff를 지닌다.</p>
+<p>또한, 유러피안 풋 옵션 매수자의 만기 시점 payoff는 다음과 같으며, <span class="math display">\[ \max(K - S_T, 0) = (K - S_T)^{+}\]</span> <a href="#fig-put-long" class="quarto-xref">그림&nbsp;<span>5.2 (c)</span></a> 에 나타내었다. 풋 옵션 매수자는 기초 자산의 가격이 하락하면 양의 payoff를 받는다. 매도자는 위의 음의 값으로 <span class="math display">\[ - \max(K - S_T, 0) = - (K - S_T)^{+}\]</span> 이며 <a href="#fig-put-short" class="quarto-xref">그림&nbsp;<span>5.2 (d)</span></a> 에 나타내었다.</p>
+<div id="fig-option-payoff" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-option-payoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-payoff" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-call-long" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-call-long-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Call_long_payoff.svg" class="img-fluid figure-img" data-ref-parent="fig-option-payoff">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-call-long-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) 콜 옵션 매입
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-payoff" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-call-short" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-call-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Call_short_payoff.svg" class="img-fluid figure-img" data-ref-parent="fig-option-payoff">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-call-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) 콜 옵션 매도
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-payoff" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-put-long" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-put-long-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Put_long_payoff.svg" class="img-fluid figure-img" data-ref-parent="fig-option-payoff">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-put-long-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) 풋 옵션 매입
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-payoff" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-put-short" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-put-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Put_short_payoff.svg" class="img-fluid figure-img" data-ref-parent="fig-option-payoff">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-put-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) 풋 옵션 매도
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-option-payoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;5.2: 유러피언 옵션 포지션으로부터의 payoff
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-option-pnl" class="level3" data-number="5.6.2">
+<h3 data-number="5.6.2" class="anchored" data-anchor-id="sec-option-pnl"><span class="header-section-number">5.6.2</span> 손익</h3>
+<p><a href="#fig-option-payoff" class="quarto-xref">그림&nbsp;<span>5.2</span></a> 만 보면 유러피안 옵션의 매수자들은 만기 시의 기초자산 가격에 따라 이득을 보거나 최소한 손해는 보지 않는 것으로 payoff가 형성된다. 따라서, 무차익 거래를 위해서는 옵션 거래 계약 시에 옵션 매수자가 매도자에게 적절한 값을 지불해야 한다. 이를 옵션 가격 혹은 옵션 프리미엄이라고 부른다. 옵션 가격은 시장에서 수요와 공급의 법칙에 의해 결정되지만, 우리는 추후에 몇 가지 옵션 가격 결정 모형들에 대해서 알아볼 것이다.</p>
+<p>옵션 거래로 인한 손익은 옵션 가격과 payoff의 합으로 표현된다. <a href="#fig-option-pnl" class="quarto-xref">그림&nbsp;<span>5.3</span></a> 에서는 옵션의 각 포지션 별로 손익을 나타내었다. 전체적인 형태는 앞의 그림과 같지만, 옵션 가격만큼 <span class="math inline">\(y\)</span> 방향으로 평행 이동한 형태이다. 옵션 매수자의 경우 옵션 프리미엄을 지급한 만큼 손실로 음의 값을 지니고, 옵션 매도자의 경우 옵션 가격을 지급받아 그만큼 양의 값을 지닌다.</p>
+<div id="fig-option-pnl" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-option-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-pnl" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-call-long-pnl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-call-long-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Call_long_pnl.svg" class="img-fluid figure-img" data-ref-parent="fig-option-pnl">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-call-long-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) 콜 옵션 매입
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-pnl" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-call-short-pnl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-call-short-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Call_short_pnl.svg" class="img-fluid figure-img" data-ref-parent="fig-option-pnl">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-call-short-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) 콜 옵션 매도
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-pnl" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-put-long-pnl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-put-long-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Put_long_pnl.svg" class="img-fluid figure-img" data-ref-parent="fig-option-pnl">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-put-long-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) 풋 옵션 매입
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-pnl" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-put-short-pnl" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-put-short-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_Put_short_pnl.svg" class="img-fluid figure-img" data-ref-parent="fig-option-pnl">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-put-short-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(d) 풋 옵션 매도
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-option-pnl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;5.3: 유러피언 옵션 포지션으로부터의 손익 구조
+</figcaption>
+</figure>
+</div>
+<p>옵션은 선도나 선물 거래처럼 투기, 혹은 헷징의 목적으로 거래된다. 기초 자산의 가격이 상승할 것이라 예측하면 투기의 목적으로 콜 옵션을 구매할 수 있다. 비슷하게 기초 자산의 가격이 상승할 것이 걱정되면 헷지의 목적으로 콜 옵션을 구매할 것이다. 마찬가지로 기초 자산의 가격이 하락할 것으로 예측되거나 하락의 위험이 걱정된다면 풋 옵션을 구매한다. 옵션 거래는 자산 가격의 변화 뿐만 아니라 변동성의 변화에 대해 대응하기 위해서도 거래된다. 이에 대해서는 잠시 후에 살펴본다.</p>
+<p>이자와 거래비용을 무시하면, 옵션 매수자의 최대 손실은 지급한 프리미엄이다. 옵션 매도자는 받은 프리미엄에 비해 큰 손실을 볼 수 있다. 콜 옵션 매도자의 손실은 기초자산 가격이 상승할수록 커지며 이론적으로 한도가 없다. 반면 기초자산 가격이 0 이상이라면, 풋 옵션 매도자의 최대 손실은 행사가격에서 받은 프리미엄을 뺀 금액이다. <a href="#fig-call-short-pnl" class="quarto-xref">그림&nbsp;<span>5.3 (b)</span></a> 와 <a href="#fig-put-short-pnl" class="quarto-xref">그림&nbsp;<span>5.3 (d)</span></a> 을 다시 살펴보라.</p>
+</section>
+<section id="sec-moneyness" class="level3" data-number="5.6.3">
+<h3 data-number="5.6.3" class="anchored" data-anchor-id="sec-moneyness"><span class="header-section-number">5.6.3</span> 가격도 (moneyness)</h3>
+<p>기초 자산의 가격과 옵션의 행사 가격의 관계를 가격도 (moneyness)라고 하며, 크게 내가격 (in the money, ITM), 등가격 (at the money, ATM), 외가격 (out of the money, OTM)으로 구분한다. 현재의 주식 가격을 <span class="math inline">\(S_t\)</span>라 하자. 콜 옵션의 경우 <span class="math inline">\(S_t &gt; K\)</span>이면 내가격, <span class="math inline">\(S_t=K\)</span>이면 등가격, <span class="math inline">\(S_t&lt;K\)</span>이면 외가격이라고 한다. 맥락에 따라 <span class="math inline">\(S_t \approx K\)</span>이어도 등가격이라고 부를 수 있다. 풋 옵션의 경우 반대로 <span class="math inline">\(S_t &lt; K\)</span>이면 내가격, <span class="math inline">\(S_t=K\)</span>이면 등가격, <span class="math inline">\(S_t&gt;K\)</span>이면 외가격이다. 임의의 <span class="math inline">\(t \leq T\)</span>에서 가격도를 정의할 수 있으며, 내가격에 있을 경우 옵션의 가치가 높고 외가격에 있을 경우 가치가 낮다. 경우에 따라 등가격으로부터 멀리 떨어져 있을 경우, 심내가격 (deep in the money), 심외가격 (deep out of the money) 등의 용어를 사용하기도 한다. 아래의 그림에서 왼쪽은 임의의 <span class="math inline">\(t\)</span> 시점에 콜 옵션의 가격도를 나타낸 것이고, 오른쪽은 풋 옵션의 가격도를 나타낸 것이다.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch5_moneyness_call.svg" class="img-fluid figure-img"></p>
+<figcaption>콜 옵션의 가격도</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch5_moneyness_put.svg" class="img-fluid figure-img"></p>
+<figcaption>풋 옵션의 가격도</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-option-time-value" class="level3" data-number="5.6.4">
+<h3 data-number="5.6.4" class="anchored" data-anchor-id="sec-option-time-value"><span class="header-section-number">5.6.4</span> 내재 가치와 시간 가치</h3>
+<p>옵션의 가치는 내재 가치 (intrinsic value)와 시간 가치 (time value)의 합이다. 이 중 내재 가치는 옵션의 payoff 공식을 통해 정의된다. 즉, 유러피안 콜 옵션과 풋 옵션의 <span class="math inline">\(t\)</span> 시점에서의 내재 가치는 각각 <span class="math display">\[ (S_t - K)^{+}, \quad (K-S_t)^+\]</span> 이다. 따라서 외가격에 있을 경우, 옵션의 내재 가치는 0이다.</p>
+<p>하지만 자산 가격이 외가격에 위치하더라도 옵션의 전체 가치가 0인 것은 아니다. 자산 가격의 변화에 따라 향후에 내가격으로 진입할 가능성이 존재하기 때문이다. 이처럼 시간의 흐름에 따라 얻을 수 있는 잠재적인 가치를 시간 가치라고 한다. 유러피안 콜 옵션의 경우 시간 가치는 항상 양수이며, 유러피안 풋 옵션의 경우도 거의 양의 값이지만, 때로는 음수가 될 수도 있다.</p>
+<p><a href="#fig-call-time-value" class="quarto-xref">그림&nbsp;<span>5.4 (a)</span></a> 에서 붉은 선은 <span class="math inline">\(t\)</span> 시점에서의 유러피언 콜 옵션의 가치를 나타내고, 파란 점선은 옵션의 내재 가치를 나타낸다. 옵션의 가치와 내재 가치의 차이가 시간 가치이며, 만기가 다가올수록 시간 가치는 0으로 수렴한다. 잠재 능력이 발휘되지 않은 스포츠 유망주가 미래에 대스타가 될 가능성만으로 높은 시장 가치를 형성할 수 있는데, 이것을 옵션의 시간 가치로 비유하여 생각하면 이해하기 편하다. 반면, <a href="#fig-put-time-value" class="quarto-xref">그림&nbsp;<span>5.4 (b)</span></a> 에서 풋 옵션의 시간 가치를 보면, 깊은 내가격에서 음수가 될 수도 있다. 콜 옵션의 내가격 영역에서 <span class="math inline">\(S_t\)</span>의 상한은 없는 반면, 풋 옵션의 내가격 영역에서 <span class="math inline">\(S_t\)</span>의 하한은 0으로 제한되기 때문이다.</p>
+<div id="fig-option-time-value" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-option-time-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-time-value" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-call-time-value" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-call-time-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_time_value.svg" class="img-fluid figure-img" data-ref-parent="fig-option-time-value">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-call-time-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) 콜 옵션
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-option-time-value" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-put-time-value" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-put-time-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_time_value_put.svg" class="img-fluid figure-img" data-ref-parent="fig-option-time-value">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-put-time-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) 풋 옵션
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-option-time-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;5.4: 유러피언 옵션의 <span class="math inline">\(t\)</span> 시점에서의 가치와 내재 가치 그리고 시간 가치
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-put-call-parity" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="sec-put-call-parity"><span class="header-section-number">5.7</span> 풋-콜 대칭성 (Put-call parity)</h2>
+<p>이론적으로 유러피안 콜 옵션의 가격이 알려져 있으면 동일한 만기와 행사가격을 가지는 풋 옵션의 가격은 자동으로 결정된다. 이 관계를 풋-콜 대칭성 (put-call parity)라고 한다. 이를 유도하기 위해 동일한 만기 <span class="math inline">\(T\)</span>와 행사가격 <span class="math inline">\(K\)</span>에 대해 다음의 두 포트폴리오를 생각해보자.</p>
+<ul>
+<li>포트폴리오 1 : 유러피언 콜 옵션 1개와 <span class="math inline">\(T\)</span> 시점에 <span class="math inline">\(K\)</span>를 지급하는 무이표채</li>
+<li>포트폴리오 2 : 유러피언 풋 옵션 1개와 주식 1주</li>
+</ul>
+<p>만기 시점에 <span class="math inline">\(S_T &lt; K\)</span>이냐, <span class="math inline">\(S_T &gt; K\)</span>이냐에 따라 각 포트폴리오의 가치를 계산해 보자. 만약 <span class="math inline">\(S_T &lt; K\)</span>이면 풋 옵션만 행사될 것이고, <span class="math inline">\(S_T &gt; K\)</span>이면 콜 옵션만 행사된다. 무이표채와 주식의 가치는 이와는 상관없이 결정된다.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>포트폴리오</th>
+<th>구성 자산</th>
+<th><span class="math inline">\(S_T &gt; K\)</span></th>
+<th><span class="math inline">\(S_T &lt; K\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>포트폴리오 1</td>
+<td>콜 옵션</td>
+<td><span class="math inline">\(S_T - K\)</span></td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>무이표채</td>
+<td><span class="math inline">\(K\)</span></td>
+<td><span class="math inline">\(K\)</span></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>합계</td>
+<td><span class="math inline">\(S_T\)</span></td>
+<td><span class="math inline">\(K\)</span></td>
+</tr>
+<tr class="even">
+<td>포트폴리오 2</td>
+<td>풋 옵션</td>
+<td>0</td>
+<td><span class="math inline">\(K - S_T\)</span></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>주식</td>
+<td><span class="math inline">\(S_T\)</span></td>
+<td><span class="math inline">\(S_T\)</span></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>합계</td>
+<td><span class="math inline">\(S_T\)</span></td>
+<td><span class="math inline">\(K\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>위 표에서와 같이 포트폴리오 1과 2의 <span class="math inline">\(T\)</span> 시점에서의 가치는 <span class="math inline">\(S_T &gt; K\)</span>일 때는 <span class="math inline">\(S_T\)</span>이고, <span class="math inline">\(S_T \le K\)</span>일 때는 <span class="math inline">\(K\)</span>이다. 두 포트폴리오는 <span class="math inline">\(T\)</span> 시점에 동일한 가치를 지니므로, 현재 시점에서도 동일한 가치를 지녀야 한다. 무이표채의 현재 가격은 <span class="math inline">\(K\mathrm{e}^{-rT}\)</span>로 나타낼 수 있으므로, <span class="math display">\[ C_0 + K\mathrm{e}^{-rT} = P_0 + S_0\]</span> 이며, 이 관계를 풋-콜 대칭성 (put-call parity)라고 한다. 만약, 풋-콜 대칭성이 성립하지 않으면, 차익 거래의 기회가 발생한다.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>동일한 만기 <span class="math inline">\(T = 0.2\)</span>와 행사가격 <span class="math inline">\(100\)</span>를 가지는 유러피안 콜 옵션과 풋 옵션의 가격이 다음과 같다고 한다. <span class="math display">\[ C_0 = 10, \quad P_0 = 12 \]</span> 또한 <span class="math inline">\(S_0 = 95\)</span>, <span class="math inline">\(r = 0.05\)</span>이라고 할 때, 풋-콜 대칭성이 성립하는지 살펴보면, <span class="math display">\[
+\begin{aligned}
+&amp;C_0 +  K\mathrm{e}^{-rT} = 10 + 100 \mathrm{e}^{-0.05 \times 0.2} \approx 109 \\
+&amp;P_0 + S_0 = 12 + 95 = 107
+\end{aligned}
+\]</span> 로 $C_0 + K^{-rT} &gt; P_0 + S_0 $이므로 풋-콜 대칭성이 성립하지 않으며, 차익 거래 기회가 발생한다. 콜 옵션을 매도하고 풋 옵션을 매수하는 포지션에서 출발하여 차익 거래 전략을 구성해 보자. 콜 옵션을 매도하고 풋 옵션을 매수하면, 만기 시에 아래 그림과 같은 payoff를 가진다.</p>
+<div id="fig-call-put-payoff" class="quarto-float quarto-figure quarto-figure-center anchored" width="40%">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-call-put-payoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_C_P_payoff.svg" id="fig-call-put-payoff" class="img-fluid figure-img" style="width:40.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-call-put-payoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;5.5
+</figcaption>
+</figure>
+</div>
+<p>이것만으로는 차익 거래를 얻을 수 없지만, payoff의 그래프의 기울기는 <span class="math inline">\(-1\)</span>로 <span class="math inline">\(S_T\)</span>가 클수록 하락하는 구조이므로, 주식 <span class="math inline">\(S\)</span>를 1주 매수하여, (콜 옵션 매도 + 풋 옵션 매수 + 주식 매수)의 payoff의 <span class="math inline">\(S_T\)</span>에 대한 기울기를 0으로 맞춘다. 콜 옵션을 매도하고 풋 옵션과 주식을 매수할 때의 초기 순현금흐름은 <span class="math display">\[ C_0 - P_0 - S_0 = 10 - 12 - 95 = -97 \]</span> 이다. 따라서 무이표채를 발행하여 97을 차입하면 초기 순현금흐름이 0인 포트폴리오를 구성할 수 있다.</p>
+<p>만기에 이르러, 주가가 100보다 작으면 풋 옵션을 행사하여 가지고 있던 주식을 100에 매도한다. 주가가 100보다 크면, 콜 옵션 거래 상대가 콜 옵션을 행사하여, 상대에게 주식을 100에 매도하게 된다. 따라서 어느 경우든지 만기에 100을 수취한다. (콜 옵션 매도 + 풋 옵션 매수 + 주식 매수)의 payoff의 <span class="math inline">\(S_T\)</span>에 대한 기울기가 0이면서 <span class="math inline">\(y\)</span>-절편은 100이기 때문이다. 그림으로 나타내면 다음과 같다.</p>
+<div id="fig-call-put-stock-payoff" class="quarto-float quarto-figure quarto-figure-center anchored" width="40%">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-call-put-stock-payoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_C_P_S_payoff.svg" id="fig-call-put-stock-payoff" class="img-fluid figure-img" style="width:40.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-call-put-stock-payoff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;5.6
+</figcaption>
+</figure>
+</div>
+<p>한편, 발행한 무이표채는 <span class="math display">\[ 97 \times \mathrm{e}^{0.05 \times 0.2} \approx 98\]</span> 의 금액으로 청산한다. 따라서 어떤 경우든지 <span class="math inline">\(100 - 98 = 2\)</span>의 이득이 발생하며, 초기 비용이 0이었기 때문에 차익 거래이다.</p>
+</div>
+</div>
+</section>
+<section id="sec-option-types" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="sec-option-types"><span class="header-section-number">5.8</span> 옵션의 종류</h2>
+<p>앞서 유러피언 옵션에 대해 살펴보았다. 이 자료의 향후 내용에서는 거의 유러피언 옵션에 대해 공부할 예정이지만, 간략하게 다양한 옵션의 종류에 대해 살펴 본다.</p>
+<section id="아메리칸-옵션" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="아메리칸-옵션"><span class="header-section-number">5.8.1</span> 아메리칸 옵션</h3>
+<p>아메리칸 옵션은 유러피언 옵션과 동일한 payoff 구조를 가졌으나, 매수자가 만기 이전에 언제라도 조기 행사 (early exercise)가 가능하다. 오직 만기일에만 행사가 가능한 유러피안 옵션과의 차이점이다.</p>
+<p>이론적으로 배당이 없는 기초 자산에 대해 동일한 만기와 행사 가격을 가지는 아메리칸 콜 옵션과 유러피안 콜 옵션의 가격은 똑같다. 다시 말해, 아메리칸 콜 옵션의 경우, <span class="math inline">\(t\)</span> 시점에서 조기 행사가 가능하더라도, 만기일까지 기다려보는 것이 더 좋은 전략이다. 콜 옵션을 조기 행사하는 것은 옵션의 시간 가치를 포기하는 것을 뜻한다. 콜 옵션의 조기 행사로 얻어지는 이득으로 옵션의 시간 가치를 능가하는 수익을 얻어야 조기 행사가 의미가 있다. 하지만, <a href="#fig-call-time-value" class="quarto-xref">그림&nbsp;<span>5.4 (a)</span></a> 에서 본 것처럼 콜 옵션의 시간 가치는 상당히 크며, 향후의 어떠한 투자 전략과 비교하더라도, 이 시간 가치를 보유하는 것이 이득이다.</p>
+<p>반면, 아메리칸 풋 옵션의 경우 심내가격에 있을 경우 조기 행사를 하는 것이 이득을 볼 수 있다. <a href="#fig-put-time-value" class="quarto-xref">그림&nbsp;<span>5.4 (b)</span></a> 에서처럼 내가격일 경우 시간 가치는 매우 작으며 심지어 음수가 되기도 한다. 따라서 <span class="math inline">\(S_t\)</span>가 충분히 작을 경우 아메리칸 풋 옵션을 행사하여 이득을 취하는 것이 유리하다. 수치적 방법을 통해 아메리칸 풋 옵션을 조기 행사하면 유리한 영역을 표시하는 경계선을 찾을 수 있다. 자세한 내용은 이 자료의 범위를 벗어나지만, 아메리칸 풋 옵션의 행사 경계선 (exercise boundary)의 예제를 <a href="#fig-option-exercise-boundary" class="quarto-xref">그림&nbsp;<span>5.7</span></a> 에서 살펴보라.</p>
+<div id="fig-option-exercise-boundary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-option-exercise-boundary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../assets/figures/Ch5_exercise_boundary.svg" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-option-exercise-boundary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;5.7: 아메리칸 풋 옵션의 최적 행사 경계선
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="예제">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">힌트</span>예제
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>아메리칸 콜 옵션 매수자가 <span class="math inline">\(t\)</span> 시점에 조기 행사를 하였다고 하자. 그러면 <span class="math inline">\(S_t - K\)</span>의 payoff를 얻는다. 이 금액을 <span class="math inline">\(T\)</span>까지 무위험자산에 투자하면 최종 이득은 <span id="eq-call-early-exercise"><span class="math display">\[
+\mathrm{e}^{r(T-t)} (S_t - K)
+\tag{5.3}\]</span></span> 이다. 이 투자자가 조기 행사를 하는 대신, <span class="math inline">\(S_t\)</span>를 공매하였다고 하자. 공매로 얻은 금액을 무위험자산에 투자하면 <span class="math inline">\(T\)</span>에 <span class="math inline">\(\mathrm{e}^{r(T-t)} S_t\)</span>를 얻는다. 또한, 만기에</p>
+<ul>
+<li><span class="math inline">\(S_T &gt; K\)</span>인 경우 : 옵션을 만기에 행사한다. 즉, <span class="math inline">\(K\)</span>의 금액을 지불하여 주식을 매입한다. 매입한 주식으로 공매한 주식을 갚는다. 따라서 최종 이득은 무위험 자산 투자 결과를 합하여, <span class="math inline">\(\mathrm{e}^{r(T-t)} S_t - K\)</span>이다.</li>
+<li><span class="math inline">\(S_T \leq K\)</span>인 경우 : 옵션은 행사되지 않는다. 시장에서 주식을 <span class="math inline">\(S_T\)</span>에 구입하여 공매한 주식을 갚는다. 무위험 자산 투자 결과를 합하여, <span class="math inline">\(\mathrm{e}^{r(T-t)} S_t - S_T\)</span>의 최종 이득을 얻는다.</li>
+</ul>
+<p>두 경우 모두 <a href="#eq-call-early-exercise" class="quarto-xref">방정식&nbsp;<span>5.3</span></a> 보다 큰 이득이며, 아메리칸 콜 옵션의 조기 행사는 최적의 선택이 아님을 알 수 있다.</p>
+</div>
+</div>
+</section>
+<section id="아시안-옵션" class="level3" data-number="5.8.2">
+<h3 data-number="5.8.2" class="anchored" data-anchor-id="아시안-옵션"><span class="header-section-number">5.8.2</span> 아시안 옵션</h3>
+<p>아시안 옵션의 payoff는 일정 시간 간격으로 관찰된 기초 자산의 평균 가격에 의해 결정된다. 관찰 시점 <span class="math inline">\(0 &lt; t_1 &lt; \cdots t_n = T\)</span>로 주어진다면, 아시안 콜 옵션의 payoff는 <span class="math display">\[ C_T = \left( \frac{1}{n} \sum_{i=1}^{n} S_{t_i} - K \right)^+ \]</span> 이고, 풋 옵션은 <span class="math display">\[ P_T = \left(K - \frac{1}{n} \sum_{i=1}^{n} S_{t_i}  \right)^+ \]</span> 이다. 경우에 따라서는 가격 공식 계산의 편의를 위해 기하 평균을 사용하기도 한다. 유러피안 옵션은 만기의 기초 자산 가격에만 영향을 받지만, 아시안 옵션은 평균적인 자산의 가격의 레벨에 의해 결정되기 때문에, 시장 조작 (market manipulation)의 위험으로부터 상대적으로 안전하다.</p>
+</section>
+<section id="디지털-옵션" class="level3" data-number="5.8.3">
+<h3 data-number="5.8.3" class="anchored" data-anchor-id="디지털-옵션"><span class="header-section-number">5.8.3</span> 디지털 옵션</h3>
+<p>디지털 옵션 (digital option) 혹은 바이너리 옵션 (binary option)은 만기 시에 기초 자산의 가격이 <span class="math inline">\(K\)</span>를 넘느냐 넘지 않느냐에 따라, 1 혹은 0의 payoff를 제공하는 옵션을 말한다. 디지털 콜 옵션의 payoff는 <span class="math display">\[ C_T = \mathbf{1}_{\{S_T &gt; K\}} \]</span> 이다. 즉, 만기일의 주가가 <span class="math inline">\(K\)</span>를 넘어서면 콜 옵션 매수자는 1을 받고, <span class="math inline">\(K\)</span> 이하이면 0을 받는다. 마찬가지로 풋 옵션의 payoff는 <span class="math display">\[ P_T = \mathbf{1}_{\{S_T &lt; K\}} \]</span> 이다.</p>
+</section>
+<section id="배리어-옵션" class="level3" data-number="5.8.4">
+<h3 data-number="5.8.4" class="anchored" data-anchor-id="배리어-옵션"><span class="header-section-number">5.8.4</span> 배리어 옵션</h3>
+<p>배리어 옵션 (barrier option)에는 미리 정해놓은 하나 이상의 실수값 배리어가 있어, 만기에 이르는 동안 자산 가격이 이 배리어들을 넘어가느냐 넘어가지 않느냐에 따라 payoff가 달라진다. 예를 들어 노크인 (knock-in) 옵션은 기초 자산의 가격이 미리 정한 배리어에 도달하여야만 옵션이 유효하다. 반면에 노크아웃 (knock-out) 옵션은 기초 자산의 가격이 배리어에 도달하면 옵션 계약은 무효화되어 종료된다. 만기일까지의 남은 기간 중 일부 구간에서만 배리어를 설정할 수도 있고, 시간에 따라 높이가 다른 배리어를 설정할 수도 있다.</p>
+</section>
+<section id="유러피안-옵션의-조합" class="level3" data-number="5.8.5">
+<h3 data-number="5.8.5" class="anchored" data-anchor-id="유러피안-옵션의-조합"><span class="header-section-number">5.8.5</span> 유러피안 옵션의 조합</h3>
+<p>유러피안 콜 옵션과 풋 옵션을 조합하여 새로운 payoff를 만들어 내는 것이 가능하다. 매우 다양한 종류의 전략이 있지만 이 자료에서는 스트래들 (straddle)과 스트랭글 (strangle)에 대해 간략히 알아본다. 스트래들은 동일한 행사가와 동일한 만기일을 가지는 유러피안 풋옵션과 콜옵션을 동시에 매수하는 옵션 전략이다. 만기 시점에서의 손익 구조는 <a href="#fig-option-combinations" class="quarto-xref">그림&nbsp;<span>5.8</span></a> 의 왼쪽과 같다. 스트랭글 또한 비슷한 옵션 전략으로 행사가는 다르지만 같은 만기를 지니는 유러피안 콜 옵션과 풋 옵션을 매수하는 전략이다. 만기 시점에서의 손익 구조는 <a href="#fig-option-combinations" class="quarto-xref">그림&nbsp;<span>5.8</span></a> 의 오른쪽과 같다. 이 전략들을 통하여 옵션 투자자는 자산 가격이 크게 오르거나 크게 내리면, 즉 자산 가격의 변동이 심하면, 수익을 올릴 수 있다. 반면, 옵션 매도자는 자산 가격이 만기일에 행사 가격에 비해 크게 다르지 않아야 수익을 올릴 것이다.</p>
+<div id="fig-option-combinations" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-option-combinations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch5_straddle.svg" class="img-fluid figure-img"></p>
+<figcaption>스트래들</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../assets/figures/Ch5_strangle.svg" class="img-fluid figure-img"></p>
+<figcaption>스트랭글</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-option-combinations-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;5.8: 동일한 행사 가격을 가진 옵션들로 구성된 스트래들 (왼쪽)과 다른 행사 가격을 가진 옵션들로 구성된 스트랭글 (오른쪽)의 만기 시점에서의 손익 구조
+</figcaption>
+</figure>
+</div>
 
 
 <!-- -->
@@ -1637,7 +2047,318 @@ F_S(0, T) = f_S(0, T).
 <span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a>이자율과 기초 자산 가격 사이의 상관관계는 그다지 중요한 문제가 아닐 가능성이 높다.</span>
 <span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a>선물 거래는 거래소에서 증거금 계좌를 바탕으로 이루어지기 때문에, 증거금의 조달 비용과 그외 거래 비용, 선도 거래에서의 신용 위험 등이 보다 더 가격에 영향을 미치는 요인에 해당된다.</span>
 <span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a>선도 거래와 선물 거래는 비슷한 점이 많지만 여러 요인에 의해 다르게 구분될 요소들 또한 존재한다.</span>
-<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a>그럼에도 이론의 간결성을 위해 선물 가격과 선도 가격은 종종 같다고 놓고 논의가 전개되며, 많은 경우에 큰 문제가 되지 않는다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a>그럼에도 이론의 간결성을 위해 선물 가격과 선도 가격은 종종 같다고 놓고 논의가 전개되며, 많은 경우에 큰 문제가 되지 않는다.</span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a><span class="fu">## 옵션 {#sec-options}</span></span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a>옵션은 미리 정해진 가격에 주식, 지수, 환율 등의 자산을 향후 일정 기간 동안 혹은 만기일에 사거나 팔 수 있는 권리를 거래하는 파생상품이다.</span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a>선도나 선물이 거래 양측에 모두 만기에 거래 의무를 부여하는데 반해,</span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>옵션은 매수자에게는 거래 권리가 주어지고 매도자는 거래 의무가 부여된다.</span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a>즉, 옵션 매수자는 손익 구조를 보고 판단하여, 기초 자산의 매수 혹은 매도를 진행할 수도 있고 포기할 수도 있다.</span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a>매도자는 옵션 매수자가 권리를 행사하면 응해야 한다.</span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a>이러한 특성 때문에 옵션은 비선형적인 페이오프 구조의 특징을 지니며,</span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a>시장에서 형성된 옵션 가격으로 시장 참여자들의 위험에 대한 태도를 유추할 수 있다.</span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a>옵션은 거래소와 장외 시장에서 모두 거래될 수 있으나, 주요 옵션들은 거래소에서 거래된다.</span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>유러피안 콜 옵션 (European call option)은 만기 시점 $T$에 옵션의 구매자가 기초자산을 미리 지정한 가격 $K$에 매수할 수 있는 권리를 구입하는 거래를 말한다.</span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a>선도 거래와는 달리 매수할 권리만을 구입하기 때문에, 만기 시점에 $K$의 가격에 기초자산을 구입하는 것이 손해라고 생각되면, 즉, 만기 시점의 기초자산의 가격이 $K$보다 작다면,</span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a>자연스럽게 $K$의 가격으로 기초자산 구매하는 것을 포기하게 된다.</span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a>행사 가격인 $K$보다 시장에서의 가격으로 기초자산을 구입하는 것이 낫기 때문이다.</span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>반대로  만기 시점의 기초자산의 가격이 $K$보다 크다면, 차액만큼 저렴하게 기초자산을 구매할 수 있으므로, 매수자는 매수 권리를 행사하며, 매도자는 지정된 행사가 $K$에 기초자산을 판매한다.</span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a>비슷하게 유러피안 풋 옵션 (European put option)은 만기 시점 $T$에 구매자가 기초자산을 미리 지정한 가격 $K$에 매도할 수 있는 권리를 구입하는 거래이다.</span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a>마찬가지로, 만기 시점의 기초자산의 가격이 $K$보다 크다면, 옵션 매입자는 자연스럽게 기초자산 매도를 포기하게 된다.</span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a>반대로 만기 시점의 기초자산의 가격이 $K$보다 작다면, 차액만큼 비싸게 기초자산을 매도한다.</span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>유러피안 옵션 거래에 있어서 다음의 사항들을 미리 정해야 한다.</span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$S$ : 기초 자산 (underlying asset)</span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$T$ : 만기일 (maturity date, expiry date)</span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$K$ : 행사 가격 (strike price, exercise price)</span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>매수자와 매도자</span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a><span class="fu">### 페이오프 (Payoff) {#sec-option-payoff}</span></span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a>옵션 거래로 인한 이득을 따지기 위해서는 $T$ 시점에서 기초자산의 가격 $S_T$와 행사 가격 $K$를 이용하여 페이오프 (payoff) 함수를 정의하는 것이 편리하다.</span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a>유러피안 콜 옵션 매수자의 만기 시점에 받게 되는 payoff는 다음과 같으며,</span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a>$$ \max(S_T - K, 0) = (S_T - K)^{+}$$</span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>@fig-call-long 로 표현하였다.</span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a>위 수식은 옵션의 페이오프를 표현하는 식이며 좌변이 활용되기도 하고 우변으로 표현되기도 한다.</span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a>만약 $S_T &lt; K$이면 옵션 매수자는 옵션 행사 권리를 포기할 것이므로, payoff는 0이며,</span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a>$S_T &gt; K$이면 $S_T - K$만큼 이득을 얻는다.</span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a>옵션 매도자의 payoff는 옵션 매입자의 페이오프의 음의 값으로,</span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a>$$  - \max(S_T - K, 0) =  - (S_T - K)^{+}$$</span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a>이며, @fig-call-short 으로 표현된다.</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a>간단히 말해 콜 옵션 매수자는 기초 자산의 가격이 상승하면 양의 payoff를 받고, 매도자는 음의 payoff를 지닌다.</span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a>또한, 유러피안 풋 옵션 매수자의 만기 시점 payoff는 다음과 같으며,</span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a>$$ \max(K - S_T, 0) = (K - S_T)^{+}$$</span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>@fig-put-long 에 나타내었다.</span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>풋 옵션 매수자는 기초 자산의 가격이 하락하면 양의 payoff를 받는다.</span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>매도자는 위의 음의 값으로</span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>$$ - \max(K - S_T, 0) = - (K - S_T)^{+}$$</span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>이며 @fig-put-short 에 나타내었다.</span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>::: {#fig-option-payoff layout-ncol=2}</span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a><span class="al">![콜 옵션 매입](../../assets/figures/Ch5_Call_long_payoff.svg)</span>{#fig-call-long}</span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a><span class="al">![콜 옵션 매도](../../assets/figures/Ch5_Call_short_payoff.svg)</span>{#fig-call-short}</span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a><span class="al">![풋 옵션 매입](../../assets/figures/Ch5_Put_long_payoff.svg)</span>{#fig-put-long}</span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a><span class="al">![풋 옵션 매도](../../assets/figures/Ch5_Put_short_payoff.svg)</span>{#fig-put-short}</span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>유러피언 옵션 포지션으로부터의 payoff</span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a><span class="fu">### 손익 {#sec-option-pnl}</span></span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a>@fig-option-payoff 만 보면 유러피안 옵션의 매수자들은 만기 시의 기초자산 가격에 따라 이득을 보거나 최소한 손해는 보지 않는 것으로 payoff가 형성된다.</span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a>따라서, 무차익 거래를 위해서는 옵션 거래 계약 시에 옵션 매수자가 매도자에게 적절한 값을 지불해야 한다.</span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>이를 옵션 가격 혹은 옵션 프리미엄이라고 부른다.</span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a>옵션 가격은 시장에서 수요와 공급의 법칙에 의해 결정되지만, 우리는 추후에 몇 가지 옵션 가격 결정 모형들에 대해서 알아볼 것이다.</span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a>옵션 거래로 인한 손익은 옵션 가격과 payoff의 합으로 표현된다.</span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a>@fig-option-pnl 에서는 옵션의 각 포지션 별로 손익을 나타내었다.</span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a>전체적인 형태는 앞의 그림과 같지만, 옵션 가격만큼 $y$ 방향으로 평행 이동한 형태이다.</span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a>옵션 매수자의 경우 옵션 프리미엄을 지급한 만큼 손실로 음의 값을 지니고,</span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a>옵션 매도자의 경우 옵션 가격을 지급받아 그만큼 양의 값을 지닌다.</span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a>::: {#fig-option-pnl layout-ncol=2}</span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a><span class="al">![콜 옵션 매입](../../assets/figures/Ch5_Call_long_pnl.svg)</span>{#fig-call-long-pnl}</span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a><span class="al">![콜 옵션 매도](../../assets/figures/Ch5_Call_short_pnl.svg)</span>{#fig-call-short-pnl}</span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a><span class="al">![풋 옵션 매입](../../assets/figures/Ch5_Put_long_pnl.svg)</span>{#fig-put-long-pnl}</span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a><span class="al">![풋 옵션 매도](../../assets/figures/Ch5_Put_short_pnl.svg)</span>{#fig-put-short-pnl}</span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a>유러피언 옵션 포지션으로부터의 손익 구조</span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>옵션은 선도나 선물 거래처럼 투기, 혹은 헷징의 목적으로 거래된다.</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>기초 자산의 가격이 상승할 것이라 예측하면 투기의 목적으로 콜 옵션을 구매할 수 있다.</span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a>비슷하게 기초 자산의 가격이 상승할 것이 걱정되면 헷지의 목적으로 콜 옵션을 구매할 것이다.</span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a>마찬가지로 기초 자산의 가격이 하락할 것으로 예측되거나 하락의 위험이 걱정된다면 풋 옵션을 구매한다.</span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a>옵션 거래는 자산 가격의 변화 뿐만 아니라 변동성의 변화에 대해 대응하기 위해서도 거래된다.</span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a>이에 대해서는 잠시 후에 살펴본다.</span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a>이자와 거래비용을 무시하면, 옵션 매수자의 최대 손실은 지급한 프리미엄이다.</span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a>옵션 매도자는 받은 프리미엄에 비해 큰 손실을 볼 수 있다.</span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a>콜 옵션 매도자의 손실은 기초자산 가격이 상승할수록 커지며 이론적으로 한도가 없다.</span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a>반면 기초자산 가격이 0 이상이라면, 풋 옵션 매도자의 최대 손실은 행사가격에서 받은 프리미엄을 뺀 금액이다.</span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a>@fig-call-short-pnl 와 @fig-put-short-pnl 을 다시 살펴보라.</span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a><span class="fu">### 가격도 (moneyness) {#sec-moneyness}</span></span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a>기초 자산의 가격과 옵션의 행사 가격의 관계를 가격도 (moneyness)라고 하며, 크게 내가격 (in the money, ITM), 등가격 (at the money, ATM), 외가격 (out of the money, OTM)으로 구분한다.</span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a>현재의 주식 가격을 $S_t$라 하자.</span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>콜 옵션의 경우 $S_t &gt; K$이면 내가격, $S_t=K$이면 등가격, $S_t&lt;K$이면 외가격이라고 한다.</span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a>맥락에 따라 $S_t \approx K$이어도 등가격이라고 부를 수 있다.</span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a>풋 옵션의 경우 반대로 $S_t &lt; K$이면 내가격, $S_t=K$이면 등가격, $S_t&gt;K$이면 외가격이다.</span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a>임의의 $t \leq T$에서 가격도를 정의할 수 있으며,</span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a>내가격에 있을 경우 옵션의 가치가 높고 외가격에 있을 경우 가치가 낮다.</span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a>경우에 따라 등가격으로부터 멀리 떨어져 있을 경우, 심내가격 (deep in the money), 심외가격 (deep out of the money) 등의 용어를 사용하기도 한다.</span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a>아래의 그림에서 왼쪽은 임의의 $t$ 시점에 콜 옵션의 가격도를 나타낸 것이고, 오른쪽은 풋 옵션의 가격도를 나타낸 것이다.</span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>::: {layout-ncol=2}</span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a><span class="al">![콜 옵션의 가격도](../../assets/figures/Ch5_moneyness_call.svg)</span></span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a><span class="al">![풋 옵션의 가격도](../../assets/figures/Ch5_moneyness_put.svg)</span></span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a><span class="fu">### 내재 가치와 시간 가치 {#sec-option-time-value}</span></span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a>옵션의 가치는 내재 가치 (intrinsic value)와 시간 가치 (time value)의 합이다.</span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a>이 중 내재 가치는 옵션의 payoff 공식을 통해 정의된다.</span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a>즉, 유러피안 콜 옵션과 풋 옵션의 $t$ 시점에서의 내재 가치는 각각</span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a>$$ (S_t - K)^{+}, \quad (K-S_t)^+$$</span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a>따라서 외가격에 있을 경우, 옵션의 내재 가치는 0이다.</span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a>하지만 자산 가격이 외가격에 위치하더라도 옵션의 전체 가치가 0인 것은 아니다.</span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a>자산 가격의 변화에 따라 향후에 내가격으로 진입할 가능성이 존재하기 때문이다.</span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a>이처럼 시간의 흐름에 따라 얻을 수 있는 잠재적인 가치를 시간 가치라고 한다.</span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>유러피안 콜 옵션의 경우 시간 가치는 항상 양수이며, 유러피안 풋 옵션의 경우도 거의 양의 값이지만, 때로는 음수가 될 수도 있다.</span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>@fig-call-time-value 에서 붉은 선은 $t$ 시점에서의 유러피언 콜 옵션의 가치를 나타내고,</span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a>파란 점선은 옵션의 내재 가치를 나타낸다.</span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a>옵션의 가치와 내재 가치의 차이가 시간 가치이며, 만기가 다가올수록 시간 가치는 0으로 수렴한다.</span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>잠재 능력이 발휘되지 않은 스포츠 유망주가 미래에 대스타가 될 가능성만으로 높은 시장 가치를 형성할 수 있는데, 이것을 옵션의 시간 가치로 비유하여 생각하면 이해하기 편하다.</span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a>반면, @fig-put-time-value 에서 풋 옵션의 시간 가치를 보면, 깊은 내가격에서 음수가 될 수도 있다.</span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a>콜 옵션의 내가격 영역에서 $S_t$의 상한은 없는 반면, 풋 옵션의 내가격 영역에서 $S_t$의 하한은 0으로 제한되기 때문이다.</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a>::: {#fig-option-time-value layout-ncol=2}</span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a><span class="al">![콜 옵션](../../assets/figures/Ch5_time_value.svg)</span>{#fig-call-time-value}</span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a><span class="al">![풋 옵션](../../assets/figures/Ch5_time_value_put.svg)</span>{#fig-put-time-value}</span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a>유러피언 옵션의 $t$ 시점에서의 가치와 내재 가치 그리고 시간 가치</span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a><span class="fu">## 풋-콜 대칭성 (Put-call parity) {#sec-put-call-parity}</span></span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a>이론적으로 유러피안 콜 옵션의 가격이 알려져 있으면 동일한 만기와 행사가격을 가지는 풋 옵션의 가격은 자동으로 결정된다.</span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a>이 관계를 풋-콜 대칭성 (put-call parity)라고 한다.</span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a>이를 유도하기 위해 동일한 만기 $T$와 행사가격 $K$에 대해 다음의 두 포트폴리오를 생각해보자.</span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>포트폴리오 1 : 유러피언 콜 옵션 1개와 $T$ 시점에 $K$를 지급하는 무이표채</span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>포트폴리오 2 : 유러피언 풋 옵션 1개와 주식 1주</span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a>만기 시점에 $S_T &lt; K$이냐, $S_T &gt; K$이냐에 따라 각 포트폴리오의 가치를 계산해 보자.</span>
+<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a>만약 $S_T &lt; K$이면 풋 옵션만 행사될 것이고, $S_T &gt; K$이면 콜 옵션만 행사된다.</span>
+<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a>무이표채와 주식의 가치는 이와는 상관없이 결정된다.</span>
+<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 포트폴리오 <span class="pp">|</span> 구성 자산 <span class="pp">|</span> $S_T &gt; K$ <span class="pp">|</span> $S_T &lt; K$ <span class="pp">|</span></span>
+<span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">| ---</span> <span class="pp">|</span></span>
+<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 포트폴리오 1 <span class="pp">|</span> 콜 옵션 <span class="pp">|</span> $S_T - K$ <span class="pp">|</span> 0 <span class="pp">|</span></span>
+<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> 무이표채 <span class="pp">|</span> $K$ <span class="pp">|</span> $K$ <span class="pp">|</span></span>
+<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> 합계 <span class="pp">|</span> $S_T$ <span class="pp">|</span> $K$ <span class="pp">|</span></span>
+<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 포트폴리오 2 <span class="pp">|</span> 풋 옵션 <span class="pp">|</span> 0 <span class="pp">|</span> $K - S_T$ <span class="pp">|</span></span>
+<span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> 주식 <span class="pp">|</span> $S_T$ <span class="pp">|</span> $S_T$ <span class="pp">|</span></span>
+<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="pp">|</span> 합계 <span class="pp">|</span> $S_T$ <span class="pp">|</span> $K$ <span class="pp">|</span></span>
+<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a>위 표에서와 같이 포트폴리오 1과 2의 $T$ 시점에서의 가치는 $S_T &gt; K$일 때는 $S_T$이고, $S_T \le K$일 때는 $K$이다.</span>
+<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a>두 포트폴리오는 $T$ 시점에 동일한 가치를 지니므로, 현재 시점에서도 동일한 가치를 지녀야 한다.</span>
+<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a>무이표채의 현재 가격은 $K\mathrm{e}^{-rT}$로 나타낼 수 있으므로,</span>
+<span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a>$$ C_0 + K\mathrm{e}^{-rT} = P_0 + S_0$$</span>
+<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a>이며, 이 관계를 풋-콜 대칭성 (put-call parity)라고 한다.</span>
+<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a>만약, 풋-콜 대칭성이 성립하지 않으면, 차익 거래의 기회가 발생한다.</span>
+<span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제"}</span>
+<span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a>동일한 만기 $T = 0.2$와 행사가격 $100$를 가지는 유러피안 콜 옵션과 풋 옵션의 가격이 다음과 같다고 한다.</span>
+<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a>$$ C_0 = 10, \quad P_0 = 12 $$</span>
+<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a>또한 $S_0 = 95$, $r = 0.05$이라고 할 때, 풋-콜 대칭성이 성립하는지 살펴보면,</span>
+<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a>&amp;C_0 +  K\mathrm{e}^{-rT} = 10 + 100 \mathrm{e}^{-0.05 \times 0.2} \approx 109 <span class="sc">\\</span></span>
+<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a>&amp;P_0 + S_0 = 12 + 95 = 107</span>
+<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a>로 $C_0 +  K\mathrm{e}^{-rT} &gt; P_0 + S_0 $이므로 풋-콜 대칭성이 성립하지 않으며, 차익 거래 기회가 발생한다.</span>
+<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a>콜 옵션을 매도하고 풋 옵션을 매수하는 포지션에서 출발하여 차익 거래 전략을 구성해 보자.</span>
+<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a>콜 옵션을 매도하고 풋 옵션을 매수하면, 만기 시에 아래 그림과 같은 payoff를 가진다.</span>
+<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a><span class="al">![](../../assets/figures/Ch5_C_P_payoff.svg)</span>{#fig-call-put-payoff width=40%}</span>
+<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a>이것만으로는 차익 거래를 얻을 수 없지만, payoff의 그래프의 기울기는 $-1$로 $S_T$가 클수록 하락하는 구조이므로,</span>
+<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a>주식 $S$를 1주 매수하여, (콜 옵션 매도 + 풋 옵션 매수 + 주식 매수)의 payoff의 $S_T$에 대한 기울기를 0으로 맞춘다.</span>
+<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a>콜 옵션을 매도하고 풋 옵션과 주식을 매수할 때의 초기 순현금흐름은</span>
+<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a>$$ C_0 - P_0 - S_0 = 10 - 12 - 95 = -97 $$</span>
+<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a>이다. 따라서 무이표채를 발행하여 97을 차입하면 초기 순현금흐름이 0인 포트폴리오를 구성할 수 있다.</span>
+<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a>만기에 이르러, 주가가 100보다 작으면 풋 옵션을 행사하여 가지고 있던 주식을 100에 매도한다.</span>
+<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a>주가가 100보다 크면, 콜 옵션 거래 상대가 콜 옵션을 행사하여, 상대에게 주식을 100에 매도하게 된다.</span>
+<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a>따라서 어느 경우든지 만기에 100을 수취한다.</span>
+<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a>(콜 옵션 매도 + 풋 옵션 매수 + 주식 매수)의 payoff의 $S_T$에 대한 기울기가 0이면서 $y$-절편은 100이기 때문이다.</span>
+<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a>그림으로 나타내면 다음과 같다.</span>
+<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a><span class="al">![](../../assets/figures/Ch5_C_P_S_payoff.svg)</span>{#fig-call-put-stock-payoff width=40%}</span>
+<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a>한편, 발행한 무이표채는</span>
+<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a>$$ 97 \times \mathrm{e}^{0.05 \times 0.2} \approx 98$$</span>
+<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a>의 금액으로 청산한다.</span>
+<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a>따라서 어떤 경우든지 $100 - 98 = 2$의 이득이 발생하며, 초기 비용이 0이었기 때문에 차익 거래이다.</span>
+<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a><span class="fu">## 옵션의 종류 {#sec-option-types}</span></span>
+<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a>앞서 유러피언 옵션에 대해 살펴보았다.</span>
+<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a>이 자료의 향후 내용에서는 거의 유러피언 옵션에 대해 공부할 예정이지만,</span>
+<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a>간략하게 다양한 옵션의 종류에 대해 살펴 본다.</span>
+<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a><span class="fu">### 아메리칸 옵션</span></span>
+<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a>아메리칸 옵션은 유러피언 옵션과 동일한 payoff 구조를 가졌으나,</span>
+<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a>매수자가 만기 이전에 언제라도 조기 행사 (early exercise)가 가능하다.</span>
+<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a>오직 만기일에만 행사가 가능한 유러피안 옵션과의 차이점이다.</span>
+<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a>이론적으로 배당이 없는 기초 자산에 대해 동일한 만기와 행사 가격을 가지는 아메리칸 콜 옵션과 유러피안 콜 옵션의 가격은 똑같다.</span>
+<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a>다시 말해, 아메리칸 콜 옵션의 경우, $t$ 시점에서  조기 행사가 가능하더라도, 만기일까지 기다려보는 것이 더 좋은 전략이다.</span>
+<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a>콜 옵션을 조기 행사하는 것은 옵션의 시간 가치를 포기하는 것을 뜻한다.</span>
+<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a>콜 옵션의 조기 행사로 얻어지는 이득으로 옵션의 시간 가치를 능가하는 수익을 얻어야 조기 행사가 의미가 있다.</span>
+<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a>하지만, @fig-call-time-value 에서 본 것처럼 콜 옵션의 시간 가치는 상당히 크며,</span>
+<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a>향후의 어떠한 투자 전략과 비교하더라도, 이 시간 가치를 보유하는 것이 이득이다.</span>
+<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a>반면, 아메리칸 풋 옵션의 경우 심내가격에 있을 경우 조기 행사를 하는 것이 이득을 볼 수 있다.</span>
+<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a>@fig-put-time-value 에서처럼 내가격일 경우 시간 가치는 매우 작으며 심지어 음수가 되기도 한다.</span>
+<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a>따라서 $S_t$가 충분히 작을 경우 아메리칸 풋 옵션을 행사하여 이득을 취하는 것이 유리하다.</span>
+<span id="cb1-585"><a href="#cb1-585" aria-hidden="true" tabindex="-1"></a>수치적 방법을 통해 아메리칸 풋 옵션을 조기 행사하면 유리한 영역을 표시하는 경계선을 찾을 수 있다.</span>
+<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a>자세한 내용은 이 자료의 범위를 벗어나지만, 아메리칸 풋 옵션의 행사 경계선 (exercise boundary)의 예제를 @fig-option-exercise-boundary 에서 살펴보라.</span>
+<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a><span class="al">![아메리칸 풋 옵션의 최적 행사 경계선](../../assets/figures/Ch5_exercise_boundary.svg)</span>{#fig-option-exercise-boundary width=60%}</span>
+<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip title="예제"}</span>
+<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a>아메리칸 콜 옵션 매수자가 $t$ 시점에 조기 행사를 하였다고 하자.</span>
+<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a>그러면 $S_t - K$의 payoff를 얻는다.</span>
+<span id="cb1-593"><a href="#cb1-593" aria-hidden="true" tabindex="-1"></a>이 금액을 $T$까지 무위험자산에 투자하면 최종 이득은</span>
+<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a>\mathrm{e}^{r(T-t)} (S_t - K)</span>
+<span id="cb1-596"><a href="#cb1-596" aria-hidden="true" tabindex="-1"></a>$$ {#eq-call-early-exercise}</span>
+<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-598"><a href="#cb1-598" aria-hidden="true" tabindex="-1"></a>이 투자자가 조기 행사를 하는 대신, $S_t$를 공매하였다고 하자.</span>
+<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a>공매로 얻은 금액을 무위험자산에 투자하면 $T$에 $\mathrm{e}^{r(T-t)} S_t$를 얻는다.</span>
+<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a>또한, 만기에</span>
+<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$S_T &gt; K$인 경우 : 옵션을 만기에 행사한다. 즉, $K$의 금액을 지불하여 주식을 매입한다. 매입한 주식으로 공매한 주식을 갚는다.</span>
+<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a>따라서 최종 이득은 무위험 자산 투자 결과를 합하여, $\mathrm{e}^{r(T-t)} S_t - K$이다.</span>
+<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$S_T \leq K$인 경우 : 옵션은 행사되지 않는다. 시장에서 주식을 $S_T$에 구입하여 공매한 주식을 갚는다. 무위험 자산 투자 결과를 합하여,  $\mathrm{e}^{r(T-t)} S_t - S_T$의 최종 이득을 얻는다.</span>
+<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a>두 경우 모두 @eq-call-early-exercise 보다 큰 이득이며, 아메리칸 콜 옵션의 조기 행사는 최적의 선택이 아님을 알 수 있다.</span>
+<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-608"><a href="#cb1-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-609"><a href="#cb1-609" aria-hidden="true" tabindex="-1"></a><span class="fu">### 아시안 옵션</span></span>
+<span id="cb1-610"><a href="#cb1-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-611"><a href="#cb1-611" aria-hidden="true" tabindex="-1"></a>아시안 옵션의 payoff는 일정 시간 간격으로 관찰된 기초 자산의 평균 가격에 의해 결정된다.</span>
+<span id="cb1-612"><a href="#cb1-612" aria-hidden="true" tabindex="-1"></a>관찰 시점 $0 &lt; t_1 &lt; \cdots t_n = T$로 주어진다면,</span>
+<span id="cb1-613"><a href="#cb1-613" aria-hidden="true" tabindex="-1"></a>아시안 콜 옵션의 payoff는</span>
+<span id="cb1-614"><a href="#cb1-614" aria-hidden="true" tabindex="-1"></a>$$ C_T = \left( \frac{1}{n} \sum_{i=1}^{n} S_{t_i} - K \right)^+ $$</span>
+<span id="cb1-615"><a href="#cb1-615" aria-hidden="true" tabindex="-1"></a>이고, 풋 옵션은</span>
+<span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a>$$ P_T = \left(K - \frac{1}{n} \sum_{i=1}^{n} S_{t_i}  \right)^+ $$</span>
+<span id="cb1-617"><a href="#cb1-617" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-618"><a href="#cb1-618" aria-hidden="true" tabindex="-1"></a>경우에 따라서는 가격 공식 계산의 편의를 위해 기하 평균을 사용하기도 한다.</span>
+<span id="cb1-619"><a href="#cb1-619" aria-hidden="true" tabindex="-1"></a>유러피안 옵션은 만기의 기초 자산 가격에만 영향을 받지만, 아시안 옵션은 평균적인 자산의 가격의 레벨에 의해 결정되기 때문에,</span>
+<span id="cb1-620"><a href="#cb1-620" aria-hidden="true" tabindex="-1"></a>시장 조작 (market manipulation)의 위험으로부터 상대적으로 안전하다.</span>
+<span id="cb1-621"><a href="#cb1-621" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-622"><a href="#cb1-622" aria-hidden="true" tabindex="-1"></a><span class="fu">### 디지털 옵션</span></span>
+<span id="cb1-623"><a href="#cb1-623" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-624"><a href="#cb1-624" aria-hidden="true" tabindex="-1"></a>디지털 옵션 (digital option) 혹은 바이너리 옵션 (binary option)은 만기 시에 기초 자산의 가격이 $K$를 넘느냐 넘지 않느냐에 따라, 1 혹은 0의 payoff를 제공하는 옵션을 말한다.</span>
+<span id="cb1-625"><a href="#cb1-625" aria-hidden="true" tabindex="-1"></a>디지털 콜 옵션의 payoff는</span>
+<span id="cb1-626"><a href="#cb1-626" aria-hidden="true" tabindex="-1"></a>$$ C_T = \mathbf{1}_{<span class="sc">\{</span>S_T &gt; K<span class="sc">\}</span>} $$</span>
+<span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-628"><a href="#cb1-628" aria-hidden="true" tabindex="-1"></a>즉, 만기일의 주가가 $K$를 넘어서면 콜 옵션 매수자는 1을 받고, $K$ 이하이면 0을 받는다.</span>
+<span id="cb1-629"><a href="#cb1-629" aria-hidden="true" tabindex="-1"></a>마찬가지로 풋 옵션의 payoff는</span>
+<span id="cb1-630"><a href="#cb1-630" aria-hidden="true" tabindex="-1"></a>$$ P_T = \mathbf{1}_{<span class="sc">\{</span>S_T &lt; K<span class="sc">\}</span>} $$</span>
+<span id="cb1-631"><a href="#cb1-631" aria-hidden="true" tabindex="-1"></a>이다.</span>
+<span id="cb1-632"><a href="#cb1-632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-633"><a href="#cb1-633" aria-hidden="true" tabindex="-1"></a><span class="fu">### 배리어 옵션</span></span>
+<span id="cb1-634"><a href="#cb1-634" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-635"><a href="#cb1-635" aria-hidden="true" tabindex="-1"></a>배리어 옵션 (barrier option)에는 미리 정해놓은 하나 이상의 실수값 배리어가 있어, 만기에 이르는 동안 자산 가격이 이 배리어들을</span>
+<span id="cb1-636"><a href="#cb1-636" aria-hidden="true" tabindex="-1"></a>넘어가느냐 넘어가지 않느냐에 따라 payoff가 달라진다.</span>
+<span id="cb1-637"><a href="#cb1-637" aria-hidden="true" tabindex="-1"></a>예를 들어 노크인 (knock-in) 옵션은 기초 자산의 가격이 미리 정한 배리어에 도달하여야만 옵션이 유효하다.</span>
+<span id="cb1-638"><a href="#cb1-638" aria-hidden="true" tabindex="-1"></a>반면에 노크아웃 (knock-out) 옵션은 기초 자산의 가격이 배리어에 도달하면 옵션 계약은 무효화되어 종료된다.</span>
+<span id="cb1-639"><a href="#cb1-639" aria-hidden="true" tabindex="-1"></a>만기일까지의 남은 기간 중 일부 구간에서만 배리어를 설정할 수도 있고, 시간에 따라 높이가 다른 배리어를 설정할 수도 있다.</span>
+<span id="cb1-640"><a href="#cb1-640" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-641"><a href="#cb1-641" aria-hidden="true" tabindex="-1"></a><span class="fu">### 유러피안 옵션의 조합</span></span>
+<span id="cb1-642"><a href="#cb1-642" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-643"><a href="#cb1-643" aria-hidden="true" tabindex="-1"></a>유러피안 콜 옵션과 풋 옵션을 조합하여 새로운 payoff를 만들어 내는 것이 가능하다.</span>
+<span id="cb1-644"><a href="#cb1-644" aria-hidden="true" tabindex="-1"></a>매우 다양한 종류의 전략이 있지만 이 자료에서는 스트래들 (straddle)과 스트랭글 (strangle)에 대해 간략히 알아본다.</span>
+<span id="cb1-645"><a href="#cb1-645" aria-hidden="true" tabindex="-1"></a>스트래들은 동일한 행사가와 동일한 만기일을 가지는 유러피안 풋옵션과 콜옵션을 동시에 매수하는 옵션 전략이다.</span>
+<span id="cb1-646"><a href="#cb1-646" aria-hidden="true" tabindex="-1"></a>만기 시점에서의 손익 구조는 @fig-option-combinations 의 왼쪽과 같다.</span>
+<span id="cb1-647"><a href="#cb1-647" aria-hidden="true" tabindex="-1"></a>스트랭글 또한 비슷한 옵션 전략으로 행사가는 다르지만 같은 만기를 지니는 유러피안 콜 옵션과 풋 옵션을 매수하는 전략이다.</span>
+<span id="cb1-648"><a href="#cb1-648" aria-hidden="true" tabindex="-1"></a>만기 시점에서의 손익 구조는 @fig-option-combinations 의 오른쪽과 같다.</span>
+<span id="cb1-649"><a href="#cb1-649" aria-hidden="true" tabindex="-1"></a>이 전략들을 통하여 옵션 투자자는 자산 가격이 크게 오르거나 크게 내리면, 즉 자산 가격의 변동이 심하면, 수익을 올릴 수 있다.</span>
+<span id="cb1-650"><a href="#cb1-650" aria-hidden="true" tabindex="-1"></a>반면, 옵션 매도자는 자산 가격이 만기일에 행사 가격에 비해 크게 다르지 않아야 수익을 올릴 것이다.</span>
+<span id="cb1-651"><a href="#cb1-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-652"><a href="#cb1-652" aria-hidden="true" tabindex="-1"></a>::: {#fig-option-combinations layout-ncol=2}</span>
+<span id="cb1-653"><a href="#cb1-653" aria-hidden="true" tabindex="-1"></a><span class="al">![스트래들](../../assets/figures/Ch5_straddle.svg)</span></span>
+<span id="cb1-654"><a href="#cb1-654" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-655"><a href="#cb1-655" aria-hidden="true" tabindex="-1"></a><span class="al">![스트랭글](../../assets/figures/Ch5_strangle.svg)</span></span>
+<span id="cb1-656"><a href="#cb1-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-657"><a href="#cb1-657" aria-hidden="true" tabindex="-1"></a>동일한 행사 가격을 가진 옵션들로 구성된 스트래들 (왼쪽)과 다른 행사 가격을 가진 옵션들로 구성된 스트랭글 (오른쪽)의 만기 시점에서의 손익 구조</span>
+<span id="cb1-658"><a href="#cb1-658" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
