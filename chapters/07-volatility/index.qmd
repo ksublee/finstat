@@ -655,7 +655,7 @@ f(r_1, r_2, \cdots, r_N \mid \sigma_1) &= f(r_N \mid r_{N-1}, \cdots, r_1, \sigm
 \end{aligned}
 $$
 
-위 식은 $\sigma_1, r_1, \cdots, r_n$으로 $\sigma_{n+1}$을 계산할 수 있다는 점을 이용한다. 실제로는 $\sigma_1$의 값을 알지 못하지만, 적절한 초기값으로 예를 들어 @eq-uncond-v 의 값을 쓸 수 있다. 이 밀도함수는 $r_1, \cdots, r_N$의 함수이며 모수 $\omega, \alpha, \beta$를 품고 있다. 각 $\sigma_i$를 계산할 때 $\omega, \alpha, \beta$를 쓰기 때문이다.
+위 식은 $\sigma_1, r_1, \cdots, r_n$으로 $\sigma_{n+1}$을 계산할 수 있다는 점을 이용한다. 실제로는 초기 조건부 분산 $\sigma_1^2$의 값을 알 수 없으므로, 적절한 초기값으로 @eq-uncond-v 의 값을 쓸 수 있다. 이 밀도함수는 $r_1, \cdots, r_N$의 함수이며 모수 $\omega, \alpha, \beta$를 품고 있다. 각 $\sigma_i$를 계산할 때 $\omega, \alpha, \beta$를 쓰기 때문이다.
 
 ## 관련 페이지
 
