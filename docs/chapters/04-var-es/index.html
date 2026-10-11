@@ -98,7 +98,7 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d186cce6a965a306cb7ea6a6b157434b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -424,6 +424,14 @@ window.Quarto = {
   <li><a href="#예제-두-자산의-component-var" id="toc-예제-두-자산의-component-var" class="nav-link" data-scroll-target="#예제-두-자산의-component-var"><span class="header-section-number">4.6.10</span> 예제: 두 자산의 component VaR</a></li>
   <li><a href="#예제-공매도를-포함한-포트폴리오" id="toc-예제-공매도를-포함한-포트폴리오" class="nav-link" data-scroll-target="#예제-공매도를-포함한-포트폴리오"><span class="header-section-number">4.6.11</span> 예제: 공매도를 포함한 포트폴리오</a></li>
   <li><a href="#예제-세-자산의-var와-위험-기여도" id="toc-예제-세-자산의-var와-위험-기여도" class="nav-link" data-scroll-target="#예제-세-자산의-var와-위험-기여도"><span class="header-section-number">4.6.12</span> 예제: 세 자산의 VaR와 위험 기여도</a></li>
+  </ul></li>
+  <li><a href="#portfolio-es" id="toc-portfolio-es" class="nav-link" data-scroll-target="#portfolio-es"><span class="header-section-number">4.7</span> Portfolio ES</a>
+  <ul class="collapse">
+  <li><a href="#포트폴리오-es의-계산" id="toc-포트폴리오-es의-계산" class="nav-link" data-scroll-target="#포트폴리오-es의-계산"><span class="header-section-number">4.7.1</span> 포트폴리오 ES의 계산</a></li>
+  <li><a href="#marginal-es" id="toc-marginal-es" class="nav-link" data-scroll-target="#marginal-es"><span class="header-section-number">4.7.2</span> Marginal ES</a></li>
+  <li><a href="#marginal-es의-꼬리위험-해석" id="toc-marginal-es의-꼬리위험-해석" class="nav-link" data-scroll-target="#marginal-es의-꼬리위험-해석"><span class="header-section-number">4.7.3</span> Marginal ES의 꼬리위험 해석</a></li>
+  <li><a href="#component-es" id="toc-component-es" class="nav-link" data-scroll-target="#component-es"><span class="header-section-number">4.7.4</span> Component ES</a></li>
+  <li><a href="#예제-두-자산의-es와-위험-기여도" id="toc-예제-두-자산의-es와-위험-기여도" class="nav-link" data-scroll-target="#예제-두-자산의-es와-위험-기여도"><span class="header-section-number">4.7.5</span> 예제: 두 자산의 ES와 위험 기여도</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ksublee/finstat/edit/main/chapters/04-var-es/index.qmd" class="toc-action"><i class="bi bi-github"></i>편집</a></li><li><a href="https://github.com/ksublee/finstat/issues/new" class="toc-action"><i class="bi empty"></i>이슈 보고</a></li></ul></div></nav>
@@ -1876,6 +1884,397 @@ z_{0.05}\sqrt{0.02068375}\times1{,}000
 \end{aligned}
 \]</span></p>
 <p>이들의 합은 포트폴리오 VaR인 약 244.41달러이다. 자산 1과 자산 2의 투자 금액은 같지만, 전체 VaR에 대한 기여도는 자산 2가 훨씬 크다.</p>
+</section>
+</section>
+</section>
+<section id="portfolio-es" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="portfolio-es"><span class="header-section-number">4.7</span> Portfolio ES</h2>
+<p>포트폴리오 VaR를 자산별 민감도와 위험 기여도로 나누었듯이, ES도 marginal ES와 component ES로 나눌 수 있다.</p>
+<p>이 절에서도 자산 수익률은 다변량 정규분포를 따르고 기대수익률은 모두 0이라고 가정한다. 또한 앞 절과 같이 <span class="math inline">\(W_0&gt;0\)</span>, <span class="math inline">\(\sigma_p&gt;0\)</span>, <span class="math inline">\(0&lt;\alpha&lt;0.5\)</span>로 둔다.</p>
+<section id="포트폴리오-es의-계산" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="포트폴리오-es의-계산"><span class="header-section-number">4.7.1</span> 포트폴리오 ES의 계산</h3>
+<p>포트폴리오 손익은</p>
+<p><span class="math display">\[
+X_p
+=
+W_0R_p
+\sim
+N(0,W_0^2\sigma_p^2)
+\]</span></p>
+<p>을 따른다. 따라서 정규분포의 ES 공식인 식 <a href="#eq-normal-es" class="quarto-xref">방정식&nbsp;<span>4.9</span></a> 에 의해 포트폴리오 ES는 다음과 같다.</p>
+<p><span id="eq-portfolio-es"><span class="math display">\[
+\begin{aligned}
+\mathrm{ES}_p
+&amp;=
+\frac{\phi(z_\alpha)}{\alpha}
+\sigma_pW_0 \\
+&amp;=
+\frac{\phi(z_\alpha)}{\alpha}
+\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}.
+\end{aligned}
+\tag{4.21}\]</span></span></p>
+<p>여기서 <span class="math inline">\(\phi\)</span>는 표준정규분포의 확률밀도함수이다.</p>
+<p>포트폴리오 VaR와 비교하면, <span class="math inline">\(z_\alpha\)</span> 대신 <span class="math inline">\(\phi(z_\alpha)/\alpha\)</span>를 곱한다는 차이가 있다.</p>
+<p><span id="eq-portfolio-es-var-ratio"><span class="math display">\[
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+=
+\frac{\phi(z_\alpha)}{\alpha z_\alpha}.
+\tag{4.22}\]</span></span></p>
+<p>현재의 가정 아래에서 이 비율은 포트폴리오의 투자 비중이나 공분산 행렬과 무관하며, 유의수준 <span class="math inline">\(\alpha\)</span>에만 의존한다.</p>
+<p>예를 들어 <span class="math inline">\(\alpha=0.01\)</span>이면</p>
+<p><span class="math display">\[
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+\approx
+\frac{2.6652}{2.3263}
+\approx
+1.1457
+\]</span></p>
+<p>이다. 같은 포트폴리오의 99% ES는 99% VaR보다 약 14.6% 크다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>VaR와 ES 사이의 일정한 비율은 기대수익률을 0으로 둔 정규분포 모형의 결과이다. 기대수익률을 포함하거나 분포의 형태가 달라지면 이 비율이 유의수준만으로 결정되지는 않는다.</p>
+</div>
+</div>
+</section>
+<section id="marginal-es" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="marginal-es"><span class="header-section-number">4.7.2</span> Marginal ES</h3>
+<p>자산 <span class="math inline">\(i\)</span>의 marginal ES는 다른 자산의 투자 금액을 고정한 상태에서 <span class="math inline">\(x_i\)</span>를 미소하게 변화시킬 때의 포트폴리오 ES 변화율이다.</p>
+<p><span class="math display">\[
+\Delta\mathrm{ES}_i
+=
+\frac{\partial\mathrm{ES}_p}{\partial x_i}.
+\]</span></p>
+<p>식 <a href="#eq-portfolio-es" class="quarto-xref">방정식&nbsp;<span>4.21</span></a> 를 미분하면 다음과 같다.</p>
+<p><span id="eq-marginal-es"><span class="math display">\[
+\begin{aligned}
+\Delta\mathrm{ES}_i
+&amp;=
+\frac{\phi(z_\alpha)}{\alpha}
+\frac{(\mathbf{C}\mathbf{x})_i}
+{\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}} \\
+&amp;=
+\frac{\phi(z_\alpha)}{\alpha}
+\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p}.
+\end{aligned}
+\tag{4.23}\]</span></span></p>
+<p>Marginal VaR와 비교하면 다음 비례 관계가 성립한다.</p>
+<p><span id="eq-marginal-es-var"><span class="math display">\[
+\Delta\mathrm{ES}_i
+=
+\frac{\phi(z_\alpha)}{\alpha z_\alpha}
+\Delta\mathrm{VaR}_i
+=
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+\Delta\mathrm{VaR}_i.
+\tag{4.24}\]</span></span></p>
+<p>비례상수가 양수이므로, 현재의 정규분포 모형에서는 자산별 marginal ES의 순위와 marginal VaR의 순위가 같다.</p>
+<p>작은 포지션 변경 <span class="math inline">\(\mathbf{a}\)</span>에 대해서는 ES의 변화도 다음과 같이 근사할 수 있다.</p>
+<p><span class="math display">\[
+\mathrm{ES}(\mathbf{x}+\mathbf{a})
+-
+\mathrm{ES}(\mathbf{x})
+\approx
+\sum_{i=1}^{N}
+a_i\Delta\mathrm{ES}_i.
+\]</span></p>
+</section>
+<section id="marginal-es의-꼬리위험-해석" class="level3" data-number="4.7.3">
+<h3 data-number="4.7.3" class="anchored" data-anchor-id="marginal-es의-꼬리위험-해석"><span class="header-section-number">4.7.3</span> Marginal ES의 꼬리위험 해석</h3>
+<p>Marginal ES는 포트폴리오가 큰 손실을 보는 상황에서 해당 자산이 어떤 성과를 내는지와 연결된다.</p>
+<p>정규분포에 한정하지 않고, 포트폴리오 손익을</p>
+<p><span class="math display">\[
+X_p=\sum_{j=1}^{N}x_jR_j
+\]</span></p>
+<p>라고 하자. 꼬리 사건의 확률이 정확히 <span class="math inline">\(\alpha\)</span>이고, 기댓값의 존재 및 미분에 필요한 정칙조건이 성립하면 다음과 같이 나타낼 수 있다.</p>
+<p><span id="eq-marginal-es-tail"><span class="math display">\[
+\Delta\mathrm{ES}_i
+=
+-\mathbb{E}
+\left[
+R_i
+\mid
+X_p\leq-\mathrm{VaR}_\alpha(X_p)
+\right].
+\tag{4.25}\]</span></span></p>
+<p>즉, marginal ES는 포트폴리오의 손익이 하위 <span class="math inline">\(\alpha\)</span> 영역에 있을 때 자산 <span class="math inline">\(i\)</span>의 평균 수익률에 음수를 붙인 값이다.</p>
+<p>같은 식을 지시함수로 표현하면 다음과 같다.</p>
+<p><span class="math display">\[
+\Delta\mathrm{ES}_i
+=
+-\frac{1}{\alpha}
+\mathbb{E}
+\left[
+R_i
+\mathbf{1}_{\{
+X_p\leq-\mathrm{VaR}_\alpha(X_p)
+\}}
+\right].
+\]</span></p>
+<p>여기서 <span class="math inline">\(\mathbf{1}_{A}\)</span>는 사건 <span class="math inline">\(A\)</span>가 발생하면 1, 그렇지 않으면 0인 지시함수이다. 조건부기댓값은 이미 꼬리 사건의 확률로 나눈 평균이므로, 식 <a href="#eq-marginal-es-tail" class="quarto-xref">방정식&nbsp;<span>4.25</span></a> 에는 <span class="math inline">\(1/\alpha\)</span>를 다시 곱하지 않는다.</p>
+<p>포트폴리오가 큰 손실을 볼 때 함께 손실을 보는 자산은 양의 marginal ES를 갖는다. 반대로 그 상황에서 평균적으로 이익을 내는 자산은 음의 marginal ES를 가질 수 있다.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+경고
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이산형 분포에서는 VaR 경계점에 확률질량이 있어 꼬리 사건의 확률이 정확히 <span class="math inline">\(\alpha\)</span>가 되지 않을 수 있다. 이때는 위 조건부기댓값을 그대로 적용하지 않고, ES의 일반적 정의에 맞춰 경계점의 확률질량을 배분해야 한다. 미분이 존재하지 않는 경우에는 marginal ES의 취급에도 추가적인 주의가 필요하다.</p>
+</div>
+</div>
+</section>
+<section id="component-es" class="level3" data-number="4.7.4">
+<h3 data-number="4.7.4" class="anchored" data-anchor-id="component-es"><span class="header-section-number">4.7.4</span> Component ES</h3>
+<p>자산 <span class="math inline">\(i\)</span>의 component ES는 투자 금액과 marginal ES의 곱으로 정의한다.</p>
+<p><span id="eq-component-es"><span class="math display">\[
+\mathrm{CES}_i
+=
+x_i\Delta\mathrm{ES}_i
+=
+w_iW_0\Delta\mathrm{ES}_i.
+\tag{4.26}\]</span></span></p>
+<p>정규분포 모형에서는</p>
+<p><span id="eq-component-es-beta"><span class="math display">\[
+\begin{aligned}
+\mathrm{CES}_i
+&amp;=
+w_iW_0
+\frac{\phi(z_\alpha)}{\alpha}
+\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p} \\
+&amp;=
+w_i\beta_i\mathrm{ES}_p.
+\end{aligned}
+\tag{4.27}\]</span></span></p>
+<p>Component VaR와 마찬가지로 투자 비중과 포트폴리오에 대한 베타를 함께 반영한다.</p>
+<section id="합산-성질-1" class="level4" data-number="4.7.4.1">
+<h4 data-number="4.7.4.1" class="anchored" data-anchor-id="합산-성질-1"><span class="header-section-number">4.7.4.1</span> 합산 성질</h4>
+<p>각 자산의 component ES를 더하면 포트폴리오 ES가 된다.</p>
+<p><span id="eq-component-es-sum"><span class="math display">\[
+\begin{aligned}
+\sum_{i=1}^{N}\mathrm{CES}_i
+&amp;=
+\frac{\phi(z_\alpha)W_0}{\alpha\sigma_p}
+\sum_{i=1}^{N}
+w_i\operatorname{Cov}(R_i,R_p) \\
+&amp;=
+\frac{\phi(z_\alpha)W_0}{\alpha\sigma_p}
+\sigma_p^2 \\
+&amp;=
+\mathrm{ES}_p.
+\end{aligned}
+\tag{4.28}\]</span></span></p>
+<p>따라서 component ES는 포트폴리오 전체의 평균 꼬리손실을 각 자산의 기여분으로 나누어 보여 준다.</p>
+<p>식 <a href="#eq-marginal-es-tail" class="quarto-xref">방정식&nbsp;<span>4.25</span></a> 을 적용할 수 있는 경우에는 다음 해석도 가능하다.</p>
+<p><span class="math display">\[
+\mathrm{CES}_i
+=
+-\mathbb{E}
+\left[
+x_iR_i
+\mid
+X_p\leq-\mathrm{VaR}_\alpha(X_p)
+\right].
+\]</span></p>
+<p>즉, 포트폴리오가 큰 손실을 보는 상황에서 해당 포지션이 평균적으로 부담하는 손실이다. 그 상황에서 평균적으로 이익을 내는 포지션은 음의 component ES를 갖는다.</p>
+</section>
+<section id="var-기여도와의-비교" class="level4" data-number="4.7.4.2">
+<h4 data-number="4.7.4.2" class="anchored" data-anchor-id="var-기여도와의-비교"><span class="header-section-number">4.7.4.2</span> VaR 기여도와의 비교</h4>
+<p>식 <a href="#eq-marginal-es-var" class="quarto-xref">방정식&nbsp;<span>4.24</span></a> 에 투자 금액 <span class="math inline">\(x_i\)</span>를 곱하면 다음을 얻는다.</p>
+<p><span class="math display">\[
+\mathrm{CES}_i
+=
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+\mathrm{CVaR}_i.
+\]</span></p>
+<p>따라서 현재의 정규분포 모형에서는 각 자산의 VaR 기여 비율과 ES 기여 비율이 같다.</p>
+<p><span id="eq-var-es-contribution-share"><span class="math display">\[
+\frac{\mathrm{CES}_i}{\mathrm{ES}_p}
+=
+\frac{\mathrm{CVaR}_i}{\mathrm{VaR}_p}
+=
+w_i\beta_i.
+\tag{4.29}\]</span></span></p>
+<p>ES의 전체 위험 금액은 VaR보다 크지만, 자산별로 나누는 비율은 동일한 것이다. 일반적인 비정규분포에서는 이 관계가 성립하지 않을 수 있다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+노트
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>위험 기여분의 합이 전체 위험과 같아지는 성질은 위험 측도의 양의 동차성과 미분 가능성에 연결된다. 이를 Euler 분해라고 한다.</p>
+<p>ES의 부가산성은 분산투자 효과를 일관되게 반영하는 별도의 성질이다. ES가 일관된 위험 측도라는 사실만으로, 현재의 marginal ES가 큰 포지션 변경까지 정확히 설명하는 것은 아니다.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="예제-두-자산의-es와-위험-기여도" class="level3" data-number="4.7.5">
+<h3 data-number="4.7.5" class="anchored" data-anchor-id="예제-두-자산의-es와-위험-기여도"><span class="header-section-number">4.7.5</span> 예제: 두 자산의 ES와 위험 기여도</h3>
+<p>앞의 두 자산 VaR 예제와 같은 포트폴리오를 이용한다.</p>
+<p><span class="math display">\[
+\mathbf{C}
+=
+\begin{bmatrix}
+0.0025 &amp; 0.0012 \\
+0.0012 &amp; 0.0144
+\end{bmatrix},
+\qquad
+\mathbf{w}
+=
+\begin{bmatrix}
+0.25 \\
+0.75
+\end{bmatrix},
+\qquad
+W_0=10{,}000.
+\]</span></p>
+<p>이 포트폴리오에서 앞서 구한 값은 다음과 같다.</p>
+<p><span class="math display">\[
+\sigma_p^2=0.00870625,
+\qquad
+\mathrm{VaR}_p\approx1{,}534.77,
+\]</span></p>
+<p><span class="math display">\[
+\operatorname{Cov}(R_1,R_p)=0.001525,
+\qquad
+\operatorname{Cov}(R_2,R_p)=0.0111.
+\]</span></p>
+<section id="포트폴리오-es" class="level4" data-number="4.7.5.1">
+<h4 data-number="4.7.5.1" class="anchored" data-anchor-id="포트폴리오-es"><span class="header-section-number">4.7.5.1</span> 포트폴리오 ES</h4>
+<p>95% 신뢰수준에서는 <span class="math inline">\(\alpha=0.05\)</span>이고,</p>
+<p><span class="math display">\[
+z_{0.05}\approx1.6448536,
+\qquad
+\frac{\phi(z_{0.05})}{0.05}
+\approx2.0627128
+\]</span></p>
+<p>이다. 따라서 포트폴리오 ES는 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{ES}_p
+&amp;=
+\frac{\phi(z_{0.05})}{0.05}
+\sqrt{0.00870625}\times10{,}000 \\
+&amp;\approx
+1{,}924.66.
+\end{aligned}
+\]</span></p>
+<p>VaR와의 비율은</p>
+<p><span class="math display">\[
+\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}
+=
+\frac{\phi(z_{0.05})}{0.05z_{0.05}}
+\approx
+1.2540
+\]</span></p>
+<p>이다. 이 포트폴리오의 95% ES는 95% VaR보다 약 25.4% 크다.</p>
+</section>
+<section id="marginal-es-1" class="level4" data-number="4.7.5.2">
+<h4 data-number="4.7.5.2" class="anchored" data-anchor-id="marginal-es-1"><span class="header-section-number">4.7.5.2</span> Marginal ES</h4>
+<p>식 <a href="#eq-marginal-es" class="quarto-xref">방정식&nbsp;<span>4.23</span></a> 를 이용하면 다음과 같다.</p>
+<p><span class="math display">\[
+\Delta\boldsymbol{\mathrm{ES}}
+=
+\frac{\phi(z_{0.05})}
+{0.05\sqrt{0.00870625}}
+\begin{bmatrix}
+0.001525 \\
+0.0111
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+0.033713 \\
+0.245384
+\end{bmatrix}.
+\]</span></p>
+<p>현재 포트폴리오에서 자산 2에 1달러를 추가하면 ES는 약 0.2454달러 증가한다. 자산 1에 1달러를 추가할 때의 증가분은 약 0.0337달러이다.</p>
+<p>이 값들은 각각의 marginal VaR에 약 1.2540을 곱한 값과 같다.</p>
+</section>
+<section id="component-es-1" class="level4" data-number="4.7.5.3">
+<h4 data-number="4.7.5.3" class="anchored" data-anchor-id="component-es-1"><span class="header-section-number">4.7.5.3</span> Component ES</h4>
+<p>각 투자 금액을 marginal ES에 곱하면 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{CES}_1
+&amp;=
+2{,}500\Delta\mathrm{ES}_1
+\approx84.28, \\
+\mathrm{CES}_2
+&amp;=
+7{,}500\Delta\mathrm{ES}_2
+\approx1{,}840.38.
+\end{aligned}
+\]</span></p>
+<p>두 기여분의 합은 포트폴리오 ES와 같다.</p>
+<p><span class="math display">\[
+\mathrm{CES}_1+\mathrm{CES}_2
+=
+\mathrm{ES}_p
+\approx
+1{,}924.66.
+\]</span></p>
+</section>
+<section id="위험-기여-비율-비교" class="level4" data-number="4.7.5.4">
+<h4 data-number="4.7.5.4" class="anchored" data-anchor-id="위험-기여-비율-비교"><span class="header-section-number">4.7.5.4</span> 위험 기여 비율 비교</h4>
+<div id="tbl-portfolio-es-contributions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-portfolio-es-contributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+표&nbsp;4.1: 두 자산 포트폴리오의 VaR와 ES 기여도 비교
+</figcaption>
+<div aria-describedby="tbl-portfolio-es-contributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">자산</th>
+<th style="text-align: right;">Component VaR</th>
+<th style="text-align: right;">VaR 기여 비율</th>
+<th style="text-align: right;">Component ES</th>
+<th style="text-align: right;">ES 기여 비율</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">자산 1</td>
+<td style="text-align: right;">67.21</td>
+<td style="text-align: right;">4.38%</td>
+<td style="text-align: right;">84.28</td>
+<td style="text-align: right;">4.38%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">자산 2</td>
+<td style="text-align: right;">1,467.56</td>
+<td style="text-align: right;">95.62%</td>
+<td style="text-align: right;">1,840.38</td>
+<td style="text-align: right;">95.62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">합계</td>
+<td style="text-align: right;">1,534.77</td>
+<td style="text-align: right;">100.00%</td>
+<td style="text-align: right;">1,924.66</td>
+<td style="text-align: right;">100.00%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p><a href="#tbl-portfolio-es-contributions" class="quarto-xref">표&nbsp;<span>4.1</span></a> 에서 ES는 VaR를 넘어서는 손실의 크기를 반영하므로 전체 위험 금액과 각 자산의 기여액이 더 크다. 그러나 기대수익률을 0으로 둔 정규분포 모형에서는 위험 기여 비율이 동일하다.</p>
+<p>실제 수익률 분포가 정규분포와 다르면 자산별 꼬리손실의 형태도 달라질 수 있다. 이때 ES 기여도를 분석하면 포트폴리오가 극단적인 손실을 보는 상황에서 어떤 포지션이 손실을 키우고, 어떤 포지션이 이를 완화하는지 살펴볼 수 있다.</p>
 
 
 <!-- -->
@@ -3902,7 +4301,395 @@ Jorion, Philippe. 2007년. <em>Value at risk: the new benchmark for managing fin
 <span id="cb1-1470"><a href="#cb1-1470" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
 <span id="cb1-1471"><a href="#cb1-1471" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb1-1472"><a href="#cb1-1472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-1473"><a href="#cb1-1473" aria-hidden="true" tabindex="-1"></a>이들의 합은 포트폴리오 VaR인 약 244.41달러이다. 자산 1과 자산 2의 투자 금액은 같지만, 전체 VaR에 대한 기여도는 자산 2가 훨씬 크다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-1473"><a href="#cb1-1473" aria-hidden="true" tabindex="-1"></a>이들의 합은 포트폴리오 VaR인 약 244.41달러이다. 자산 1과 자산 2의 투자 금액은 같지만, 전체 VaR에 대한 기여도는 자산 2가 훨씬 크다.</span>
+<span id="cb1-1474"><a href="#cb1-1474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1475"><a href="#cb1-1475" aria-hidden="true" tabindex="-1"></a><span class="fu">## Portfolio ES</span></span>
+<span id="cb1-1476"><a href="#cb1-1476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1477"><a href="#cb1-1477" aria-hidden="true" tabindex="-1"></a>포트폴리오 VaR를 자산별 민감도와 위험 기여도로 나누었듯이, ES도 marginal ES와 component ES로 나눌 수 있다.</span>
+<span id="cb1-1478"><a href="#cb1-1478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1479"><a href="#cb1-1479" aria-hidden="true" tabindex="-1"></a>이 절에서도 자산 수익률은 다변량 정규분포를 따르고 기대수익률은 모두 0이라고 가정한다. 또한 앞 절과 같이 $W_0&gt;0$, $\sigma_p&gt;0$, $0&lt;\alpha&lt;0.5$로 둔다.</span>
+<span id="cb1-1480"><a href="#cb1-1480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1481"><a href="#cb1-1481" aria-hidden="true" tabindex="-1"></a><span class="fu">### 포트폴리오 ES의 계산</span></span>
+<span id="cb1-1482"><a href="#cb1-1482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1483"><a href="#cb1-1483" aria-hidden="true" tabindex="-1"></a>포트폴리오 손익은</span>
+<span id="cb1-1484"><a href="#cb1-1484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1485"><a href="#cb1-1485" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1486"><a href="#cb1-1486" aria-hidden="true" tabindex="-1"></a>X_p</span>
+<span id="cb1-1487"><a href="#cb1-1487" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1488"><a href="#cb1-1488" aria-hidden="true" tabindex="-1"></a>W_0R_p</span>
+<span id="cb1-1489"><a href="#cb1-1489" aria-hidden="true" tabindex="-1"></a>\sim</span>
+<span id="cb1-1490"><a href="#cb1-1490" aria-hidden="true" tabindex="-1"></a>N(0,W_0^2\sigma_p^2)</span>
+<span id="cb1-1491"><a href="#cb1-1491" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1492"><a href="#cb1-1492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1493"><a href="#cb1-1493" aria-hidden="true" tabindex="-1"></a>을 따른다. 따라서 정규분포의 ES 공식인 식 @eq-normal-es 에 의해 포트폴리오 ES는 다음과 같다.</span>
+<span id="cb1-1494"><a href="#cb1-1494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1495"><a href="#cb1-1495" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1496"><a href="#cb1-1496" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1497"><a href="#cb1-1497" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_p</span>
+<span id="cb1-1498"><a href="#cb1-1498" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1499"><a href="#cb1-1499" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha}</span>
+<span id="cb1-1500"><a href="#cb1-1500" aria-hidden="true" tabindex="-1"></a>\sigma_pW_0 <span class="sc">\\</span></span>
+<span id="cb1-1501"><a href="#cb1-1501" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1502"><a href="#cb1-1502" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha}</span>
+<span id="cb1-1503"><a href="#cb1-1503" aria-hidden="true" tabindex="-1"></a>\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}.</span>
+<span id="cb1-1504"><a href="#cb1-1504" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1505"><a href="#cb1-1505" aria-hidden="true" tabindex="-1"></a>$$ {#eq-portfolio-es}</span>
+<span id="cb1-1506"><a href="#cb1-1506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1507"><a href="#cb1-1507" aria-hidden="true" tabindex="-1"></a>여기서 $\phi$는 표준정규분포의 확률밀도함수이다.</span>
+<span id="cb1-1508"><a href="#cb1-1508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1509"><a href="#cb1-1509" aria-hidden="true" tabindex="-1"></a>포트폴리오 VaR와 비교하면, $z_\alpha$ 대신 $\phi(z_\alpha)/\alpha$를 곱한다는 차이가 있다.</span>
+<span id="cb1-1510"><a href="#cb1-1510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1511"><a href="#cb1-1511" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1512"><a href="#cb1-1512" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}</span>
+<span id="cb1-1513"><a href="#cb1-1513" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1514"><a href="#cb1-1514" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha z_\alpha}.</span>
+<span id="cb1-1515"><a href="#cb1-1515" aria-hidden="true" tabindex="-1"></a>$$ {#eq-portfolio-es-var-ratio}</span>
+<span id="cb1-1516"><a href="#cb1-1516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1517"><a href="#cb1-1517" aria-hidden="true" tabindex="-1"></a>현재의 가정 아래에서 이 비율은 포트폴리오의 투자 비중이나 공분산 행렬과 무관하며, 유의수준 $\alpha$에만 의존한다.</span>
+<span id="cb1-1518"><a href="#cb1-1518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1519"><a href="#cb1-1519" aria-hidden="true" tabindex="-1"></a>예를 들어 $\alpha=0.01$이면</span>
+<span id="cb1-1520"><a href="#cb1-1520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1521"><a href="#cb1-1521" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1522"><a href="#cb1-1522" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}</span>
+<span id="cb1-1523"><a href="#cb1-1523" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1524"><a href="#cb1-1524" aria-hidden="true" tabindex="-1"></a>\frac{2.6652}{2.3263}</span>
+<span id="cb1-1525"><a href="#cb1-1525" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1526"><a href="#cb1-1526" aria-hidden="true" tabindex="-1"></a>1.1457</span>
+<span id="cb1-1527"><a href="#cb1-1527" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1528"><a href="#cb1-1528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1529"><a href="#cb1-1529" aria-hidden="true" tabindex="-1"></a>이다. 같은 포트폴리오의 99% ES는 99% VaR보다 약 14.6% 크다.</span>
+<span id="cb1-1530"><a href="#cb1-1530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1531"><a href="#cb1-1531" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-1532"><a href="#cb1-1532" aria-hidden="true" tabindex="-1"></a>VaR와 ES 사이의 일정한 비율은 기대수익률을 0으로 둔 정규분포 모형의 결과이다. 기대수익률을 포함하거나 분포의 형태가 달라지면 이 비율이 유의수준만으로 결정되지는 않는다.</span>
+<span id="cb1-1533"><a href="#cb1-1533" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1534"><a href="#cb1-1534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1535"><a href="#cb1-1535" aria-hidden="true" tabindex="-1"></a><span class="fu">### Marginal ES</span></span>
+<span id="cb1-1536"><a href="#cb1-1536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1537"><a href="#cb1-1537" aria-hidden="true" tabindex="-1"></a>자산 $i$의 marginal ES는 다른 자산의 투자 금액을 고정한 상태에서 $x_i$를 미소하게 변화시킬 때의 포트폴리오 ES 변화율이다.</span>
+<span id="cb1-1538"><a href="#cb1-1538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1539"><a href="#cb1-1539" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1540"><a href="#cb1-1540" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{ES}_i</span>
+<span id="cb1-1541"><a href="#cb1-1541" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1542"><a href="#cb1-1542" aria-hidden="true" tabindex="-1"></a>\frac{\partial\mathrm{ES}_p}{\partial x_i}.</span>
+<span id="cb1-1543"><a href="#cb1-1543" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1544"><a href="#cb1-1544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1545"><a href="#cb1-1545" aria-hidden="true" tabindex="-1"></a>식 @eq-portfolio-es 를 미분하면 다음과 같다.</span>
+<span id="cb1-1546"><a href="#cb1-1546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1547"><a href="#cb1-1547" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1548"><a href="#cb1-1548" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1549"><a href="#cb1-1549" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{ES}_i</span>
+<span id="cb1-1550"><a href="#cb1-1550" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1551"><a href="#cb1-1551" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha}</span>
+<span id="cb1-1552"><a href="#cb1-1552" aria-hidden="true" tabindex="-1"></a>\frac{(\mathbf{C}\mathbf{x})_i}</span>
+<span id="cb1-1553"><a href="#cb1-1553" aria-hidden="true" tabindex="-1"></a>{\sqrt{\mathbf{x}^{\top}\mathbf{C}\mathbf{x}}} <span class="sc">\\</span></span>
+<span id="cb1-1554"><a href="#cb1-1554" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1555"><a href="#cb1-1555" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha}</span>
+<span id="cb1-1556"><a href="#cb1-1556" aria-hidden="true" tabindex="-1"></a>\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p}.</span>
+<span id="cb1-1557"><a href="#cb1-1557" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1558"><a href="#cb1-1558" aria-hidden="true" tabindex="-1"></a>$$ {#eq-marginal-es}</span>
+<span id="cb1-1559"><a href="#cb1-1559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1560"><a href="#cb1-1560" aria-hidden="true" tabindex="-1"></a>Marginal VaR와 비교하면 다음 비례 관계가 성립한다.</span>
+<span id="cb1-1561"><a href="#cb1-1561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1562"><a href="#cb1-1562" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1563"><a href="#cb1-1563" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{ES}_i</span>
+<span id="cb1-1564"><a href="#cb1-1564" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1565"><a href="#cb1-1565" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha z_\alpha}</span>
+<span id="cb1-1566"><a href="#cb1-1566" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{VaR}_i</span>
+<span id="cb1-1567"><a href="#cb1-1567" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1568"><a href="#cb1-1568" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}</span>
+<span id="cb1-1569"><a href="#cb1-1569" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{VaR}_i.</span>
+<span id="cb1-1570"><a href="#cb1-1570" aria-hidden="true" tabindex="-1"></a>$$ {#eq-marginal-es-var}</span>
+<span id="cb1-1571"><a href="#cb1-1571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1572"><a href="#cb1-1572" aria-hidden="true" tabindex="-1"></a>비례상수가 양수이므로, 현재의 정규분포 모형에서는 자산별 marginal ES의 순위와 marginal VaR의 순위가 같다.</span>
+<span id="cb1-1573"><a href="#cb1-1573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1574"><a href="#cb1-1574" aria-hidden="true" tabindex="-1"></a>작은 포지션 변경 $\mathbf{a}$에 대해서는 ES의 변화도 다음과 같이 근사할 수 있다.</span>
+<span id="cb1-1575"><a href="#cb1-1575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1576"><a href="#cb1-1576" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1577"><a href="#cb1-1577" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}(\mathbf{x}+\mathbf{a})</span>
+<span id="cb1-1578"><a href="#cb1-1578" aria-hidden="true" tabindex="-1"></a>-</span>
+<span id="cb1-1579"><a href="#cb1-1579" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}(\mathbf{x})</span>
+<span id="cb1-1580"><a href="#cb1-1580" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1581"><a href="#cb1-1581" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}</span>
+<span id="cb1-1582"><a href="#cb1-1582" aria-hidden="true" tabindex="-1"></a>a_i\Delta\mathrm{ES}_i.</span>
+<span id="cb1-1583"><a href="#cb1-1583" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1584"><a href="#cb1-1584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1585"><a href="#cb1-1585" aria-hidden="true" tabindex="-1"></a><span class="fu">### Marginal ES의 꼬리위험 해석</span></span>
+<span id="cb1-1586"><a href="#cb1-1586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1587"><a href="#cb1-1587" aria-hidden="true" tabindex="-1"></a>Marginal ES는 포트폴리오가 큰 손실을 보는 상황에서 해당 자산이 어떤 성과를 내는지와 연결된다.</span>
+<span id="cb1-1588"><a href="#cb1-1588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1589"><a href="#cb1-1589" aria-hidden="true" tabindex="-1"></a>정규분포에 한정하지 않고, 포트폴리오 손익을</span>
+<span id="cb1-1590"><a href="#cb1-1590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1591"><a href="#cb1-1591" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1592"><a href="#cb1-1592" aria-hidden="true" tabindex="-1"></a>X_p=\sum_{j=1}^{N}x_jR_j</span>
+<span id="cb1-1593"><a href="#cb1-1593" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1594"><a href="#cb1-1594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1595"><a href="#cb1-1595" aria-hidden="true" tabindex="-1"></a>라고 하자. 꼬리 사건의 확률이 정확히 $\alpha$이고, 기댓값의 존재 및 미분에 필요한 정칙조건이 성립하면 다음과 같이 나타낼 수 있다.</span>
+<span id="cb1-1596"><a href="#cb1-1596" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1597"><a href="#cb1-1597" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1598"><a href="#cb1-1598" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{ES}_i</span>
+<span id="cb1-1599"><a href="#cb1-1599" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1600"><a href="#cb1-1600" aria-hidden="true" tabindex="-1"></a>-\mathbb{E}</span>
+<span id="cb1-1601"><a href="#cb1-1601" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb1-1602"><a href="#cb1-1602" aria-hidden="true" tabindex="-1"></a>R_i</span>
+<span id="cb1-1603"><a href="#cb1-1603" aria-hidden="true" tabindex="-1"></a>\mid</span>
+<span id="cb1-1604"><a href="#cb1-1604" aria-hidden="true" tabindex="-1"></a>X_p\leq-\mathrm{VaR}_\alpha(X_p)</span>
+<span id="cb1-1605"><a href="#cb1-1605" aria-hidden="true" tabindex="-1"></a>\right].</span>
+<span id="cb1-1606"><a href="#cb1-1606" aria-hidden="true" tabindex="-1"></a>$$ {#eq-marginal-es-tail}</span>
+<span id="cb1-1607"><a href="#cb1-1607" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1608"><a href="#cb1-1608" aria-hidden="true" tabindex="-1"></a>즉, marginal ES는 포트폴리오의 손익이 하위 $\alpha$ 영역에 있을 때 자산 $i$의 평균 수익률에 음수를 붙인 값이다.</span>
+<span id="cb1-1609"><a href="#cb1-1609" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1610"><a href="#cb1-1610" aria-hidden="true" tabindex="-1"></a>같은 식을 지시함수로 표현하면 다음과 같다.</span>
+<span id="cb1-1611"><a href="#cb1-1611" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1612"><a href="#cb1-1612" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1613"><a href="#cb1-1613" aria-hidden="true" tabindex="-1"></a>\Delta\mathrm{ES}_i</span>
+<span id="cb1-1614"><a href="#cb1-1614" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1615"><a href="#cb1-1615" aria-hidden="true" tabindex="-1"></a>-\frac{1}{\alpha}</span>
+<span id="cb1-1616"><a href="#cb1-1616" aria-hidden="true" tabindex="-1"></a>\mathbb{E}</span>
+<span id="cb1-1617"><a href="#cb1-1617" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb1-1618"><a href="#cb1-1618" aria-hidden="true" tabindex="-1"></a>R_i</span>
+<span id="cb1-1619"><a href="#cb1-1619" aria-hidden="true" tabindex="-1"></a>\mathbf{1}_{<span class="sc">\{</span></span>
+<span id="cb1-1620"><a href="#cb1-1620" aria-hidden="true" tabindex="-1"></a>X_p\leq-\mathrm{VaR}_\alpha(X_p)</span>
+<span id="cb1-1621"><a href="#cb1-1621" aria-hidden="true" tabindex="-1"></a><span class="sc">\}</span>}</span>
+<span id="cb1-1622"><a href="#cb1-1622" aria-hidden="true" tabindex="-1"></a>\right].</span>
+<span id="cb1-1623"><a href="#cb1-1623" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1624"><a href="#cb1-1624" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1625"><a href="#cb1-1625" aria-hidden="true" tabindex="-1"></a>여기서 $\mathbf{1}_{A}$는 사건 $A$가 발생하면 1, 그렇지 않으면 0인 지시함수이다. 조건부기댓값은 이미 꼬리 사건의 확률로 나눈 평균이므로, 식 @eq-marginal-es-tail 에는 $1/\alpha$를 다시 곱하지 않는다.</span>
+<span id="cb1-1626"><a href="#cb1-1626" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1627"><a href="#cb1-1627" aria-hidden="true" tabindex="-1"></a>포트폴리오가 큰 손실을 볼 때 함께 손실을 보는 자산은 양의 marginal ES를 갖는다. 반대로 그 상황에서 평균적으로 이익을 내는 자산은 음의 marginal ES를 가질 수 있다.</span>
+<span id="cb1-1628"><a href="#cb1-1628" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1629"><a href="#cb1-1629" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb1-1630"><a href="#cb1-1630" aria-hidden="true" tabindex="-1"></a>이산형 분포에서는 VaR 경계점에 확률질량이 있어 꼬리 사건의 확률이 정확히 $\alpha$가 되지 않을 수 있다. 이때는 위 조건부기댓값을 그대로 적용하지 않고, ES의 일반적 정의에 맞춰 경계점의 확률질량을 배분해야 한다. 미분이 존재하지 않는 경우에는 marginal ES의 취급에도 추가적인 주의가 필요하다.</span>
+<span id="cb1-1631"><a href="#cb1-1631" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1632"><a href="#cb1-1632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1633"><a href="#cb1-1633" aria-hidden="true" tabindex="-1"></a><span class="fu">### Component ES</span></span>
+<span id="cb1-1634"><a href="#cb1-1634" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1635"><a href="#cb1-1635" aria-hidden="true" tabindex="-1"></a>자산 $i$의 component ES는 투자 금액과 marginal ES의 곱으로 정의한다.</span>
+<span id="cb1-1636"><a href="#cb1-1636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1637"><a href="#cb1-1637" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1638"><a href="#cb1-1638" aria-hidden="true" tabindex="-1"></a>\mathrm{CES}_i</span>
+<span id="cb1-1639"><a href="#cb1-1639" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1640"><a href="#cb1-1640" aria-hidden="true" tabindex="-1"></a>x_i\Delta\mathrm{ES}_i</span>
+<span id="cb1-1641"><a href="#cb1-1641" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1642"><a href="#cb1-1642" aria-hidden="true" tabindex="-1"></a>w_iW_0\Delta\mathrm{ES}_i.</span>
+<span id="cb1-1643"><a href="#cb1-1643" aria-hidden="true" tabindex="-1"></a>$$ {#eq-component-es}</span>
+<span id="cb1-1644"><a href="#cb1-1644" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1645"><a href="#cb1-1645" aria-hidden="true" tabindex="-1"></a>정규분포 모형에서는</span>
+<span id="cb1-1646"><a href="#cb1-1646" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1647"><a href="#cb1-1647" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1648"><a href="#cb1-1648" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1649"><a href="#cb1-1649" aria-hidden="true" tabindex="-1"></a>\mathrm{CES}_i</span>
+<span id="cb1-1650"><a href="#cb1-1650" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1651"><a href="#cb1-1651" aria-hidden="true" tabindex="-1"></a>w_iW_0</span>
+<span id="cb1-1652"><a href="#cb1-1652" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)}{\alpha}</span>
+<span id="cb1-1653"><a href="#cb1-1653" aria-hidden="true" tabindex="-1"></a>\frac{\operatorname{Cov}(R_i,R_p)}{\sigma_p} <span class="sc">\\</span></span>
+<span id="cb1-1654"><a href="#cb1-1654" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1655"><a href="#cb1-1655" aria-hidden="true" tabindex="-1"></a>w_i\beta_i\mathrm{ES}_p.</span>
+<span id="cb1-1656"><a href="#cb1-1656" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1657"><a href="#cb1-1657" aria-hidden="true" tabindex="-1"></a>$$ {#eq-component-es-beta}</span>
+<span id="cb1-1658"><a href="#cb1-1658" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1659"><a href="#cb1-1659" aria-hidden="true" tabindex="-1"></a>Component VaR와 마찬가지로 투자 비중과 포트폴리오에 대한 베타를 함께 반영한다.</span>
+<span id="cb1-1660"><a href="#cb1-1660" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1661"><a href="#cb1-1661" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 합산 성질</span></span>
+<span id="cb1-1662"><a href="#cb1-1662" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1663"><a href="#cb1-1663" aria-hidden="true" tabindex="-1"></a>각 자산의 component ES를 더하면 포트폴리오 ES가 된다.</span>
+<span id="cb1-1664"><a href="#cb1-1664" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1665"><a href="#cb1-1665" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1666"><a href="#cb1-1666" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1667"><a href="#cb1-1667" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}\mathrm{CES}_i</span>
+<span id="cb1-1668"><a href="#cb1-1668" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1669"><a href="#cb1-1669" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)W_0}{\alpha\sigma_p}</span>
+<span id="cb1-1670"><a href="#cb1-1670" aria-hidden="true" tabindex="-1"></a>\sum_{i=1}^{N}</span>
+<span id="cb1-1671"><a href="#cb1-1671" aria-hidden="true" tabindex="-1"></a>w_i\operatorname{Cov}(R_i,R_p) <span class="sc">\\</span></span>
+<span id="cb1-1672"><a href="#cb1-1672" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1673"><a href="#cb1-1673" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_\alpha)W_0}{\alpha\sigma_p}</span>
+<span id="cb1-1674"><a href="#cb1-1674" aria-hidden="true" tabindex="-1"></a>\sigma_p^2 <span class="sc">\\</span></span>
+<span id="cb1-1675"><a href="#cb1-1675" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1676"><a href="#cb1-1676" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_p.</span>
+<span id="cb1-1677"><a href="#cb1-1677" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1678"><a href="#cb1-1678" aria-hidden="true" tabindex="-1"></a>$$ {#eq-component-es-sum}</span>
+<span id="cb1-1679"><a href="#cb1-1679" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1680"><a href="#cb1-1680" aria-hidden="true" tabindex="-1"></a>따라서 component ES는 포트폴리오 전체의 평균 꼬리손실을 각 자산의 기여분으로 나누어 보여 준다.</span>
+<span id="cb1-1681"><a href="#cb1-1681" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1682"><a href="#cb1-1682" aria-hidden="true" tabindex="-1"></a>식 @eq-marginal-es-tail 을 적용할 수 있는 경우에는 다음 해석도 가능하다.</span>
+<span id="cb1-1683"><a href="#cb1-1683" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1684"><a href="#cb1-1684" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1685"><a href="#cb1-1685" aria-hidden="true" tabindex="-1"></a>\mathrm{CES}_i</span>
+<span id="cb1-1686"><a href="#cb1-1686" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1687"><a href="#cb1-1687" aria-hidden="true" tabindex="-1"></a>-\mathbb{E}</span>
+<span id="cb1-1688"><a href="#cb1-1688" aria-hidden="true" tabindex="-1"></a>\left[</span>
+<span id="cb1-1689"><a href="#cb1-1689" aria-hidden="true" tabindex="-1"></a>x_iR_i</span>
+<span id="cb1-1690"><a href="#cb1-1690" aria-hidden="true" tabindex="-1"></a>\mid</span>
+<span id="cb1-1691"><a href="#cb1-1691" aria-hidden="true" tabindex="-1"></a>X_p\leq-\mathrm{VaR}_\alpha(X_p)</span>
+<span id="cb1-1692"><a href="#cb1-1692" aria-hidden="true" tabindex="-1"></a>\right].</span>
+<span id="cb1-1693"><a href="#cb1-1693" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1694"><a href="#cb1-1694" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1695"><a href="#cb1-1695" aria-hidden="true" tabindex="-1"></a>즉, 포트폴리오가 큰 손실을 보는 상황에서 해당 포지션이 평균적으로 부담하는 손실이다. 그 상황에서 평균적으로 이익을 내는 포지션은 음의 component ES를 갖는다.</span>
+<span id="cb1-1696"><a href="#cb1-1696" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1697"><a href="#cb1-1697" aria-hidden="true" tabindex="-1"></a><span class="fu">#### VaR 기여도와의 비교</span></span>
+<span id="cb1-1698"><a href="#cb1-1698" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1699"><a href="#cb1-1699" aria-hidden="true" tabindex="-1"></a>식 @eq-marginal-es-var 에 투자 금액 $x_i$를 곱하면 다음을 얻는다.</span>
+<span id="cb1-1700"><a href="#cb1-1700" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1701"><a href="#cb1-1701" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1702"><a href="#cb1-1702" aria-hidden="true" tabindex="-1"></a>\mathrm{CES}_i</span>
+<span id="cb1-1703"><a href="#cb1-1703" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1704"><a href="#cb1-1704" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}</span>
+<span id="cb1-1705"><a href="#cb1-1705" aria-hidden="true" tabindex="-1"></a>\mathrm{CVaR}_i.</span>
+<span id="cb1-1706"><a href="#cb1-1706" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1707"><a href="#cb1-1707" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1708"><a href="#cb1-1708" aria-hidden="true" tabindex="-1"></a>따라서 현재의 정규분포 모형에서는 각 자산의 VaR 기여 비율과 ES 기여 비율이 같다.</span>
+<span id="cb1-1709"><a href="#cb1-1709" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1710"><a href="#cb1-1710" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1711"><a href="#cb1-1711" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{CES}_i}{\mathrm{ES}_p}</span>
+<span id="cb1-1712"><a href="#cb1-1712" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1713"><a href="#cb1-1713" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{CVaR}_i}{\mathrm{VaR}_p}</span>
+<span id="cb1-1714"><a href="#cb1-1714" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1715"><a href="#cb1-1715" aria-hidden="true" tabindex="-1"></a>w_i\beta_i.</span>
+<span id="cb1-1716"><a href="#cb1-1716" aria-hidden="true" tabindex="-1"></a>$$ {#eq-var-es-contribution-share}</span>
+<span id="cb1-1717"><a href="#cb1-1717" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1718"><a href="#cb1-1718" aria-hidden="true" tabindex="-1"></a>ES의 전체 위험 금액은 VaR보다 크지만, 자산별로 나누는 비율은 동일한 것이다. 일반적인 비정규분포에서는 이 관계가 성립하지 않을 수 있다.</span>
+<span id="cb1-1719"><a href="#cb1-1719" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1720"><a href="#cb1-1720" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-1721"><a href="#cb1-1721" aria-hidden="true" tabindex="-1"></a>위험 기여분의 합이 전체 위험과 같아지는 성질은 위험 측도의 양의 동차성과 미분 가능성에 연결된다. 이를 Euler 분해라고 한다.</span>
+<span id="cb1-1722"><a href="#cb1-1722" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1723"><a href="#cb1-1723" aria-hidden="true" tabindex="-1"></a>ES의 부가산성은 분산투자 효과를 일관되게 반영하는 별도의 성질이다. ES가 일관된 위험 측도라는 사실만으로, 현재의 marginal ES가 큰 포지션 변경까지 정확히 설명하는 것은 아니다.</span>
+<span id="cb1-1724"><a href="#cb1-1724" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-1725"><a href="#cb1-1725" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1726"><a href="#cb1-1726" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예제: 두 자산의 ES와 위험 기여도</span></span>
+<span id="cb1-1727"><a href="#cb1-1727" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1728"><a href="#cb1-1728" aria-hidden="true" tabindex="-1"></a>앞의 두 자산 VaR 예제와 같은 포트폴리오를 이용한다.</span>
+<span id="cb1-1729"><a href="#cb1-1729" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1730"><a href="#cb1-1730" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1731"><a href="#cb1-1731" aria-hidden="true" tabindex="-1"></a>\mathbf{C}</span>
+<span id="cb1-1732"><a href="#cb1-1732" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1733"><a href="#cb1-1733" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1734"><a href="#cb1-1734" aria-hidden="true" tabindex="-1"></a>0.0025 &amp; 0.0012 <span class="sc">\\</span></span>
+<span id="cb1-1735"><a href="#cb1-1735" aria-hidden="true" tabindex="-1"></a>0.0012 &amp; 0.0144</span>
+<span id="cb1-1736"><a href="#cb1-1736" aria-hidden="true" tabindex="-1"></a>\end{bmatrix},</span>
+<span id="cb1-1737"><a href="#cb1-1737" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1738"><a href="#cb1-1738" aria-hidden="true" tabindex="-1"></a>\mathbf{w}</span>
+<span id="cb1-1739"><a href="#cb1-1739" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1740"><a href="#cb1-1740" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1741"><a href="#cb1-1741" aria-hidden="true" tabindex="-1"></a>0.25 <span class="sc">\\</span></span>
+<span id="cb1-1742"><a href="#cb1-1742" aria-hidden="true" tabindex="-1"></a>0.75</span>
+<span id="cb1-1743"><a href="#cb1-1743" aria-hidden="true" tabindex="-1"></a>\end{bmatrix},</span>
+<span id="cb1-1744"><a href="#cb1-1744" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1745"><a href="#cb1-1745" aria-hidden="true" tabindex="-1"></a>W_0=10{,}000.</span>
+<span id="cb1-1746"><a href="#cb1-1746" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1747"><a href="#cb1-1747" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1748"><a href="#cb1-1748" aria-hidden="true" tabindex="-1"></a>이 포트폴리오에서 앞서 구한 값은 다음과 같다.</span>
+<span id="cb1-1749"><a href="#cb1-1749" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1750"><a href="#cb1-1750" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1751"><a href="#cb1-1751" aria-hidden="true" tabindex="-1"></a>\sigma_p^2=0.00870625,</span>
+<span id="cb1-1752"><a href="#cb1-1752" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1753"><a href="#cb1-1753" aria-hidden="true" tabindex="-1"></a>\mathrm{VaR}_p\approx1{,}534.77,</span>
+<span id="cb1-1754"><a href="#cb1-1754" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1755"><a href="#cb1-1755" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1756"><a href="#cb1-1756" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1757"><a href="#cb1-1757" aria-hidden="true" tabindex="-1"></a>\operatorname{Cov}(R_1,R_p)=0.001525,</span>
+<span id="cb1-1758"><a href="#cb1-1758" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1759"><a href="#cb1-1759" aria-hidden="true" tabindex="-1"></a>\operatorname{Cov}(R_2,R_p)=0.0111.</span>
+<span id="cb1-1760"><a href="#cb1-1760" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1761"><a href="#cb1-1761" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1762"><a href="#cb1-1762" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 포트폴리오 ES</span></span>
+<span id="cb1-1763"><a href="#cb1-1763" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1764"><a href="#cb1-1764" aria-hidden="true" tabindex="-1"></a>95% 신뢰수준에서는 $\alpha=0.05$이고,</span>
+<span id="cb1-1765"><a href="#cb1-1765" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1766"><a href="#cb1-1766" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1767"><a href="#cb1-1767" aria-hidden="true" tabindex="-1"></a>z_{0.05}\approx1.6448536,</span>
+<span id="cb1-1768"><a href="#cb1-1768" aria-hidden="true" tabindex="-1"></a>\qquad</span>
+<span id="cb1-1769"><a href="#cb1-1769" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_{0.05})}{0.05}</span>
+<span id="cb1-1770"><a href="#cb1-1770" aria-hidden="true" tabindex="-1"></a>\approx2.0627128</span>
+<span id="cb1-1771"><a href="#cb1-1771" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1772"><a href="#cb1-1772" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1773"><a href="#cb1-1773" aria-hidden="true" tabindex="-1"></a>이다. 따라서 포트폴리오 ES는 다음과 같다.</span>
+<span id="cb1-1774"><a href="#cb1-1774" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1775"><a href="#cb1-1775" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1776"><a href="#cb1-1776" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1777"><a href="#cb1-1777" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_p</span>
+<span id="cb1-1778"><a href="#cb1-1778" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1779"><a href="#cb1-1779" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_{0.05})}{0.05}</span>
+<span id="cb1-1780"><a href="#cb1-1780" aria-hidden="true" tabindex="-1"></a>\sqrt{0.00870625}\times10{,}000 <span class="sc">\\</span></span>
+<span id="cb1-1781"><a href="#cb1-1781" aria-hidden="true" tabindex="-1"></a>&amp;\approx</span>
+<span id="cb1-1782"><a href="#cb1-1782" aria-hidden="true" tabindex="-1"></a>1{,}924.66.</span>
+<span id="cb1-1783"><a href="#cb1-1783" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1784"><a href="#cb1-1784" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1785"><a href="#cb1-1785" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1786"><a href="#cb1-1786" aria-hidden="true" tabindex="-1"></a>VaR와의 비율은</span>
+<span id="cb1-1787"><a href="#cb1-1787" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1788"><a href="#cb1-1788" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1789"><a href="#cb1-1789" aria-hidden="true" tabindex="-1"></a>\frac{\mathrm{ES}_p}{\mathrm{VaR}_p}</span>
+<span id="cb1-1790"><a href="#cb1-1790" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1791"><a href="#cb1-1791" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_{0.05})}{0.05z_{0.05}}</span>
+<span id="cb1-1792"><a href="#cb1-1792" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1793"><a href="#cb1-1793" aria-hidden="true" tabindex="-1"></a>1.2540</span>
+<span id="cb1-1794"><a href="#cb1-1794" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1795"><a href="#cb1-1795" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1796"><a href="#cb1-1796" aria-hidden="true" tabindex="-1"></a>이다. 이 포트폴리오의 95% ES는 95% VaR보다 약 25.4% 크다.</span>
+<span id="cb1-1797"><a href="#cb1-1797" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1798"><a href="#cb1-1798" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Marginal ES</span></span>
+<span id="cb1-1799"><a href="#cb1-1799" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1800"><a href="#cb1-1800" aria-hidden="true" tabindex="-1"></a>식 @eq-marginal-es 를 이용하면 다음과 같다.</span>
+<span id="cb1-1801"><a href="#cb1-1801" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1802"><a href="#cb1-1802" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1803"><a href="#cb1-1803" aria-hidden="true" tabindex="-1"></a>\Delta\boldsymbol{\mathrm{ES}}</span>
+<span id="cb1-1804"><a href="#cb1-1804" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1805"><a href="#cb1-1805" aria-hidden="true" tabindex="-1"></a>\frac{\phi(z_{0.05})}</span>
+<span id="cb1-1806"><a href="#cb1-1806" aria-hidden="true" tabindex="-1"></a>{0.05\sqrt{0.00870625}}</span>
+<span id="cb1-1807"><a href="#cb1-1807" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1808"><a href="#cb1-1808" aria-hidden="true" tabindex="-1"></a>0.001525 <span class="sc">\\</span></span>
+<span id="cb1-1809"><a href="#cb1-1809" aria-hidden="true" tabindex="-1"></a>0.0111</span>
+<span id="cb1-1810"><a href="#cb1-1810" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}</span>
+<span id="cb1-1811"><a href="#cb1-1811" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1812"><a href="#cb1-1812" aria-hidden="true" tabindex="-1"></a>\begin{bmatrix}</span>
+<span id="cb1-1813"><a href="#cb1-1813" aria-hidden="true" tabindex="-1"></a>0.033713 <span class="sc">\\</span></span>
+<span id="cb1-1814"><a href="#cb1-1814" aria-hidden="true" tabindex="-1"></a>0.245384</span>
+<span id="cb1-1815"><a href="#cb1-1815" aria-hidden="true" tabindex="-1"></a>\end{bmatrix}.</span>
+<span id="cb1-1816"><a href="#cb1-1816" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1817"><a href="#cb1-1817" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1818"><a href="#cb1-1818" aria-hidden="true" tabindex="-1"></a>현재 포트폴리오에서 자산 2에 1달러를 추가하면 ES는 약 0.2454달러 증가한다. 자산 1에 1달러를 추가할 때의 증가분은 약 0.0337달러이다.</span>
+<span id="cb1-1819"><a href="#cb1-1819" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1820"><a href="#cb1-1820" aria-hidden="true" tabindex="-1"></a>이 값들은 각각의 marginal VaR에 약 1.2540을 곱한 값과 같다.</span>
+<span id="cb1-1821"><a href="#cb1-1821" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1822"><a href="#cb1-1822" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Component ES</span></span>
+<span id="cb1-1823"><a href="#cb1-1823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1824"><a href="#cb1-1824" aria-hidden="true" tabindex="-1"></a>각 투자 금액을 marginal ES에 곱하면 다음과 같다.</span>
+<span id="cb1-1825"><a href="#cb1-1825" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1826"><a href="#cb1-1826" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1827"><a href="#cb1-1827" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-1828"><a href="#cb1-1828" aria-hidden="true" tabindex="-1"></a>\mathrm{CES}_1</span>
+<span id="cb1-1829"><a href="#cb1-1829" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1830"><a href="#cb1-1830" aria-hidden="true" tabindex="-1"></a>2{,}500\Delta\mathrm{ES}_1</span>
+<span id="cb1-1831"><a href="#cb1-1831" aria-hidden="true" tabindex="-1"></a>\approx84.28, <span class="sc">\\</span></span>
+<span id="cb1-1832"><a href="#cb1-1832" aria-hidden="true" tabindex="-1"></a>\mathrm{CES}_2</span>
+<span id="cb1-1833"><a href="#cb1-1833" aria-hidden="true" tabindex="-1"></a>&amp;=</span>
+<span id="cb1-1834"><a href="#cb1-1834" aria-hidden="true" tabindex="-1"></a>7{,}500\Delta\mathrm{ES}_2</span>
+<span id="cb1-1835"><a href="#cb1-1835" aria-hidden="true" tabindex="-1"></a>\approx1{,}840.38.</span>
+<span id="cb1-1836"><a href="#cb1-1836" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-1837"><a href="#cb1-1837" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1838"><a href="#cb1-1838" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1839"><a href="#cb1-1839" aria-hidden="true" tabindex="-1"></a>두 기여분의 합은 포트폴리오 ES와 같다.</span>
+<span id="cb1-1840"><a href="#cb1-1840" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1841"><a href="#cb1-1841" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1842"><a href="#cb1-1842" aria-hidden="true" tabindex="-1"></a>\mathrm{CES}_1+\mathrm{CES}_2</span>
+<span id="cb1-1843"><a href="#cb1-1843" aria-hidden="true" tabindex="-1"></a>=</span>
+<span id="cb1-1844"><a href="#cb1-1844" aria-hidden="true" tabindex="-1"></a>\mathrm{ES}_p</span>
+<span id="cb1-1845"><a href="#cb1-1845" aria-hidden="true" tabindex="-1"></a>\approx</span>
+<span id="cb1-1846"><a href="#cb1-1846" aria-hidden="true" tabindex="-1"></a>1{,}924.66.</span>
+<span id="cb1-1847"><a href="#cb1-1847" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-1848"><a href="#cb1-1848" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1849"><a href="#cb1-1849" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 위험 기여 비율 비교</span></span>
+<span id="cb1-1850"><a href="#cb1-1850" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1851"><a href="#cb1-1851" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 자산 <span class="pp">|</span> Component VaR <span class="pp">|</span> VaR 기여 비율 <span class="pp">|</span> Component ES <span class="pp">|</span> ES 기여 비율 <span class="pp">|</span></span>
+<span id="cb1-1852"><a href="#cb1-1852" aria-hidden="true" tabindex="-1"></a><span class="pp">|:---|---:|---:|---:|---:|</span></span>
+<span id="cb1-1853"><a href="#cb1-1853" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 자산 1 <span class="pp">|</span> 67.21 <span class="pp">|</span> 4.38% <span class="pp">|</span> 84.28 <span class="pp">|</span> 4.38% <span class="pp">|</span></span>
+<span id="cb1-1854"><a href="#cb1-1854" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 자산 2 <span class="pp">|</span> 1,467.56 <span class="pp">|</span> 95.62% <span class="pp">|</span> 1,840.38 <span class="pp">|</span> 95.62% <span class="pp">|</span></span>
+<span id="cb1-1855"><a href="#cb1-1855" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 합계 <span class="pp">|</span> 1,534.77 <span class="pp">|</span> 100.00% <span class="pp">|</span> 1,924.66 <span class="pp">|</span> 100.00% <span class="pp">|</span></span>
+<span id="cb1-1856"><a href="#cb1-1856" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1857"><a href="#cb1-1857" aria-hidden="true" tabindex="-1"></a>: 두 자산 포트폴리오의 VaR와 ES 기여도 비교 {#tbl-portfolio-es-contributions}</span>
+<span id="cb1-1858"><a href="#cb1-1858" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1859"><a href="#cb1-1859" aria-hidden="true" tabindex="-1"></a>@tbl-portfolio-es-contributions 에서 ES는 VaR를 넘어서는 손실의 크기를 반영하므로 전체 위험 금액과 각 자산의 기여액이 더 크다. 그러나 기대수익률을 0으로 둔 정규분포 모형에서는 위험 기여 비율이 동일하다.</span>
+<span id="cb1-1860"><a href="#cb1-1860" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1861"><a href="#cb1-1861" aria-hidden="true" tabindex="-1"></a>실제 수익률 분포가 정규분포와 다르면 자산별 꼬리손실의 형태도 달라질 수 있다. 이때 ES 기여도를 분석하면 포트폴리오가 극단적인 손실을 보는 상황에서 어떤 포지션이 손실을 키우고, 어떤 포지션이 이를 완화하는지 살펴볼 수 있다.</span></code></pre></div><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
