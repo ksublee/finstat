@@ -476,7 +476,7 @@ EWMA는 변동성 과정의 모형이 아니므로 시뮬레이션에는 적합�
 
 실제로 금융 시장의 변동성은 평균 복귀 현상을 보인다. 평균 복귀 성질이란, 확률과정의 값이 평균보다 높으면 평균을 향해 낮아지려 하고 평균보다 낮으면 평균을 향해 높아지려 하는 성질이다. 변동성 자체는 거래되는 대상이 아니라서 변동성이 특정 방향으로 움직이더라도 여기에 영향력을 행사하기는 어렵다. 그러나 변동성이 높거나 낮은 수준에 있다고 해서 그것이 영원히 지속되리라고는 생각하기 어렵다. 시간이 지나면 정상적인 수준으로 수렴하는 현상을 보인다.
 
-### 시뮬레이션
+### 시뮬레이션 {#sec-garch-simulation}
 
 다음은 GARCH(1,1) 모형에 대한 [몬테카를로 시뮬레이션](../../concepts/glossary.qmd#monte-carlo-simulation) R 코드 예제이다. 이 코드로 분산 $\sigma_n^2$, $n = 1, \cdots, 250$을 시뮬레이션한 결과가 @fig-garch-ewma 의 왼쪽에 있다.
 
@@ -656,6 +656,304 @@ f(r_1, r_2, \cdots, r_N \mid \sigma_1) &= f(r_N \mid r_{N-1}, \cdots, r_1, \sigm
 $$
 
 위 식은 $\sigma_1, r_1, \cdots, r_n$으로 $\sigma_{n+1}$을 계산할 수 있다는 점을 이용한다. 실제로는 초기 조건부 분산 $\sigma_1^2$의 값을 알 수 없으므로, 적절한 초기값으로 @eq-uncond-v 의 값을 쓸 수 있다. 이 밀도함수는 $r_1, \cdots, r_N$의 함수이며 모수 $\omega, \alpha, \beta$를 품고 있다. 각 $\sigma_i$를 계산할 때 $\omega, \alpha, \beta$를 쓰기 때문이다.
+
+### 최대우도추정 {#sec-maximum-likelihood}
+
+**우도함수**(likelihood function)는 확률밀도함수에 관찰값을 대입하여 모수의 함수로 바꾸어 나타낸 것이다.
+
+::: {.callout-note}
+## 우도함수
+
+확률변수 $X_1, X_2, \cdots, X_N$의 결합확률밀도함수를
+
+$$
+f(x_1, \cdots, x_N; \boldsymbol{\theta})
+$$
+
+이라 하고, 이 분포의 모수 집합을 $\boldsymbol{\theta}$라 하자. $X_1, X_2, \cdots, X_N$의 관찰값 $\tilde x_1, \tilde x_2, \cdots, \tilde x_N$이 주어졌을 때, 우도함수는 모수 $\boldsymbol{\theta}$의 함수로
+
+$$
+L(\boldsymbol{\theta}) = f(\tilde x_1, \cdots, \tilde x_N; \boldsymbol{\theta})
+$$
+
+이고, 로그우도함수는 다음과 같다.
+
+$$
+\log L(\boldsymbol{\theta}) = \log f(\tilde x_1, \cdots, \tilde x_N; \boldsymbol{\theta})
+$$
+:::
+
+::: {.callout-tip}
+## 예제: 베르누이 시행의 로그우도함수
+
+확률변수 $X$가 $\theta$의 확률로 1, $1-\theta$의 확률로 0이 나오는 베르누이 시행이라고 하자. $X$의 확률밀도함수(보다 정확히는 확률질량함수)는
+
+$$
+f(x; \theta) = \theta^x (1-\theta)^{1-x}
+$$
+
+이며, 독립인 $X_1, \cdots, X_n$의 결합확률밀도함수는
+
+$$
+f(x_1, \cdots, x_n; \theta) = \prod_{i=1}^{n} \theta^{x_i} (1-\theta)^{1-x_i} = \theta^{\sum x_i} (1-\theta)^{n-\sum x_i}
+$$
+
+이다. 로그를 취하면 다음과 같다.
+
+$$
+\log f(x_1, \cdots, x_n; \theta) = \log(\theta) \sum_{i=1}^{n} x_i + \log(1-\theta) \left( n - \sum_{i=1}^{n} x_i \right)
+$$
+
+총 10개의 관찰값이
+
+$$
+1, 0, 0, 1, 0, 0, 0, 0, 1, 0
+$$
+
+일 때, 로그우도함수는 다음과 같다.
+
+$$
+\log L(\theta) = 3 \log \theta + 7 \log(1-\theta)
+$$ {#eq-logl1}
+:::
+
+::: {.callout-tip}
+## 예제: 정규분포의 로그우도함수
+
+확률변수 $X_1, X_2, X_3$가 독립이며, 평균이 0이고 분산이 $\sigma^2$인 정규분포를 따른다고 하자. 결합확률밀도함수는
+
+$$
+f(x_1, x_2, x_3; \sigma) = \prod_{i=1}^{3} \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{x_i^2}{2\sigma^2} \right)
+$$
+
+이다. 실제로 관찰된 값이 $\tilde x_1 = 1.2$, $\tilde x_2 = 0.4$, $\tilde x_3 = 3.4$일 때 우도함수는
+
+$$
+L(\sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{1.2^2}{2\sigma^2} \right) \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{0.4^2}{2\sigma^2} \right) \frac{1}{\sqrt{2\pi}\sigma} \exp\left( -\frac{3.4^2}{2\sigma^2} \right)
+$$
+
+이며, $L$은 $\sigma$의 함수이다. 로그우도함수를 구하면
+
+$$
+\log L(\sigma) = -\frac{3}{2}\log(2\pi) - 3\log(\sigma) - \frac{1}{2\sigma^2}(1.2^2 + 0.4^2 + 3.4^2)
+$$
+
+이 된다. 상수 부분인 $-\frac{3}{2}\log(2\pi)$는 추정에 영향을 미치지 않기 때문에
+
+$$
+\log L(\sigma) = -3\log(\sigma) - \frac{1}{2\sigma^2}(1.2^2 + 0.4^2 + 3.4^2)
+$$ {#eq-logl2}
+
+와 같이 간단히 쓰곤 한다. 이 함수는 관찰값의 수와 관찰값에 따라 달라진다.
+:::
+
+@fig-mle-normals 는 평균 2, 표준편차 1인 정규분포에서 추출한 표본에 대해 여러 정규분포의 확률밀도함수로 로그우도함수 값을 계산한 결과이다. 자료를 가장 잘 적합하는 확률밀도함수의 모수를 썼을 때 로그우도함수의 값이 가장 크다.
+
+**최대우도추정법**(maximum likelihood estimation)은 로그우도함수의 값을 가장 크게 하는 확률밀도함수, 즉 모형의 모수를 찾는 방법이다.
+
+![$N(2, 1)$에서 추출한 표본에 대해 여러 정규분포로 계산한 로그우도함수 값](../../assets/figures/Ch7_MLE_normals.svg){#fig-mle-normals width=70%}
+
+::: {.callout-tip}
+## 예제: 로그우도함수를 최대화하는 추정치
+
+베르누이 시행 예제의 @eq-logl1 을 최대화하는 $\hat\theta$는 다음을 만족한다.
+
+$$
+\left. \frac{d \log L(\theta)}{d \theta} \right|_{\theta = \hat\theta} = \frac{3}{\hat\theta} + \frac{7}{\hat\theta - 1} = 0
+$$
+
+따라서
+
+$$
+\hat\theta = 0.3
+$$
+
+이다. 10개의 관찰값 중 1이 3개 나왔으므로 당연한 결과이다. @fig-loglik-binom 은 이 로그우도함수를 $\theta$에 대한 그래프로 나타낸 것이다. 만약 10개의 관찰값 중 성공이 6개였다면, 그 결과에 대한 로그우도함수는 $\theta = 0.6$에서 최댓값을 가진다.
+
+비슷하게, 정규분포 예제의 @eq-logl2 를 최대화하는 $\hat\sigma$는 다음을 만족한다.
+
+$$
+\left. \frac{d \log L(\sigma)}{d \sigma} \right|_{\sigma = \hat\sigma} = -\frac{3}{\hat\sigma} + \frac{1}{\hat\sigma^3}(1.2^2 + 0.4^2 + 3.4^2) = 0
+$$
+
+따라서
+
+$$
+\hat\sigma^2 = \frac{1.2^2 + 0.4^2 + 3.4^2}{3}
+$$
+
+이고
+
+$$
+\hat\sigma = \sqrt{\frac{1.2^2 + 0.4^2 + 3.4^2}{3}}
+$$
+
+이다. 관찰값 제곱의 평균을 이용한다는 점에 주목한다.
+:::
+
+![10번 시도에서 3번 성공한 베르누이 시행의 로그우도함수](../../assets/figures/Ch7_loglike_binom.svg){#fig-loglik-binom width=50%}
+
+GARCH(1,1) 모형의 로그우도함수도 정규분포 예제와 비슷하게 구한다. 다만 GARCH 모형의 분산은 시간에 따라 변한다는 점에 주의한다. 관찰값 $\tilde r_1, \cdots, \tilde r_N$이 주어졌을 때, GARCH(1,1) 모형의 우도함수는
+
+$$
+L(\omega, \alpha, \beta) = f(\tilde r_N \mid \sigma_N) f(\tilde r_{N-1} \mid \sigma_{N-1}) \cdots f(\tilde r_2 \mid \sigma_2) f(\tilde r_1 \mid \sigma_1)
+$$
+
+이며, 모수 $\omega, \alpha, \beta$의 함수이다. GARCH(1,1) 모형의 정의에 따라
+
+$$
+\sigma_n^2 = \omega + \alpha \tilde r_{n-1}^2 + \beta \sigma_{n-1}^2
+$$ {#eq-sigma-lh}
+
+이다. @eq-cond-normal 에 로그를 취하면
+
+$$
+\log f(r_n \mid \sigma_n) = -\frac{1}{2} \{ \log(2\pi) + \log \sigma_n^2 \} - \frac{r_n^2}{2\sigma_n^2}
+$$
+
+이므로, 로그우도함수는 다음과 같다.
+
+$$
+\begin{aligned}
+\log L(\omega, \alpha, \beta) &= \log f(\tilde r_1 \mid \sigma_1) + \log f(\tilde r_2 \mid \sigma_2) \\
+&\qquad + \cdots + \log f(\tilde r_N \mid \sigma_N) \\
+&= \sum_{n=1}^{N} \left\{ -\frac{1}{2} \log \sigma_n^2 - \frac{\tilde r_n^2}{2\sigma_n^2} \right\}
+\end{aligned}
+$$ {#eq-loglik-garch}
+
+$\log(2\pi)$를 포함하는 상수 부분은 추정에 영향을 미치지 않기 때문에 생략하였다. 위 식의 우변은 $\sigma_n$의 함수처럼 보이지만, $\sigma_n^2$은 @eq-sigma-lh 로 계산되므로 실제로는 $\omega, \alpha, \beta$의 함수이다.
+
+실제로 최대우도추정법을 적용할 때는 우도함수가 아니라 로그우도함수를 이용한다. 우도함수는 곱의 형태이지만 로그우도함수는 합의 형태라서 계산하기에 더 편리하다. @tbl-loglik-garch 는 이 과정을 보여준다.
+
+| 시간 $n$ | [관찰된 수익률]{style="white-space: nowrap;"} $\tilde r_n$ | 계산된 분산 | 로그우도 |
+|:---:|:---:|:---|:---|
+| 1 | $0.01$ | $\sigma_1^2 = \dfrac{\omega}{1 - \alpha - \beta}$ (가정) | $-\dfrac{1}{2}\log \sigma_1^2 - \dfrac{0.01^2}{2\sigma_1^2}$ |
+| 2 | $-0.02$ | $\sigma_2^2 = \omega + \alpha \times 0.01^2 + \beta \times \sigma_1^2$ | $-\dfrac{1}{2}\log \sigma_2^2 - \dfrac{(-0.02)^2}{2\sigma_2^2}$ |
+| 3 | $-0.03$ | $\sigma_3^2 = \omega + \alpha \times (-0.02)^2 + \beta \times \sigma_2^2$ | $-\dfrac{1}{2}\log \sigma_3^2 - \dfrac{(-0.03)^2}{2\sigma_3^2}$ |
+| 4 | $0.04$ | $\sigma_4^2 = \omega + \alpha \times (-0.03)^2 + \beta \times \sigma_3^2$ | $-\dfrac{1}{2}\log \sigma_4^2 - \dfrac{0.04^2}{2\sigma_4^2}$ |
+| | $\vdots$ | $\vdots$ | $\vdots$ |
+| $N$ | $\tilde r_N$ | $\sigma_N^2 = \omega + \alpha \times \tilde r_{N-1}^2 + \beta \times \sigma_{N-1}^2$ | $-\dfrac{1}{2}\log \sigma_N^2 - \dfrac{\tilde r_N^2}{2\sigma_N^2}$ |
+| 합계 | | | $\log L(\omega, \alpha, \beta)$ |
+
+: GARCH(1,1) 모형의 로그우도함수 계산 과정 {#tbl-loglik-garch}
+
+GARCH 모형의 모수 추정은 최대우도추정법을 이용한다.
+
+::: {.callout-note}
+## GARCH(1,1) 모형의 최대우도추정량
+
+GARCH(1,1) 모형의 최대우도추정량은 다음을 만족하는 추정량 $\hat\omega, \hat\alpha, \hat\beta$를 말한다.
+
+$$
+\hat\omega, \hat\alpha, \hat\beta = \operatorname*{argmax}_{\omega, \alpha, \beta} \enspace \log L(\omega, \alpha, \beta)
+$$
+
+여기서 $\log L$은 @eq-loglik-garch 이다. 즉, 주어진 실현 수익률 $\tilde r_1, \cdots, \tilde r_N$에 대해 $\log L(\omega, \alpha, \beta)$를 최대화하는 $\omega, \alpha, \beta$의 값이다.
+:::
+
+::: {.callout-note title="정리: 최대우도추정량의 성질"}
+
+최대우도추정량은 다음의 성질을 지닌다.
+
+1. **일치성**(consistency): 표본 수가 무한히 커질 때, 최대우도추정량은 모수의 참값에 수렴한다.
+2. **점근적 정규성**(asymptotic normality): 표본의 수가 충분히 크면, 최대우도추정량은 참값 주변에서 정규분포를 따르게 된다.
+3. **점근적 효율성**(asymptotic efficiency): 최대우도추정량은 가능한 추정량 중 가장 작은 분산을 가진다.
+:::
+
+다음 R 코드는 GARCH 모형의 최대우도추정법을 구현한 것이다. GARCH 모형의 로그우도함수는 복잡해서 해석적으로 해를 찾기 힘들기 때문에, 이 코드처럼 수치적 최적화 방법을 이용한다. 코드의 앞부분은 앞의 [시뮬레이션](#sec-garch-simulation) 절에서 소개한 코드를 그대로 이용하였고, 수익률을 1,000개 생성한다.
+
+```r
+# simulation for GARCH(1,1)
+omega <- 10^(-7); alpha <- 0.05; beta <- 0.9
+v <- omega / (1- alpha - beta); r <- 0
+
+for (n in 2:1000){
+  v[n] <- omega + alpha * r[n-1]^2 + beta * v[n-1]
+  r[n] <- sqrt(v[n]) * rnorm(1)
+}
+
+# define log-likelihood function
+logLike <- function(p, r){
+  v <- p["omega"] / (1- p["alpha"] - p["beta"])
+  logL <- - 0.5 * log(v[1]) - 0.5 * r[1]^2 / v[1]
+
+  # Compute the sum of log-likelihood values repeatedly
+  for(n in 2:length(r)){
+    v[n] <- p["omega"] + p["alpha"] * r[n-1]^2 + p["beta"] * v[n-1]
+    logL <- logL - 0.5 * log(v[n]) - 0.5 * r[n]^2 / v[n]
+  }
+  - logL  # return minus of logL because optim() finds minimum
+}
+
+# perform estimation based on the simulation result
+optim(c(omega=0.00001, alpha=0.1, beta=0.8), logLike, r=r)
+```
+
+위 예제에서는
+
+$$
+\hat\omega = 8.56 \times 10^{-8}, \enspace \hat\alpha = 4.70 \times 10^{-2}, \enspace \hat\beta = 9.08 \times 10^{-1}
+$$
+
+로 추정되어, 코드 앞부분에서 정한 실제 모수의 값과 상당히 비슷하다. 단, 시뮬레이션의 랜덤성에 의존하므로 실험할 때마다 추정치는 다르게 나온다.
+
+위에서는 R에서 기본으로 제공하는 비선형 최적화 도구인 `optim()` 함수를 이용하였으나, @Ghal2014<!-- -->의 `rugarch` 등 완성된 패키지를 이용하는 것도 좋은 방법이다. 단, GARCH 추정과 관련된 패키지는 여러 종류가 있고 패키지마다 사용법이 다를 수 있으니 주의한다.
+
+위 코드의 마지막 줄에서 `optim()` 함수의 인자로는 최적화에 필요한 초기값을 적절하게 입력한다. 관찰값이 충분히 많으면 추정량의 점근적 성질 때문에 초기값의 선택은 크게 문제가 되지 않는다.
+
+`optim()` 함수의 두 번째 인자는 코드 중간에 정의한 `logLike` 함수이다. 이 함수는 주어진 관찰값의 벡터 `r`을 이용하여 로그우도함수의 값을 계산한다. `logLike`의 첫 번째 인자 `p`는 $\omega, \alpha, \beta$로 구성된 모수 벡터이다. `optim()` 함수의 마지막 인자는 `logLike`에 필요한 `r`이다.
+
+GARCH(1,1) 모형의 로그우도함수는 세 개의 모수를 가지기 때문에 시각화하기 어렵다. 그래서 $\omega$는 참값으로 고정하고, $\alpha$와 $\beta$에 대한 로그우도함수의 그래프를 @fig-llh-garch 에 나타내었다. 모수의 참값 위치는 o로, 추정치의 위치는 $*$로 표기하였다. 추정치의 위치는 로그우도함수가 최댓값을 가지는 위치이다.
+
+이 예제에서는 추정치가 모수의 참값에 가까운 것을 관찰할 수 있다. 물론 로그우도함수의 정의상 관찰되는 데이터가 달라지면 함수의 모양도 달라진다는 점에 주의한다.
+
+![$\omega$를 고정시키고 그린 GARCH(1,1) 모형의 로그우도함수 (o: 모수의 참값, $*$: 추정치)](../../assets/figures/Ch7_GARCH_MLE.png){#fig-llh-garch width=70%}
+
+한편 `rugarch` 패키지는 1987년 3월부터 2009년 1월까지의 S&P 500 수익률 자료를 제공하는데, 이를 바탕으로 추정한 결과는 다음과 같다.
+
+$$
+\hat\omega = 1.37 \times 10^{-6}, \enspace \hat\alpha = 0.0867, \enspace \hat\beta = 0.9050
+$$ {#eq-snp-garch}
+
+다음 코드의 앞부분은 패키지 설치와 로딩을 위한 것이다. 나머지는 앞 코드의 로그우도함수 정의(`logLike`)부터와 같다.
+
+```r
+install.packages("rugarch")  # Run once at first time, if not installed
+library(rugarch)
+data(sp500ret)
+r <- sp500ret[[1]]
+
+logLike <- function(p, r){
+  v <- p["omega"] / (1- p["alpha"] - p["beta"])
+  logL <- -0.5 * log(v[1]) - 0.5 * r[1]^2 / v[1]
+  for(n in 2:length(r)){
+    v[n] <- p["omega"] + p["alpha"] * r[n-1]^2 + p["beta"] * v[n-1]
+    logL <- logL - 0.5 * log(v[n]) - 0.5 * r[n]^2 / v[n]
+  }
+  - logL  # because optim() finds minimum
+}
+
+# perform estimation based on the real data
+res <- optim(c(omega=0.00001, alpha=0.1, beta=0.8), logLike, r=r)
+print(res)
+```
+
+일반적으로 $\omega, \alpha, \beta$에 대한 추정이 끝나면 이를 바탕으로 변동성 과정을 추론할 수 있다. 구한 추정치로 GARCH 과정을 다시 한 번 계산하는 것이다. 다음 코드는 앞의 코드에 이어서 실행하며, GARCH 변동성 공식과 $\hat\omega, \hat\alpha, \hat\beta$로 $\hat\sigma^2$을 다시 계산한다. 이렇게 추정한 가장 마지막 날의 조건부 분산은 대략 0.0006이다.
+
+```r
+# res is from previous code.
+omega_hat <- res$par["omega"]
+alpha_hat <- res$par["alpha"]
+beta_hat <- res$par["beta"]
+v_hat <- omega_hat / (1 - alpha_hat - beta_hat)  # initial value
+
+for (n in 2:length(r)){
+  v_hat[n] <- omega_hat + alpha_hat * r[n-1]^2 + beta_hat * v_hat[n-1]
+}
+
+#last day conditional variance
+v_hat[length(v_hat)]    # 0.0006253281
+```
 
 ## 관련 페이지
 
