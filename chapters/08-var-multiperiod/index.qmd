@@ -221,7 +221,7 @@ $$
 
 **6단계. VaR와 ES를 구한다.**
 
-손익을 오름차순으로 정렬해 $\mathrm{PnL}_{(1)}, \cdots, \mathrm{PnL}_{(L)}$이라 두고, 앞 절의 @eq-simul-var 와 @eq-simul-es 를 그대로 적용한다.
+손익을 오름차순으로 정렬해 $\mathrm{PnL}_{(1)}, \cdots, \mathrm{PnL}_{(L)}$이라 두고, 앞 절의 @eq-simul-var 와 @eq-simul-es 을 그대로 적용한다.
 
 ::: {.callout-tip}
 ## 예제: GARCH(1,1)로 5일 VaR 구하기
@@ -347,7 +347,7 @@ $$
 X_{1,N+M} - X_N,\; X_{2,N+M} - X_N,\; \cdots,\; X_{L,N+M} - X_N
 $$
 
-가상의 손익 분포가 된다. 이를 오름차순으로 정렬한 $\mathrm{PnL}_{(1)}, \cdots, \mathrm{PnL}_{(L)}$에 @eq-simul-var 와 @eq-simul-es 를 적용하면 VaR와 ES를 얻는다.
+가상의 손익 분포가 된다. 이를 오름차순으로 정렬한 $\mathrm{PnL}_{(1)}, \cdots, \mathrm{PnL}_{(L)}$에 @eq-simul-var 와 @eq-simul-es 을 적용하면 VaR와 ES를 얻는다.
 
 아래 코드는 `rugarch` 패키지에 들어 있는 1987~2009년 S&P 500 수익률 자료를 사용한다. 코드를 간결하게 하려고 로그수익률로 가정했고 초기 자본은 \$10,000이다.
 
@@ -500,7 +500,7 @@ $$
 X_{1,N+M},\; \cdots,\; X_{i,N+M},\; \cdots,\; X_{L,N+M}
 $$
 
-각 값에서 $X_N$을 뺀 가상의 손익을 오름차순으로 정렬한 뒤, @eq-simul-var 와 @eq-simul-es 를 적용해 VaR와 ES를 추정한다.
+각 값에서 $X_N$을 뺀 가상의 손익을 오름차순으로 정렬한 뒤, @eq-simul-var 와 @eq-simul-es 을 적용해 VaR와 ES를 추정한다.
 
 아래 코드는 앞 절과 같은 S&P 500 자료를 쓰되, GARCH 추정치는 이미 구해진 값을 사용했다.
 
@@ -539,7 +539,7 @@ ES <- - mean(PnLs[PnLs <= -VaR])
 
 99% VaR는 대략 \$1,325, ES는 대략 \$1,746이다.
 
-@fig-fhs 는 이 코드로 만든 손익 분포와 그 위에서 읽은 $\mathrm{VaR}_{0.01}$의 위치를 보여준다.
+@fig-fhs 은 이 코드로 만든 손익 분포와 그 위에서 읽은 $\mathrm{VaR}_{0.01}$의 위치를 보여준다.
 
 ![위 코드로 생성한 미래 P&L의 분포와 시뮬레이션으로 얻은 $\mathrm{VaR}_{0.01}$의 위치](../../assets/figures/Ch8_FHVaR.png){#fig-fhs width=65%}
 
