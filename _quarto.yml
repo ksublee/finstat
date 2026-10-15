@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: docs
+  post-render:
+    - python scripts/number-split-chapter-04.py
 
 bibliography: references.bib
 
@@ -19,6 +21,12 @@ book:
     - chapters/02-modern-portfolio-theory/index.qmd
     - chapters/03-utility-function/index.qmd
     - chapters/04-var-es/index.qmd
+    - part: "4장 세부 내용"
+      chapters:
+        - chapters/04-var-es/01-var.qmd
+        - chapters/04-var-es/02-es.qmd
+        - chapters/04-var-es/03-portfolio-var.qmd
+        - chapters/04-var-es/04-portfolio-es.qmd
     - chapters/05-derivatives/index.qmd
     - chapters/06-discrete-time-model/index.qmd
     - chapters/07-volatility/index.qmd

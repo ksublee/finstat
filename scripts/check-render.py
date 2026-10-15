@@ -11,7 +11,7 @@ def check(output: Path) -> list[str]:
     errors = []
     # Entries in this book's chapter list, including part landing pages.
     sources = re.findall(r"^\s*(?:-\s+)?(?:part:\s*)?([\w./-]+\.qmd)\s*$",
-                         (ROOT / "_quarto.yml").read_text(), re.MULTILINE)
+                         (ROOT / "_quarto.yml").read_text(encoding="utf-8"), re.MULTILINE)
     if not sources:
         errors.append("No book chapters found in _quarto.yml")
     for source in sources:
@@ -30,6 +30,11 @@ def check(output: Path) -> list[str]:
             errors.append(f"Missing {name}")
 
     probes = {
+        "chapters/04-var-es/index.html": ["chapter-04-redirects.js", "01-var.html"],
+        "chapters/04-var-es/01-var.html": ["sec-five-day-var", r"\tag{4.6}"],
+        "chapters/04-var-es/02-es.html": ["eq-es-general", r"\tag{4.8}"],
+        "chapters/04-var-es/03-portfolio-var.html": ["eq-marginal-var", r"\tag{4.13}"],
+        "chapters/04-var-es/04-portfolio-es.html": ["eq-portfolio-es", r"\tag{4.21}"],
         "chapters/02-modern-portfolio-theory/index.html": [
             'class="math', "portfolio-mu-c", "market-portfolio"],
         "labs/09-backtesting-lab.html": [
@@ -37,7 +42,7 @@ def check(output: Path) -> list[str]:
     }
     for name, markers in probes.items():
         path = output / name
-        text = path.read_text() if path.is_file() else ""
+        text = path.read_text(encoding="utf-8") if path.is_file() else ""
         for marker in markers:
             if marker not in text:
                 errors.append(f"Missing {marker!r} in {name}")
