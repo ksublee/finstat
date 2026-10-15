@@ -3,6 +3,7 @@ project:
   output-dir: docs
   post-render:
     - python scripts/number-split-chapter-04.py
+    - python scripts/number-split-chapter-04.py --chapter 12
 
 bibliography: references.bib
 
@@ -35,6 +36,11 @@ book:
     - chapters/10-interest-rates-bonds/index.qmd
     - chapters/11-option-pricing-multiperiod/index.qmd
     - chapters/12-continuous-time-model/index.qmd
+    - part: "12장 세부 내용"
+      chapters:
+        - chapters/12-continuous-time-model/01-stochastic-models.qmd
+        - chapters/12-continuous-time-model/02-black-scholes.qmd
+        - chapters/12-continuous-time-model/03-dynamic-trading.qmd
     - chapters/13-option-market-price/index.qmd
 
     - concepts/index.qmd
