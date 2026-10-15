@@ -29,6 +29,12 @@ def check(output: Path) -> list[str]:
         if not (output / name).is_file():
             errors.append(f"Missing {name}")
 
+    for page in output.rglob("*.html"):
+        html = page.read_text(encoding="utf-8")
+        if 'id="quarto-sidebar"' in html:
+            if 'chapter-04-parent' not in html or '4장 세부 내용' in html:
+                errors.append(f"Chapter-4 sidebar hierarchy is incorrect: {page}")
+
     probes = {
         "chapters/04-var-es/index.html": ["chapter-04-redirects.js", "01-var.html"],
         "chapters/04-var-es/01-var.html": ["sec-five-day-var", r"\tag{4.6}"],

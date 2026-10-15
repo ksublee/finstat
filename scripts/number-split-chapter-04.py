@@ -36,6 +36,30 @@ def rewrite_xref(match, numbering):
         raise ValueError("Unexpected xref markup: " + key)
     return opening + body + closing
 
+def nest_chapter_sidebar(text):
+    """Use the numbered chapter link as the parent of its split pages."""
+    pattern = re.compile(
+        r'<li class="sidebar-item">\s*<div class="sidebar-item-container">\s*'
+        r'(?P<link><a href="[^"]*chapters/04-var-es/index\.html"[^>]*>.*?</a>)'
+        r'\s*</div>\s*</li>\s*<li class="sidebar-item sidebar-item-section">'
+        r'\s*<div class="sidebar-item-container">\s*'
+        r'<a\b[^>]*>\s*<span class="menu-text">4장 세부 내용</span></a>\s*'
+        r'(?P<toggle><a class="sidebar-item-toggle[^>]*>.*?</a>)\s*</div>', re.S)
+    def replace(match):
+        return ('<li class="sidebar-item sidebar-item-section chapter-04-parent">'
+                '\n<div class="sidebar-item-container">' + match['link']
+                + match['toggle'] + '</div>')
+    text, count = pattern.subn(replace, text)
+    if count != 1 and 'chapter-04-parent' not in text:
+        raise ValueError("Chapter-4 sidebar structure changed")
+    # The part breadcrumb originally points to its first child, not the overview.
+    text = re.sub(
+        r'(<a href=")([^"<>]*chapters/04-var-es/)01-var\.html(">)4장 세부 내용</a>',
+        r'\g<1>\g<2>index.html\g<3>4 VaR와 ES</a>', text)
+    if '4장 세부 내용' in text:
+        raise ValueError("Obsolete chapter-4 heading remains")
+    return text
+
 def main():
     output = Path(os.environ.get("QUARTO_PROJECT_OUTPUT_DIR", "docs"))
     if not output.is_absolute():
@@ -47,7 +71,7 @@ def main():
     found = set()
     for path in output.rglob("*.html"):
         text = path.read_text(encoding="utf-8")
-        updated = text
+        updated = nest_chapter_sidebar(text) if 'id="quarto-sidebar"' in text else text
         if path.parent == output / "chapters/04-var-es" and path.stem in PAGES:
             for key, (page, kind, number) in numbering.items():
                 if path.stem != page:
