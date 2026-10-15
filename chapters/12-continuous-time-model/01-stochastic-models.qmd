@@ -1,4 +1,10 @@
-# 확률 모형
+---
+number-sections: false
+crossref:
+  chapters: false
+---
+
+# 12.1 확률 모형 {.unnumbered}
 
 ## 브라운 운동
 

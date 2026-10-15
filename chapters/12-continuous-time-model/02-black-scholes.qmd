@@ -1,6 +1,12 @@
-[← 이전: 확률 모형](01-stochastic-models.qmd) · [12장 개요](index.qmd)
+---
+number-sections: false
+crossref:
+  chapters: false
+---
 
-# 블랙-숄즈
+# 12.2 블랙-숄즈 {.unnumbered}
+
+[← 이전: 확률 모형](01-stochastic-models.qmd) · [12장 개요](index.qmd)
 
 블랙-숄즈(Black-Scholes) 공식은 옵션 가격 결정 공식으로서 이전 단원에서 공부한 이항 나무 방법의 연속 시간으로의 확장이라고 볼 수 있다.
 

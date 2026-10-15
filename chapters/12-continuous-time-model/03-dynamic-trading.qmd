@@ -1,6 +1,12 @@
-[← 이전: 블랙-숄즈](02-black-scholes.qmd) · [12장 개요](index.qmd)
+---
+number-sections: false
+crossref:
+  chapters: false
+---
 
-# 동적 거래 전략
+# 12.3 동적 거래 전략 {.unnumbered}
+
+[← 이전: 블랙-숄즈](02-black-scholes.qmd) · [12장 개요](index.qmd)
 
 ## Replication process
 
