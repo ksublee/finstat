@@ -10,5 +10,157 @@
 - 만기 payoff와 위험중립 확률을 이용한 가격 계산을 이해한다.
 - 이항나무에서 옵션 가격 수렴을 해석한다.
 
+## 시간의 확장
 
+[6장](../06-discrete-time-model/index.qmd)에서 설명한 이항 나무 모형은 단일 기간 모형이었다. 이를 임의의 기간으로 확장할 수 있다. 먼저 2기간 모형으로 확장하여 보자. 만기까지의 시간을 $T$로 그대로 두자. 주식 가격이 상승할 때의 수익률을 $u$로, 하락할 때의 수익률을 $d$라고 하겠다. 수익률은 산술 수익률이나 로그 수익률이나 크게 상관이 없으나 여기서는 로그 수익률이라고 하겠다.
 
+확률론적 관점에서 보면 확률 공간 $\Omega$는 다음 네 개의 기본 사건으로 구성된다.
+
+$$
+\Omega = \{ \omega_1, \omega_2, \omega_3, \omega_4 \}, \quad \omega_1 = \mathrm{uu}, \enspace \omega_2 = \mathrm{ud}, \enspace \omega_3 = \mathrm{du}, \enspace \omega_4 = \mathrm{dd}
+$$
+
+즉, $\omega_1$은 주식 가격이 두 번 연속 상승하는 사건, $\omega_2$는 상승한 뒤 하락하는 사건, $\omega_3$는 하락한 후 상승하는 사건, $\omega_4$는 주식 가격이 두 번 연속 하락하는 사건을 나타낸다. 1기간 후인 $\delta t = \dfrac{T}{2}$ 시점에는 주식 가격은 다음 둘 중의 하나로 랜덤하게 결정된다.
+
+$$
+S_{\delta t}(\omega_1 \textrm{ or } \omega_2) = S_0 \mathrm{e}^{u \sqrt{\delta t}}, \quad S_{\delta t}(\omega_3 \textrm{ or } \omega_4) = S_0 \mathrm{e}^{d \sqrt{\delta t}}
+$$
+
+2기간 후인 $T$ 시점에는 주식 가격은 다음 셋 중의 하나로 랜덤하게 결정된다.
+
+$$
+S_{T}(\omega_1) = S_0 \mathrm{e}^{2 u \sqrt{\delta t}}, \quad S_T(\omega_2 \textrm{ or } \omega_3) = S_0 \mathrm{e}^{(u + d) \sqrt{\delta t}}, \quad S_T(\omega_4) = S_0 \mathrm{e}^{2 d \sqrt{\delta t}}
+$$
+
+따라서, 이항 나무 모형에서 $T$ 시점에 이르면, $\omega_2$와 $\omega_3$는 결과적으로 동일한 경제적 상태에 도달한다. 이 과정은 @fig-binom-two 에 나타나 있다. 위 설정에서 $\sqrt{\delta t}$를 이용한 것에 주목할 필요가 있다. 이는 이 설정을 보다 수학적으로 의미 있게 만들어 후에 공부할 [블랙-숄즈 옵션 가격 공식](../12-continuous-time-model/02-black-scholes.qmd)과의 관계를 살펴보기 위한 것이다.
+
+![2기간 이항 나무 모형](../../assets/figures/Ch11_binom_two.svg){#fig-binom-two width=60%}
+
+앞에서 논의한 바와 같이 옵션 가격 결정에 있어 실제 확률 측도 $\mathbb{P}$는 중요하지 않으며, 위험 중립형 확률 측도 $\mathbb{Q}$로 가격을 결정한다. 각 시점에서 상승과 하락에 대한 위험 중립형 확률은 [6장](../06-discrete-time-model/index.qmd)의 단일 기간 모형에서 구한 위험 중립형 확률과 비슷하게<!-- TODO: 6장 위험 중립형 측도 절(원고 eq:binom_q)이 웹북에 들어오면 "@eq-binom-q 와 비슷하게"로 바꾼다. -->
+
+$$
+q_1 = \frac{\mathrm{e}^{r \delta t} - \mathrm{e}^{d \sqrt{\delta t}}}{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{d \sqrt{\delta t}}}, \quad q_2 = \frac{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{r \delta t}}{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{d \sqrt{\delta t}}}
+$$ {#eq-binom-q2}
+
+로 정해지며 모든 노드에 대해 동일하다. 2기간으로 확장된 이항 나무 모형에서도 위험 중립형 가격 결정 방법이 그대로 적용된다.
+
+::: {#example-binom1 .callout-tip title="예제: 2기간 이항 나무 모형의 콜 옵션 가격"}
+
+2기간 이항 나무 모형에서
+
+$$
+r = 0.04, \enspace u = 0.1, \enspace d = -0.05, \enspace T = 1
+$$
+
+로 주어졌으며, 행사가격 $K=100$의 콜 옵션의 가격 결정에 관심이 있다고 하자. 1기간 후의 주식 가격은 다음 둘 중의 하나이며,
+
+$$
+100 \mathrm{e}^{0.1 \times \sqrt{0.5}} = 107.33, \enspace 100 \mathrm{e}^{-0.05 \times \sqrt{0.5}} = 96.53
+$$
+
+2기간 후의 주식 가격은 다음 셋 중 하나로 랜덤하게 결정된다.
+
+$$
+100 \mathrm{e}^{0.1 \times 2 \sqrt{0.5}} = 115.19, \enspace 100 \mathrm{e}^{(0.1 - 0.05) \times \sqrt{0.5}} = 103.60, \enspace 100 \mathrm{e}^{-0.05 \times 2 \sqrt{0.5}} = 93.17
+$$
+
+이 중 처음 두 상태의 경우에만 자산의 가격이 행사 가격 100을 넘어선다. 또한 위험 중립형 확률은
+
+$$
+q_1 = \frac{\mathrm{e}^{0.04 \times 0.5} - \mathrm{e}^{-0.05 \times \sqrt{0.5}}}{\mathrm{e}^{0.1 \times \sqrt{0.5}} - \mathrm{e}^{-0.05 \times \sqrt{0.5}}} \approx 0.51, \quad q_2 = \frac{\mathrm{e}^{0.1 \times \sqrt{0.5}} - \mathrm{e}^{0.04 \times 0.5}}{\mathrm{e}^{0.1 \times \sqrt{0.5}} - \mathrm{e}^{-0.05 \times \sqrt{0.5}}} \approx 0.49
+$$
+
+이다. 따라서, $K=100$의 콜 옵션의 가격은
+
+$$
+\mathrm{e}^{-rT} \left\{ q_1^2 \times (115.19 - 100) + 2 \times q_1 \times q_2 \times (103.60 - 100) \right\} \approx 5.50
+$$
+
+이다.
+:::
+
+위 논의는 $n$-단계의 이항 나무 모형에서의 위험 중립형 가격 결정 이론으로 자연스럽게 확장할 수 있다. 단계가 $n$개 있으므로 한 단계의 시간 간격 $\delta t = \dfrac{T}{n}$이다. 아래의 논의는 경로와 상관없이 만기 $T$ 시점에 payoff가 결정되는 모든 파생상품의 가격 결정에 적용할 수 있다. 이항 나무 모형의 특성상 마지막 시점 $T$에서 총 $n+1$개의 사건, 혹은 경제 상태로 구분할 수 있다. 이 사건들을 $A_0, A_1, \cdots, A_{n}$라고 하자. 더 자세히 나타내면 다음과 같다.
+
+$$
+\begin{aligned}
+&A_0 : \text{ 주식 가격이 } n \text{번 모두 상승한 사건} \\
+&A_1 : \text{ 주식 가격이 } n - 1 \text{번 상승하고 1번 하락한 사건} \\
+&A_2 : \text{ 주식 가격이 } n - 2 \text{번 상승하고 2번 하락한 사건} \\
+&\quad \vdots \\
+&A_k : \text{ 주식 가격이 } n - k \text{번 상승하고 } k\text{번 하락한 사건} \\
+&\quad \vdots \\
+&A_{n-1} : \text{ 주식 가격이 } 1 \text{번 상승하고 } n-1 \text{번 하락한 사건} \\
+&A_{n} : \text{ 주식 가격이 } n \text{번 모두 하락한 사건}
+\end{aligned}
+$$
+
+각 사건은 여러 개의 기본 사건들로 구성될 수 있다. 예를 들어 $A_0$과 $A_n$은 한 개의 기본 사건으로 구성되겠지만, $A_k$는 $\binom{n}{k}$개의 기본 사건으로 구성된다. @fig-binom-multi 에서 3-단계 이항 나무 모형의 예제를 보여준다.
+
+![3-단계 이항 나무 모형](../../assets/figures/Ch11_binom_multi.svg){#fig-binom-multi width=60%}
+
+::: {.callout-note title="정리: 다기간 이항 나무 모형의 위험 중립형 가격"}
+
+$n$-기간 이항 나무 모형에서 기초 자산이 상승과 하락 시
+
+$$
+S_{t + \delta t} =
+\begin{cases}
+S_t \mathrm{e}^{u \sqrt{\delta t}}, & \text{상승 시} \\
+S_t \mathrm{e}^{d \sqrt{\delta t}}, & \text{하락 시}
+\end{cases}
+$$
+
+를 따른다고 하자. 또한 $T$ 시점에서의 각 사건 $A_k$에서 어떤 파생상품의 payoff를 $V_T(A_k)$라고 하자. 즉, 각 사건 $A_k$를 구성하는 경로에 관계없이 동일한 만기 payoff $V_T(A_k)$를 가진다. 그러면 이 파생상품의 0 시점에서 가격은 다음과 같다.
+
+$$
+V_0 = \mathrm{e}^{-rT} \sum_{k=0}^{n} \binom{n}{k} \, q_1^{(n-k)} q_2^k V_T(A_k)
+$$
+
+여기서 $q_i$는 위험 중립형 확률로 @eq-binom-q2 을 따른다.
+:::
+
+::: {.callout-tip title="예제: 30기간 이항 나무 모형의 콜 옵션 가격"}
+
+앞의 예제와 동일한 설정에서 $n=30$인 경우를 생각해 보자. 즉,
+
+$$
+S_0 = 100, \enspace r = 0.04, \enspace u = 0.1, \enspace d = -0.05, \enspace T = 1
+$$
+
+로 주어졌으며, $\delta t = \dfrac{1}{30}$이다. 행사가격 $K=100$의 콜 옵션의 가격 결정에 관심이 있다고 하자. 위험 중립형 확률은
+
+$$
+q_1 = \frac{\mathrm{e}^{0.04 \times \delta t} - \mathrm{e}^{-0.05 \times \sqrt{\delta t}}}{\mathrm{e}^{0.1 \times \sqrt{\delta t}} - \mathrm{e}^{-0.05 \times \sqrt{\delta t}}} \approx 0.38, \quad
+q_2 = \frac{\mathrm{e}^{0.1 \times \sqrt{\delta t}} - \mathrm{e}^{0.04 \times \delta t}}{\mathrm{e}^{0.1 \times \sqrt{\delta t}} - \mathrm{e}^{-0.05 \times \sqrt{\delta t}}} \approx 0.62
+$$
+
+이다. 따라서 $K=100$인 콜 옵션의 가격은
+
+$$
+\mathrm{e}^{-rT} \sum_{k=0}^{30} \binom{30}{k} \, q_1^{(30-k)} q_2^k \times \left( 100 \mathrm{e}^{(30-k) \times 0.1 \times \sqrt{\delta t} - k \times 0.05 \times \sqrt{\delta t}} - 100 \right)^{+} \approx 5.18
+$$
+
+이다. [앞의 2기간 예제](#example-binom1)의 결과와 비교해 볼 수 있다.
+:::
+
+::: {.callout-tip title="예제: 단계 수에 따른 콜 옵션 가격의 수렴"}
+
+아래는 $u$와 $d$가 동일한 대칭적인 경우이다.
+
+$$
+S_0 = 100, \enspace r = 0.05, \enspace u = 0.1, \enspace d = -0.1, \enspace T = 1, \enspace K = 95
+$$
+
+이항 나무의 시간 간격을 달리하여 유러피안 콜 옵션의 가격을 계산하여 아래의 표로 나타내었다.
+
+| $n$ | $C_0$ |
+|:---:|:---:|
+| 1 | 10.79 |
+| 2 | 10.52 |
+| 5 | 10.32 |
+| 10 | 10.42 |
+| 30 | 10.42 |
+| 50 | 10.41 |
+
+이항 나무 모형 스텝의 수인 $n$이 증가함에 따라 콜 옵션의 가격이 수렴함을 볼 수 있다. 대수의 법칙이나 중심 극한 정리 등에서 이야기하는 수렴 현상과 흡사하다.
+:::
