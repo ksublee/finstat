@@ -357,3 +357,521 @@ $$
 이항 나무 모형에서 모든 애로-드브루 증권들의 값이 양수이면 차익 거래의 기회는 없으며 그 역도 성립한다.
 
 :::
+
+## 위험 중립형 측도 {#sec-risk-neutral}
+
+애로-드브루 증권을 무차익 거래 원리와 연동하여 이야기하기도 하지만, 또 다른 이론의 관점에서 무차익 거래의 원리를 이야기 할 수도 있다.
+그 이론은 **위험 중립형** (risk-neutral) 확률 측도 가격 결정 이론이며, 직관적인 면모 때문에 파생상품 가격 결정의 핵심 원리로 자리 잡았다.
+단일 기간 이항 나무 모형에서 다음과 같이 정의하자.
+
+$$
+q_1 = e^{rT}\phi_1(0) = \frac{e^{rT} S_0 - S_d}{S_u - S_d},
+\quad
+q_2 = e^{rT}\phi_2(0) = \frac{S_u - e^{rT} S_0}{S_u - S_d}
+$$ {#eq-binom-q}
+
+즉, $q_i$는 애로-드브루 증권의 가격에 단순히 $e^{rT}$를 곱한 형태이다.
+그림 @fig-binom-q 를 참고하라.
+다음이 성립하며
+
+$$
+q_1 + q_2 = 1
+$$
+
+식 @eq-condition 의 조건이 만족하면 항상
+
+$$
+0 < q_1, \enspace q_2 < 1
+$$
+
+이며, 이 값들은 새로운 확률 측도를 정의하는 데에 사용할 수 있다.
+
+![주식의 가격과 그에 의해 결정되는 위험 중립형 확률](../../assets/figures/Ch6_binom_q.svg){#fig-binom-q width=50% fig-align="center"}
+
+먼저 확률 측도의 정의를 되짚어 보자.
+
+::: {#definition-prob-measure .callout-note title="정의"}
+
+확률 공간 $\Omega$의 각 사건에 대해 정의된 실수값 함수 $P$가 다음을 만족하면 확률 측도라고 한다.
+
+- $0 \leq P(A) \leq 1 \text{ for } A \subseteq \Omega$
+- $P(\Omega) = 1$
+- 상호 배반인 사건들 $A_i$들에 대해,
+
+$$
+P\left(\bigcup_{i=1}^{\infty} A_i\right)
+= \sum_{i=1}^{\infty} P(A_i)
+$$
+
+:::
+
+::: {.callout-note title="정리"}
+
+단일 기간 이항 나무 모형에서 위험자산 $S$의 $T$시점에서의 가치의 확률분포가 식 @eq-binom-s 로 주어지고,
+이 자산의 시점 0에서의 가격을 $S_0$, 0과 $T$ 사이의 연속복리 이자율을 $r$이라고 하자.
+식 @eq-condition 의 조건이 만족하고,
+이항 나무 모형에서 확률값 $q_i$가 식 @eq-binom-q 로 주어졌을 때, $\mathbb{Q}$를
+
+$$
+\mathbb{Q}(\{\omega_1\}) = q_1,
+\quad
+\mathbb{Q}(\{\omega_2\}) = q_2
+$$
+
+가 되도록 정의하면, $\mathbb{Q}$는 확률 측도로서의 조건을 만족한다.
+
+:::
+
+이항 나무 모형에서의 확률 공간 $\Omega$은 매우 단순하기 때문에 어렵지 않게 $\mathbb{Q}$가 [정의](#definition-prob-measure)의 세 가지 조건을 모두 만족하는 것을 보일 수 있을 것이다.
+측도 $\mathbb{Q}$를 위험 중립형 확률 측도 (risk-neutral probability measure) 혹은 마틴게일 측도 (martingale measure)라고 부르며, 실제 확률 측도인 $\mathbb{P}$와는 다른 일종의 가상의 확률 측도이다.
+
+비록 가상의 확률 측도일지라도 금융상품의 가격 결정은 실제 확률 측도 $\mathbb{P}$가 아니라, 앞으로 더 살펴보겠지만 위험중립형 확률 측도인 $\mathbb{Q}$에서의 기댓값으로 결정되기 때문에 금융 자산 가격 결정 이론에서 매우 중요한 역할을 한다.
+금융이 아닌 다른 분야에서는 가상 확률 측도를 사용하는 경우가 흔치 않기 때문에, 이러한 접근 법은 처음에는 생소하게 느껴질 수도 있으나,
+$\mathbb{Q}$ 또한 하나의 확률 측도로서 확률 분포를 구하는 데에 활용되거나 확률 변수의 기댓값을 계산할 수 있다.
+한편, 실제 측도 $\mathbb{P}$를 $\mathbb{Q}$와 구분하여 물리적 측도 (physical measure)라고도 부른다.
+
+위험 중립형 확률 측도는 이항 나무 모형에서만 존재하는 것은 아니다.
+우리가 다른 어떤 논리적으로 올바른 금융 모형을 가정했다면, 그 모형 내에서 새로운 위험 중립형 확률 측도가 정의될 것이다.
+따라서 아래 정의에서는 이항 나무 모형 뿐만 아니라 일반적인 금융 모형에서 적용할 수 있는 위험 중립형 확률 측도의 정의를 살펴본다.
+한편, 위험 중립형 (risk-neutral)이라는 단어는 [효용 함수, 기대 효용, 확실성 등가](../03-utility-function/index.qmd#효용-함수-기대-효용-확실성-등가)절에서 공부했던 내용과 어느 정도 연관이 있다.
+
+::: {#definition-q .callout-note title="정의"}
+
+이자율이 상수 $r$로 주어졌을 때,
+모든 금융 자산의 0부터 $T$기간까지의 $\mathbb{Q}$-기대 수익률을 무위험 수익률 $rT$가 되도록 하는 확률 측도 $\mathbb{Q}$를 위험 중립형 확률 측도라고 한다.
+다시 말해 모든 금융 자산 $V$의 현재 가격은
+
+$$
+V_0 = e^{-rT} \mathbb{E}^{\mathbb{Q}}[V_T]
+$$ {#eq-q-exp}
+
+혹은,
+
+$$
+\mathbb{E}^{\mathbb{Q}}[V_T] = V_0 e^{rT}
+$$ {#eq-q-exp2}
+
+로 표현된다.
+
+:::
+
+::: {.callout-note title="따름정리"}
+
+위험 중립형 확률 측도 $\mathbb{Q}$가 존재할 때, 만기가 $T$이고, 행사 가격이 $K$인 유러피안 콜 옵션과 풋 옵션의 가격은 다음과 같다.
+
+$$
+C_0 = e^{-rT} \mathbb{E}^{\mathbb{Q}}[(S_T - K)^+],
+\quad
+P_0 = e^{-rT} \mathbb{E}^{\mathbb{Q}}[(K - S_T)^+].
+$$
+
+이항 나무 모형의 경우
+
+$$
+\begin{aligned}
+C_0 &= e^{-rT}\{q_1(S_T(\omega_1) - K)^+
++ q_2(S_T(\omega_2) - K)^+\}\\
+P_0 &= e^{-rT}\{q_1(K - S_T(\omega_1))^+
++ q_2(K - S_T(\omega_2))^+\}
+\end{aligned}
+$$
+
+이며, $q_i$는 식 @eq-binom-q 로 주어진다.
+
+:::
+
+::: {.callout-tip title="예제"}
+
+앞의 [예제](#example-ad1)과 [예제](#example-binom-sc)를 다시 살펴 보자.
+식 @eq-binom-q 에 따라,
+
+$$
+\begin{aligned}
+q_1 &= e^{rT}\phi_1(0) = \frac{0.56}{0.9} \approx 0.62\\
+q_2 &= e^{rT}\phi_2(0) = \frac{0.34}{0.9} \approx 0.38
+\end{aligned}
+$$
+
+이다.
+예제에서 살펴봤던 기초 자산이나 유러피안 옵션들의 경우
+
+$$
+\begin{aligned}
+\frac{\mathbb{E}^{\mathbb{Q}}[S_T]}{S_0}
+&= \frac{q_1 S_u + q_2 S_d}{S_0}
+\approx \frac{0.62 \times 130 + 0.38 \times 80}{100}
+\approx 1.11 \approx e^{rT}\\
+\frac{\mathbb{E}^{\mathbb{Q}}[C_T]}{C_0}
+&= \frac{q_1 C_u + q_2 C_d}{C_0}
+\approx \frac{0.62 \times 30 + 0.38 \times 0}{16.8}
+\approx 1.11 \approx e^{rT}\\
+\frac{\mathbb{E}^{\mathbb{Q}}[P_T]}{P_0}
+&= \frac{q_1 P_u + q_2 P_d}{P_0}
+\approx \frac{0.62 \times 0 + 0.38 \times 10}{3.4}
+\approx 1.11 \approx e^{rT}
+\end{aligned}
+$$
+
+으로 식 @eq-q-exp 혹은 @eq-q-exp2 를 만족하는 것을 볼 수 있다.
+애로-드브루 증권도 마찬가지이다.
+
+$$
+\begin{aligned}
+\frac{\mathbb{E}^{\mathbb{Q}}[\phi_1(T)]}{\phi_1(0)}
+&\approx \frac{0.62 \times 1 + 0.38 \times 0}{0.56}
+\approx 1.11 \approx e^{rT}\\
+\frac{\mathbb{E}^{\mathbb{Q}}[\phi_2(T)]}{\phi_2(0)}
+&\approx \frac{0.62 \times 0 + 0.38 \times 1}{0.34}
+\approx 1.11 \approx e^{rT}
+\end{aligned}
+$$
+
+:::
+
+[정의](#definition-q)에서와 같이 위험 중립형 확률 측도 내에서는 모든 금융 자산의 기대 수익률이 무위험 기대 수익률과 같다.
+이것은 자산의 리스크 혹은 변동성과는 상관없이 결정된다.
+[효용 함수, 기대 효용, 확실성 등가](../03-utility-function/index.qmd#효용-함수-기대-효용-확실성-등가)절에서 리스크-중립 효용 함수를 가지는 투자자는 투자 자산의 리스크와는 상관없이 기대 수익률만으로 효용을 평가했던 것과 비슷한 관점을 공유한다.
+아마 이러한 이유로 위험 중립형 확률 측도라는 이름이 붙여지게 되었을 것이다.
+역으로 생각하면, 자산의 $T$ 시점의 payoff는 알려져 있지만 0 시점의 가격이 알려져 있지 않은 자산은 위험 중립형 기대 수익률이 무위험 수익률과 일치하도록 현재 가격을 책정할 수 있다.
+
+한편, 식 @eq-condition 의 조건이 만족하지 않으면, $q_1$이나 $q_2$ 둘 중의 하나는 음의 값이 되고,
+다시 말해, $q_i$를 확률 측도를 정의하는 데에 사용할 수 없으며
+이러한 금융 모형에서는 위험 중립형 확률 측도가 존재하지 않는다.
+
+애로-드브루 증권과 $\mathbb{Q}$는 매우 흡사한 개념으로 단일 기간 이항 나무 모형에서는 할인 계수인 $e^{-rT}$배 차이가 나는 것이 외에는 다를 바가 없다.
+따라서 애로-드브루 증권이던지 위험 중립형 확률 측도던지 어떤 것을 이용하여 금융 증권의 가격을 결정하여도 상관이 없다.
+많은 다른 교과서에서는 애로-드브루 증권의 개념을 생략하고 위험 중립형 확률 측도만을 소개하기도 한다.
+하지만 이 자료에서는 양의 애로-드브루 증권 가격이 차익 거래의 기회가 없다는 명제와 동치임을 설명하기 편리하기 때문에 애로-드브루 증권과 위험 중립형 확률 측도의 개념을 같이 설명하였다.
+다음 정리에서는 자세한 수학적 내용은 생략하고, 간결하게 위 내용을 정리하였다.
+
+::: {#statement-ftap1 .callout-note title="정리"}
+
+단일 기간 이항 나무 모형에서 다음은 동치이다.[^ftap1]
+
+- 위험 중립형 확률 측도가 존재한다.
+- 모든 애로-드브루 증권들의 가격이 0보다 크다.
+- 차익 거래의 기회는 없다.
+
+:::
+
+[^ftap1]: 꼭 단일 기간 이항 나무 모형이 아니더라도 이산 시간, 유한 확률 공간 모형에서는 공통적으로 성립한다.
+
+::: {.callout-tip title="예제"}
+
+위험중립형 확률측도를 이용하여 간단하게 풋-콜 패러티 관계식을 유도할 수 있다.
+만기 시점에
+
+$$
+C_T - P_T = (S_T - K)^+ - (K - S_T)^+ = S_T - K
+$$
+
+위 식의 양변에 $\mathbb{Q}$-기댓값을 취하고 $e^{-rT}$로 할인하면
+
+$$
+e^{-rT}\mathbb{E}^{\mathbb{Q}}[C_T - P_T]
+= e^{-rT}\mathbb{E}^{\mathbb{Q}}[S_T] - e^{-rT}K
+$$
+
+혹은
+
+$$
+C_0 - P_0 = S_0 - e^{-rT}K.
+$$
+
+:::
+
+## 복제와 델타 헷징
+
+### 복제 (Replication)
+
+옵션 이론에서 복제 (replication)는 특정한 포트폴리오나 전략을 통해 원하는 옵션의 가치나 페이오프를 정확하게
+재현하는 것을 의미한다.
+모든 금융 모형에서 복제가 항상 가능한 것은 아니지만,
+완전 시장 모형 (completet market model)에서는 가능하다.
+이항 나무 모형은 완전 시장 모형으로 기초 자산과 무위험자산을 이용해 옵션의 payoff를 정확히 흉내 내는 포트폴리오를 생성할 수 있다.
+
+시점 0에 $\psi$만큼의 금액을 무위험자산에 투자하고, 위험자산 $S$를 $\Delta_0$의 개수만큼 구매한 포트폴리오 $\Pi$를 생각해 보자.
+여기서 $\psi$와 $\Delta_0$는 0 시점에서 결정되는 값임을 유의하라.
+이 포트폴리오의 $T$ 시점에서의 가치는 다음과 같다.
+
+$$
+\Pi_T = \psi e^{rT} + \Delta_0 S_T
+$$
+
+각 무위험자산과 위험자산의 포지션인 $\psi$와 $\Delta$를 적절하게 조절하면, 이 포트폴리오가 $T$ 시점에서 제공하는 금액을 임의의 금융 증권, 예를 들어, 옵션의 payoff와 동일하게 만들 수 있다.
+즉,
+
+$$
+\begin{aligned}
+\psi e^{rT} + \Delta_0 S_u = C_u\\
+\psi e^{rT} + \Delta_0 S_d = C_d
+\end{aligned}
+$$
+
+가 되도록 $\psi$와 $\Delta$를 결정할 수 있다.
+여기서 $C_u$와 $C_d$는 각각 자산 가격이 상승했을 때와 하락했을 때의 옵션 payoff이다.
+위 식은 단순한 연립방정식이며, 행렬로 표현하면
+
+$$
+\begin{bmatrix}
+e^{rT} & S_u\\
+e^{rT} & S_d
+\end{bmatrix}
+\begin{bmatrix}
+\psi\\
+\Delta_0
+\end{bmatrix}
+=
+\begin{bmatrix}
+C_u\\
+C_d
+\end{bmatrix}
+$$
+
+이므로,
+
+$$
+\begin{bmatrix}
+\psi\\
+\Delta_0
+\end{bmatrix}
+=
+\begin{bmatrix}
+e^{rT} & S_u\\
+e^{rT} & S_d
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+C_u\\
+C_d
+\end{bmatrix}
+=
+\frac{1}{e^{rT}(S_d - S_u)}
+\begin{bmatrix}
+S_d & -S_u\\
+-e^{rT} & e^{rT}
+\end{bmatrix}
+\begin{bmatrix}
+C_u\\
+C_d
+\end{bmatrix}
+$$
+
+이다.
+이 방정식을 풀면 다음과 같다.
+
+$$
+\psi = e^{-rT}
+\left(
+-\frac{S_d}{S_u - S_d}C_u
++\frac{S_u}{S_u - S_d}C_d
+\right),
+$$ {#eq-psi}
+
+$$
+\Delta_0 = \frac{C_u - C_d}{S_u - S_d}
+$$ {#eq-delta0}
+
+이 포트폴리오의 $T$ 시점에서의 payoff가 콜 옵션의 payoff와 동일하므로, 이 포트폴리오의 0 시점에서의 가격은 콜 옵션의 가격과 일치해야 한다.
+따라서,
+
+$$
+\begin{aligned}
+C_0 = \Pi_0
+&= \psi + \Delta_0 S_0\\
+&= e^{-rT}
+\left(
+\frac{e^{rT}S_0 - S_d}{S_u - S_d}C_u
++\frac{S_u - e^{rT}S_0}{S_u - S_d}C_d
+\right)\\
+&= e^{-rT}(q_1 C_u + q_2 C_d)\\
+&= e^{-rT}\mathbb{E}^{\mathbb{Q}}[C_T]
+\end{aligned}
+$$
+
+이다.
+위 값은 앞 절에서 Arrow-Debrue 증권이나 위험 중립 확률 측도를 통해 계산한 결과와 동일하다.
+
+위 논의에 따라 만약 이항 나무 모형에서 콜 옵션의 가격이 $e^{-rT}\mathbb{E}^{\mathbb{Q}}[C_T]$와 다르면 차익 거래의 기회가 발생함을 알 수 있다.
+예를 들어, 만약,
+
+$$
+C_0 > e^{-rT}\mathbb{E}^{\mathbb{Q}}[C_T]
+$$
+
+로 콜 옵션의 가격이 시장에서 고평가 되어 거래되고 있는 상황을 생각해 보자.
+그러면 콜 옵션을 하나 발행 후 얻은 자금 $C_0$ 중 일부인 $e^{-rT}\mathbb{E}^{\mathbb{Q}}[C_T]$를 콜 옵션 replication에 사용하여 발행한 콜 옵션의 payoff와 일치시키고, 나머지 자금을 무위험자산에 투자하면 항상 0 이상의 이득을 얻을 수 있다.
+
+::: {#example-replication .callout-tip title="예제"}
+
+이항 나무 모형에서
+
+$$
+S_u = 130, \enspace S_d = 80, \enspace r = 0.05, \enspace T = 1
+$$
+
+일 때, $K=100$인 유러피언 콜 옵션을 복제하여 보자.
+
+$$
+C_u = 30, \enspace C_d = 0
+$$
+
+이므로, 식 @eq-psi 와 @eq-delta0 에 따라,
+
+$$
+\psi = e^{-0.05}
+\left(
+-\frac{80}{130 - 80}30
++\frac{130}{130 - 80}0
+\right)
+\approx -45.66
+$$
+
+와
+
+$$
+\Delta_0 = \frac{30 - 0}{130 - 80} = 0.6
+$$
+
+을 구할 수 있다.
+따라서 45.66의 금액을 빌려, 0.6주의 $S$를 구입하는 것은 콜 옵션 하나를 구입하는 것과 동일하다.
+아래의 식에서 $T$ 시점에 $\Pi_T = C_T$임을 확인하라.
+
+$$
+\Pi_T = \left\{\begin{array}{ll}
+\psi e^{rT} + \Delta_0 S_u = -45.66e^{0.05} + 0.6 \times 130 = 30 & \text{when } S_u = 130,\\
+\psi e^{rT} + \Delta_0 S_d = -45.66e^{0.05} + 0.6 \times 80 = 0 , & \text{when } S_d = 80.\\
+\end{array}\right.
+$$
+
+:::
+
+### 델타 헷징
+
+앞 절에서는 무위험자산과 기초 자산인 $S$을 혼합하여 콜 옵션을 만들었는데, 반대로 콜 옵션과 기초 자산을 혼합하여 무위험자산을 만들 수 있다.
+예를 들어 콜옵션을 매도한 포지션을 생각해 보자.
+콜 옵션 매도자는 위험을 헷지하기 위해서 $\Delta_0$만큼의 기초 자산을 매수한다.
+만약 기초 자산의 가격이 상승하여 콜 옵션 매도 포지션에서 손실이 발생할 경우, 기초 자산 매수 포지션에서 기초 자산 가격 상승에 따른 이득을 얻음으로서 위험을 상쇄할 수 있다.
+이러한 전략을 **델타 헷징**이라고 하며, 기초 자산의 가격 변동에 대한 리스크를 줄이거나 제어하기 위한 것으로 옵션 거래의 핵심 개념이다.
+
+콜 옵션 매도자가 $\Delta_0$만큼 기초 자산을 매입한 경우, 시점 $T$에서 포트폴리오의 가치는
+
+$$
+\Pi_T = -C_T + \Delta_0 S_T
+$$ {#eq-delta-hedged}
+
+으로 표현되며, 무위험자산으로 만들기 위해서는
+$T$ 시점에 어떤 경제적 상태에 도달하든지 포트폴리오는 동일한 가치를 지니면서, 다음을 만족해야 한다.
+
+$$
+\begin{aligned}
+-C_u + \Delta_0 S_u &= e^{rT}(-C_0 + \Delta_0 S_0)\\
+-C_d + \Delta_0 S_d &= e^{rT}(-C_0 + \Delta_0 S_0)
+\end{aligned}
+$$
+
+위 식도 결국 연립방정식이며, 식을 정리하여 행렬로 표현하면,
+
+$$
+\begin{bmatrix}
+e^{rT} & S_u - e^{rT}S_0\\
+e^{rT} & S_d - e^{rT}S_0
+\end{bmatrix}
+\begin{bmatrix}
+C_0\\
+\Delta_0
+\end{bmatrix}
+=
+\begin{bmatrix}
+C_u\\
+C_d
+\end{bmatrix}
+$$
+
+이며,
+
+$$
+\begin{bmatrix}
+C_0\\
+\Delta_0
+\end{bmatrix}
+=
+\begin{bmatrix}
+e^{rT} & S_u - e^{rT}S_0\\
+e^{rT} & S_d - e^{rT}S_0
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+C_u\\
+C_d
+\end{bmatrix}
+$$
+
+역행렬을 이용하여 계산하면 다음과 같다.
+
+$$
+C_0 =
+\dfrac{S_0 - e^{-rT}S_d}{S_u - S_d}C_u
++
+\dfrac{e^{-rT}S_u - S_0}{S_u - S_d}C_d
+$$
+
+$$
+\Delta_0 = \dfrac{C_u - C_d}{S_u - S_d}.
+$$ {#eq-binom-delta}
+
+여기서 $\Delta_0$는 **델타**라고 부르며,
+기초 자산 가격의 변화인 $S_u - S_d$에 따른 파생상품 - 여기서는 콜 옵션의 가격 변화, $C_u - C_d$의 비율을 나타낸다.
+기울기의 정의와 흡사함에 주목하자.
+즉 한 단위 만큼 기초 자산의 가격이 변한다면, 콜 옵션의 가격이 얼만큼 변할지에 대한 측도이다.
+또한 위에서 소개한 전략은 델타 헷징이라고 부르며, 콜 옵션뿐만 아니라 임의의 자산에 대해서 델타를 계산할 수 있다.
+
+::: {.callout-note title="정리"}
+
+이항나무 모형에서 식 @eq-binom-s 와 식 @eq-condition 이 만족할 때,
+
+$$
+V_T(\omega_1) = V_u, \enspace V_T(\omega_2) = V_d
+$$
+
+로 주어진 자산 $V$의 $S$의 변화에 따른 델타는 다음과 같다.
+
+$$
+\Delta_0 = \frac{V_u - V_d}{S_u - S_d}
+$$
+
+이 델타와 식 @eq-delta-hedged 를 이용하여 다음과 같이 포트폴리오를 구성하면
+
+$$
+-V + \Delta_0 S,
+$$
+
+이 포트폴리오는 무위험자산이다.
+
+:::
+
+::: {.callout-tip title="예제"}
+
+[예제](#example-replication)에서와 같이,
+
+$$
+S_u = 130, \enspace S_d = 80, \enspace r = 0.05, \enspace T = 1
+$$
+
+라고 하자.
+마찬가지로 $K=100$인 콜 옵션에 대해,
+
+$$
+\Delta_0 = \frac{30 - 0}{130 - 80} = 0.6
+$$
+
+를 이용해 식 @eq-delta-hedged 를 계산하면,
+
+$$
+\Pi_T = \left\{\begin{array}{ll}
+-C_u + \Delta_0 S_u = -30 + 0.6 \times 130 = 48 & \text{when } S_u = 130,\\
+-C_d + \Delta_0 S_d = -0 + 0.6 \times 80 = 48 , & \text{when } S_d = 80.\\
+\end{array}\right.
+$$
+
+이므로 무위험자산처럼 어느 경제적 상태에서나 동일한 가치를 지니는 것을 볼 수 있다.
+
+:::
