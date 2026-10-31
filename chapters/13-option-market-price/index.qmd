@@ -142,7 +142,7 @@ $$
 T=\frac{12}{365}
 $$
 
-이다. 표 @tbl-implied-volatility-prices 는 원고에 주어진 옵션 시장 가격과, 이를 이용해 계산한 내재변동성을 보여 준다. 내재변동성은 연율이며 백분율로 표시하였다.
+이다. 표 @tbl-implied-volatility-prices 는 옵션 시장 가격과, 이를 이용해 계산한 내재변동성을 보여 준다. 내재변동성은 연율이며 백분율로 표시하였다.
 
 | 풋 행사 가격 $K$ | 풋 시장 가격 | 내재변동성 | 콜 행사 가격 $K$ | 콜 시장 가격 | 내재변동성 |
 |---:|---:|---:|---:|---:|---:|
@@ -234,7 +234,7 @@ $$
 
 `K`, `price`, `type`을 바꾸면 표의 다른 옵션에 대해서도 같은 계산을 할 수 있다. 같은 조건에서 여러 행사 가격의 내재변동성을 계산하면, 행사 가격에 따른 곡선을 얻는다.
 
-![예제의 행사 가격별 내재변동성. 출처: 13장 원고](../../assets/figures/Ch13_implied_volatility.svg){#fig-implied-volatility width="65%"}
+![예제의 행사 가격별 내재변동성](../../assets/figures/Ch13_implied_volatility.svg){#fig-implied-volatility width="65%"}
 
 표 @tbl-implied-volatility-prices 와 그림 @fig-implied-volatility 에서는 낮은 행사 가격의 옵션일수록 내재변동성이 높게 나타난다. 동일한 기초자산과 만기를 갖는 옵션이라도 행사 가격에 따라 서로 다른 내재변동성이 계산되는 것이다.
 
@@ -246,7 +246,7 @@ $$
 
 등가격 부근에서 내재변동성이 낮고, 낮은 행사 가격과 높은 행사 가격 양쪽으로 갈수록 높아지는 모습을 **변동성 미소(volatility smile)**라고 한다.
 
-![변동성 미소의 형태. 출처: 13장 원고](../../assets/figures/Ch13_volatility_smile.svg){#fig-volatility-smile width="60%"}
+![변동성 미소의 형태](../../assets/figures/Ch13_volatility_smile.svg){#fig-volatility-smile width="60%"}
 
 그림 @fig-volatility-smile 의 왼쪽은 외가격 풋 옵션, 오른쪽은 외가격 콜 옵션에 해당한다. 등가격 부근의 내재변동성을 기준으로 보면, 양쪽 외가격 옵션의 시장 가격이 그 변동성을 사용하는 블랙–숄즈 가격보다 높다는 뜻이다.
 
@@ -266,7 +266,7 @@ $$
 
 주식시장에서는 낮은 행사 가격에서 내재변동성이 높고, 행사 가격이 높아질수록 내재변동성이 낮아지는 형태가 관찰된다.
 
-![낮은 행사 가격에서 내재변동성이 높게 나타나는 변동성 스큐. 출처: 13장 원고](../../assets/figures/Ch13_volatility_skew.svg){#fig-volatility-skew width="60%"}
+![낮은 행사 가격에서 내재변동성이 높게 나타나는 변동성 스큐](../../assets/figures/Ch13_volatility_skew.svg){#fig-volatility-skew width="60%"}
 
 그림 @fig-volatility-skew 와 같은 형태는 하락 위험에 대한 시장의 평가와 관련된다. 큰 가격 하락에 대비하려는 외가격 풋 옵션 수요는 해당 옵션의 가격을 높이고, 그 가격에서 역산한 내재변동성도 높인다.
 
@@ -449,3 +449,434 @@ $$ {#eq-integrated-variance}
 순간분산 $\sigma_t^2$가 확률적으로 변화하면 그 경로 아래의 면적인 $\mathrm{IV}(0,T)$도 확률변수가 된다.
 
 시장에서는 자산 가격을 관찰할 수 있지만, 그 가격을 생성하는 순간분산 과정 자체를 직접 관찰할 수는 없다. 이러한 의미에서 적분된 분산은 **잠재변수(latent variable)**이다. 반면 실현분산은 관측된 가격 자료로 계산할 수 있으며, 관측할 수 없는 적분된 분산을 추정하는 역할을 한다.
+
+## VIX {#sec-vix}
+
+앞 절에서는 관찰된 고빈도 가격 자료를 이용하여 실현분산을 계산하는 방법을 살펴보았다. 실현분산과 시계열 모형을 이용하면 미래의 변동성을 예측할 수 있다. 한편, 옵션 시장 가격을 이용하여 미래 변동성에 관한 정보를 얻는 방법도 있다.
+
+앞서 살펴본 블랙–숄즈 내재변동성은 개별 옵션 가격에서 계산된다. 따라서 기초자산과 만기가 같더라도 행사 가격에 따라 서로 다른 내재변동성이 나타날 수 있다.
+
+**VIX**는 여러 행사 가격의 S&P 500 지수 옵션 가격을 종합하여, 향후 30일의 변동성에 관한 정보를 하나의 지수로 나타낸다. 이 절에서는 적분된 분산의 위험중립 기댓값을 옵션 가격으로 표현하고, 이를 바탕으로 VIX의 계산 원리를 살펴본다.
+
+### 적분된 분산과 로그수익률
+
+앞 절과 같이 시간에 따라 변하는 변동성 $\sigma_t$를 고려하자. 유도 과정에서는 배당이 없고 무위험이자율 $r$이 일정하다고 가정한다. 위험중립확률측도 $\mathbb{Q}$ 아래에서 로그가격 과정은 다음을 따른다.
+
+$$
+\mathrm{d}\log S_t
+=
+\left(r-\frac{1}{2}\sigma_t^2\right)\mathrm{d}t
++
+\sigma_t\,\mathrm{d}\widetilde{W}_t.
+$$ {#eq-vix-log-price}
+
+여기서 $\widetilde{W}_t$는 $\mathbb{Q}$ 아래의 표준 브라운 운동이다. 식 @eq-vix-log-price 를 정리하면
+
+$$
+\frac{1}{2}\sigma_t^2\,\mathrm{d}t
+=
+r\,\mathrm{d}t
++
+\sigma_t\,\mathrm{d}\widetilde{W}_t
+-
+\mathrm{d}\log S_t
+$$
+
+이다. 양변을 시점 0부터 $T$까지 적분하면 다음을 얻는다.
+
+$$
+\frac{1}{2}\int_0^T \sigma_t^2\,\mathrm{d}t
+=
+rT
++
+\int_0^T \sigma_t\,\mathrm{d}\widetilde{W}_t
+-
+\log\frac{S_T}{S_0}.
+$$
+
+확률적분의 기댓값이 0이 되는 적분가능성 조건을 가정하면,
+
+$$
+\mathbb{E}^{\mathbb{Q}}
+\left[
+\int_0^T \sigma_t\,\mathrm{d}\widetilde{W}_t
+\right]
+=
+0
+$$
+
+이다. 따라서 양변에 위험중립 기댓값을 취하면
+
+$$
+\mathbb{E}^{\mathbb{Q}}
+\left[\mathrm{IV}(0,T)\right]
+=
+2rT
+-
+2\mathbb{E}^{\mathbb{Q}}
+\left[
+\log\frac{S_T}{S_0}
+\right]
+$$
+
+를 얻는다. 여기서 $\mathrm{IV}(0,T)$는 앞 절에서 정의한 적분된 분산이다. 이하의 기댓값은 시점 0의 정보를 기준으로 한다.
+
+만기 $T$의 선도 가격을 $F_0=S_0e^{rT}$라고 하면,
+
+$$
+\log\frac{S_T}{S_0}
+=
+\log\frac{S_T}{F_0}
++
+\log\frac{F_0}{S_0}
+=
+\log\frac{S_T}{F_0}
++
+rT
+$$
+
+이므로 다음과 같이 정리된다.
+
+$$
+\mathbb{E}^{\mathbb{Q}}
+\left[\mathrm{IV}(0,T)\right]
+=
+-2\mathbb{E}^{\mathbb{Q}}
+\left[
+\log\frac{S_T}{F_0}
+\right].
+$$ {#eq-vix-integrated-variance}
+
+식 @eq-vix-integrated-variance 는 미래의 변동성 경로 전체에 대한 적분의 기댓값을 만기 가격 $S_T$에 관한 기댓값으로 표현한다. 이제 오른쪽의 로그 함수를 유러피안 옵션의 만기 지급액으로 나타내 보자.
+
+### 로그 함수와 옵션 지급액
+
+다음 적분에서는 행사 가격 $K$가 적분변수이다. 즉, 특정 행사 가격 하나를 고정하는 대신 여러 행사 가격에 걸쳐 옵션 지급액을 합산한다. 계산 과정에서 $S_T$와 $F_0$는 양의 실수로 생각하면 된다.
+
+::: {.callout-note}
+## 보조정리: 옵션 지급액의 적분
+
+$x^+=\max(x,0)$이라고 하자. 임의의 $S_T,F_0>0$에 대하여,
+
+$$
+\int_{F_0}^{\infty}
+\frac{(S_T-K)^+}{K^2}\,\mathrm{d}K
+=
+\begin{cases}
+0,
+& S_T\leq F_0, \\[4pt]
+\displaystyle
+\log\frac{F_0}{S_T}+\frac{S_T}{F_0}-1,
+& S_T>F_0
+\end{cases}
+$$
+
+이고,
+
+$$
+\int_0^{F_0}
+\frac{(K-S_T)^+}{K^2}\,\mathrm{d}K
+=
+\begin{cases}
+\displaystyle
+\log\frac{F_0}{S_T}+\frac{S_T}{F_0}-1,
+& S_T\leq F_0, \\[4pt]
+0,
+& S_T>F_0
+\end{cases}
+$$
+
+이다.
+:::
+
+**증명.** 첫 번째 식을 확인하자. $S_T\leq F_0$이면 적분 구간의 모든 $K$에 대해 $S_T\leq K$이므로 $(S_T-K)^+=0$이다.
+
+반대로 $S_T>F_0$이면 $K>S_T$인 구간의 지급액이 0이므로,
+
+$$
+\begin{aligned}
+\int_{F_0}^{\infty}
+\frac{(S_T-K)^+}{K^2}\,\mathrm{d}K
+&=
+\int_{F_0}^{S_T}
+\left(\frac{S_T}{K^2}-\frac{1}{K}\right)\mathrm{d}K \\
+&=
+\left[
+-\frac{S_T}{K}-\log K
+\right]_{F_0}^{S_T} \\
+&=
+\log\frac{F_0}{S_T}
++
+\frac{S_T}{F_0}
+-
+1
+\end{aligned}
+$$
+
+이다. 두 번째 식도 같은 방식으로 확인할 수 있다.
+
+두 적분을 더하면 $S_T$와 $F_0$의 대소관계에 관계없이
+
+$$
+\int_0^{F_0}
+\frac{(K-S_T)^+}{K^2}\,\mathrm{d}K
++
+\int_{F_0}^{\infty}
+\frac{(S_T-K)^+}{K^2}\,\mathrm{d}K
+=
+\log\frac{F_0}{S_T}
++
+\frac{S_T}{F_0}
+-
+1
+$$
+
+이다. 따라서 로그 함수는 다음과 같이 표현된다.
+
+$$
+\begin{aligned}
+\log\frac{S_T}{F_0}
+={}&
+\frac{S_T}{F_0}-1 \\
+&-
+\int_0^{F_0}
+\frac{(K-S_T)^+}{K^2}\,\mathrm{d}K \\
+&-
+\int_{F_0}^{\infty}
+\frac{(S_T-K)^+}{K^2}\,\mathrm{d}K.
+\end{aligned}
+$$ {#eq-vix-log-payoff}
+
+### 옵션 가격으로 표현한 기대 분산
+
+만기 $T$, 행사 가격 $K$인 유러피안 콜 옵션과 풋 옵션의 현재 가격을 각각 $C_0(K)$와 $P_0(K)$라고 하자. 위험중립 가격 결정식에 따라,
+
+$$
+C_0(K)
+=
+e^{-rT}
+\mathbb{E}^{\mathbb{Q}}
+\left[(S_T-K)^+\right],
+$$
+
+$$
+P_0(K)
+=
+e^{-rT}
+\mathbb{E}^{\mathbb{Q}}
+\left[(K-S_T)^+\right]
+$$
+
+이다.
+
+또한 할인된 자산 가격이 마틴게일이라는 가정 아래에서
+
+$$
+\mathbb{E}^{\mathbb{Q}}[S_T]
+=
+S_0e^{rT}
+=
+F_0
+$$
+
+가 성립한다. 필요한 적분가능성 조건 아래에서 식 @eq-vix-log-payoff 의 양변에 기댓값을 취하면,
+
+$$
+\begin{aligned}
+\mathbb{E}^{\mathbb{Q}}
+\left[\log\frac{S_T}{F_0}\right]
+={}&
+\frac{\mathbb{E}^{\mathbb{Q}}[S_T]}{F_0}-1 \\
+&-
+\int_0^{F_0}
+\frac{
+\mathbb{E}^{\mathbb{Q}}[(K-S_T)^+]
+}{K^2}\,\mathrm{d}K \\
+&-
+\int_{F_0}^{\infty}
+\frac{
+\mathbb{E}^{\mathbb{Q}}[(S_T-K)^+]
+}{K^2}\,\mathrm{d}K \\
+={}&
+-e^{rT}
+\left(
+\int_0^{F_0}\frac{P_0(K)}{K^2}\,\mathrm{d}K
++
+\int_{F_0}^{\infty}\frac{C_0(K)}{K^2}\,\mathrm{d}K
+\right)
+\end{aligned}
+$$
+
+이다. 이를 식 @eq-vix-integrated-variance 에 대입하고 $T$로 나누면 다음을 얻는다.
+
+$$
+\frac{1}{T}
+\mathbb{E}^{\mathbb{Q}}
+\left[
+\int_0^T \sigma_t^2\,\mathrm{d}t
+\right]
+=
+\frac{2e^{rT}}{T}
+\left(
+\int_0^{F_0}\frac{P_0(K)}{K^2}\,\mathrm{d}K
++
+\int_{F_0}^{\infty}\frac{C_0(K)}{K^2}\,\mathrm{d}K
+\right).
+$$ {#eq-vix-expected-variance}
+
+왼쪽은 만기까지의 평균 분산에 대한 위험중립 기댓값이다. 오른쪽은 같은 만기를 갖는 여러 행사 가격의 옵션 가격을 가중하여 합한 값이다.
+
+선도 가격보다 낮은 행사 가격에서는 풋 옵션을, 높은 행사 가격에서는 콜 옵션을 사용하며, 각 옵션 가격에는 $1/K^2$에 비례하는 가중치를 부여한다.
+
+### VIX의 이론적 표현과 단위
+
+VIX는 식 @eq-vix-expected-variance 의 제곱근으로 정의되며, S&P 500 지수의 외가격 유러피안 옵션 가격을 이용하여 다음과 같이 표현된다.
+
+$$
+\mathrm{VIX}
+=
+\sqrt{
+\frac{2e^{rT}}{T}
+\left(
+\int_0^{F_0}\frac{P_0(K)}{K^2}\,\mathrm{d}K
++
+\int_{F_0}^{\infty}\frac{C_0(K)}{K^2}\,\mathrm{d}K
+\right)
+}.
+$$ {#eq-vix-continuous}
+
+여기서 $T$는 한 달에 해당하는 기간을 연 단위로 나타낸 값이고, $r$은 무위험이자율이다. $F_0$, $P_0(K)$, $C_0(K)$는 각각 만기 $T$의 선도 가격, 풋 옵션 가격, 콜 옵션 가격이다.
+
+::: {.callout-note}
+## 위험중립 기대 분산의 제곱근
+
+위 식은 위험중립확률 아래의 기대 분산에 제곱근을 취한 값이다. 일반적으로 기대 분산의 제곱근과 변동성의 기댓값은 같지 않다.
+
+또한 위험중립 기댓값은 실제확률 아래의 예측과 구분된다. 따라서 VIX를 앞으로 실제 관찰될 변동성과 동일한 값으로 해석해서는 안 된다.
+:::
+
+### 유한한 행사 가격을 이용한 계산
+
+실제 시장에서는 모든 양의 행사 가격에 대한 옵션이 거래되는 것은 아니다. 따라서 연속적인 적분을 관찰 가능한 행사 가격에 대한 합으로 근사한다.
+
+시카고옵션거래소(CBOE)는 [공식 방법론](https://cdn.cboe.com/resources/vix/VIX_Methodology.pdf)에 따라 식 @eq-vix-continuous 를 유한한 행사 가격에 대한 합과 보정항으로 근사하고, 제곱근에 100을 곱하여 지수로 공표한다. 단일 만기에 대한 구체적인 계산식은 다음과 같다.
+
+$$
+100\times\sqrt{
+\frac{2e^{rT}}{T}
+\sum_i
+\frac{\Delta K_i}{K_i^2}Q(K_i)
+-
+\frac{1}{T}
+\left(
+\frac{F_0}{K_0}-1
+\right)^2
+}.
+$$ {#eq-vix-calculation}
+
+여기서 $T$는 연 단위로 표시한 잔존만기이다. 예를 들어 만기가 30일이면 $T=30/365$를 사용한다.
+
+각 기호는 다음과 같이 정한다.
+
+1. **선도 가격 $F_0$**
+
+   같은 만기의 콜·풋 옵션 가격 차이의 절댓값이 가장 작은 행사 가격을 $K'$라고 하면,
+
+   $$
+   F_0
+   =
+   K'
+   +
+   e^{rT}
+   \left(C_0(K')-P_0(K')\right)
+   $$ {#eq-vix-forward-price}
+
+   로 계산한다.
+
+2. **기준 행사 가격 $K_0$**
+
+   관찰된 행사 가격 중 $F_0$ 이하인 가장 큰 값이다.
+
+3. **행사 가격 간격 $\Delta K_i$**
+
+   내부 행사 가격에서는
+
+   $$
+   \Delta K_i
+   =
+   \frac{K_{i+1}-K_{i-1}}{2}
+   $$
+
+   로 정한다. 가장 낮은 행사 가격과 가장 높은 행사 가격에서는 각각 인접한 행사 가격과의 차이를 사용한다.
+
+4. **옵션 가격 $Q(K_i)$**
+
+   $K_i<K_0$이면 풋 옵션 가격을, $K_i>K_0$이면 콜 옵션 가격을 사용한다. 단, 행사 가격이 $K_0$인 경우에는 콜과 풋 가격의 평균을 이용한다.
+
+   $$
+   Q(K_i)
+   =
+   \begin{cases}
+   P_0(K_i), & K_i<K_0, \\[4pt]
+   \displaystyle
+   \frac{C_0(K_0)+P_0(K_0)}{2},
+   & K_i=K_0, \\[8pt]
+   C_0(K_i), & K_i>K_0.
+   \end{cases}
+   $$
+
+   실제 산출에서 각 옵션 가격은 매수호가와 매도호가의 중간값을 사용한다.
+
+식 @eq-vix-calculation 의 제곱근 안에서 첫 번째 항은 옵션 가격 적분을 합으로 근사한 것이고, 두 번째 항은 선도 가격 $F_0$와 기준 행사 가격 $K_0$의 차이를 반영하는 보정항이다.
+
+실제 공표 VIX는 일반적으로 30일을 사이에 둔 두 만기의 옵션에서 분산을 구한 뒤, 이를 30일 기준으로 보간하여 산출한다. 이 절에서는 단일 만기의 계산 원리를 살펴보았다.
+
+### 예제: 옵션 가격을 이용한 VIX 계산
+
+만기가 30일인 옵션 가격이 표 @tbl-vix-option-prices 와 같이 주어졌다고 하자.
+
+| 행사 가격 $K$ | 풋 옵션 가격 | 행사 가격 $K$ | 콜 옵션 가격 |
+|---:|---:|---:|---:|
+| 4,375 | 55.05 | 4,415 | 70.90 |
+| 4,380 | 56.35 | 4,420 | 67.70 |
+| 4,385 | 57.75 | 4,425 | 64.55 |
+| 4,390 | 59.10 | 4,430 | 61.50 |
+| 4,395 | 60.55 | 4,435 | 58.40 |
+| 4,400 | 62.10 | 4,440 | 55.45 |
+| 4,405 | 63.65 | 4,445 | 52.60 |
+| 4,410 | 65.35 | 4,450 | 49.85 |
+| 4,415 | 67.05 | 4,455 | 47.15 |
+| 4,420 | 68.85 | 4,460 | 44.55 |
+|       |       | 4,465 | 42.05 |
+|       |       | 4,470 | 39.65 |
+
+: VIX 계산에 사용하는 옵션 가격 {#tbl-vix-option-prices}
+
+콜 옵션과 풋 옵션의 가격 차이의 절댓값이 가장 작은 행사 가격은 4,420이다. 이자율 $r=0.01$일 때, 식 @eq-vix-forward-price 에 따라,
+
+$$
+F_0
+=
+4420+e^{0.01\times30/365}(67.70-68.85)
+\approx4418.849
+$$
+
+이고, $K_0=4415$이다. 합산에는 행사 가격 4,415의 콜·풋 평균 68.975와 행사 가격 4,420의 콜 가격 67.70을 사용한다.
+
+모든 $i$에 대해 $\Delta K_i=5$이고, 식 @eq-vix-calculation 을 이용하면,
+
+$$
+100\times\sqrt{
+\frac{2e^{0.01\times30/365}}{30/365}
+\left(
+\frac{5}{4375^2}55.05
++\cdots+
+\frac{5}{4470^2}39.65
+\right)
+-\frac{365}{30}
+\left(\frac{4418.849}{4415}-1\right)^2
+}
+\approx8.40
+$$ {#eq-vix-example}
+
+의 값을 얻는다.
