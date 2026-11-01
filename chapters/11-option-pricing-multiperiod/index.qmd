@@ -262,7 +262,7 @@ $$
 S_0 = 100, \enspace r = 0.04, \enspace u = 0.1, \enspace d = -0.05, \enspace T = 1, \enspace \delta t = \frac{1}{3}
 $$
 
-으로 가정해 보자. 각 상태들에 대해서 기초 자산의 가격을 계산하여 그림으로 나타내면 아래와 같으며, 그림을 채워 나갈 때, 왼쪽에서부터 오른쪽 방향으로 $S$의 값들을 계산해 나갈 수 있다.
+으로 가정해 보자. 이 예제에서는 계산을 간단히 하기 위해 한 단계의 상승·하락 후 주가를 각각 $S_t \mathrm{e}^{u \delta t}$, $S_t \mathrm{e}^{d \delta t}$로 정한다. 앞 절의 $\sqrt{\delta t}$를 사용하는 설정과는 구분한다. 각 상태들에 대해서 기초 자산의 가격을 계산하여 그림으로 나타내면 아래와 같으며, 그림을 채워 나갈 때, 왼쪽에서부터 오른쪽 방향으로 $S$의 값들을 계산해 나갈 수 있다.
 
 ![](../../assets/figures/Ch11_multi_binom_example.svg){width=60% fig-alt="3기간 이항 나무 모형의 각 상태별 기초 자산 가격과 위험 중립형 확률"}
 
@@ -271,7 +271,7 @@ $$
 $$
 \begin{aligned}
 S_T(A_0) &= 100 \mathrm{e}^{0.1 \times \frac{1}{3} + 0.1 \times \frac{1}{3} + 0.1 \times \frac{1}{3}} \approx 110.5171 \\
-S_T(A_1) &= 100 \mathrm{e}^{0.1 \times \frac{1}{3} + 0.1 \times \frac{1}{3} - 0.05 \times \frac{1}{3}} \approx 105.1217 \\
+S_T(A_1) &= 100 \mathrm{e}^{0.1 \times \frac{1}{3} + 0.1 \times \frac{1}{3} - 0.05 \times \frac{1}{3}} \approx 105.1271 \\
 S_T(A_2) &= 100 \mathrm{e}^{0.1 \times \frac{1}{3} - 0.05 \times \frac{1}{3} - 0.05 \times \frac{1}{3}} = 100 \\
 S_T(A_3) &= 100 \mathrm{e}^{-0.05 \times \frac{1}{3} - 0.05 \times \frac{1}{3} - 0.05 \times \frac{1}{3}} \approx 95.1229
 \end{aligned}
@@ -306,15 +306,15 @@ $$
 이제 행사가격 $K = 102$인 유러피안 콜 옵션을 고려해 보자. 위에서 계산한 마지막 단계에서 기초 자산의 가격들에 따라, $T=1$에서 콜 옵션의 payoff들은 다음과 같다.
 
 $$
-C_T(A_0) = 8.5171, \enspace C_T(A_1) = 3.1217, \enspace C_T(A_2) = 0, \enspace C_T(A_3) = 0
+C_T(A_0) = 8.5171, \enspace C_T(A_1) = 3.1271, \enspace C_T(A_2) = 0, \enspace C_T(A_3) = 0
 $$
 
 한 단계 전의 각 상태에서 콜 옵션의 가격은 위험 중립형 기댓값으로 계산할 수 있다. 즉, $t = \frac{2}{3}$ 시점에서 각 상태들에 대해 위에서부터 아래로,
 
 $$
 \begin{aligned}
-& \mathrm{e}^{-0.04 \times \frac{1}{3}} ( q_1 \times 8.5171 + q_2 \times 3.1217 ) \approx 6.2449 \\
-& \mathrm{e}^{-0.04 \times \frac{1}{3}} ( q_1 \times 3.1217 + q_2 \times 0) \approx 1.8329 \\
+& \mathrm{e}^{-0.04 \times \frac{1}{3}} ( q_1 \times 8.5171 + q_2 \times 3.1271 ) \approx 6.2449 \\
+& \mathrm{e}^{-0.04 \times \frac{1}{3}} ( q_1 \times 3.1271 + q_2 \times 0) \approx 1.8329 \\
 & \mathrm{e}^{-0.04 \times \frac{1}{3}} ( q_1 \times 0 + q_2 \times 0) = 0
 \end{aligned}
 $$
