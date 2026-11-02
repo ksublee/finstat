@@ -36,7 +36,7 @@ $$
 
 ![2기간 이항 나무 모형](../../assets/figures/Ch11_binom_two.svg){#fig-binom-two width=60%}
 
-앞에서 논의한 바와 같이 옵션 가격 결정에 있어 실제 확률 측도 $\mathbb{P}$는 중요하지 않으며, 위험 중립형 확률 측도 $\mathbb{Q}$로 가격을 결정한다. 각 시점에서 상승과 하락에 대한 위험 중립형 확률은 [6장](../06-discrete-time-model/index.qmd)의 단일 기간 모형에서 구한 위험 중립형 확률과 비슷하게<!-- TODO: 6장 위험 중립형 측도 절(원고 eq:binom_q)이 웹북에 들어오면 "@eq-binom-q 와 비슷하게"로 바꾼다. -->
+[앞에서 논의한](../06-discrete-time-model/index.qmd#sec-risk-neutral) 바와 같이 옵션 가격 결정에 있어 실제 확률 측도 $\mathbb{P}$는 중요하지 않으며, 위험 중립형 확률 측도 $\mathbb{Q}$로 가격을 결정한다. 각 시점에서 상승과 하락에 대한 위험 중립형 확률은 @eq-binom-q 과 비슷하게
 
 $$
 q_1 = \frac{\mathrm{e}^{r \delta t} - \mathrm{e}^{d \sqrt{\delta t}}}{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{d \sqrt{\delta t}}}, \quad q_2 = \frac{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{r \delta t}}{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{d \sqrt{\delta t}}}
