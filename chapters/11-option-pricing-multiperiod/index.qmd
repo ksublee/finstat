@@ -167,7 +167,7 @@ $$
 
 ## 마틴게일
 
-[6장](../06-discrete-time-model/index.qmd)에서 살펴본 마틴게일의 정의는 이산 시간 모형에서 자연스럽게 확장된다.<!-- TODO: 6장 마틴게일 측도 절(원고 eq:martingale0)이 웹북에 들어오면 "@eq-martingale0 에서 살펴본"으로 바꾼다. -->
+[6장 마틴게일 측도와 측도의 변환](../06-discrete-time-model/index.qmd#sec-martingale-measure)의 식 @eq-martingale0에서 살펴본 마틴게일의 정의는 이산 시간 모형에서 자연스럽게 확장된다.
 
 ::: {.callout-note title="정보 집합"}
 
