@@ -36,7 +36,7 @@ $$
 
 ![2기간 이항 나무 모형](../../assets/figures/Ch11_binom_two.svg){#fig-binom-two width=60%}
 
-[앞에서 논의한](../06-discrete-time-model/index.qmd#sec-risk-neutral) 바와 같이 옵션 가격 결정에 있어 실제 확률 측도 $\mathbb{P}$는 중요하지 않으며, 위험 중립형 확률 측도 $\mathbb{Q}$로 가격을 결정한다. 각 시점에서 상승과 하락에 대한 위험 중립형 확률은 @eq-binom-q 과 비슷하게
+[앞에서 논의한](../06-discrete-time-model/index.qmd#sec-risk-neutral) 바와 같이 옵션 가격 결정에 있어 실제 확률 측도 $\mathbb{P}$는 중요하지 않으며, [위험 중립형 확률 측도](../../concepts/glossary.qmd#risk-neutral-measure) $\mathbb{Q}$로 가격을 결정한다. 각 시점에서 상승과 하락에 대한 위험 중립형 확률은 @eq-binom-q 과 비슷하게
 
 $$
 q_1 = \frac{\mathrm{e}^{r \delta t} - \mathrm{e}^{d \sqrt{\delta t}}}{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{d \sqrt{\delta t}}}, \quad q_2 = \frac{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{r \delta t}}{\mathrm{e}^{u \sqrt{\delta t}} - \mathrm{e}^{d \sqrt{\delta t}}}
@@ -246,7 +246,7 @@ $$
 \frac{V_t}{M_t} = \mathbb{E}^{\mathbb{Q}}_t \left[ \frac{V_u}{M_u} \right]
 $$ {#eq-vm}
 
-따라서, 확률 과정 $\dfrac{V_t}{M_t}$는 $\mathbb{Q}$-확률 측도에서 마틴게일이 된다. 다시 말해, MMA를 통화 기준(numeraire)으로 하였을 때, 자산 가격 프로세스가 $\mathbb{Q}$-마틴게일이 된다. 또한, [10장](../10-interest-rates-bonds/index.qmd#sec-zero-coupon-bond)에서 살펴본 바와 같이, 이자율이 상수일 경우, 만기 $T$의 무이표채의 가격을 이용하여,
+따라서, 확률 과정 $\dfrac{V_t}{M_t}$는 $\mathbb{Q}$-확률 측도에서 마틴게일이 된다. 다시 말해, MMA를 [통화 기준](../../concepts/glossary.qmd#numeraire)(numeraire)으로 하였을 때, 자산 가격 프로세스가 $\mathbb{Q}$-마틴게일이 된다. 또한, [10장](../10-interest-rates-bonds/index.qmd#sec-zero-coupon-bond)에서 살펴본 바와 같이, 이자율이 상수일 경우, 만기 $T$의 무이표채의 가격을 이용하여,
 
 $$
 \frac{V_t}{B(t,T)} = \mathbb{E}^{\mathbb{Q}}_t \left[ \frac{V_u}{B(u,T)}\right]
@@ -345,7 +345,7 @@ $$
 
 ::: {.callout-note title="정리: 차익 거래와 위험 중립형 확률 측도"}
 
-이산 시간 금융 시장 모형에서 차익 거래가 존재하지 않기 위한 필요충분조건은 할인된 자산 가격 프로세스가 마틴게일이 되도록 하는 동등한 확률 측도인 위험 중립형 확률 측도(risk-neutral measure) $\mathbb{Q} \sim \mathbb{P}$가 존재하는 것이다.
+이산 시간 금융 시장 모형에서 [차익 거래](../../concepts/glossary.qmd#no-arbitrage)가 존재하지 않기 위한 필요충분조건은 할인된 자산 가격 프로세스가 마틴게일이 되도록 하는 동등한 확률 측도인 위험 중립형 확률 측도(risk-neutral measure) $\mathbb{Q} \sim \mathbb{P}$가 존재하는 것이다.
 :::
 
 ::: {.callout-note title="참고"}
@@ -362,7 +362,7 @@ $$
   단, 여기서 $M_t$는 무위험자산인 MMA이며, 조건부 기댓값은 $t$ 시점까지의 정보 집합에 대해 계산한다.
 :::
 
-파생상품을 포함한 모든 금융 상품에 대해 가격이 고유하게 결정되는 시장을 **완전 시장**(complete market)이라고 한다. 이항 나무 모형은 모든 파생상품이 정확히 하나의 복제 포트폴리오가 존재하여 가격이 유일하게 결정되므로, 완전 시장이다. 다음은 이산 시간 모형에서 자산 가격 결정의 기본 제2 정리이다.
+파생상품을 포함한 모든 금융 상품에 대해 가격이 고유하게 결정되는 시장을 **[완전 시장](../../concepts/glossary.qmd#complete-market)**(complete market)이라고 한다. 이항 나무 모형은 모든 파생상품이 정확히 하나의 [복제 포트폴리오](../../concepts/glossary.qmd#replication)가 존재하여 가격이 유일하게 결정되므로, 완전 시장이다. 다음은 이산 시간 모형에서 자산 가격 결정의 기본 제2 정리이다.
 
 ::: {.callout-note title="정리: 시장 완전성과 위험 중립형 측도의 유일성"}
 
